@@ -1,5 +1,4 @@
-import './App.css';
-import { Route, Routes } from 'react-router-dom';
+import { Outlet, Route, Routes } from 'react-router-dom';
 import Landing from './pages/Landing/Landing';
 import Main from './pages/Main/Main';
 import SignIn from './pages/SignIn/SignIn';
@@ -13,20 +12,22 @@ import NotFound from './pages/NotFound/NotFound';
 
 function App() {
   return (
-    <div className="App">
-      <Routes>
-        <Route path="/" element={<Landing />} />
-        <Route path="/signin" element={<SignIn />} />
-        <Route path="/signup" element={<SignUp />} />
-        <Route element={<Navigation />}>
-          <Route path="/info" element={<Info />} />
-          <Route path="/main" element={<Main />} />
-          <Route path="/map" element={<Map />} />
-          <Route path="/mypage" element={<MyPage />} />
-          <Route path="/chatting" element={<Chatting />} />
-        </Route>
-        <Route path="*" element={<NotFound />} />
-      </Routes>
+    <div className="relative">
+      <div className="absolute text-center right-[23%] h-screen bg-slate-500 w-[450px]">
+        <Routes>
+          <Route path="/" element={<Landing />} />
+          <Route path="/signin" element={<SignIn />} />
+          <Route path="/signup" element={<SignUp />} />
+          <Route element={<Navigation />}>
+            <Route path="/info" element={<Info />} />
+            <Route path="/main" element={<Main />} />
+            <Route path="/map" element={<Map />} />
+            <Route path="/mypage" element={<MyPage />} />
+            <Route path="/chatting" element={<Chatting />} />
+          </Route>
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </div>
     </div>
   );
 }
