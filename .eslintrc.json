@@ -1,0 +1,23 @@
+{
+    "env": {
+      "browser": true,
+      "es2021": true,
+      "node": true
+    },
+    "parserOptions": {
+      "ecmaFeatures": {
+        "jsx": true
+      },
+      "ecmaVersion": "latest",
+      "sourceType": "module"
+    },
+    "plugins": ["prettier"],
+    "extends": ["eslint:recommended", "plugin:prettier/recommended", "prettier"],
+    "rules": {
+      "prettier/prettier": ["error"],
+      "prefer-arrow-callback": "off",
+      "arrow-body-style": "off",
+      "no-unused-vars": "off"
+    }
+  }
+  
