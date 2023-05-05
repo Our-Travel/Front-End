@@ -3,7 +3,7 @@ import { Outlet } from 'react-router-dom';
 
 const Navigation = () => {
   return (
-    <div className="absolute">
+    <div>
       <nav>네비게이션</nav>
       <Outlet />
     </div>
