@@ -18,13 +18,13 @@ function App() {
           <Route path="/" element={<Landing />} />
           <Route path="/signin" element={<SignIn />} />
           <Route path="/signup" element={<SignUp />} />
-          <Route element={<Navigation />}>
-            <Route path="/info" element={<Info />} />
-            <Route path="/main" element={<Main />} />
-            <Route path="/map" element={<Map />} />
-            <Route path="/mypage" element={<MyPage />} />
-            <Route path="/chatting" element={<Chatting />} />
-          </Route>
+          {/* <Route element={<Navigation />}> */}
+          <Route path="/main" element={<Main />} />
+          <Route path="/chatting" element={<Chatting />} />
+          <Route path="/map" element={<Map />} />
+          <Route path="/info" element={<Info />} />
+          <Route path="/mypage" element={<MyPage />} />
+          {/* </Route> */}
           <Route path="*" element={<NotFound />} />
         </Routes>
       </div>
