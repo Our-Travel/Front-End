@@ -1,7 +1,7 @@
 ---
 name: "\U0001F4C3 Feature request"
 about: 팀원의 개발 로직 변경이 필요할 때 작성합니다.
-title: ''
+title: "[REQUEST]"
 labels: documentation
 assignees: ''
 

@@ -1,7 +1,7 @@
 ---
 name: "\U0001F41EBug report"
 about: 버그 발견 시 의견 공유 혹은 해결 시 솔루션을 제시합니다.
-title: ''
+title: "[BUG]"
 labels: bug
 assignees: ''
 
