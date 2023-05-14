@@ -8,6 +8,8 @@ module.exports = {
         'main-color2': '#FF787D',
         'main-color3': '#FF776D',
         'main-color4': '#FF928A',
+        'noActive-color': '#DADADA',
+        'login-red': '#FF0000',
       },
     },
   },

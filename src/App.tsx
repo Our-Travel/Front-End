@@ -9,22 +9,28 @@ import MyPage from './pages/MyPage/MyPage';
 import Info from './pages/Info/Info';
 import Navigation from './components/Navigation/Navigation';
 import NotFound from './pages/NotFound/NotFound';
+import MyWrite from './pages/MyPage/MyWrite';
+import Favorite from './pages/MyPage/Favorite';
+import Notice from './pages/MyPage/Notice';
 
 function App() {
   return (
     <div className="relative">
-      <div className="absolute text-center right-[23%] h-screen bg-slate-500 w-[450px]">
+      <div className="absolute text-center right-[23%] h-screen border border-gray-200 w-[450px]">
         <Routes>
           <Route path="/" element={<Landing />} />
           <Route path="/signin" element={<SignIn />} />
           <Route path="/signup" element={<SignUp />} />
-          {/* <Route element={<Navigation />}> */}
-          <Route path="/main" element={<Main />} />
-          <Route path="/chatting" element={<Chatting />} />
-          <Route path="/map" element={<Map />} />
-          <Route path="/info" element={<Info />} />
-          <Route path="/mypage" element={<MyPage />} />
-          {/* </Route> */}
+          <Route element={<Navigation />}>
+            <Route path="/info" element={<Info />} />
+            <Route path="/main" element={<Main />} />
+            <Route path="/map" element={<Map />} />
+            <Route path="/mypage" element={<MyPage />} />
+            <Route path="/mywrite" element={<MyWrite />} />
+            <Route path="/favorite" element={<Favorite />} />
+            <Route path="/notice" element={<Notice />} />
+            <Route path="/chatting" element={<Chatting />} />
+          </Route>
           <Route path="*" element={<NotFound />} />
         </Routes>
       </div>

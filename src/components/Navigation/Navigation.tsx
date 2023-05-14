@@ -32,27 +32,28 @@ const Navigation = () => {
   };
 
   return (
-    <div className="absolute bg-white w-full h-14 bottom-0 z-50 box-border">
-      <ul className="flex w-full justify-around relative top-[50%] translate-y-[-50%] h-7">
-        {/* navigationButton 디자인속성은 index.css에 있음 */}
-        <li className={getName(path, '/main')} onClick={main}>
-          <GrHomeRounded className="w-5 h-5 " />
-        </li>
-        <li className={getName(path, '/chatting')} onClick={chat}>
-          <TiMessages className="w-6 h-6" />
-        </li>
-        <li className={getName(path, '/map')} onClick={map}>
-          <GrLocation className="w-6 h-6" />
-        </li>
-        <li className={getName(path, '/info')} onClick={info}>
-          <HiOutlineInformationCircle className="w-6 h-6" />
-        </li>
-        <li className={getName(path, '/mypage')} onClick={mypage}>
-          <BiUser className="w-6 h-6" />
-        </li>
-      </ul>
+    <>
+      <div className="absolute bg-white w-full h-14 bottom-0 z-50 box-border">
+        <ul className="flex w-full justify-around relative top-[50%] translate-y-[-50%] h-7">
+          <li className={getName(path, '/main')} onClick={main}>
+            <GrHomeRounded className="w-5 h-5 " />
+          </li>
+          <li className={getName(path, '/chatting')} onClick={chat}>
+            <TiMessages className="w-6 h-6" />
+          </li>
+          <li className={getName(path, '/map')} onClick={map}>
+            <GrLocation className="w-6 h-6" />
+          </li>
+          <li className={getName(path, '/info')} onClick={info}>
+            <HiOutlineInformationCircle className="w-6 h-6" />
+          </li>
+          <li className={getName(path, '/mypage')} onClick={mypage}>
+            <BiUser className="w-6 h-6" />
+          </li>
+        </ul>
+      </div>
       <Outlet />
-    </div>
+    </>
   );
 };
 
