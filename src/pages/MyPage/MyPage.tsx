@@ -2,13 +2,13 @@ import Header from '../../components/Header/Header';
 import { MypageTab, Profile } from '../../components/MypageInfo/MypageInfo';
 import { Link } from 'react-router-dom';
 import { BiBell } from 'react-icons/bi';
-import { MdLogout, MdPersonRemove } from 'react-icons/md';
+import { MdLogout, MdPersonRemove, MdOutlineMail } from 'react-icons/md';
 import { IconType } from 'react-icons';
 
 const icons: { Icon: IconType; link: string; text: string }[] = [
   {
     Icon: BiBell,
-    link: '/notice',
+    link: '/mypage/notice',
     text: '공지사항',
   },
   {
@@ -17,9 +17,9 @@ const icons: { Icon: IconType; link: string; text: string }[] = [
     text: '로그아웃',
   },
   {
-    Icon: MdPersonRemove,
+    Icon: MdOutlineMail,
     link: '/',
-    text: '추가로넣기',
+    text: '고객센터',
   },
   {
     Icon: MdPersonRemove,
@@ -36,8 +36,8 @@ const MyPage = () => {
         <Profile />
         <button className="w-[25rem] h-9 mb-7 border rounded border-main-color text-main-color hover:bg-main-color hover:text-white">프로필 수정</button>
         <div className="flex flex-col gap-5 line">
-          <MypageTab name={'내가 작성한 글'} link={'/mywrite'} />
-          <MypageTab name={'즐겨찾기'} link={'/favorite'} />
+          <MypageTab name={'내가 작성한 글'} link={'/mypage/mywrite'} />
+          <MypageTab name={'즐겨찾기'} link={'/mypage/favorite'} />
         </div>
         <div className="grid grid-cols-2 w-80 h-60 mx-auto my-3">
           {icons.map(({ Icon, link, text }, index) => (
