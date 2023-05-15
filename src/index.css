@@ -19,10 +19,10 @@
     @apply w-48 h-12;
   }
   .buttonStyle {
-    @apply w-[25rem] h-12 mt-2 rounded text-white bg-main-color;
+    @apply flex justify-center items-center w-[25rem] h-12 mx-auto mt-2 rounded text-white bg-main-color;
   }
   .noActiveButton {
-    @apply w-[25rem] h-12 mt-2 rounded text-white bg-noActive-color;
+    @apply flex justify-center items-center w-[25rem] h-12 mx-auto mt-2 rounded text-white bg-noActive-color;
   }
   .errorText {
     @apply text-left text-sm text-login-red;

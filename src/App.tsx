@@ -16,7 +16,7 @@ import Notice from './pages/MyPage/Notice';
 function App() {
   return (
     <div className="relative">
-      <div className="absolute text-center right-[23%] h-screen border border-gray-200 w-[450px]">
+      <div className="absolute text-center right-[23%] h-screen border border-gray-200 w-[450px] max-h-[full]">
         <Routes>
           <Route path="/" element={<Landing />} />
           <Route path="/signin" element={<SignIn />} />
@@ -26,9 +26,9 @@ function App() {
             <Route path="/main" element={<Main />} />
             <Route path="/map" element={<Map />} />
             <Route path="/mypage" element={<MyPage />} />
-            <Route path="/mywrite" element={<MyWrite />} />
-            <Route path="/favorite" element={<Favorite />} />
-            <Route path="/notice" element={<Notice />} />
+            <Route path="/mypage/mywrite" element={<MyWrite />} />
+            <Route path="/mypage/favorite" element={<Favorite />} />
+            <Route path="/mypage/notice" element={<Notice />} />
             <Route path="/chatting" element={<Chatting />} />
           </Route>
           <Route path="*" element={<NotFound />} />
