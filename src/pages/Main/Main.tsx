@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import NavigationPage from '../../components/Navigation/Navigation';
+import { Outlet } from 'react-router-dom';
+import Header from '../../components/Header/Header';
 import Banner from '../../components/Main/Banner';
-
 import GraphComponent from '../../components/Main/GraphComponent';
 import MapComponent from '../../components/Main/MapComponent';
-import Header from '../../components/Header/Header';
+import Navigation from '../../components/Navigation/Navigation';
 
 const Main = () => {
   const [showMap, setShowMap] = useState(false);

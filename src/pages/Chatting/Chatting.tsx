@@ -1,7 +1,11 @@
 import React from 'react';
 
 const Chatting = () => {
-  return <div>채팅페이지</div>;
+  return (
+    <div>
+      <h1>채팅페이지</h1>
+    </div>
+  );
 };
 
 export default Chatting;

@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-/* @layer components {
+@layer components {
   .hideTitle {
     @apply absolute w-[1px] h-[1px] overflow-hidden;
   }
@@ -39,4 +39,13 @@
   .active {
     @apply cursor-pointer px-2 border-b-4 border-transparent border-main-color;
   }
-} */
+}
+
+@layer components {
+  .listStyles {
+    @apply flex items-center justify-between p-4;
+  }
+  .modalPosition {
+    @apply top-1/2 left-1/2 -translate-x-[50%] -translate-y-[50%];
+  }
+}

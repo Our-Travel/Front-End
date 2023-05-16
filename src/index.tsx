@@ -4,14 +4,18 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
+import { NavermapsProvider } from 'react-naver-maps';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
+const ncpClientId: string = process.env.REACT_APP_NAVER_KEY || '';
 root.render(
-  <BrowserRouter>
-    <React.StrictMode>
-      <App />
-    </React.StrictMode>
-  </BrowserRouter>
+  <NavermapsProvider ncpClientId={ncpClientId}>
+    <BrowserRouter>
+      <React.StrictMode>
+        <App />
+      </React.StrictMode>
+    </BrowserRouter>
+  </NavermapsProvider>
 );
 
 // If you want to start measuring performance in your app, pass a function
