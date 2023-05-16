@@ -2,7 +2,7 @@ import React, { useState, useRef } from 'react';
 import Logo from '../../components/Logo/Logo';
 import { LoginButton, LoginKakao } from '../../components/LoginButton/LoginButton';
 import ChoiceTab from '../../components/ChoiceTab/ChoiceTab';
-import LanguageModal from '../../components/LanguageModal/LanguageModal';
+import Modal from '../../components/Modal/Modal';
 import { Link } from 'react-router-dom';
 import { Pagination, Autoplay, A11y } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -14,12 +14,9 @@ import { GrLanguage } from 'react-icons/gr';
 const promotionImg: { title: string }[] = [{ title: '광고이미지' }, { title: '광고이미지' }, { title: '광고이미지' }];
 
 export default function Landing() {
-  const [open, setOpen] = useState<boolean>(false);
-  const target = useRef<HTMLButtonElement>(null);
+  const [modalOpen, setModal] = useState<boolean>(false);
 
-  const modalOpen = (e: React.MouseEvent<HTMLButtonElement>) => {
-    if (e.currentTarget === target.current) setOpen(true);
-  };
+  const isOpen = () => setModal(!modalOpen);
 
   // @@@@@나중에 페이지 Link 확인 후 지우기@@@@@
   return (
@@ -39,7 +36,7 @@ export default function Landing() {
         <LoginKakao />
       </div>
       <div className="flex flex-row items-center justify-center">
-        <button type="button" className="flex flex-row items-center gap-1 px-1 text-gray-500" onClick={modalOpen} ref={target}>
+        <button type="button" className="flex flex-row items-center gap-1 px-1 text-gray-500" onClick={isOpen}>
           <GrLanguage />
           <span>언어설정</span>
         </button>
@@ -51,7 +48,7 @@ export default function Landing() {
           <span className="text-gray-500">feedback</span>
         </Link>
       </div>
-      {/* <LanguageModal setOpen={setOpen} /> */}
+      <Modal open={modalOpen} close={setModal} />
     </>
   );
 }
