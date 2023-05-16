@@ -9,6 +9,9 @@ import MyPage from './pages/MyPage/MyPage';
 import Info from './pages/Info/Info';
 import Navigation from './components/Navigation/Navigation';
 import NotFound from './pages/NotFound/NotFound';
+import Banner from './components/Main/Banner';
+import SelectLocation from './pages/Main/SelectLocation';
+import FindMate from './pages/Main/FindMate';
 import MyWrite from './pages/MyPage/MyWrite';
 import Favorite from './pages/MyPage/Favorite';
 import Notice from './pages/MyPage/Notice';
@@ -24,6 +27,8 @@ function App() {
           <Route element={<Navigation />}>
             <Route path="/info" element={<Info />} />
             <Route path="/main" element={<Main />} />
+            <Route path="/main/selectLocation" element={<SelectLocation />} />
+            <Route path="/main/findmate" element={<FindMate />} />
             <Route path="/map" element={<Map />} />
             <Route path="/mypage" element={<MyPage />} />
             <Route path="/mypage/mywrite" element={<MyWrite />} />
