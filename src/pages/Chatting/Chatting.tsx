@@ -10,8 +10,12 @@ const Chatting = () => {
             <img src="/chattingProfile.svg" alt="채팅프로필사진" className="w-[12%] self-start" />
             <div className="flex flex-col ml-2 text-left">
               <span>맷돌이</span>
-              <span className="bg-[#F2F2F2] mt-2 py-1 px-2 border border-solid border-[#F2F2F2] rounded-e-md rounded-bl-md">안녕하세요~!!</span>
-              <span className="bg-[#F2F2F2] mt-2 py-1 px-2 border border-solid border-[#F2F2F2] rounded-e-md rounded-bl-md">혹시 교자만두 교환 끝났나요?</span>
+              <div className="mt-3">
+                <span className="bg-[#F2F2F2] py-1 px-2 border border-solid border-[#F2F2F2] rounded-e-md rounded-bl-md">안녕하세요~!!</span>
+              </div>
+              <div className="mt-3">
+                <span className="bg-[#F2F2F2]  py-1 px-2 border border-solid border-[#F2F2F2] rounded-e-md rounded-bl-md">혹시 교자만두 교환 끝났나요?</span>
+              </div>
             </div>
             <time dateTime="07:30:00+09:00" className="self-end ml-2 text-sm text-[#999999]">
               오전 7:30
