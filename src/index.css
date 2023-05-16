@@ -3,6 +3,45 @@
 @tailwind utilities;
 
 @layer components {
+  .hideTitle {
+    @apply absolute w-[1px] h-[1px] overflow-hidden;
+  }
+  .inputForm {
+    @apply flex flex-col gap-1;
+  }
+  .inputStyle {
+    @apply w-[25rem] h-12 border border-gray-300 rounded placeholder:text-gray-300 pl-2;
+  }
+  .signUpInput {
+    @apply w-[18rem] h-12 border border-gray-300 rounded placeholder:text-gray-300 pl-2;
+  }
+  .signUpAddress {
+    @apply w-48 h-12;
+  }
+  .buttonStyle {
+    @apply flex justify-center items-center w-[25rem] h-12 mx-auto mt-2 rounded text-white bg-main-color;
+  }
+  .noActiveButton {
+    @apply flex justify-center items-center w-[25rem] h-12 mx-auto mt-2 rounded text-white bg-noActive-color;
+  }
+  .errorText {
+    @apply text-left text-sm text-login-red;
+  }
+  .centerPosition {
+    @apply top-1/2 left-1/2 -translate-x-[50%] -translate-y-[50%];
+  }
+  .line {
+    @apply after:content-[''] after:w-full after:h-[1px] after:bg-gray-200;
+  }
+  .navigationButton {
+    @apply relative cursor-pointer px-2 transition-colors duration-500 hover:border-b-4 border-transparent hover:border-main-color;
+  }
+  .active {
+    @apply cursor-pointer px-2 border-b-4 border-transparent border-main-color;
+  }
+}
+
+@layer components {
   .listStyles {
     @apply flex items-center justify-between p-4;
   }
