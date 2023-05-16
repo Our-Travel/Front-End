@@ -3,7 +3,10 @@ import Landing from './pages/Landing/Landing';
 import Main from './pages/Main/Main';
 import SignIn from './pages/SignIn/SignIn';
 import SignUp from './pages/SignUp/SignUp';
+import ChattingList from './pages/Chatting/ChattingList';
 import Chatting from './pages/Chatting/Chatting';
+import ChattingEmpty from './pages/Chatting/ChattingEmpty';
+import Post from './pages/Post/Post';
 import Map from './pages/Map/Map';
 import MyPage from './pages/MyPage/MyPage';
 import Info from './pages/Info/Info';
@@ -23,7 +26,10 @@ function App() {
             <Route path="/main" element={<Main />} />
             <Route path="/map" element={<Map />} />
             <Route path="/mypage" element={<MyPage />} />
+            <Route path="/post" element={<Post />} />
+            <Route path="/chattinglist" element={<ChattingList />} />
             <Route path="/chatting" element={<Chatting />} />
+            <Route path="/chattingempty" element={<ChattingEmpty />} />
           </Route>
           <Route path="*" element={<NotFound />} />
         </Routes>
