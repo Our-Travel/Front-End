@@ -1,9 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
+import ChattingHeader from '../../components/Header/ChattingHeader';
 
 const Chatting = () => {
+  const [modalButton, setModalButton] = useState([{ text: '채팅방 나가기' }, { text: '신고하기' }, { text: '차단하기' }]);
   return (
     <div>
-      <div className="bg-white h-screen w-[450px]">
+      <ChattingHeader title={'상대 유저 아이디'} buttonList={modalButton} />
+      <div className="w-full">
         <div className="text-[#FF626F] pt-2 pb-2 text-sm">맷돌이님과 블루님이 채팅을 시작하였습니다.</div>
         <div className="main-chat">
           <div className="flex justify-start mt-2">

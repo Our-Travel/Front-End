@@ -1,11 +1,18 @@
-import React from 'react';
+import React, { useState, useRef } from 'react';
+import PostHeader from '../../components/Header/PostHeader';
+import PostModal from '../../components/Modal/PostModal';
 
 const Post = () => {
+  const [modalOpen, setModal] = useState<boolean>(false);
+
+  const isOpen = () => setModal(!modalOpen);
+
   return (
-    <div className="bg-white h-screen w-[450px]">
+    <div>
+      <PostHeader title={'여행친구 구하기'} />
       <div>
         <ul>
-          <li className="h-[100px] flex justify-between items-center mx-[20px] py-[10px] border-b-[1px]">
+          <li className="h-[100px] flex justify-between items-center mx-[20px] py-[10px] border-b-[1px]" onClick={isOpen}>
             <img src="/profile1.svg" alt="프로필사진" className="w-[15%]" />
             <div className="w-[260px] text-left">
               <p className="font-semibold">sojupa</p>
@@ -39,6 +46,7 @@ const Post = () => {
           </li>
         </ul>
       </div>
+      <PostModal open={modalOpen} close={setModal} />
     </div>
   );
 };
