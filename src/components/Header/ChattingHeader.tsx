@@ -24,7 +24,7 @@ export default function Header({ title, buttonList }: chattingheader) {
           <CiMenuKebab />
         </button>
       </header>
-      <ChattingModal open={modalOpen} close={setModal} modalButtonList={buttonList} />
+      <ChattingModal open={modalOpen} close={setModal} />
     </>
   );
 }

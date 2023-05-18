@@ -1,7 +1,8 @@
 import { SlArrowLeft } from 'react-icons/sl';
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router';
 import exp from 'constants';
+import ChattingModal from '../Modal/ChattingModal';
 
 interface header {
   title: string;
@@ -11,6 +12,7 @@ interface header {
 
 const Header = ({ title, back, icon }: header) => {
   const navigate = useNavigate();
+  const [modalOpen, setModal] = useState<boolean>(false);
   const currentURL = window.location.pathname;
   const lastPath = currentURL.substring(currentURL.lastIndexOf('/') + 1);
 
@@ -18,20 +20,26 @@ const Header = ({ title, back, icon }: header) => {
     if (lastPath == 'board') {
       navigate('/board/chattinglist');
     }
+    if (lastPath == 'chatting') {
+      const isOpen = () => setModal(!modalOpen);
+      isOpen();
+    }
   };
-
   return (
-    <header className="flex justify-center items-center text-2xl py-3 border-b border-gray-200">
-      {back && (
-        <button type="button" className="absolute left-1 px-2 py-2">
-          <SlArrowLeft />
+    <>
+      <header className="flex justify-center items-center text-2xl py-3 border-b border-gray-200">
+        {back && (
+          <button type="button" className="absolute left-1 px-2 py-2">
+            <SlArrowLeft />
+          </button>
+        )}
+        <h2 className="text-xl font-semibold">{title}</h2>
+        <button type="button" className="absolute right-1 px-2 py-2" onClick={handleButtonClick}>
+          {icon}
         </button>
-      )}
-      <h2 className="text-xl font-semibold">{title}</h2>
-      <button type="button" className="absolute right-1 px-2 py-2" onClick={handleButtonClick}>
-        {icon}
-      </button>
-    </header>
+      </header>
+      <ChattingModal open={modalOpen} close={setModal} />
+    </>
   );
 };
 

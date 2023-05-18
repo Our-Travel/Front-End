@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import ChattingHeader from '../../components/Header/ChattingHeader';
+import Header from '../../components/Header/Header';
+import { CiMenuKebab } from 'react-icons/ci';
 
 const Chatting = () => {
-  const [modalButton, setModalButton] = useState([{ text: '채팅방 나가기' }, { text: '신고하기' }, { text: '차단하기' }]);
+  const icon = <CiMenuKebab />;
   return (
     <div>
-      <ChattingHeader title={'상대 유저 아이디'} buttonList={modalButton} />
+      <Header title={'상대 유저 아이디'} back={true} icon={icon} />
       <div className="w-full">
         <div className="text-[#FF626F] pt-2 pb-2 text-sm">맷돌이님과 블루님이 채팅을 시작하였습니다.</div>
         <div className="main-chat">
