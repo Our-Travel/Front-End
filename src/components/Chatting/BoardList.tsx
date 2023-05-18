@@ -1,5 +1,7 @@
 import React from 'react';
 import BoardItem from './BoardItem';
+import { Link } from 'react-router-dom';
+import Chatting from './../../pages/Chatting/Chatting';
 
 // BoardList는 게시판 리스트가 있는 컴포넌트로
 // BoardItem 들을 호출해오는 곳입니다
@@ -14,7 +16,9 @@ const BoardList = () => {
   return (
     <div>
       {data.map(({ nickName, content }, index) => (
-        <BoardItem key={index} nickName={nickName} content={content} />
+        <Link to={'/Chatting'}>
+          <BoardItem key={index} nickName={nickName} content={content} />
+        </Link>
       ))}
     </div>
   );

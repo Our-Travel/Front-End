@@ -1,5 +1,7 @@
 import { useRef, useEffect, Dispatch, SetStateAction, useState } from 'react';
 
+//수민님이 작성한 부분인데 해당 페이지에 모달창이 필요없을듯 해서
+//이부분은 한번 더 고민해보고 살릴지 버릴지 해야할 듯 합니다 - 윤호
 interface modal {
   open: boolean;
   close: Dispatch<SetStateAction<boolean>>;
