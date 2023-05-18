@@ -16,6 +16,10 @@ const Header = ({ title, back, icon }: header) => {
   const currentURL = window.location.pathname;
   const lastPath = currentURL.substring(currentURL.lastIndexOf('/') + 1);
 
+  const handleGoBack = () => {
+    window.history.back();
+  };
+
   const handleButtonClick = () => {
     if (lastPath == 'board') {
       navigate('/board/chattinglist');
@@ -29,7 +33,7 @@ const Header = ({ title, back, icon }: header) => {
     <>
       <header className="flex justify-center items-center text-2xl py-3 border-b border-gray-200">
         {back && (
-          <button type="button" className="absolute left-1 px-2 py-2">
+          <button type="button" className="absolute left-1 px-2 py-2" onClick={handleGoBack}>
             <SlArrowLeft />
           </button>
         )}
