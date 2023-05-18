@@ -1,10 +1,12 @@
 import React from 'react';
-import PostHeader from '../../components/Header/PostHeader';
+import Header from '../../components/Header/Header';
+import { CiMenuKebab } from 'react-icons/ci';
 
 const ChattingEmpty = () => {
+  const icon = <CiMenuKebab />;
   return (
     <>
-      <PostHeader title={'여행친구 구하기'} />
+      <Header title={'여행친구 구하기'} back={true} icon={icon} />
       <div className="flex items-center justify-center flex-col my-[50%]">
         <img src="/character2.svg" alt="캐릭터사진" className="mx-auto my-0 animate-bounce " />
         <p className="mt-6 text-lg font-bold">시작한 채팅이 없어요</p>

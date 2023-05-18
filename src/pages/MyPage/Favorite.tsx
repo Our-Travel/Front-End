@@ -12,7 +12,7 @@ const listTest: { name: string; info: string; km: number }[] = [
 export default function Favorite() {
   return (
     <div className="w-[25rem] mx-auto">
-      <Header title={'즐겨찾기'} showButton={true} />
+      <Header title={'즐겨찾기'} back={true} icon={''} />
       <div className="flex flex-col gap-4 my-6 line">
         <Profile />
       </div>
