@@ -18,7 +18,7 @@ const listTest: { title: string; date: Date }[] = [
 export default function Notice() {
   return (
     <>
-      <Header title={'공지사항'} />
+      <Header title={'공지사항'} showButton={true} />
       <ul>
         {listTest.map(({ title, date }, index) => (
           <li key={index} className="flex flex-col justify-center text-left h-24 hover:bg-gray-100 cursor-pointer line">

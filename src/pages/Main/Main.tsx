@@ -22,7 +22,7 @@ const Main = () => {
 
   return (
     <div>
-      <Header title={'메인'} />
+      <Header title={'메인'} showButton={false} />
       {/* <div className="w-[300px] h-[180px] m-auto pt-5">
         <Chart type="bar" data={data} />
       </div> */}
