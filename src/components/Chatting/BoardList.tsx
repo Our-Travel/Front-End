@@ -16,7 +16,7 @@ const BoardList = () => {
   return (
     <div>
       {data.map(({ nickName, content }, index) => (
-        <Link to={'/Chatting'}>
+        <Link to={'/board/chatting'}>
           <BoardItem key={index} nickName={nickName} content={content} />
         </Link>
       ))}

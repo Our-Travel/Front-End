@@ -24,7 +24,7 @@ const ChattingItem = () => {
   return (
     <div>
       {chat.map(({ nickName, content, time }, index) => (
-        <Link to={'/Chatting'}>
+        <Link to={'/board/chatting'}>
           <ChattingComponent key={index} nickName={nickName} content={content} time={time} />
         </Link>
       ))}

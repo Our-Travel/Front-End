@@ -34,7 +34,7 @@ function App() {
             <Route path="/map" element={<Map />} />
             <Route path="/board" element={<Board />} />
             <Route path="/board/chattinglist" element={<ChattingList />} />
-            <Route path="/chatting" element={<Chatting />} />
+            <Route path="/board/chatting" element={<Chatting />} />
             <Route path="/mypage" element={<MyPage />} />
             <Route path="/mypage/mywrite" element={<MyWrite />} />
             <Route path="/mypage/favorite" element={<Favorite />} />
