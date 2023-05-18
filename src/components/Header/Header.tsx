@@ -1,6 +1,7 @@
 import { SlArrowLeft } from 'react-icons/sl';
 import React from 'react';
 import { useNavigate } from 'react-router';
+import exp from 'constants';
 
 interface header {
   title: string;
@@ -8,12 +9,15 @@ interface header {
   icon: React.ReactNode;
 }
 
-export default function Header({ title, back, icon }: header) {
+const Header = ({ title, back, icon }: header) => {
+  const navigate = useNavigate();
   const currentURL = window.location.pathname;
   const lastPath = currentURL.substring(currentURL.lastIndexOf('/') + 1);
-  const navigate = useNavigate();
+
   const handleButtonClick = () => {
-    navigate('/chattinglist'); //
+    if (lastPath == 'board') {
+      navigate('/chattinglist');
+    }
   };
 
   return (
@@ -29,4 +33,6 @@ export default function Header({ title, back, icon }: header) {
       </button>
     </header>
   );
-}
+};
+
+export default Header;
