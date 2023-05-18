@@ -16,7 +16,7 @@ const Header = ({ title, back, icon }: header) => {
 
   const handleButtonClick = () => {
     if (lastPath == 'board') {
-      navigate('/chattinglist');
+      navigate('/board/chattinglist');
     }
   };
 

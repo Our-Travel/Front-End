@@ -6,7 +6,7 @@ interface BoardItemProps {
 }
 const BoardItem = ({ nickName, content }: BoardItemProps) => {
   return (
-    <div className="relative flex h-[80px] bg-orange-200 my-2">
+    <div className="relative flex h-[80px] my-2 hover:bg-gray-100">
       <div className="absolute top-[50%] -translate-y-[50%]  w-1/5 px-2">
         <img src="/profile1.svg" alt="프로필사진" className="w-full object-cover" />
       </div>

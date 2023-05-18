@@ -6,7 +6,7 @@ import ChattingEmpty from '../../components/Chatting/ChattingEmpty';
 import Header from '../../components/Header/Header';
 
 const ChattingList = () => {
-  const [isEmpty, setEmpty] = useState<boolean>(false);
+  const [isEmpty, setEmpty] = useState<boolean>(true);
 
   return (
     <div className="">

@@ -32,13 +32,13 @@ function App() {
             <Route path="/main/selectLocation" element={<SelectLocation />} />
             <Route path="/main/findmate" element={<FindMate />} />
             <Route path="/map" element={<Map />} />
-            <Route path="/mypage" element={<MyPage />} />
             <Route path="/board" element={<Board />} />
-            <Route path="/chattinglist" element={<ChattingList />} />
+            <Route path="/board/chattinglist" element={<ChattingList />} />
+            <Route path="/chatting" element={<Chatting />} />
+            <Route path="/mypage" element={<MyPage />} />
             <Route path="/mypage/mywrite" element={<MyWrite />} />
             <Route path="/mypage/favorite" element={<Favorite />} />
             <Route path="/mypage/notice" element={<Notice />} />
-            <Route path="/chatting" element={<Chatting />} />
           </Route>
           <Route path="*" element={<NotFound />} />
         </Routes>
