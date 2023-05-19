@@ -17,6 +17,7 @@ import MyWrite from './pages/MyPage/MyWrite';
 import Favorite from './pages/MyPage/Favorite';
 import Notice from './pages/MyPage/Notice';
 import Board from './pages/Chatting/Board';
+import WriteBoard from './pages/Chatting/WriteBoard';
 
 function App() {
   return (
@@ -33,6 +34,7 @@ function App() {
             <Route path="/main/findmate" element={<FindMate />} />
             <Route path="/map" element={<Map />} />
             <Route path="/board" element={<Board />} />
+            <Route path="/board/writeboard" element={<WriteBoard />} />
             <Route path="/board/chattinglist" element={<ChattingList />} />
             <Route path="/board/chatting" element={<Chatting />} />
             <Route path="/mypage" element={<MyPage />} />
