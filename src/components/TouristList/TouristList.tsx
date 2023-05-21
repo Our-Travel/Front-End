@@ -23,7 +23,7 @@ const TouristList = () => {
           <p className="text-gray-400">{el.km}</p>
         </div>
       ))}
-      {modal && <TourModal boardDetail={boardDetail} setModal={setModal} />}
+      {modal && <TourModal setModal={setModal} />}
     </>
   );
 };

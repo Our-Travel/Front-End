@@ -2,10 +2,10 @@ import React, { Dispatch, SetStateAction, useRef } from 'react';
 import { AiOutlineHeart, AiOutlineShareAlt } from 'react-icons/ai';
 
 interface TourModalProps {
-  boardDetail: number | null;
+  // boardDetail: number | null;
   setModal: Dispatch<SetStateAction<boolean>>;
 }
-const TourModal = ({ boardDetail, setModal }: TourModalProps) => {
+const TourModal = ({ setModal }: TourModalProps) => {
   const closeModal = () => {
     setModal(false);
   };

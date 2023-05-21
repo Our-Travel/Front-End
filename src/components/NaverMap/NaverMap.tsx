@@ -58,25 +58,41 @@
 
 // export default NaverMap;
 
-import React, { useEffect, useState } from 'react';
-import { Container as MapDiv, NaverMap as Nmap, Marker, useNavermaps } from 'react-naver-maps';
+import React, { useEffect, useRef, useState } from 'react';
+import { Container as MapDiv, NaverMap as Nmap, Marker, useNavermaps, useMap } from 'react-naver-maps';
 import useGeolocation from '../../hooks/useGeolocation';
 import Spinner from '../../shared/Spinner';
+import TourModal from '../TouristList/TourModal';
+import { latingDummy } from '../../util/dummy';
 
 const NaverMap = () => {
   const navermaps = useNavermaps();
   const location = useGeolocation();
+  const naverMap = useMap();
+  const [mapToggle, setMapToggle] = useState<boolean>(false);
+  const handleMapToggle = () => {
+    setMapToggle(!mapToggle);
+  };
+
   useEffect(() => {
     console.log(location.coordinates?.lat, location.coordinates?.lng);
   }, [location.loaded]);
   return (
     <>
       {location.loaded ? (
-        <MapDiv className="h-[700px] w-full">
-          <Nmap zoomControl={true} scaleControl={true} defaultCenter={new navermaps.LatLng(location.coordinates?.lat, location.coordinates?.lng)} defaultZoom={15}>
-            <Marker defaultPosition={new navermaps.LatLng(location.coordinates?.lat, location.coordinates?.lng)} />
-          </Nmap>
-        </MapDiv>
+        <>
+          <MapDiv className="h-[735px] w-full relative">
+            <Nmap zoomControl={true} scaleControl={true} defaultCenter={new navermaps.LatLng(location.coordinates?.lat, location.coordinates?.lng)} defaultZoom={15}>
+              <Marker onClick={handleMapToggle} defaultPosition={new navermaps.LatLng(location.coordinates?.lat, location.coordinates?.lng)} />
+              {latingDummy.map((el, index) => (
+                <div key={index}>
+                  <Marker onClick={handleMapToggle} position={new navermaps.LatLng(el.lat, el.lng)} />
+                </div>
+              ))}
+              {mapToggle && <TourModal setModal={setMapToggle} />}
+            </Nmap>
+          </MapDiv>
+        </>
       ) : (
         <Spinner />
       )}

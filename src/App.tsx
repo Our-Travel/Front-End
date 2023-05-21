@@ -15,8 +15,15 @@ import FindMate from './pages/Main/FindMate';
 import MyWrite from './pages/MyPage/MyWrite';
 import Favorite from './pages/MyPage/Favorite';
 import Notice from './pages/MyPage/Notice';
+import { useEffect } from 'react';
+import axios from 'axios';
 
 function App() {
+  useEffect(() => {
+    axios.get('http://49.50.162.22/api/member/check-username/leejh4197').then((res) => {
+      console.log(res.data.msg);
+    });
+  }, []);
   return (
     <div className="relative">
       <div className="absolute text-center right-[23%] h-screen border border-gray-200 w-[450px] max-h-[full]">
