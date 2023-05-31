@@ -27,7 +27,7 @@ const SignUp = () => {
   const join = async () => {
     try {
       const url = `http://49.50.162.22:80/api/member/signup`;
-      const response = await axios.post(url, {
+      const response: AxiosResponse = await axios.post(url, {
         username: email,
         password: password,
         nickName: nickName.data,

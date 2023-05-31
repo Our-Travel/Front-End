@@ -4,7 +4,7 @@ import { Email, Password } from '../../components/EmailPassword/EmailPassword';
 import { LoginButton, LoginKakao } from '../../components/LoginButton/LoginButton';
 import ChoiceTab from '../../components/ChoiceTab/ChoiceTab';
 import { useEffect, useState } from 'react';
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
 
 const SignIn = () => {
   const [email, setEmail] = useState<string>('');
@@ -18,7 +18,7 @@ const SignIn = () => {
   const login = async () => {
     try {
       const url = `http://49.50.162.22:80/api/member/login`;
-      const response = await axios.post(url, {
+      const response: AxiosResponse = await axios.post(url, {
         username: email,
         password: password,
       });
