@@ -1,7 +1,7 @@
 import Header from '../../components/Header/Header';
 import { Profile } from '../../components/MypageInfo/MypageInfo';
 
-export default function MyWrite() {
+const MyWrite = () => {
   return (
     <>
       <Header title={'내가 작성한 글'} />
@@ -17,4 +17,6 @@ export default function MyWrite() {
       </div>
     </>
   );
-}
+};
+
+export default MyWrite;
