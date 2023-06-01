@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 interface buttonInfo {
   name: string;
@@ -28,9 +28,15 @@ export function LoginButton({ name, page, active, success, click }: buttonInfo) 
 }
 
 export function LoginKakao() {
+  const KAKAO_KEY = process.env.REACT_APP_REST_API_KEY;
+  const REDIRECT_URI = 'http://localhost:8080/oauth2/kakao';
+  const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${KAKAO_KEY}&redirect_uri=${REDIRECT_URI}`;
+
   return (
-    <button type="button" className="buttonStyle">
-      <img src="/assets/kakaoLogin.svg" alt="카카오계정으로 로그인" />
-    </button>
+    <div className="buttonStyle">
+      <Link to={KAKAO_AUTH_URL}>
+        <img src="/assets/kakaoLogin.svg" alt="카카오계정으로 로그인" />
+      </Link>
+    </div>
   );
 }
