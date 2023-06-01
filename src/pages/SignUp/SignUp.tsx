@@ -26,7 +26,7 @@ const SignUp = () => {
 
   const join = async () => {
     try {
-      const url = `http://49.50.162.22:80/api/member/signup`;
+      const url = `http://localhost:8080/api/member/signup`;
       const response: AxiosResponse = await axios.post(url, {
         username: email,
         password: password,
@@ -46,7 +46,7 @@ const SignUp = () => {
 
   const nickNameCheck = async () => {
     try {
-      const url = `http://49.50.162.22:80/api/member/check-nickName/${nickName.data}`;
+      const url = `http://localhost:8080/api/member/check-nickName/${nickName.data}`;
       const response: AxiosResponse = await axios.get(url);
       if (response.status === 200) setSuccess(response.status);
       alert(response.data.msg);

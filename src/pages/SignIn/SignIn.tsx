@@ -17,7 +17,7 @@ const SignIn = () => {
 
   const login = async () => {
     try {
-      const url = `http://49.50.162.22:80/api/member/login`;
+      const url = `http://localhost:8080/api/member/login`;
       const response: AxiosResponse = await axios.post(url, {
         username: email,
         password: password,

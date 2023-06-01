@@ -18,7 +18,7 @@ export const Email = ({ page, setEmail, setEmailState, setEmailStatus }: inputEm
 
   const emailCheck = async () => {
     try {
-      const url = `http://49.50.162.22:80/api/member/check-username/${email.data}`;
+      const url = `http://localhost:8080/api/member/check-username/${email.data}`;
       const response: AxiosResponse = await axios.get(url);
       if (response.status === 200) setSuccess(response.status), setEmailStatus(response.status);
       alert(response.data.msg);
@@ -35,7 +35,6 @@ export const Email = ({ page, setEmail, setEmailState, setEmailStatus }: inputEm
     email.data && !email.state ? setEmailMsg('형식에 알맞는 이메일을 입력해주세요.') : (setEmailMsg(''), setEmailState(email.state));
   }, [email.data]);
 
-  // 처음에 중복확인 성공하고 성공한 상태로 틀리면 빨간색상으로 안바뀌는 이슈
   const SuccessFail = () => {
     return success === 200 ? 'text-green-600 border-green-600' : fail === 400 ? 'text-check-red border-check-red' : email.state ? 'text-gray-600 border-gray-600' : 'text-gray-400 border-gray-300';
   };
