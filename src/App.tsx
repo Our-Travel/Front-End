@@ -3,6 +3,7 @@ import Landing from './pages/Landing/Landing';
 import Main from './pages/Main/Main';
 import SignIn from './pages/SignIn/SignIn';
 import SignUp from './pages/SignUp/SignUp';
+import ChattingList from './pages/Chatting/ChattingList';
 import Chatting from './pages/Chatting/Chatting';
 import Map from './pages/Map/Map';
 import MyPage from './pages/MyPage/MyPage';
@@ -14,6 +15,8 @@ import FindMate from './pages/Main/FindMate';
 import MyWrite from './pages/MyPage/MyWrite';
 import Favorite from './pages/MyPage/Favorite';
 import Notice from './pages/MyPage/Notice';
+import Board from './pages/Chatting/Board';
+import WriteBoard from './pages/Chatting/WriteBoard';
 import Host from './pages/MyPage/Host';
 
 function App() {
@@ -30,6 +33,10 @@ function App() {
             <Route path="/main/selectLocation" element={<SelectLocation />} />
             <Route path="/main/findmate" element={<FindMate />} />
             <Route path="/map" element={<Map />} />
+            <Route path="/board" element={<Board />} />
+            <Route path="/board/writeboard" element={<WriteBoard />} />
+            <Route path="/board/chattinglist" element={<ChattingList />} />
+            <Route path="/board/chatting" element={<Chatting />} />
             <Route path="/mypage" element={<MyPage />} />
             <Route path="/mypage/mywrite" element={<MyWrite />} />
             <Route path="/mypage/favorite" element={<Favorite />} />

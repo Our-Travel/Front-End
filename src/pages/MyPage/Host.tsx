@@ -52,7 +52,7 @@ const Host = () => {
 
   return (
     <div className="flex flex-col w-[25rem] mx-auto">
-      <Header title={'Host 등록'} />
+      <Header title={'Host 등록'} back={true} icon={''} />
       <div className="flex flex-col gap-5 my-5 line">
         <Profile />
         <button className="w-[25rem] h-9 mb-3 border rounded border-main-color text-main-color hover:bg-main-color hover:text-white">프로필 수정</button>

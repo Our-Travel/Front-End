@@ -14,9 +14,9 @@ const Favorite = () => {
   };
 
   return (
-    <>
-      <Header title={'즐겨찾기'} />
-      <div className="flex flex-col gap-4 my-6 w-[25rem] mx-auto line">
+    <div className="w-[25rem] mx-auto">
+      <Header title={'즐겨찾기'} back={true} icon={''} />
+      <div className="flex flex-col gap-4 my-6 line">
         <Profile />
       </div>
       <div className="flex flex-row justify-evenly text-xl font-semibold">
@@ -28,7 +28,7 @@ const Favorite = () => {
         </button>
       </div>
       {toggle ? <Accommodation /> : <TouristList />}
-    </>
+    </div>
   );
 };
 

@@ -72,7 +72,7 @@ const SignUp = () => {
 
   return (
     <>
-      <Header title={'회원가입'} />
+      <Header title={'회원가입'} back={true} icon={''} />
       <form>
         <div className="flex flex-col gap-4 w-[25rem] mx-auto mt-6">
           <Email page={false} setEmail={setEmail} setEmailState={setEmailState} setEmailStatus={setEmailStatus} />

@@ -35,7 +35,7 @@ const Notice = () => {
 
   return (
     <>
-      <Header title={'공지사항'} />
+      <Header title={'공지사항'} back={true} icon={''} />
       <ul>
         {list.map(({ title, date, data }, index) => (
           <li key={index} className={`flex flex-col justify-center text-left h-auto hover:bg-gray-200 cursor-pointer line ${listNumber === index ? 'bg-gray-200' : ''}`} onClick={() => clickAccordion(index)}>

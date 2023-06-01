@@ -38,7 +38,7 @@ const SignIn = () => {
 
   return (
     <>
-      <Header title={'로그인'} />
+      <Header title={'로그인'} back={true} icon={''} />
       <div className="w-52 h-52 mx-auto my-10">
         <Logo />
       </div>

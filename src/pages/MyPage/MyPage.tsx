@@ -46,8 +46,8 @@ const MyPage = () => {
 
   return (
     <>
-      <Header title={'마이페이지'} />
-      <div className="flex flex-col gap-5 w-[25rem] mx-auto my-5">
+      <Header title={'마이페이지'} back={false} icon={''} />
+      <div className="flex flex-col gap-4 w-[25rem] mx-auto my-6">
         <Profile />
         <button className="w-[25rem] h-9 mb-7 border rounded border-main-color text-main-color hover:bg-main-color hover:text-white">프로필 수정</button>
         <div className="flex flex-col gap-5 line">
