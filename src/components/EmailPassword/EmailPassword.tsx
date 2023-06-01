@@ -35,6 +35,7 @@ export const Email = ({ page, setEmail, setEmailState, setEmailStatus }: inputEm
     email.data && !email.state ? setEmailMsg('형식에 알맞는 이메일을 입력해주세요.') : (setEmailMsg(''), setEmailState(email.state));
   }, [email.data]);
 
+  // 처음에 중복확인 성공하고 성공한 상태로 틀리면 빨간색상으로 안바뀌는 이슈
   const SuccessFail = () => {
     return success === 200 ? 'text-green-600 border-green-600' : fail === 400 ? 'text-check-red border-check-red' : email.state ? 'text-gray-600 border-gray-600' : 'text-gray-400 border-gray-300';
   };
@@ -54,7 +55,7 @@ export const Email = ({ page, setEmail, setEmailState, setEmailStatus }: inputEm
           {page && email.data ? <MdOutlineCancel className="absolute right-5 w-6 h-6 text-gray-600 cursor-pointer" onClick={email.onReset} /> : null}
         </div>
         {!page ? (
-          <button type="button" className={`w-24 h-12 border rounded + ${SuccessFail()}`} onClick={emailCheck} disabled={email.state ? false : true}>
+          <button type="button" className={`w-24 h-12 border rounded ${SuccessFail()}`} onClick={emailCheck} disabled={email.state ? false : true}>
             중복확인
           </button>
         ) : null}

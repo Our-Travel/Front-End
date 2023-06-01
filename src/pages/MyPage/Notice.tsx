@@ -26,6 +26,7 @@ const Notice = () => {
       data: '안녕하세요. 동행입니다. 5월 이벤트를 시작하오니 많은 관심 부탁드립니다.',
     },
   ]);
+
   const [listNumber, setListNumber] = useState<number | null>(null);
 
   const clickAccordion = (index: number) => {
@@ -37,7 +38,7 @@ const Notice = () => {
       <Header title={'공지사항'} />
       <ul>
         {list.map(({ title, date, data }, index) => (
-          <li key={index} className={`flex flex-col justify-center text-left h-auto hover:bg-red-50 cursor-pointer line ${listNumber === index ? 'bg-red-50' : ''}`} onClick={() => clickAccordion(index)}>
+          <li key={index} className={`flex flex-col justify-center text-left h-auto hover:bg-gray-200 cursor-pointer line ${listNumber === index ? 'bg-gray-200' : ''}`} onClick={() => clickAccordion(index)}>
             <div className="flex flex-col justify-center h-24 gap-2 px-3">
               <h2 className="text-lg">{title}</h2>
               <p className="text-gray-500">{`${date.getFullYear()}.${date.getMonth() + 1}.${date.getDate()}`}</p>
