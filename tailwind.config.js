@@ -9,7 +9,7 @@ module.exports = {
         'main-color3': '#FF776D',
         'main-color4': '#FF928A',
         'noActive-color': '#DADADA',
-        'login-red': '#FF0000',
+        'check-red': '#FF0000',
       },
     },
   },

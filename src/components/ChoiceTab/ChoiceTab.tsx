@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom';
-import { GrLanguage } from 'react-icons/gr';
 
-export default function ChoiceTab() {
+const ChoiceTab = () => {
   return (
     <div className="flex felx-row items-center justify-center my-6 text-gray-500">
       <Link to="/signup" className="px-3">
@@ -13,4 +12,6 @@ export default function ChoiceTab() {
       </Link>
     </div>
   );
-}
+};
+
+export default ChoiceTab;
