@@ -19,10 +19,18 @@ import { useEffect } from 'react';
 import axios from 'axios';
 
 function App() {
+  const token =
+    'eyJhbGciOiJIUzUxMiJ9.eyJib2R5Ijoie1wiaWRcIjoyLFwidXNlcm5hbWVcIjpcInVzZXIxQGV4YW1wbGUuY29tXCIsXCJuaWNrTmFtZVwiOlwidXNlcjFcIixcImF1dGhvcml0aWVzXCI6W3tcImF1dGhvcml0eVwiOlwiTUVNQkVSXCJ9XX0iLCJleHAiOjQ4Mzk1NTk2NTd9.vwU6sqkgglt3Ju-auzMkV9BeU-E35a1zTsUcYoWcPGnqGxd56yO8ROINWYJ8SjJMT_LMUfPW6FhMzbf_93SFiA';
   useEffect(() => {
-    axios.get('http://49.50.162.22/api/member/check-username/leejh4197').then((res) => {
-      console.log(res.data.msg);
-    });
+    axios
+      .get('http://localhost:8080/api/local-place/spot?latitude=37.3422186&longitude=127.9201621', {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        console.log(res.data.data.documents);
+      });
   }, []);
   return (
     <div className="relative">
@@ -36,7 +44,7 @@ function App() {
             <Route path="/main" element={<Main />} />
             <Route path="/main/selectLocation" element={<SelectLocation />} />
             <Route path="/main/findmate" element={<FindMate />} />
-            <Route path="/map" element={<Map />} />
+            <Route path="/map" element={<Map token={token} />} />
             <Route path="/mypage" element={<MyPage />} />
             <Route path="/mypage/mywrite" element={<MyWrite />} />
             <Route path="/mypage/favorite" element={<Favorite />} />

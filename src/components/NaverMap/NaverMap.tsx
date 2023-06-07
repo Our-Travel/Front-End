@@ -63,30 +63,59 @@ import { Container as MapDiv, NaverMap as Nmap, Marker, useNavermaps, useMap } f
 import useGeolocation from '../../hooks/useGeolocation';
 import Spinner from '../../shared/Spinner';
 import TourModal from '../TouristList/TourModal';
-import { latingDummy } from '../../util/dummy';
+import axios from 'axios';
 
-const NaverMap = () => {
+interface MapProps {
+  token: string;
+}
+interface Place {
+  address_name: string;
+  distance: number;
+  id: number;
+  phone: string;
+  place_name: string;
+  place_url: string;
+  road_address_name: string;
+  x: number;
+  y: number;
+}
+
+const NaverMap = ({ token }: MapProps) => {
   const navermaps = useNavermaps();
   const location = useGeolocation();
   const naverMap = useMap();
   const [mapToggle, setMapToggle] = useState<boolean>(false);
+  const [aroundPlace, setAroundPlace] = useState<Place[] | null>(null);
   const handleMapToggle = () => {
     setMapToggle(!mapToggle);
   };
-
   useEffect(() => {
-    console.log(location.coordinates?.lat, location.coordinates?.lng);
+    if (location.loaded && location.coordinates) {
+      axios
+        .get(`http://localhost:8080/api/local-place/spot?latitude=${location.coordinates?.lat}&longitude=${location.coordinates?.lng}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then((res) => {
+          setAroundPlace(res.data.data.documents);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
   }, [location.loaded]);
+
   return (
     <>
-      {location.loaded ? (
+      {location.loaded && aroundPlace !== null ? (
         <>
-          <MapDiv className="h-[735px] w-full relative">
+          <MapDiv className="h-screen w-full relative">
             <Nmap zoomControl={true} scaleControl={true} defaultCenter={new navermaps.LatLng(location.coordinates?.lat, location.coordinates?.lng)} defaultZoom={15}>
               <Marker onClick={handleMapToggle} defaultPosition={new navermaps.LatLng(location.coordinates?.lat, location.coordinates?.lng)} />
-              {latingDummy.map((el, index) => (
-                <div key={index}>
-                  <Marker onClick={handleMapToggle} position={new navermaps.LatLng(el.lat, el.lng)} />
+              {aroundPlace.map((el) => (
+                <div key={el.id}>
+                  <Marker onClick={handleMapToggle} position={new navermaps.LatLng(el.y, el.x)} />
                 </div>
               ))}
               {mapToggle && <TourModal setModal={setMapToggle} />}
