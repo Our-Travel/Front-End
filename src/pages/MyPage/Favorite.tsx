@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, MouseEvent } from 'react';
 import Header from '../../components/Header/Header';
 import { Profile } from '../../components/MypageInfo/MypageInfo';
 import TouristList from '../../components/TouristList/TouristList';
@@ -8,13 +8,13 @@ import { cls } from '../../util/util';
 const Favorite = () => {
   const [toggle, setToggle] = useState<boolean>(false);
 
-  const handleToggle = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const handleToggle = (e: MouseEvent<HTMLButtonElement>) => {
     const target = e.target as HTMLButtonElement;
     target.name === 'tour' ? setToggle(false) : setToggle(true);
   };
 
   return (
-    <div className="w-[25rem] mx-auto">
+    <>
       <Header title={'즐겨찾기'} back={true} icon={''} />
       <div className="flex flex-col gap-4 my-6 line">
         <Profile />
@@ -28,7 +28,7 @@ const Favorite = () => {
         </button>
       </div>
       {toggle ? <Accommodation /> : <TouristList />}
-    </div>
+    </>
   );
 };
 
