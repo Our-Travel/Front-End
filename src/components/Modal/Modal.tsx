@@ -1,4 +1,5 @@
-import React, { useRef, useEffect, Dispatch, SetStateAction } from 'react';
+import React, { useRef, useEffect, Dispatch, SetStateAction, MouseEvent, KeyboardEvent } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 interface modal {
   open: boolean;
@@ -13,15 +14,22 @@ interface dataProps {
 
 const Modal = ({ open, close, data, page }: modal) => {
   const outside = useRef<HTMLDivElement>(null);
+  const navigate = useNavigate();
 
   const closeModal = () => {
     close(false);
   };
 
-  const clickCancel: any = (e: React.MouseEvent<HTMLDivElement> & React.KeyboardEvent<HTMLButtonElement>) => {
+  const clickCancel: any = (e: MouseEvent<HTMLDivElement> & KeyboardEvent<HTMLButtonElement>) => {
     if (outside.current === e.target || e.key === 'Escape') {
       closeModal();
     }
+  };
+
+  const logout = () => {
+    localStorage.removeItem('token');
+    navigate('/');
+    alert('로그아웃 되었습니다.👋');
   };
 
   useEffect(() => {
@@ -42,7 +50,7 @@ const Modal = ({ open, close, data, page }: modal) => {
             key={index}
             className={`flex flex-col flex-grow items-center justify-center line after:absolute after:top-1/2 last:after:content-none hover:bg-gray-200 + ${page === 'mypage' ? 'last:text-check-red' : ''}`}
             onClick={() => {
-              text === '취소' ? closeModal() : null;
+              text === '취소' ? closeModal() : text === '로그아웃' ? logout() : null;
             }}
           >
             {text}
