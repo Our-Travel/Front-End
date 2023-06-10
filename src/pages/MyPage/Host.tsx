@@ -2,7 +2,7 @@ import Header from '../../components/Header/Header';
 import { Profile } from '../../components/MypageInfo/MypageInfo';
 import { LoginButton } from '../../components/LoginButton/LoginButton';
 import Select, { SingleValue } from 'react-select';
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import useInput from '../../hooks/useInput';
 
 interface optionType {
@@ -30,7 +30,6 @@ const Host = () => {
   const [active, setActive] = useState<boolean>(false);
   const [city, setCity] = useState<SingleValue<optionType>>(null);
   const [area, setArea] = useState<SingleValue<optionType>>(null);
-  const [success, setSuccess] = useState<number>(0);
   const myInfo = useInput();
   const hashTag = useInput();
 
@@ -42,7 +41,7 @@ const Host = () => {
     setArea(option);
   };
 
-  const hashCheck = () => {
+  const hashTagCheck = () => {
     return hashTag.data.length > 0 && !hashTag.data.includes('#') ? '단어 앞에 #을 반드시 입력해주세요.' : '';
   };
 
@@ -51,26 +50,25 @@ const Host = () => {
   }, [myInfo.data, hashTag.data, city, area]);
 
   return (
-    <div className="flex flex-col w-[25rem] mx-auto">
+    <div className="flex flex-col">
       <Header title={'Host 등록'} back={true} icon={''} />
-      <div className="flex flex-col gap-5 my-5 line">
+      <div className="flex flex-col gap-4 my-6 line">
         <Profile />
-        <button className="w-[25rem] h-9 mb-3 border rounded border-main-color text-main-color hover:bg-main-color hover:text-white">프로필 수정</button>
+        <button className="w-[25rem] mx-auto h-9 mb-3 border rounded border-main-color text-main-color hover:bg-main-color hover:text-white">프로필 수정</button>
       </div>
-      <form className="flex flex-col gap-5 text-left">
+      <form className="flex flex-col gap-5 text-left mx-auto">
         <div className="inputForm">
           <label htmlFor="" className="">
             한줄소개
           </label>
           <input required type="text" className="inputStyle" placeholder="나를 소개해주세요" onChange={myInfo.onChange} value={myInfo.data} />
-          {/* <span className="errorText"></span> */}
         </div>
         <div className="inputForm">
           <label htmlFor="" className="">
             해시태그
           </label>
           <input required type="text" className="inputStyle" placeholder="#맛집전문  #가이드투어" onChange={hashTag.onChange} />
-          <span className="errorText">{hashCheck()}</span>
+          <span className="errorText">{hashTagCheck()}</span>
         </div>
         <div className="flex flex-col gap-1">
           <label htmlFor="" className="">
@@ -82,7 +80,7 @@ const Host = () => {
           </div>
         </div>
         <div className="absolute bottom-16">
-          <LoginButton name={'등록하기'} page={false} active={active} success={success} click={null} />
+          <LoginButton name={'등록하기'} page={false} active={active} onClick={() => {}} />
         </div>
       </form>
     </div>
