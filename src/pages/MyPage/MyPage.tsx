@@ -1,4 +1,4 @@
-import React, { MutableRefObject, RefObject, useRef, useState } from 'react';
+import React, { useState, MouseEvent } from 'react';
 import Header from '../../components/Header/Header';
 import { MypageTab, Profile } from '../../components/MypageInfo/MypageInfo';
 import { Link } from 'react-router-dom';
@@ -46,7 +46,7 @@ const MyPage = () => {
     setUploadModal(false);
   };
 
-  const isOpen = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const isOpen = (e: MouseEvent<HTMLButtonElement>) => {
     const target = e.target as HTMLButtonElement;
     setModal(!modalOpen);
     setIcon(target.name);

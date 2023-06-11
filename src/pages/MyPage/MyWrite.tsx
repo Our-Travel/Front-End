@@ -5,7 +5,7 @@ const MyWrite = () => {
   return (
     <>
       <Header title={'내가 작성한 글'} back={true} icon={''} />
-      <div className="flex flex-col gap-4 w-[25rem] mx-auto my-6 line">
+      <div className="flex flex-col gap-4 my-6 line">
         <Profile />
       </div>
       <div className="flex flex-col items-center justify-center gap-9 absolute centerPosition w-full">

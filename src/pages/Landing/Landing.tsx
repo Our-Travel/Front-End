@@ -3,7 +3,7 @@ import Logo from '../../components/Logo/Logo';
 import { LoginButton, LoginKakao } from '../../components/LoginButton/LoginButton';
 import ChoiceTab from '../../components/ChoiceTab/ChoiceTab';
 import Modal from '../../components/Modal/Modal';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Pagination, Autoplay, A11y } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
@@ -17,7 +17,7 @@ const modalButton: { text: string }[] = [{ text: '한국어 (South Korea)' }, { 
 export default function Landing() {
   const [modalOpen, setModal] = useState<boolean>(false);
   const [active, setActive] = useState<boolean>(false);
-  const [success, setSuccess] = useState<number>(0);
+  const navigate = useNavigate();
 
   const isOpen = () => setModal(!modalOpen);
 
@@ -33,8 +33,8 @@ export default function Landing() {
           </SwiperSlide>
         ))}
       </Swiper>
-      <div className="flex flex-col gap-5">
-        <LoginButton name={'로그인'} page={true} active={active} success={success} click={null} />
+      <div className="flex flex-col gap-6">
+        <LoginButton name={'로그인'} page={true} active={active} onClick={() => navigate('/signin')} />
         <LoginKakao />
       </div>
       <div className="flex flex-row items-center justify-center">
