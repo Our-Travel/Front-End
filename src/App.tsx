@@ -10,7 +10,6 @@ import MyPage from './pages/MyPage/MyPage';
 import Info from './pages/Info/Info';
 import Navigation from './components/Navigation/Navigation';
 import NotFound from './pages/NotFound/NotFound';
-import Banner from './components/Main/Banner';
 import SelectLocation from './pages/Main/SelectLocation';
 import FindMate from './pages/Main/FindMate';
 import MyWrite from './pages/MyPage/MyWrite';
@@ -18,6 +17,7 @@ import Favorite from './pages/MyPage/Favorite';
 import Notice from './pages/MyPage/Notice';
 import Board from './pages/Chatting/Board';
 import WriteBoard from './pages/Chatting/WriteBoard';
+import Host from './pages/MyPage/Host';
 
 function App() {
   return (
@@ -41,6 +41,8 @@ function App() {
             <Route path="/mypage/mywrite" element={<MyWrite />} />
             <Route path="/mypage/favorite" element={<Favorite />} />
             <Route path="/mypage/notice" element={<Notice />} />
+            <Route path="/mypage/host" element={<Host />} />
+            <Route path="/chatting" element={<Chatting />} />
           </Route>
           <Route path="*" element={<NotFound />} />
         </Routes>

@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import Logo from '../../components/Logo/Logo';
 import { LoginButton, LoginKakao } from '../../components/LoginButton/LoginButton';
 import ChoiceTab from '../../components/ChoiceTab/ChoiceTab';
@@ -12,13 +12,15 @@ import '../../components/utilCss/landingSwiper.css';
 import { GrLanguage } from 'react-icons/gr';
 
 const promotionImg: { title: string }[] = [{ title: '광고이미지' }, { title: '광고이미지' }, { title: '광고이미지' }];
+const modalButton: { text: string }[] = [{ text: '한국어 (South Korea)' }, { text: 'English' }];
 
 export default function Landing() {
   const [modalOpen, setModal] = useState<boolean>(false);
+  const [active, setActive] = useState<boolean>(false);
+  const [success, setSuccess] = useState<number>(0);
 
   const isOpen = () => setModal(!modalOpen);
 
-  // @@@@@나중에 페이지 Link 확인 후 지우기@@@@@
   return (
     <>
       <div className="w-20 h-20 mx-auto my-4">
@@ -32,11 +34,11 @@ export default function Landing() {
         ))}
       </Swiper>
       <div className="flex flex-col gap-5">
-        <LoginButton name={'로그인'} page={true} />
+        <LoginButton name={'로그인'} page={true} active={active} success={success} click={null} />
         <LoginKakao />
       </div>
       <div className="flex flex-row items-center justify-center">
-        <button type="button" className="flex flex-row items-center gap-1 px-1 text-gray-500" onClick={isOpen}>
+        <button type="button" name="language" className="flex flex-row items-center gap-1 px-1 text-gray-500" onClick={isOpen}>
           <GrLanguage />
           <span>언어설정</span>
         </button>
@@ -48,7 +50,7 @@ export default function Landing() {
           <span className="text-gray-500">feedback</span>
         </Link>
       </div>
-      <Modal open={modalOpen} close={setModal} />
+      <Modal open={modalOpen} close={setModal} data={modalButton} page={'landing'} />
     </>
   );
 }

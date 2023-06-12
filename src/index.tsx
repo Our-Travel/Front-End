@@ -11,9 +11,7 @@ const ncpClientId: string = process.env.REACT_APP_NAVER_KEY || '';
 root.render(
   <NavermapsProvider ncpClientId={ncpClientId}>
     <BrowserRouter>
-      <React.StrictMode>
-        <App />
-      </React.StrictMode>
+      <App />
     </BrowserRouter>
   </NavermapsProvider>
 );
