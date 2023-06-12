@@ -3,8 +3,11 @@ import Logo from '../../components/Logo/Logo';
 import { Email, Password } from '../../components/EmailPassword/EmailPassword';
 import { LoginButton, LoginKakao } from '../../components/LoginButton/LoginButton';
 import ChoiceTab from '../../components/ChoiceTab/ChoiceTab';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState, MouseEvent } from 'react';
 import axios, { AxiosResponse } from 'axios';
+import { useNavigate } from 'react-router-dom';
+import { useSetRecoilState } from 'recoil';
+import { token } from '../../recoil/loginAtom';
 
 const SignIn = () => {
   const [email, setEmail] = useState<string>('');
@@ -12,29 +15,35 @@ const SignIn = () => {
   const [active, setActive] = useState<boolean>(false);
   const [emailstate, setEmailState] = useState<boolean>(false);
   const [PWstate, setPWState] = useState<boolean>(false);
-  const [success, setSuccess] = useState<number>(0);
   const [emailStatus, setEmailStatus] = useState<number>(0);
+  const navigate = useNavigate();
+  const setToken = useSetRecoilState(token);
 
-  const login = async () => {
+  const login = async (e: MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
     try {
-      const url = `http://localhost:8080/api/member/login`;
+      const url = 'http://localhost:8080/api/member/login';
       const response: AxiosResponse = await axios.post(url, {
         username: email,
         password: password,
       });
-      alert(response.data.msg);
-      setSuccess(response.status);
-      console.log(response);
+      setToken(response.data.data.accessToken);
+      localStorage.setItem('token', response.data.data.accessToken);
+      navigate('/main');
+      alert('✅ 환영합니다. 좋은하루 되세요. ✅');
     } catch (error) {
+      navigate('/signin');
       if (axios.isAxiosError(error) && error.response?.status === 400) {
         alert(error.response.data.msg);
+      } else {
+        alert('데이터를 받아오는 과정에 문제가 생겼습니다.😹');
       }
     }
   };
 
   useEffect(() => {
-    emailstate && PWstate ? setActive(true) : setActive(false);
-  }, [emailstate, PWstate]);
+    email && password && emailstate && PWstate ? setActive(true) : setActive(false);
+  }, [email, password, emailstate, PWstate]);
 
   return (
     <>
@@ -47,9 +56,7 @@ const SignIn = () => {
         <div className="relative inputForm">
           <Password page={true} setPassword={setPassword} setPWState={setPWState} />
         </div>
-        <div onClick={login}>
-          <LoginButton name={'로그인'} page={false} active={active} success={success} click={login} />
-        </div>
+        <LoginButton name={'로그인'} page={false} active={active} onClick={login} />
         <LoginKakao />
       </form>
       <ChoiceTab />

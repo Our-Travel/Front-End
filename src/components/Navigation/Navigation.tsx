@@ -28,7 +28,12 @@ const Navigation = () => {
     navigate('/info');
   };
   const mypage = () => {
-    navigate('/mypage');
+    if (localStorage.getItem('token')) {
+      navigate('/mypage');
+    } else {
+      navigate('/signin');
+      alert('로그인 후 이용 가능합니다.');
+    }
   };
 
   return (

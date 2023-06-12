@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction, useCallback, useEffect, useRef, useState } from 'react';
+import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import axios, { AxiosResponse } from 'axios';
 import useInput from '../../hooks/useInput';
 import { MdOutlineCancel } from 'react-icons/md';
@@ -26,6 +26,8 @@ export const Email = ({ page, setEmail, setEmailState, setEmailStatus }: inputEm
       if (axios.isAxiosError(error) && error.response?.status === 400) {
         setFail(error.response.status);
         alert(error.response.data.msg);
+      } else {
+        alert('데이터를 받아오는 과정에 문제가 생겼습니다.😹');
       }
     }
   };
