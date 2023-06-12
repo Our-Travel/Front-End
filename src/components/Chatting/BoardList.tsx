@@ -13,9 +13,9 @@ const data = [
   { nickName: 'test3', content: 'content3' },
 ];
 
-const [modalOpen, setModal] = useState<boolean>(false);
+// const [modalOpen, setModal] = useState<boolean>(false);
 
-const isOpen = () => setModal(!modalOpen);
+// const isOpen = () => setModal(!modalOpen);
 
 const BoardList = () => {
   return (
