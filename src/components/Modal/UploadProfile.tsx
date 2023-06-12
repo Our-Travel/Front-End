@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React, { useEffect, useState, useCallback, useRef } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { AiOutlineCloseSquare } from 'react-icons/ai';
@@ -9,7 +10,7 @@ interface Modal {
 const UploadProfile = ({ onClose }: Modal) => {
   const imagePopupRef = useRef<HTMLDivElement | null>(null);
   const [file, setFile] = useState<File | null>(null);
-  const [imageUrl, setImageUrl] = useState<string | null>(null);
+  const [imageUrl, setImageUrl] = useState<string>('');
 
   const onDrop = useCallback((acceptedFiles: File[]) => {
     const test = acceptedFiles[0];
@@ -19,13 +20,39 @@ const UploadProfile = ({ onClose }: Modal) => {
       const result = (e.currentTarget as FileReader).result as string;
       setFile(test);
       setImageUrl(result);
+      // console.log(test);
     };
     text.readAsDataURL(test);
   }, []);
 
   const handleUpload = async () => {
-    // 이미지 업로드 로직을 구현합니다.
-    // 업로드된 이미지를 서버로 전송하고, 성공적으로 업로드된 후에 처리할 작업을 수행합니다.
+    const token =
+      'eyJhbGciOiJIUzUxMiJ9.eyJib2R5Ijoie1wiaWRcIjoyLFwidXNlcm5hbWVcIjpcInVzZXIxQGV4YW1wbGUuY29tXCIsXCJuaWNrTmFtZVwiOlwidXNlcjFcIixcImF1dGhvcml0aWVzXCI6W3tcImF1dGhvcml0eVwiOlwiTUVNQkVSXCJ9XX0iLCJleHAiOjQ4NDAxNjAxNTB9.4zsGU8u_ccyDCZQsSNUcCdX6bS2krAvp6y3tmMWcq0vfyeIbYN978JVgP58pXuouH0AVzLkUNr-F3ZEq2ohkPQ';
+    const headers = {
+      Authorization: `Bearer ${token}`,
+      // 'Content-Type': 'multipart/form-data',
+    };
+
+    const formData = new FormData();
+    formData.append('file', imageUrl);
+
+    await axios
+      .post('http://localhost:8080/api/mypage/upload', formData, { headers })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+        window.alert('업로드에 실패했습니다.');
+      });
+
+    // axios.get('http://localhost:8080/api/mypage', { headers }).then((response) => {
+    //   if (response.data) {
+    //     console.log(response.data.data);
+    //   } else {
+    //     console.log('파일을 저장하는데 실패했습니다.');
+    //   }
+    // });
   };
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
