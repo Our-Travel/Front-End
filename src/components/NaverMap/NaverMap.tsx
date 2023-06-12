@@ -64,6 +64,8 @@ import useGeolocation from '../../hooks/useGeolocation';
 import Spinner from '../../shared/Spinner';
 import TourModal from '../TouristList/TourModal';
 import axios from 'axios';
+import { aroundLoc, accommodation } from '../../Atom/atom';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 
 interface MapProps {
   token: string;
@@ -84,22 +86,40 @@ const NaverMap = ({ token }: MapProps) => {
   const navermaps = useNavermaps();
   const location = useGeolocation();
   const naverMap = useMap();
+  // recoil
   const [mapToggle, setMapToggle] = useState<boolean>(false);
-  const [aroundPlace, setAroundPlace] = useState<Place[] | null>(null);
-  const handleMapToggle = () => {
+  const [aroundPlace, setAroundPlace] = useRecoilState(aroundLoc);
+  const setCcommo = useSetRecoilState(accommodation);
+  const [selectPost, setSelectPost] = useState<Place | null>(null);
+  const handleMapToggle = (place: Place) => {
+    setSelectPost(place);
     setMapToggle(!mapToggle);
   };
+
   useEffect(() => {
     if (location.loaded && location.coordinates) {
+      const resAroundLoc = axios.get(`http://localhost:8080/api/local-place/spot?latitude=${location.coordinates?.lat}&longitude=${location.coordinates?.lng}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      const resAccommodation = axios.get(`http://localhost:8080/api/local-place/hotel?latitude=${location.coordinates?.lat}&longitude=${location.coordinates?.lng}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
       axios
-        .get(`http://localhost:8080/api/local-place/spot?latitude=${location.coordinates?.lat}&longitude=${location.coordinates?.lng}`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        })
-        .then((res) => {
-          setAroundPlace(res.data.data.documents);
-        })
+        .all([resAroundLoc, resAccommodation])
+        .then(
+          axios.spread((res1, res2) => {
+            // 첫 번째 요청 결과: res1.data
+            // 두 번째 요청 결과: res2.data
+            setAroundPlace(res1.data.data.documents);
+            setCcommo(res2.data.data.documents);
+          })
+        )
         .catch((err) => {
           console.log(err);
         });
@@ -110,15 +130,15 @@ const NaverMap = ({ token }: MapProps) => {
     <>
       {location.loaded && aroundPlace !== null ? (
         <>
-          <MapDiv className="h-screen w-full relative">
+          <MapDiv className="h-[950px] w-full relative">
             <Nmap zoomControl={true} scaleControl={true} defaultCenter={new navermaps.LatLng(location.coordinates?.lat, location.coordinates?.lng)} defaultZoom={15}>
               <Marker onClick={handleMapToggle} defaultPosition={new navermaps.LatLng(location.coordinates?.lat, location.coordinates?.lng)} />
               {aroundPlace.map((el) => (
                 <div key={el.id}>
-                  <Marker onClick={handleMapToggle} position={new navermaps.LatLng(el.y, el.x)} />
+                  <Marker onClick={() => handleMapToggle(el)} position={new navermaps.LatLng(el.y, el.x)} />
                 </div>
               ))}
-              {mapToggle && <TourModal setModal={setMapToggle} />}
+              {mapToggle && <TourModal setModal={setMapToggle} post={selectPost} />}
             </Nmap>
           </MapDiv>
         </>

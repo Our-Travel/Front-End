@@ -15,21 +15,19 @@ import FindMate from './pages/Main/FindMate';
 import MyWrite from './pages/MyPage/MyWrite';
 import Favorite from './pages/MyPage/Favorite';
 import Notice from './pages/MyPage/Notice';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import axios from 'axios';
 
 function App() {
-  const token =
-    'eyJhbGciOiJIUzUxMiJ9.eyJib2R5Ijoie1wiaWRcIjoyLFwidXNlcm5hbWVcIjpcInVzZXIxQGV4YW1wbGUuY29tXCIsXCJuaWNrTmFtZVwiOlwidXNlcjFcIixcImF1dGhvcml0aWVzXCI6W3tcImF1dGhvcml0eVwiOlwiTUVNQkVSXCJ9XX0iLCJleHAiOjQ4Mzk1NTk2NTd9.vwU6sqkgglt3Ju-auzMkV9BeU-E35a1zTsUcYoWcPGnqGxd56yO8ROINWYJ8SjJMT_LMUfPW6FhMzbf_93SFiA';
+  const [token, setToken] = useState('');
   useEffect(() => {
     axios
-      .get('http://localhost:8080/api/local-place/spot?latitude=37.3422186&longitude=127.9201621', {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+      .post('http://localhost:8080/api/member/login', {
+        username: 'user1@example.com',
+        password: '1234',
       })
       .then((res) => {
-        console.log(res.data.data.documents);
+        setToken(res.data.data.accessToken);
       });
   }, []);
   return (

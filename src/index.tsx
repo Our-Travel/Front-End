@@ -5,15 +5,18 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
 import { NavermapsProvider } from 'react-naver-maps';
+import { RecoilRoot } from 'recoil';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 const ncpClientId: string = process.env.REACT_APP_NAVER_KEY || '';
 root.render(
-  <NavermapsProvider ncpClientId={ncpClientId}>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
-  </NavermapsProvider>
+  <RecoilRoot>
+    <NavermapsProvider ncpClientId={ncpClientId}>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </NavermapsProvider>
+  </RecoilRoot>
 );
 
 // If you want to start measuring performance in your app, pass a function
