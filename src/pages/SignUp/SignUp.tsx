@@ -14,7 +14,7 @@ const test = [
 export default function SignUp() {
   return (
     <>
-      <Header title={'회원가입'} />
+      <Header title={'회원가입'} back={false} icon={undefined} />
       <form>
         <div className="flex flex-col gap-4 w-[25rem] mx-auto mt-6">
           <Email title={'이메일'} id={'userEmail'} type={'email'} page={false} text={'abc@email.com'} />

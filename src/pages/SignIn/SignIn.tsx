@@ -7,7 +7,7 @@ import ChoiceTab from '../../components/ChoiceTab/ChoiceTab';
 export default function SignIn() {
   return (
     <>
-      <Header title={'로그인'} />
+      <Header title={'로그인'} back={false} icon={undefined} />
       <div className="w-52 h-52 mx-auto my-10">
         <Logo />
       </div>

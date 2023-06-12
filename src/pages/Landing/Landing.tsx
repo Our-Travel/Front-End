@@ -48,7 +48,7 @@ export default function Landing() {
           <span className="text-gray-500">feedback</span>
         </Link>
       </div>
-      <Modal open={modalOpen} close={setModal} />
+      <Modal open={modalOpen} close={setModal} data={[]} page={''} />
     </>
   );
 }

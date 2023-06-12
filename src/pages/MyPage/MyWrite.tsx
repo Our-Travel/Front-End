@@ -4,7 +4,7 @@ import { Profile } from '../../components/MypageInfo/MypageInfo';
 export default function MyWrite() {
   return (
     <>
-      <Header title={'내가 작성한 글'} />
+      <Header title={'내가 작성한 글'} back={false} icon={undefined} />
       <div className="flex flex-col gap-4 w-[25rem] mx-auto my-6 line">
         <Profile />
       </div>
