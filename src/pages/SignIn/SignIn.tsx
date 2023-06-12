@@ -6,6 +6,8 @@ import ChoiceTab from '../../components/ChoiceTab/ChoiceTab';
 import React, { useEffect, useState, MouseEvent } from 'react';
 import axios, { AxiosResponse } from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { useSetRecoilState } from 'recoil';
+import { token } from '../../recoil/loginAtom';
 
 const SignIn = () => {
   const [email, setEmail] = useState<string>('');
@@ -15,6 +17,7 @@ const SignIn = () => {
   const [PWstate, setPWState] = useState<boolean>(false);
   const [emailStatus, setEmailStatus] = useState<number>(0);
   const navigate = useNavigate();
+  const setToken = useSetRecoilState(token);
 
   const login = async (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -24,6 +27,7 @@ const SignIn = () => {
         username: email,
         password: password,
       });
+      setToken(response.data.data.accessToken);
       localStorage.setItem('token', response.data.data.accessToken);
       navigate('/main');
       alert('✅ 환영합니다. 좋은하루 되세요. ✅');
