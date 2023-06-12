@@ -18,6 +18,7 @@ import Notice from './pages/MyPage/Notice';
 import Board from './pages/Chatting/Board';
 import WriteBoard from './pages/Chatting/WriteBoard';
 import Host from './pages/MyPage/Host';
+import KakaoRedirect from './pages/SignIn/KakaoRedirect';
 
 function App() {
   return (
@@ -26,6 +27,8 @@ function App() {
         <Routes>
           <Route path="/" element={<Landing />} />
           <Route path="/signin" element={<SignIn />} />
+          <Route path="/kakao/redirect" element={<KakaoRedirect />} />
+          {/* <Route path="/oauth2/kakao" element={<KakaoRedirect />} /> */}
           <Route path="/signup" element={<SignUp />} />
           <Route element={<Navigation />}>
             <Route path="/info" element={<Info />} />
