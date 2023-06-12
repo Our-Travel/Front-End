@@ -7,6 +7,7 @@ import { BsPatchCheckFill } from 'react-icons/bs';
 import { MdLogout, MdPersonRemove } from 'react-icons/md';
 import { IconType } from 'react-icons';
 import Modal from '../../components/Modal/Modal';
+import UploadProfile from '../../components/Modal/UploadProfile';
 
 const icons: { Icon: IconType | string; link: string; text: string }[] = [
   {
@@ -37,6 +38,13 @@ const memberShipModal: { text: string }[] = [{ text: '회원탈퇴' }, { text: '
 const MyPage = () => {
   const [modalOpen, setModal] = useState<boolean>(false);
   const [icon, setIcon] = useState<string>('');
+  const [uploadModalOpen, setUploadModal] = useState<boolean>(false);
+  const handleImage = () => {
+    setUploadModal(true);
+  };
+  const closeImagePopup = () => {
+    setUploadModal(false);
+  };
 
   const isOpen = (e: React.MouseEvent<HTMLButtonElement>) => {
     const target = e.target as HTMLButtonElement;
@@ -49,7 +57,9 @@ const MyPage = () => {
       <Header title={'마이페이지'} back={false} icon={''} />
       <div className="flex flex-col gap-4 w-[25rem] mx-auto my-6">
         <Profile />
-        <button className="w-[25rem] h-9 mb-7 border rounded border-main-color text-main-color hover:bg-main-color hover:text-white">프로필 수정</button>
+        <button onClick={handleImage} className="w-[25rem] h-9 mb-7 border rounded border-main-color text-main-color hover:bg-main-color hover:text-white">
+          프로필 수정
+        </button>
         <div className="flex flex-col gap-5 line">
           <MypageTab name={'내가 작성한 글'} link={'/mypage/mywrite'} />
           <MypageTab name={'즐겨찾기'} link={'/mypage/favorite'} />
@@ -75,6 +85,7 @@ const MyPage = () => {
         </ul>
       </div>
       {<Modal open={modalOpen} close={setModal} data={icon === '로그아웃' ? logOutModal : memberShipModal} page={'mypage'} />}
+      {uploadModalOpen && <UploadProfile onClose={closeImagePopup} />}
     </>
   );
 };
