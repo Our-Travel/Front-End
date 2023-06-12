@@ -1,14 +1,10 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState, MouseEvent } from 'react';
 import Header from '../../components/Header/Header';
 import { Email, Password } from '../../components/EmailPassword/EmailPassword';
 import { LoginButton } from '../../components/LoginButton/LoginButton';
 import useInput from '../../hooks/useInput';
 import axios, { AxiosResponse } from 'axios';
-
-interface optionType {
-  value: string;
-  label: string;
-}
+import { useNavigate } from 'react-router-dom';
 
 const SignUp = () => {
   const [email, setEmail] = useState<string>('');
@@ -23,16 +19,19 @@ const SignUp = () => {
   const [emailStatus, setEmailStatus] = useState<number>(0);
   const pwCheck = useInput();
   const nickName = useInput();
+  const navigate = useNavigate();
 
-  const join = async () => {
+  const join = async (e: MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
     try {
-      const url = `http://localhost:8080/api/member/signup`;
+      const url = 'http://localhost:8080/api/member/signup';
       const response: AxiosResponse = await axios.post(url, {
         username: email,
         password: password,
         nickName: nickName.data,
       });
       alert(response.data.msg);
+      navigate('/signin');
     } catch (error) {
       if (axios.isAxiosError(error) && error.response?.status === 400) {
         alert(error.response.data.msg);
@@ -54,6 +53,8 @@ const SignUp = () => {
       if (axios.isAxiosError(error) && error.response?.status === 400) {
         setFail(error.response.status);
         alert(error.response.data.msg);
+      } else {
+        alert('데이터를 받아오는 과정에 문제가 생겼습니다.😹');
       }
     }
   };
@@ -111,8 +112,8 @@ const SignUp = () => {
             </div>
             <span className="errorText">{nickNameMsg}</span>
           </div>
-          <div className="absolute bottom-7" onClick={join}>
-            <LoginButton name={'가입하기'} page={false} active={active} success={success} click={join} />
+          <div className="absolute bottom-7">
+            <LoginButton name={'가입하기'} page={false} active={active} onClick={join} />
           </div>
         </div>
       </form>
