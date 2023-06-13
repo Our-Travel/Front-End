@@ -6,6 +6,8 @@ import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
 import { NavermapsProvider } from 'react-naver-maps';
 import { RecoilRoot } from 'recoil';
+import { RecoilLogger } from 'recoil-devtools-logger';
+import { token } from '../src/recoil/loginAtom';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 const ncpClientId: string = process.env.REACT_APP_NAVER_KEY || '';
@@ -13,6 +15,7 @@ root.render(
   <RecoilRoot>
     <NavermapsProvider ncpClientId={ncpClientId}>
       <BrowserRouter>
+        <RecoilLogger values={[token]} />
         <App />
       </BrowserRouter>
     </NavermapsProvider>
