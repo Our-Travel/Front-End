@@ -130,7 +130,7 @@ const NaverMap = ({ token }: MapProps) => {
     <>
       {location.loaded && aroundPlace !== null ? (
         <>
-          <MapDiv className="h-[950px] w-full relative">
+          <MapDiv className="h-[740px] w-full relative">
             <Nmap zoomControl={true} scaleControl={true} defaultCenter={new navermaps.LatLng(location.coordinates?.lat, location.coordinates?.lng)} defaultZoom={15}>
               <Marker onClick={handleMapToggle} defaultPosition={new navermaps.LatLng(location.coordinates?.lat, location.coordinates?.lng)} />
               {aroundPlace.map((el) => (
