@@ -36,27 +36,31 @@ export const tourDummy: dummyType[] = [
   },
 ];
 
-export const AccDummy: dummyType[] = [
+export const AccDummy = [
   {
     img: '/homeicon.png',
+    id: 1,
     title: '경복궁',
     subtitle: '서울 옛 고궁',
     km: '1km',
   },
   {
     img: '/homeicon.png',
+    id: 2,
     title: '땡땡이 카페',
     subtitle: '동물카페',
     km: '1km',
   },
   {
     img: '/homeicon.png',
+    id: 3,
     title: '서울대공원',
     subtitle: '유원지,동물원',
     km: '1km',
   },
   {
     img: '/homeicon.png',
+    id: 4,
     title: '담양',
     subtitle: '대나무의 본고장',
     km: '1km',

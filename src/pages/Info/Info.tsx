@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { cls } from '../../util/util';
 import Header from '../../components/Header/Header';
 import TouristList from '../../components/TouristList/TouristList';
 import Accommodation from '../../components/TouristList/Accommodation';
+import axios from 'axios';
+import useGeolocation from '../../hooks/useGeolocation';
 
 const Info = () => {
   const [toggle, setToggle] = useState<boolean>(false);
@@ -15,6 +17,22 @@ const Info = () => {
       setToggle(true);
     }
   };
+
+  const location = useGeolocation();
+  const { lat, lng } = location.coordinates || {};
+
+  useEffect(() => {
+    axios
+      .get(`http://localhost:8080/api/local-place/hotel?latitude=${lat}&longitude=${lng}`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
+      })
+      .then((res) => {
+        console.log(res.data.data.msg);
+      });
+  }, []);
+
   return (
     <div>
       <Header title={'관광지, 숙박'} back={false} icon={''} />
