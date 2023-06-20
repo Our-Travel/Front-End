@@ -20,7 +20,7 @@ const TourModal = ({ boardDetail, setModal }: TourModalProps) => {
   };
   return (
     <div className="shadow-2xl">
-      <div onClick={closeModal} className="z-0 absolute w-full h-screen modalPosition bg-red-200 opacity-25" />
+      <div onClick={closeModal} className="z-0 absolute w-full h-screen modalPosition bg-gray-400 opacity-25" />
       <div className="absolute bottom-0 w-full h-[400px] bg-white rounded-t-3xl">
         <div className="border-b-2 py-3">중앙대학교</div>
         <div className="flex items-center border-b-2 py-10 pl-5 pr-10">
@@ -33,7 +33,7 @@ const TourModal = ({ boardDetail, setModal }: TourModalProps) => {
             <p>전화번호</p>
           </div>
         </div>
-        <p className="pt-10 pb-16 text-left">여기에 뭐라고 써야할지 모르겠어 설명이 간지나게 적혀야할거 같은 느낌이 팍팍 든다</p>
+        <p className="pt-10 pb-16 px-6 text-left">여기에 뭐라고 써야할지 모르겠어 설명이 간지나게 적혀야할거 같은 느낌이 팍팍 든다</p>
         <div className="flex items-center justify-between px-5">
           <div className="flex items-center">
             <AiOutlineHeart className="mr-3 w-[30px] h-[30px]" />

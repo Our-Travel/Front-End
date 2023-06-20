@@ -12,7 +12,7 @@ const TouristList = () => {
   return (
     <>
       {dummy.map((el, index) => (
-        <div key={index} className="listStyles border-b-2 border-red-400" onClick={() => handleItemClick(index)}>
+        <div key={index} className="listStyles border-b-[2px] border-gray-200" onClick={() => handleItemClick(index)}>
           <div className="w-[60px] bg-pink-300 p-2 rounded-lg">
             <img src={el.img} />
           </div>
