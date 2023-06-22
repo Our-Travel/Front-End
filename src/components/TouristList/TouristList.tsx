@@ -6,6 +6,9 @@ interface TourObject {
   id: number;
   title: string;
   subtitle: string;
+  address: string;
+  call: string;
+  content: string;
   img: string;
   km: number;
 }
@@ -20,6 +23,9 @@ const TouristList = () => {
       id: item.id,
       title: item.title,
       subtitle: item.subtitle,
+      address: item.address,
+      call: item.call,
+      content: item.content,
       img: item.img,
       km: Number(item.km),
     };
@@ -35,10 +41,10 @@ const TouristList = () => {
             <img src={el.img} alt={el.title} />
           </div>
           <div className="flex flex-col text-left w-[250px]">
-            <span>{el.title}</span>
+            <span className="font-semibold text-gray-700">{el.title}</span>
             <span>{el.subtitle}</span>
           </div>
-          <p className="text-gray-400">{el.km} km</p>
+          <p className="text-gray-400">{el.km}</p>
         </div>
       ))}
       {modal && <TourModal boardDetail={boardDetail} setModal={setModal} />}

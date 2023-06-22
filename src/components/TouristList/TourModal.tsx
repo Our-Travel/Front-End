@@ -5,6 +5,9 @@ interface TourObject {
   id: number;
   title: string;
   subtitle: string;
+  address: string;
+  call: string;
+  content: string;
   img: string;
   km: number;
 }
@@ -31,19 +34,19 @@ const TourModal = ({ boardDetail, setModal }: Props) => {
       <div onClick={closeModal} className="z-0 absolute w-full h-screen modalPosition bg-gray-400 opacity-25" />
       {boardDetail && (
         <div className="absolute bottom-0 w-full h-[470px] bg-white rounded-t-3xl">
-          <div className="border-b-2 py-3">{boardDetail.title}</div>
-          <div className="flex items-center border-b-2 py-10 pl-5 pr-10">
-            <div className="w-[70px] h-[80px] bg-pink-300 p-2 rounded-lg mr-3">
+          <div className="border-b-2 py-3 font-bold text-lg">{boardDetail.title}</div>
+          <div className="h-[150px] flex items-center border-b-2 py-10 pl-5 pr-10">
+            <div className="w-[80px] h-[80px] bg-pink-300 p-2 rounded-lg mr-5">
               <img className="mr-6" alt="관광지 사진" src="/homeicon.png" />
             </div>
             <div className="flex flex-col items-start">
-              <h1>{boardDetail.subtitle}</h1>
-              <p id="address">서울 동작구 흑석로 84 중앙대학교</p>
-              <p>전화번호</p>
+              <h1 className="font-bold mb-1">{boardDetail.title}</h1>
+              <p id="address">{boardDetail.address}</p>
+              <p>{boardDetail.call}</p>
             </div>
           </div>
-          <p className="pt-10 pb-16 px-6 text-left">여기에 뭐라고 써야할지 모르겠어 설명이 간지나게 적혀야할거 같은 느낌이 팍팍 든다</p>
-          <div className="flex items-center justify-between px-5">
+          <p className="py-8 h-[150px] px-6 text-left text-gray-600">{boardDetail.content}</p>
+          <div className="mt-4 flex items-center justify-between px-5">
             <div className="flex items-center translate-x-2">
               <AiOutlineHeart className="mr-3 w-[30px] h-[30px]" />
               <span>Add To Favorite</span>

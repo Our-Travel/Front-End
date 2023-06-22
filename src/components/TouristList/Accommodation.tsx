@@ -11,7 +11,7 @@ const Accommodation = () => {
               <img src={el.img} />
             </div>
             <div className="flex flex-col text-left w-[250px]">
-              <span>{el.title}</span>
+              <span className="font-semibold text-gray-700">{el.title}</span>
               <span>{el.subtitle}</span>
             </div>
             <p className="text-gray-400">{el.km}</p>
