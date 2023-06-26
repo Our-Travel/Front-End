@@ -22,13 +22,13 @@ const SignIn = () => {
   const login = async (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     try {
-      const url = 'http://localhost:8080/api/member/login';
+      const url = 'http://localhost:8080/api/members/login';
       const response: AxiosResponse = await axios.post(url, {
         username: email,
         password: password,
       });
-      setToken(response.data.data.accessToken);
-      localStorage.setItem('token', response.data.data.accessToken);
+      setToken(response.data.data.access_token);
+      localStorage.setItem('token', response.data.data.access_token);
       navigate('/main');
       alert('✅ 환영합니다. 좋은하루 되세요. ✅');
     } catch (error) {

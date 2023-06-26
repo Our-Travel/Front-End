@@ -18,20 +18,20 @@ const Info = () => {
     }
   };
 
-  const location = useGeolocation();
-  const { lat, lng } = location.coordinates || {};
+  const { loaded, coordinates } = useGeolocation();
+  console.log(coordinates?.lat, coordinates?.lng);
 
   useEffect(() => {
     axios
-      .get(`http://localhost:8080/api/local-place/hotel?latitude=${lat}&longitude=${lng}`, {
+      .get(`http://localhost:8080/api/local-place/hotel?latitude=${coordinates?.lat}&longitude=${coordinates?.lng}`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`,
         },
       })
       .then((res) => {
-        console.log(res.data.data.msg);
+        console.log(res.data.msg);
       });
-  }, []);
+  }, [coordinates?.lat, coordinates?.lng, loaded]);
 
   return (
     <div>
