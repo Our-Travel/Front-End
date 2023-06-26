@@ -10,11 +10,11 @@ const useInput = () => {
 
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     setData(e.target.value);
-    if (e.target.id === 'userEmail') {
+    if (e.target.id === 'email') {
       setState(emailValid.test(e.target.value) ? true : false);
     } else if (e.target.id === 'userPw1') {
       setState(passwordValid.test(e.target.value) ? true : false);
-    } else if (e.target.id === 'userNickName') {
+    } else if (e.target.id === 'nickName') {
       setState(nickNameValid.test(e.target.value) ? true : false);
     }
   };
