@@ -2,8 +2,10 @@ import Header from '../../components/Header/Header';
 import { Profile } from '../../components/MypageInfo/MypageInfo';
 import { LoginButton } from '../../components/LoginButton/LoginButton';
 import Select, { SingleValue } from 'react-select';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, MouseEvent } from 'react';
 import useInput from '../../hooks/useInput';
+import axios, { AxiosResponse } from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 interface optionType {
   value: string;
@@ -11,11 +13,11 @@ interface optionType {
 }
 
 const cityData: optionType[] = [
-  { value: '시도명1', label: '시도명1' },
-  { value: '시도명2', label: '시도명2' },
-  { value: '시도명3', label: '시도명3' },
-  { value: '시도명4', label: '시도명4' },
-  { value: '시도명5', label: '시도명5' },
+  { value: '서울', label: '서울' },
+  { value: '경기', label: '경기' },
+  { value: '부산', label: '부산' },
+  { value: '세종', label: '세종' },
+  { value: '제주', label: '제주' },
 ];
 
 const areaData: optionType[] = [
@@ -32,11 +34,35 @@ const Host = () => {
   const [area, setArea] = useState<SingleValue<optionType>>(null);
   const myInfo = useInput();
   const hashTag = useInput();
+  const navigate = useNavigate();
+
+  const hostRegist = async (e: MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    try {
+      const url = 'http://localhost:8080/api/hosts';
+      const response: AxiosResponse = await axios.post(url, {
+        introduction: myInfo.data,
+        hash_tag: hashTag.data,
+        region: city?.label,
+      });
+      alert(response.data.msg);
+      navigate('/mypage');
+    } catch (error) {
+      if (axios.isAxiosError(error) && error.response?.status === 403) {
+        alert(error.response.data.msg);
+      } else {
+        alert('데이터를 받아오는 과정에 문제가 생겼습니다.😹');
+      }
+    }
+  };
+
+  if (localStorage.getItem('token')) {
+    axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('token')}`;
+  }
 
   const cityHandle = (option: SingleValue<optionType>) => {
     setCity(option);
   };
-
   const areaHandle = (option: SingleValue<optionType>) => {
     setArea(option);
   };
@@ -58,29 +84,24 @@ const Host = () => {
       </div>
       <form className="flex flex-col gap-5 text-left mx-auto">
         <div className="inputForm">
-          <label htmlFor="" className="">
-            한줄소개
-          </label>
-          <input required type="text" className="inputStyle" placeholder="나를 소개해주세요" onChange={myInfo.onChange} value={myInfo.data} />
+          <label htmlFor="introduction">한줄소개</label>
+          <input required type="text" id="introduction" className="inputStyle" placeholder="나를 소개해주세요" onChange={myInfo.onChange} value={myInfo.data} />
+          {/* <span className="errorText"></span> */}
         </div>
         <div className="inputForm">
-          <label htmlFor="" className="">
-            해시태그
-          </label>
-          <input required type="text" className="inputStyle" placeholder="#맛집전문  #가이드투어" onChange={hashTag.onChange} />
+          <label htmlFor="hashTag">해시태그</label>
+          <input required type="text" id="hashTag" className="inputStyle" placeholder="#맛집전문  #가이드투어" onChange={hashTag.onChange} value={hashTag.data} />
           <span className="errorText">{hashTagCheck()}</span>
         </div>
         <div className="flex flex-col gap-1">
-          <label htmlFor="" className="">
-            위치
-          </label>
+          <h2>위치</h2>
           <div className="flex flex-row gap-4">
-            <Select className="w-44 flex-grow" options={cityData} name="city" maxMenuHeight={120} placeholder="시 / 도" onChange={cityHandle} />
-            <Select className="w-44 flex-grow" options={areaData} name="area" maxMenuHeight={120} placeholder="시 / 군 / 구" onChange={areaHandle} />
+            <Select className="w-44 flex-grow" options={cityData} maxMenuHeight={120} placeholder="시 / 도" onChange={cityHandle} />
+            <Select className="w-44 flex-grow" options={areaData} maxMenuHeight={120} placeholder="시 / 군 / 구" onChange={areaHandle} />
           </div>
         </div>
         <div className="absolute bottom-16">
-          <LoginButton name={'등록하기'} page={false} active={active} onClick={() => {}} />
+          <LoginButton name={'등록하기'} page={false} active={active} onClick={hostRegist} />
         </div>
       </form>
     </div>
