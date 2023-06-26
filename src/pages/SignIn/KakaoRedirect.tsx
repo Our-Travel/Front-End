@@ -3,10 +3,11 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import { useSetRecoilState } from 'recoil';
-import { token, userLogin } from '../../recoil/loginAtom';
+import { token } from '../../Atom/atom';
+import { userInfo } from '../../Atom/userAtom';
 
 const KakaoRedirect = () => {
-  const [userInfo, setUserInfo] = useRecoilState(userLogin);
+  const [info, setInfo] = useRecoilState(userInfo);
   const navigate = useNavigate();
   const setToken = useSetRecoilState(token);
 
@@ -40,13 +41,13 @@ const KakaoRedirect = () => {
               },
             }
           )
-          // 현재 mypage랑 안맞는 이슈 요청하는 Url 403
+
           .then((res) => {
-            setUserInfo({ email: res.data.kakao_account.email, nickName: res.data.kakao_account.profile.nickname });
+            // setInfo({ email: res.data.kakao_account.email, password: { data: '', state: false }, nickName: res.data.kakao_account.profile.nickname, pwCheck: { data: '', state: false } });
             setToken(access_token);
             localStorage.setItem('token', access_token);
             navigate('/main');
-            alert('✅ 환영합니다. 좋은하루 되세요. ✅');
+            alert('✅ 환영합니다. 좋은하루 되세요. ✅'); // 완성되면 msg로 문구 변경
           })
           .then(() => {
             console.log('성공');
