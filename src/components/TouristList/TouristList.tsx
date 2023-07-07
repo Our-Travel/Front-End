@@ -34,9 +34,9 @@ const TouristList = () => {
   };
 
   return (
-    <>
+    <div className="overflow-y-auto h-[650px]">
       {dummy.map((el, index) => (
-        <div key={index} className="listStyles border-b-[2px] border-gray-200" onClick={() => handleItemClick(index)}>
+        <div key={index} className="listStyles border-b-[2px] border-gray-200 " onClick={() => handleItemClick(index)}>
           <div className="w-[60px] bg-pink-300 p-2 rounded-lg">
             <img src={el.img} alt={el.title} />
           </div>
@@ -48,7 +48,7 @@ const TouristList = () => {
         </div>
       ))}
       {modal && <TourModal boardDetail={boardDetail} setModal={setModal} />}
-    </>
+    </div>
   );
 };
 

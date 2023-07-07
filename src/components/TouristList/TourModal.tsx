@@ -1,5 +1,5 @@
-import React, { Dispatch, SetStateAction, useRef } from 'react';
-import { AiOutlineHeart, AiOutlineShareAlt } from 'react-icons/ai';
+import React, { Dispatch, SetStateAction, useCallback, useRef, useState } from 'react';
+import { AiOutlineHeart, AiFillHeart, AiOutlineShareAlt } from 'react-icons/ai';
 
 interface TourObject {
   id: number;
@@ -20,15 +20,22 @@ const TourModal = ({ boardDetail, setModal }: Props) => {
   const closeModal = () => {
     setModal(false);
   };
-  const handleClipBoard = async () => {
-    const text = document.getElementById('address')?.innerText;
-    if (text && !document.hasFocus()) {
-      await navigator.clipboard.writeText(text);
-      alert('복사됐다');
-    } else {
-      alert('복사실패');
+  const handleClipBoard = useCallback(async () => {
+    try {
+      await navigator.clipboard.writeText(boardDetail?.address ?? '');
+      alert('주소가 복사되었습니다!');
+    } catch (err) {
+      console.error('Could not copy text: ', err);
+      alert('주소가 복사되지 않았습니다 :(');
     }
+  }, [boardDetail]);
+
+  const [isFavorited, setIsFavorited] = useState(false);
+
+  const toggleFavorite = () => {
+    setIsFavorited((prevIsFavorited) => !prevIsFavorited);
   };
+
   return (
     <div className="shadow-2xl">
       <div onClick={closeModal} className="z-0 absolute w-full h-screen modalPosition bg-gray-400 opacity-25" />
@@ -45,10 +52,10 @@ const TourModal = ({ boardDetail, setModal }: Props) => {
               <p>{boardDetail.call}</p>
             </div>
           </div>
-          <p className="py-8 h-[150px] px-6 text-left text-gray-600">{boardDetail.content}</p>
+          <p className="pt-6 pb-3 h-[150px] overflow-y-auto px-6 text-left text-gray-600">{boardDetail.content}</p>
           <div className="mt-4 flex items-center justify-between px-5">
-            <div className="flex items-center translate-x-2">
-              <AiOutlineHeart className="mr-3 w-[30px] h-[30px]" />
+            <div className="flex items-center translate-x-2 hover:cursor-pointer" onClick={toggleFavorite}>
+              {isFavorited ? <AiFillHeart className="mr-3 w-[30px] h-[30px]" /> : <AiOutlineHeart className="mr-3 w-[30px] h-[30px]" />}
               <span>Add To Favorite</span>
             </div>
             <div className="w-[1px] h-[30px] bg-black" />
