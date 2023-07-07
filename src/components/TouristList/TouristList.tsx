@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { AccDummy as dummy } from '../../util/dummy';
+import { tourDummy as dummy } from '../../util/dummy';
 import TourModal from './TourModal';
 
 interface TourObject {

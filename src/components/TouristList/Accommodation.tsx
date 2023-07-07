@@ -1,13 +1,44 @@
-import React from 'react';
-import { tourDummy as dummy } from '../../util/dummy';
+import React, { useState } from 'react';
+import { AccDummy as dummy } from '../../util/dummy';
+import TourModal from './TourModal';
+
+interface AccommodationObject {
+  id: number;
+  title: string;
+  subtitle: string;
+  address: string;
+  call: string;
+  content: string;
+  img: string;
+  km: number;
+}
 
 const Accommodation = () => {
+  const [boardDetail, setBoardDetail] = useState<AccommodationObject | null>(null);
+  const [modal, setModal] = useState<boolean>(false);
+
+  const handleItemClick = (index: number) => {
+    const item = dummy[index]!;
+    const convertedItem: AccommodationObject = {
+      id: item.id,
+      title: item.title,
+      subtitle: item.subtitle,
+      address: item.address,
+      call: item.call,
+      content: item.content,
+      img: item.img,
+      km: Number(item.km),
+    };
+    setBoardDetail(convertedItem);
+    setModal(true);
+  };
+
   return (
     <div className="overflow-y-auto h-[650px]">
       {dummy.map((el, index) => (
-        <div key={index} className="listStyles border-b-[2px] border-gray-200">
+        <div key={index} className="listStyles border-b-[2px] border-gray-200 " onClick={() => handleItemClick(index)}>
           <div className="w-[60px] bg-pink-300 p-2 rounded-lg">
-            <img src={el.img} />
+            <img src={el.img} alt={el.title} />
           </div>
           <div className="flex flex-col text-left w-[250px]">
             <span className="font-semibold text-gray-700">{el.title}</span>
@@ -16,6 +47,7 @@ const Accommodation = () => {
           <p className="text-gray-400">{el.km}</p>
         </div>
       ))}
+      {modal && <TourModal boardDetail={boardDetail} setModal={setModal} />}
     </div>
   );
 };
