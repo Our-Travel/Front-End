@@ -56,7 +56,7 @@ const TourModal = ({ boardDetail, setModal }: Props) => {
           <div className="mt-4 flex items-center justify-between px-5">
             <div className="flex items-center translate-x-2 hover:cursor-pointer" onClick={toggleFavorite}>
               {isFavorited ? <AiFillHeart className="mr-3 w-[30px] h-[30px]" /> : <AiOutlineHeart className="mr-3 w-[30px] h-[30px]" />}
-              <span>Add To Favorite</span>
+              <button>Add To Favorite</button>
             </div>
             <div className="w-[1px] h-[30px] bg-black" />
             <div onClick={handleClipBoard} className="flex items-center -translate-x-5">

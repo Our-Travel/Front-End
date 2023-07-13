@@ -16,6 +16,7 @@ interface TourObject {
 const TouristList = () => {
   const [boardDetail, setBoardDetail] = useState<TourObject | null>(null);
   const [modal, setModal] = useState<boolean>(false);
+  const [selectedIdx, setSelectedIdx] = useState<number | null>(null);
 
   const handleItemClick = (index: number) => {
     const item = dummy[index]!;
@@ -29,6 +30,7 @@ const TouristList = () => {
       img: item.img,
       km: Number(item.km),
     };
+    setSelectedIdx(index);
     setBoardDetail(convertedItem);
     setModal(true);
   };
@@ -36,7 +38,7 @@ const TouristList = () => {
   return (
     <div className="overflow-y-auto h-[650px]">
       {dummy.map((el, index) => (
-        <div key={index} className="listStyles border-b-[2px] border-gray-200 " onClick={() => handleItemClick(index)}>
+        <div key={index} className={`listStyles border-b-[2px] border-gray-200 ${index === selectedIdx ? 'border-main-color border' : ''}`} onClick={() => handleItemClick(index)} tabIndex={0} role="button">
           <div className="w-[60px] bg-pink-300 p-2 rounded-lg">
             <img src={el.img} alt={el.title} />
           </div>

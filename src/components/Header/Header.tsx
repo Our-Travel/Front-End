@@ -58,9 +58,11 @@ const Header = ({ title, back, icon }: header) => {
           </button>
         )}
         <h2 className="text-xl font-semibold">{title}</h2>
-        <button type="button" className="absolute right-1 px-2 py-2" onClick={handleButtonClick}>
-          {icon}
-        </button>
+        {icon && (
+          <button type="button" className="absolute right-1 px-2 py-2" onClick={handleButtonClick}>
+            {icon}
+          </button>
+        )}
       </header>
       <ChattingModal open={modalOpen} close={setModal} />
     </>

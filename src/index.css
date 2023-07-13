@@ -2,6 +2,20 @@
 @tailwind components;
 @tailwind utilities;
 
+a:focus,
+input:focus,
+button:focus,
+textarea:focus,
+div:focus,
+.swiper-button-prev:focus,
+.swiper-button-next:focus,
+.swiper-pagination-bullet:focus {
+  margin: 3px;
+  outline: 1px solid var(--red-1);
+  outline-offset: 0;
+  box-shadow: 0 0 10px 3px rgba(255, 0, 64, 0.4);
+}
+
 @layer components {
   .hideTitle {
     @apply absolute w-[1px] h-[1px] overflow-hidden;
