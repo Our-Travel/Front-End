@@ -5,15 +5,14 @@ import { LoginButton } from '../../components/LoginButton/LoginButton';
 import axios, { AxiosResponse } from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
-import { userInfo, userStatus } from '../../Atom/userAtom';
+import { userInfo, signUpStatus } from '../../Atom/userAtom';
 
 const SignUp = () => {
   const [pwData, setPwData] = useState<string>('');
   const [active, setActive] = useState<boolean>(false);
   const user = useRecoilValue(userInfo);
-  const status = useRecoilValue(userStatus);
-  const resetInfo = useSetRecoilState(userInfo);
-  const resetStatus = useSetRecoilState(userStatus);
+  const status = useRecoilValue(signUpStatus);
+  const resetStatus = useSetRecoilState(signUpStatus);
   const navigate = useNavigate();
 
   const join = async (e: MouseEvent<HTMLButtonElement>) => {
@@ -25,7 +24,6 @@ const SignUp = () => {
         password: user.password?.data,
         nick_name: user.nickName?.data,
       });
-      resetInfo({ email: null, password: null, nickName: null });
       resetStatus({ email: null, nickName: null });
       alert(response.data.msg);
       navigate('/signin');
