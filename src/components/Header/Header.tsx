@@ -46,13 +46,6 @@ const Header = ({ title, back, icon }: header) => {
     }
   };
 
-  const logout = () => {
-    resetToken();
-    localStorage.removeItem('token');
-    navigate('/');
-    alert('로그아웃 되었습니다.👋');
-  };
-
   return (
     <>
       <header className="flex justify-center items-center text-2xl py-3 border-b border-gray-200">
@@ -67,11 +60,6 @@ const Header = ({ title, back, icon }: header) => {
           </button>
         )}
         <h2 className="text-xl font-semibold">{title}</h2>
-        {title === '메인' && (
-          <button type="button" onClick={logout} className="absolute right-2 py-1 px-2 border border-black rounded-md text-sm hover:bg-main-color hover:text-white hover:border-none">
-            로그아웃
-          </button>
-        )}
         <button type="button" className="absolute right-1 px-2 py-2" onClick={handleButtonClick}>
           {icon}
         </button>
