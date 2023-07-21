@@ -2,7 +2,7 @@ import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import axios, { AxiosResponse } from 'axios';
 import useInput from '../../hooks/useInput';
 import { MdOutlineCancel } from 'react-icons/md';
-import { userInfo, userStatus } from '../../Atom/userAtom';
+import { userInfo, signUpStatus } from '../../Atom/userAtom';
 import { useRecoilState } from 'recoil';
 
 interface inputEmail {
@@ -14,14 +14,10 @@ interface inputEmail {
 }
 
 export const Email = ({ page, id, title, type, placeholder }: inputEmail) => {
-  const [emailTrue, setEmailTrue] = useState<number>(0);
-  const [emailFalse, setEmailFalse] = useState<number>(0);
-  const [nickNameTrue, setNickNameTrue] = useState<number>(0);
-  const [nickNameFalse, setNickNameFalse] = useState<number>(0);
   const [emailMsg, setEmailMsg] = useState<string>('');
   const [nickNameMsg, setNickNameMsg] = useState<string>('');
   const [info, setInfo] = useRecoilState(userInfo);
-  const [status, setStatus] = useRecoilState(userStatus);
+  const [status, setStatus] = useRecoilState(signUpStatus);
   const email = useInput();
   const nickName = useInput();
 
@@ -29,11 +25,11 @@ export const Email = ({ page, id, title, type, placeholder }: inputEmail) => {
     try {
       const url = `http://localhost:8080/api/members/exists/username/${email.data}`;
       const response: AxiosResponse = await axios.get(url);
-      if (response.status === 200) setEmailTrue(response.status), setStatus({ ...status, email: response.status });
+      if (response.status === 200) setStatus({ ...status, email: response.status });
       alert(response.data.msg);
     } catch (error) {
       if (axios.isAxiosError(error) && error.response?.status === 400) {
-        setEmailFalse(error.response.status);
+        setStatus({ ...status, email: error.response.status });
         alert(error.response.data.msg);
       } else {
         alert('데이터를 받아오는 과정에 문제가 생겼습니다.😹');
@@ -45,11 +41,11 @@ export const Email = ({ page, id, title, type, placeholder }: inputEmail) => {
     try {
       const url = `http://localhost:8080/api/members/exists/nickName/${nickName.data}`;
       const response: AxiosResponse = await axios.get(url);
-      if (response.status === 200) setNickNameTrue(response.status), setStatus({ ...status, nickName: response.status });
+      if (response.status === 200) setStatus({ ...status, nickName: response.status });
       alert(response.data.msg);
     } catch (error) {
       if (axios.isAxiosError(error) && error.response?.status === 400) {
-        setNickNameFalse(error.response.status);
+        setStatus({ ...status, nickName: error.response.status });
         alert(error.response.data.msg);
       } else {
         alert('데이터를 받아오는 과정에 문제가 생겼습니다.😹');
@@ -70,21 +66,12 @@ export const Email = ({ page, id, title, type, placeholder }: inputEmail) => {
     nickName.data && !nickName.state ? setNickNameMsg('올바른 닉네임을 입력해주세요. (공백 불가)') : setNickNameMsg('');
   }, [email.data, nickName.data]);
 
-  const check = () => {
-    return type === 'email' ? emailCheck() : nickNameCheck();
-  };
-
   const SuccessFail = () => {
-    if (emailTrue === 200 || nickNameTrue === 200) {
-      return 'text-green-600 border-green-600';
+    if (id === 'email') {
+      return status.email === 200 ? 'text-green-600 border-green-600' : status.email === 400 ? 'text-check-red border-check-red' : email.state ? 'text-gray-600 border-gray-600' : 'text-gray-400 border-gray-300';
     }
-    if (emailFalse === 400 || nickNameFalse === 400) {
-      return 'text-check-red border-check-red';
-    }
-    if ((id === 'email' && email.state) || (id === 'nickName' && nickName.state)) {
-      return 'text-gray-600 border-gray-600';
-    } else {
-      return 'text-gray-400 border-gray-300';
+    if (id === 'nickName') {
+      return status.nickName === 200 ? 'text-green-600 border-green-600' : status.nickName === 400 ? 'text-check-red border-check-red' : nickName.state ? 'text-gray-600 border-gray-600' : 'text-gray-400 border-gray-300';
     }
   };
 
@@ -117,7 +104,7 @@ export const Email = ({ page, id, title, type, placeholder }: inputEmail) => {
             {page && email.data ? <MdOutlineCancel className="absolute right-5 w-6 h-6 text-gray-600 cursor-pointer" onClick={email.onReset} /> : null}
           </div>
           {page || (
-            <button type="button" className={`w-24 h-12 border rounded ${SuccessFail()}`} onClick={check} disabled={email.state || nickName.state ? false : true}>
+            <button type="button" className={`w-24 h-12 border rounded ${SuccessFail()}`} onClick={() => (type === 'email' ? emailCheck() : nickNameCheck())} disabled={email.state || nickName.state ? false : true}>
               중복확인
             </button>
           )}
