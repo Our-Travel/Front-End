@@ -25,8 +25,8 @@ export const userInfo = atom<User>({
   },
 });
 
-export const userStatus = atom<status>({
-  key: 'userStatus',
+export const signUpStatus = atom<status>({
+  key: 'signUpStatus',
   default: {
     email: null,
     nickName: null,
