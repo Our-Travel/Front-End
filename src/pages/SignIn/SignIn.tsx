@@ -5,10 +5,10 @@ import { LoginButton, LoginKakao } from '../../components/LoginButton/LoginButto
 import ChoiceTab from '../../components/ChoiceTab/ChoiceTab';
 import React, { useEffect, useState, MouseEvent } from 'react';
 import axios, { AxiosResponse } from 'axios';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useSetRecoilState, useRecoilValue } from 'recoil';
 import { token } from '../../Atom/atom';
-import { userInfo, userStatus } from '../../Atom/userAtom';
+import { userInfo } from '../../Atom/userAtom';
 
 const SignIn = () => {
   const [pwData, setPwData] = useState<string>('');
@@ -16,7 +16,6 @@ const SignIn = () => {
   const setToken = useSetRecoilState(token);
   const user = useRecoilValue(userInfo);
   const resetInfo = useSetRecoilState(userInfo);
-  const resetStatus = useSetRecoilState(userStatus);
   const navigate = useNavigate();
 
   const login = async (e: MouseEvent<HTMLButtonElement>) => {
@@ -27,11 +26,13 @@ const SignIn = () => {
         username: user.email?.data,
         password: user.password?.data,
       });
-      setToken(response.data.data.access_token);
-      localStorage.setItem('token', response.data.data.access_token);
+
+      console.log(response);
+
+      setToken(response.headers.authentication);
+      localStorage.setItem('token', response.headers.authentication);
       resetInfo({ email: null, password: null, nickName: null });
-      resetStatus({ email: null, nickName: null });
-      alert(`${response.data.msg} ✅`);
+      alert(response.data.msg);
       navigate('/main');
     } catch (error) {
       navigate('/signin');

@@ -6,6 +6,7 @@ import React, { useState, useEffect, MouseEvent } from 'react';
 import useInput from '../../hooks/useInput';
 import axios, { AxiosResponse } from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { MdOutlineCancel } from 'react-icons/md';
 
 interface optionType {
   value: string;
@@ -40,11 +41,21 @@ const Host = () => {
     e.preventDefault();
     try {
       const url = 'http://localhost:8080/api/hosts';
-      const response: AxiosResponse = await axios.post(url, {
-        introduction: myInfo.data,
-        hash_tag: hashTag.data,
-        region: city?.label,
-      });
+      const response: AxiosResponse = await axios.post(
+        url,
+        {
+          introduction: myInfo.data,
+          hash_tag: hashTag.data,
+          region_code: 1100,
+          // region_code 지역코드로 수정해야함
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
+          },
+        }
+      );
+      console.log(response);
       alert(response.data.msg);
       navigate('/mypage');
     } catch (error) {
@@ -56,10 +67,6 @@ const Host = () => {
     }
   };
 
-  if (localStorage.getItem('token')) {
-    axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('token')}`;
-  }
-
   const cityHandle = (option: SingleValue<optionType>) => {
     setCity(option);
   };
@@ -68,12 +75,12 @@ const Host = () => {
   };
 
   const hashTagCheck = () => {
-    return hashTag.data.length > 0 && !hashTag.data.includes('#') ? '단어 앞에 #을 반드시 입력해주세요.' : '';
+    return hashTag.data.length > 0 && !hashTag.state ? '단어 앞에 #을 반드시 입력해주세요.(2자 이상)' : '';
   };
 
   useEffect(() => {
-    myInfo.data && hashTag.data && hashTag.data.includes('#') && city && area ? setActive(true) : setActive(false);
-  }, [myInfo.data, hashTag.data, city, area]);
+    myInfo.data.length < 25 && hashTag.data && hashTag.state && city && area ? setActive(true) : setActive(false);
+  }, [myInfo.data, hashTag.data, hashTag.state, city, area]);
 
   return (
     <div className="flex flex-col">
@@ -85,8 +92,11 @@ const Host = () => {
       <form className="flex flex-col gap-5 text-left mx-auto">
         <div className="inputForm">
           <label htmlFor="introduction">한줄소개</label>
-          <input required type="text" id="introduction" className="inputStyle" placeholder="나를 소개해주세요" onChange={myInfo.onChange} value={myInfo.data} />
-          {/* <span className="errorText"></span> */}
+          <div className="relative flex flex-row items-center">
+            <input required type="text" id="introduction" className="inputStyle" placeholder="나를 소개해주세요" maxLength={25} onChange={myInfo.onChange} value={myInfo.data} />
+            {myInfo.data && <MdOutlineCancel className="absolute right-3 w-6 h-6 text-gray-600 cursor-pointer" onClick={myInfo.onReset} />}
+          </div>
+          <span className="errorText">{myInfo.data.length > 25 ? '글자수가 25자로 제한됩니다.' : ''}</span>
         </div>
         <div className="inputForm">
           <label htmlFor="hashTag">해시태그</label>

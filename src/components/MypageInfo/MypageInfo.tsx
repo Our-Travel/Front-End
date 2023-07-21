@@ -1,8 +1,9 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
+import { BsPatchCheckFill } from 'react-icons/bs';
 import { MdArrowForwardIos } from 'react-icons/md';
 import { Link, useNavigate } from 'react-router-dom';
-import { useResetRecoilState } from 'recoil';
+import { useResetRecoilState, useRecoilValue } from 'recoil';
 import { token } from '../../Atom/atom';
 
 export const Profile = () => {
@@ -13,7 +14,7 @@ export const Profile = () => {
 
   useEffect(() => {
     axios
-      .get('http://localhost:8080/api/mypage', {
+      .get('http://localhost:8080/api/members', {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`,
         },
@@ -36,7 +37,7 @@ export const Profile = () => {
       <div className="text-left">
         <div className="flex flex-row items-center gap-2">
           <h2>{nickName}</h2>
-          {/* <BsPatchCheckFill className="relative text-main-color" /> */}
+          <BsPatchCheckFill className="relative text-main-color" />
         </div>
         <p className="mt-1">{email}</p>
       </div>

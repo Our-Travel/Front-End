@@ -27,11 +27,11 @@ function App() {
   useEffect(() => {
     axios
       .post('http://localhost:8080/api/members/login', {
-        username: 'user1@example.com',
-        password: '1234',
+        username: 'test@test.com',
+        password: 'qwe123@@',
       })
       .then((res) => {
-        setToken(res.data.data.access_token);
+        setToken(res.headers.authentication);
       });
   }, []);
 
