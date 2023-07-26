@@ -6,8 +6,13 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/free-mode';
 import 'swiper/css/pagination';
+import PostModal from '../../components/Modal/PostModal';
 
 const Board = () => {
+  const [modalOpen, setModal] = useState<boolean>(false);
+
+  const isOpen = () => setModal(!modalOpen);
+
   const icon = <BsFillChatDotsFill />;
   return (
     <div>

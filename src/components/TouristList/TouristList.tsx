@@ -13,6 +13,17 @@ interface TourObject {
   km: number;
 }
 
+interface Place {
+  address_name: string;
+  distance: number;
+  id: number;
+  phone: string;
+  place_name: string;
+  place_url: string;
+  road_address_name: string;
+  x: number;
+  y: number;
+}
 const TouristList = () => {
   const [boardDetail, setBoardDetail] = useState<TourObject | null>(null);
   const [modal, setModal] = useState<boolean>(false);

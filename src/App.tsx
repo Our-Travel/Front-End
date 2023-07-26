@@ -15,12 +15,25 @@ import FindMate from './pages/Main/FindMate';
 import MyWrite from './pages/MyPage/MyWrite';
 import Favorite from './pages/MyPage/Favorite';
 import Notice from './pages/MyPage/Notice';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 import Board from './pages/Chatting/Board';
 import WriteBoard from './pages/Chatting/WriteBoard';
 import Host from './pages/MyPage/Host';
 import KakaoRedirect from './pages/SignIn/KakaoRedirect';
 
 function App() {
+  const [token, setToken] = useState('');
+  useEffect(() => {
+    axios
+      .post('http://localhost:8080/api/member/login', {
+        username: 'user1@example.com',
+        password: '1234',
+      })
+      .then((res) => {
+        setToken(res.data.data.accessToken);
+      });
+  }, []);
   return (
     <div className="relative">
       <div className="absolute text-center right-[23%] h-screen border border-gray-200 w-[450px] max-h-[full]">
@@ -35,7 +48,7 @@ function App() {
             <Route path="/main" element={<Main />} />
             <Route path="/main/selectLocation" element={<SelectLocation />} />
             <Route path="/main/findmate" element={<FindMate />} />
-            <Route path="/map" element={<Map />} />
+            <Route path="/map" element={<Map token={token} />} />
             <Route path="/board" element={<Board />} />
             <Route path="/board/writeboard" element={<WriteBoard />} />
             <Route path="/board/chattinglist" element={<ChattingList />} />

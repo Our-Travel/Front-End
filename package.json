@@ -23,6 +23,7 @@
     "react-router-dom": "^6.11.0",
     "react-scripts": "5.0.1",
     "react-select": "^5.7.3",
+    "react-select": "^5.7.3",
     "react-spinners": "^0.13.8",
     "recoil": "^0.7.7",
     "recoil-devtools-logger": "^0.5.0",

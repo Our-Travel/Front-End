@@ -15,6 +15,17 @@ interface TourObject {
 interface Props {
   boardDetail: TourObject | null;
   setModal: Dispatch<SetStateAction<boolean>>;
+  post: {
+    address_name: string;
+    distance: number;
+    id: number;
+    phone: string;
+    place_name: string;
+    place_url: string;
+    road_address_name: string;
+    x: number;
+    y: number;
+  } | null;
 }
 const TourModal = ({ boardDetail, setModal }: Props) => {
   const closeModal = () => {
