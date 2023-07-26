@@ -7,10 +7,27 @@ const WriteBoard = () => {
 
   const isOpen = () => setModal(!modalOpen);
 
-  const [selectedDate, setSelectedDate] = useState<string>('');
+  //모집기간 설정
+  const [gatherStartDate, setGatherStartDate] = useState<string>('');
+  const [gatherEndDate, setGatherEndDate] = useState<string>('');
+  //여행기간설정
+  const [TripStartDate, setTripStartDate] = useState<string>('');
+  const [TripEndDate, setTripEndDate] = useState<string>('');
 
-  const handleDateChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setSelectedDate(event.target.value);
+  //모집기간
+  const handleGatherStartDateChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setGatherStartDate(event.target.value);
+  };
+  const handleGatherEndDateChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setGatherEndDate(event.target.value);
+  };
+
+  //여행기간
+  const handleTripStartDateChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setTripStartDate(event.target.value);
+  };
+  const handleTripEndDateChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setTripEndDate(event.target.value);
   };
 
   return (
@@ -26,15 +43,15 @@ const WriteBoard = () => {
         <textarea name="content" placeholder="ex) 서울시 홍대입구역" className="w-full h-10 overflow-hidden text-sm lg:text-base mt-2 px-3 py-2  border rounded-lg border-slate-400" />
         <div className="text-left mt-2 ml-2 text-sm font-semibold text-gray-600">모집기간</div>
         <div className="flex items-center">
-          <input type="date" id="dateInput1" value={selectedDate} onChange={handleDateChange} className="w-1/2 mt-2 px-3 py-2 text-left border rounded-lg border-slate-400" />
+          <input type="date" id="dateInput1" value={gatherStartDate} onChange={handleGatherStartDateChange} className="w-1/2 mt-2 px-3 py-2 text-left border rounded-lg border-slate-400" />
           <span className="mx-6">~</span>
-          <input type="date" id="dateInput2" value={selectedDate} onChange={handleDateChange} className="w-1/2 mt-2 px-3 py-2 text-left border rounded-lg border-slate-400" />
+          <input type="date" id="dateInput2" value={gatherEndDate} onChange={handleGatherEndDateChange} min={gatherStartDate} className="w-1/2 mt-2 px-3 py-2 text-left border rounded-lg border-slate-400" />
         </div>
         <div className="text-left mt-2 ml-2 text-sm font-semibold text-gray-600">여행기간</div>
         <div className="flex items-center">
-          <input type="date" id="dateInput1" value={selectedDate} onChange={handleDateChange} className="w-1/2 mt-2 px-3 py-2 text-left border rounded-lg border-slate-400" />
+          <input type="date" id="dateInput1" value={TripStartDate} onChange={handleTripStartDateChange} className="w-1/2 mt-2 px-3 py-2 text-left border rounded-lg border-slate-400" />
           <span className="mx-6">~</span>
-          <input type="date" id="dateInput2" value={selectedDate} onChange={handleDateChange} className="w-1/2 mt-2 px-3 py-2 text-left border rounded-lg border-slate-400" />
+          <input type="date" id="dateInput2" value={TripEndDate} onChange={handleTripEndDateChange} min={TripStartDate} className="w-1/2 mt-2 px-3 py-2 text-left border rounded-lg border-slate-400" />
         </div>
         <div className="text-left mt-2 ml-2 text-sm font-semibold text-gray-600">여행인원</div>
         <textarea name="content" placeholder="0명" className="w-full h-10 overflow-hidden text-sm lg:text-base mt-2 px-3 py-2  border rounded-lg border-slate-400" />
