@@ -10,7 +10,7 @@ import PostModal from '../../components/Modal/PostModal';
 
 const Board = () => {
   const [modalOpen, setModal] = useState<boolean>(false);
-  const [selectedButtonIndex, setSelectedButtonIndex] = useState(0);
+  const [selectedButtonIndex, setSelectedButtonIndex] = useState<number>(0);
 
   // 버튼 클릭 시 호출되는 함수입니다.
   const handleButtonClick = (index: React.SetStateAction<number>) => {
@@ -71,7 +71,7 @@ const Board = () => {
         </Swiper>
       </div>
 
-      <BoardList />
+      <BoardList selectedButtonIndex={selectedButtonIndex} setSelectedButtonIndex={setSelectedButtonIndex} />
     </div>
   );
 };
