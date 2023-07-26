@@ -7,17 +7,17 @@ import Chatting from './../../pages/Chatting/Chatting';
 // BoardItem 들을 호출해오는 곳입니다
 
 const data = [
-  { nickName: 'test1', content: 'conetent1' },
-  { nickName: 'test2', content: 'content2' },
-  { nickName: 'test3', content: 'content3' },
+  { nickName: 'test1', title: '5월에놀러가요', content: 'conetent1' },
+  { nickName: 'test2', title: '6월에놀러가요', content: 'content2' },
+  { nickName: 'test3', title: '7월에놀러가요', content: 'content3' },
 ];
 
 const BoardList = () => {
   return (
     <div>
-      {data.map(({ nickName, content }, index) => (
+      {data.map(({ nickName, title, content }, index) => (
         <Link to={'/board/chatting'} key={index}>
-          <BoardItem key={index} nickName={nickName} content={content} />
+          <BoardItem key={index} nickName={nickName} title={title} content={content} />
         </Link>
       ))}
     </div>
