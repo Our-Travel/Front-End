@@ -18,7 +18,7 @@ const SignUp = () => {
   const join = async (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     try {
-      const url = `${process.env.REACT_APP_REST_API_SERVER}/api/members/signup`;
+      const url = `${process.env.REACT_APP_REST_API_SERVER}/members/signup`;
       const response = await axios.post(url, {
         username: user.email?.data,
         password: user.password?.data,

@@ -14,7 +14,7 @@ export const Profile = () => {
 
   useEffect(() => {
     axios
-      .get(`${process.env.REACT_APP_REST_API_SERVER}/api/members`, {
+      .get(`${process.env.REACT_APP_REST_API_SERVER}/members`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`,
         },
