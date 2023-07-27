@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction, useState } from 'react';
+import React, { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react';
 import { BsHandThumbsUpFill, BsHandThumbsUp } from 'react-icons/bs';
 import { Link } from 'react-router-dom';
 
@@ -8,18 +8,40 @@ interface Props {
 }
 
 const BoardModal = ({ setModal, item }: Props) => {
+  const [isFavorited, setIsFavorited] = useState(false);
+  const modalRef = useRef<HTMLDivElement>(null);
+
+  //모달창을 닫음
   const closeModal = () => {
     setModal(false);
   };
 
-  const [isFavorited, setIsFavorited] = useState(false);
+  //클릭되었을때 토글효과를 주기위함
+  const handleClick = () => {
+    setIsFavorited((prevIsFavorited) => !prevIsFavorited);
+  };
 
+  //키보드가 눌렸을때의 키별 효과들
+  const handleKeyDown = (event: { key: string }) => {
+    if (event.key === 'Escape') {
+      setModal(false);
+    } else if (event.key === 'Enter') {
+      handleClick();
+    }
+  };
   const toggleFavorite = () => {
     setIsFavorited((prevIsFavorited) => !prevIsFavorited);
   };
 
+  // 모달이 열릴 때 모달 내부의 첫 번째 버튼에 포커스를 줍니다.
+  useEffect(() => {
+    if (modalRef.current) {
+      modalRef.current.focus();
+    }
+  }, []);
+
   return (
-    <div className="relative shadow-2xl">
+    <div ref={modalRef} onKeyDown={handleKeyDown} tabIndex={0} className="relative shadow-2xl">
       <div onClick={closeModal} className="z-0 absolute w-full h-screen modalPosition bg-gray-400 opacity-25" />
       {item && (
         <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[90%] h-[450px] bg-white rounded-xl">
