@@ -18,8 +18,8 @@ const SignUp = () => {
   const join = async (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     try {
-      const url = 'http://localhost:8080/api/members/signup';
-      const response: AxiosResponse = await axios.post(url, {
+      const url = `${process.env.REACT_APP_REST_API_SERVER}/api/members/signup`;
+      const response = await axios.post(url, {
         username: user.email?.data,
         password: user.password?.data,
         nick_name: user.nickName?.data,

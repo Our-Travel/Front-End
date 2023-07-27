@@ -26,7 +26,7 @@ function App() {
   const [token, setToken] = useState('');
   useEffect(() => {
     axios
-      .post('http://localhost:8080/api/members/login', {
+      .post(`${process.env.REACT_APP_REST_API_SERVER}/api/members/login`, {
         username: 'test@test.com',
         password: 'qwe123@@',
       })
@@ -41,8 +41,8 @@ function App() {
         <Routes>
           <Route path="/" element={<Landing />} />
           <Route path="/signin" element={<SignIn />} />
-          {/* <Route path="/kakao/redirect" element={<KakaoRedirect />} /> */} // 카카오로그인 닫아둠
-          {/* <Route path="/oauth2/kakao" element={<KakaoRedirect />} /> */} // 서버미완성
+          <Route path="/kakao/redirect" element={<KakaoRedirect />} />
+          {/* <Route path="/login/oauth2/code/kakao" element={<KakaoRedirect />} /> */}
           <Route path="/signup" element={<SignUp />} />
           <Route element={<Navigation />}>
             <Route path="/info" element={<Info />} />

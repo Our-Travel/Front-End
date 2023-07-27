@@ -40,8 +40,8 @@ const Host = () => {
   const hostRegist = async (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     try {
-      const url = 'http://localhost:8080/api/hosts';
-      const response: AxiosResponse = await axios.post(
+      const url = `${process.env.REACT_APP_REST_API_SERVER}/api/hosts`;
+      const response = await axios.post(
         url,
         {
           introduction: myInfo.data,
@@ -56,6 +56,7 @@ const Host = () => {
         }
       );
       console.log(response);
+
       alert(response.data.msg);
       navigate('/mypage');
     } catch (error) {

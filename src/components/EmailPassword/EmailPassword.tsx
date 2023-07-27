@@ -23,8 +23,8 @@ export const Email = ({ page, id, title, type, placeholder }: inputEmail) => {
 
   const emailCheck = async () => {
     try {
-      const url = `http://localhost:8080/api/members/exists/username/${email.data}`;
-      const response: AxiosResponse = await axios.get(url);
+      const url = `${process.env.REACT_APP_REST_API_SERVER}/api/members/exists/username/${email.data}`;
+      const response = await axios.get(url);
       if (response.status === 200) setStatus({ ...status, email: response.status });
       alert(response.data.msg);
     } catch (error) {
@@ -39,8 +39,8 @@ export const Email = ({ page, id, title, type, placeholder }: inputEmail) => {
 
   const nickNameCheck = async () => {
     try {
-      const url = `http://localhost:8080/api/members/exists/nickName/${nickName.data}`;
-      const response: AxiosResponse = await axios.get(url);
+      const url = `${process.env.REACT_APP_REST_API_SERVER}/api/members/exists/nickName/${nickName.data}`;
+      const response = await axios.get(url);
       if (response.status === 200) setStatus({ ...status, nickName: response.status });
       alert(response.data.msg);
     } catch (error) {

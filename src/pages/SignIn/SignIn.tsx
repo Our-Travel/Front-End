@@ -21,14 +21,11 @@ const SignIn = () => {
   const login = async (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     try {
-      const url = 'http://localhost:8080/api/members/login';
-      const response: AxiosResponse = await axios.post(url, {
+      const url = `${process.env.REACT_APP_REST_API_SERVER}/api/members/login`;
+      const response = await axios.post(url, {
         username: user.email?.data,
         password: user.password?.data,
       });
-
-      console.log(response);
-
       setToken(response.headers.authentication);
       localStorage.setItem('token', response.headers.authentication);
       resetInfo({ email: null, password: null, nickName: null });

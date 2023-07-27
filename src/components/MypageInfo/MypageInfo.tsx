@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { BsPatchCheckFill } from 'react-icons/bs';
 import { MdArrowForwardIos } from 'react-icons/md';
 import { Link, useNavigate } from 'react-router-dom';
-import { useResetRecoilState, useRecoilValue } from 'recoil';
+import { useResetRecoilState } from 'recoil';
 import { token } from '../../Atom/atom';
 
 export const Profile = () => {
@@ -14,7 +14,7 @@ export const Profile = () => {
 
   useEffect(() => {
     axios
-      .get('http://localhost:8080/api/members', {
+      .get(`${process.env.REACT_APP_REST_API_SERVER}/api/members`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`,
         },
