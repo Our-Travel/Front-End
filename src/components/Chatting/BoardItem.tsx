@@ -20,8 +20,8 @@ const BoardItem = ({ nickName, title, content, onItemClick }: BoardItemProps) =>
   };
 
   return (
-    <div onClick={handleClick} onKeyDown={handleKeyDown} tabIndex={0} className="relative flex h-[80px] hover:bg-gray-100 border-b-2 pb-24 mx-2">
-      <div className="absolute top-[50%] -translate-y-[50%]  w-1/5 px-2">
+    <div onClick={handleClick} onKeyDown={handleKeyDown} tabIndex={0} className="relative flex h-[80px] hover:bg-gray-100 border-b-2 pb-24 px-2">
+      <div className="absolute top-[50%] -translate-y-[50%] w-1/5 px-2">
         <p className="font-bold text-lg">{nickName}</p>
       </div>
       <div className="absolute right-0 w-4/5 top-[50%] -translate-y-[50%]  text-left px-3">
