@@ -31,8 +31,8 @@ const Header = ({ title, back, icon }: header) => {
   }, [lastPath]);
 
   const handleGoBack = () => {
-    const isLoggedIn = loginCheck();
     if (lastPath === 'board') {
+      const isLoggedIn = loginCheck();
       if (isLoggedIn) {
         navigate('/board/writeboard');
       }
@@ -42,8 +42,8 @@ const Header = ({ title, back, icon }: header) => {
   };
 
   const handleButtonClick = () => {
-    const isLoggedIn = loginCheck();
     if (lastPath == 'board') {
+      const isLoggedIn = loginCheck();
       if (isLoggedIn) {
         navigate('/board/chattinglist');
       }
