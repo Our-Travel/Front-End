@@ -1,9 +1,12 @@
 import React, { ChangeEvent, useState } from 'react';
 import Header from '../../components/Header/Header';
 import WriteButton from '../../components/Chatting/WriteButton';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const WriteBoard = () => {
   const [modal, setModal] = useState<boolean>(false);
+  const navigate = useNavigate();
 
   //제목, 내용, 위치
   const [title, setTitle] = useState('');
@@ -34,17 +37,66 @@ const WriteBoard = () => {
   };
 
   const writeCheck = () => {
-    if (!gatherStartDate.trim() || !gatherEndDate.trim() || !TripStartDate.trim() || !TripEndDate.trim() || !travelers.trim()) {
+    if (!title.trim() || !content.trim() || !location.trim() || !gatherStartDate.trim() || !gatherEndDate.trim() || !TripStartDate.trim() || !TripEndDate.trim() || !travelers.trim()) {
       alert('입력되지 않은 부분이 있습니다. 모든 영역을 채워주세요.');
     } else {
       setModal(true);
     }
   };
 
+  //서버로 통신 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+  const write = async () => {
+    const storedToken = localStorage.getItem('token');
+    const postData = {
+      title: title,
+      content: content,
+      region_code: location,
+      recruitment_period_start: gatherStartDate,
+      recruitment_period_end: gatherEndDate,
+      journey_period_start: TripStartDate,
+      journey_period_end: TripEndDate,
+      number_of_travelers: travelers,
+    };
+    const headers = {
+      Authorization: `Bearer ${storedToken}`,
+    };
+    try {
+      // 여행 게시글 작성 요청
+      const boardsUrl = `${process.env.REACT_APP_REST_API_SERVER}/boards`;
+      await axios.post(boardsUrl, postData, {
+        headers: headers,
+      });
+
+      alert('게시글 작성이 완성되었습니다!');
+      navigate('/board');
+    } catch (error) {
+      if (axios.isAxiosError(error) && error.response?.status === 400) {
+        // 에러가 발생하면 해당 에러 메시지를 알림으로 보여줌
+        alert(error.response.data.msg);
+      } else {
+        // 기타 에러 처리
+        alert('데이터를 받아오는 과정에 문제가 생겼습니다.😹');
+      }
+    }
+  };
+
+  const handleWriteBoardButton = () => {
+    setModal(false); // 모달 닫기
+    write();
+    console.log(title);
+    console.log(content);
+    console.log(location);
+    console.log(gatherStartDate);
+    console.log(gatherEndDate);
+    console.log(TripStartDate);
+    console.log(TripEndDate);
+    console.log(travelers);
+  };
+
   return (
     <div className="relative h-[100vh]">
       <Header title="게시글 작성" back={true} icon={''} />
-      {modal && <WriteButton setModal={setModal} />}
+      {modal && <WriteButton setModal={setModal} handleWriteBoardButton={handleWriteBoardButton} />}
       <div className="w-[90%] mx-auto">
         <div className="text-left mt-3 ml-2 text-sm font-semibold text-gray-600">제목</div>
         <textarea value={title} onChange={(e) => setTitle(e.target.value)} name="content" placeholder="제목을 작성해주세요." className="w-full h-10 overflow-hidden text-sm lg:text-base mt-2 px-3 py-2  border rounded-lg border-slate-400" />
