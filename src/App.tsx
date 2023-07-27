@@ -26,7 +26,7 @@ function App() {
   const [token, setToken] = useState('');
   useEffect(() => {
     axios
-      .post(`${process.env.REACT_APP_REST_API_SERVER}/api/members/login`, {
+      .post(`${process.env.REACT_APP_REST_API_SERVER}/members/login`, {
         username: 'test@test.com',
         password: 'qwe123@@',
       })
