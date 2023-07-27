@@ -14,6 +14,8 @@ const BoardModal = ({ setModal, item }: Props) => {
   //로그인 되어있는지 확인하는 커스텀 훅
   const loginCheck = useLoginCheck();
   const navigate = useNavigate();
+  const chatButtonRef = useRef<HTMLButtonElement>(null); // "채팅하러 가기" 버튼에 대한 ref 추가
+  const thumbsUpRef = useRef<HTMLDivElement>(null); // thumbsUpRef의 형식을 RefObject<HTMLDivElement>로 변경
 
   //모달창을 닫음
   const closeModal = () => {
@@ -26,13 +28,33 @@ const BoardModal = ({ setModal, item }: Props) => {
   };
 
   //키보드가 눌렸을때의 키별 효과들
-  const handleKeyDown = (event: { key: string }) => {
+  const handleKeyDown = (event: { preventDefault(): unknown; key: string }) => {
     if (event.key === 'Escape') {
       setModal(false);
-    } else if (event.key === 'Enter') {
-      handleClick();
+    }
+    if (event.key === 'Enter') {
+      if (chatButtonRef.current === document.activeElement) {
+        // "채팅하러 가기" 버튼이 포커스를 받았을 때의 동작
+        handleChatButtonClick();
+      }
+      if (thumbsUpRef.current === document.activeElement) {
+        // "따봉" 버튼이 포커스를 받았을 때의 동작
+        toggleFavorite();
+      }
     }
   };
+
+  //채팅하러가기 버튼을 눌렀을때 함수
+  const handleChatButtonClick = () => {
+    const isLoggedIn = loginCheck();
+    if (isLoggedIn) {
+      navigate('/board/chatting');
+    } else {
+      navigate('/signin');
+    }
+  };
+
+  //따봉버튼 눌렀을때 함수
   const toggleFavorite = () => {
     //true false로 값을 받아옴
     const isLoggedIn = loginCheck();
@@ -77,11 +99,11 @@ const BoardModal = ({ setModal, item }: Props) => {
           </div>
           {/* 추후에 해당 게시글을 작성한 사람과의 채팅으로 넘어가게 변경해야함 */}
 
-          <button onClick={loginCheck} className="absolute bottom-3 w-3/5 h-10 left-1/2 -translate-x-1/2 bg-main-color py-1 rounded-lg text-white text-lg font-extrabold">
+          <button ref={chatButtonRef} onClick={handleChatButtonClick} className="absolute bottom-3 w-3/5 h-10 left-1/2 -translate-x-1/2 bg-main-color py-1 rounded-lg text-white text-lg font-extrabold">
             채팅하러 가기
           </button>
 
-          <div className="absolute right-10 bottom-5 flex items-center translate-x-2 hover:cursor-pointer" tabIndex={0} onClick={toggleFavorite}>
+          <div className="absolute right-10 bottom-5 flex items-center translate-x-2 hover:cursor-pointer" tabIndex={0} onClick={toggleFavorite} ref={thumbsUpRef}>
             {isFavorited ? <BsHandThumbsUpFill className=" w-[30px] h-[30px]" /> : <BsHandThumbsUp className=" w-[30px] h-[30px]" />}
           </div>
         </div>
