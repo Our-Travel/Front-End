@@ -6,31 +6,31 @@ import ChoiceTab from '../../components/ChoiceTab/ChoiceTab';
 import React, { useEffect, useState, MouseEvent } from 'react';
 import axios, { AxiosResponse } from 'axios';
 import { useNavigate } from 'react-router-dom';
-import { useSetRecoilState } from 'recoil';
-import { token } from '../../recoil/loginAtom';
+import { useSetRecoilState, useRecoilValue } from 'recoil';
+import { token } from '../../Atom/atom';
+import { userInfo } from '../../Atom/userAtom';
 
 const SignIn = () => {
-  const [email, setEmail] = useState<string>('');
-  const [password, setPassword] = useState<string>('');
+  const [pwData, setPwData] = useState<string>('');
   const [active, setActive] = useState<boolean>(false);
-  const [emailstate, setEmailState] = useState<boolean>(false);
-  const [PWstate, setPWState] = useState<boolean>(false);
-  const [emailStatus, setEmailStatus] = useState<number>(0);
-  const navigate = useNavigate();
   const setToken = useSetRecoilState(token);
+  const user = useRecoilValue(userInfo);
+  const resetInfo = useSetRecoilState(userInfo);
+  const navigate = useNavigate();
 
   const login = async (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     try {
-      const url = 'http://localhost:8080/api/members/login';
-      const response: AxiosResponse = await axios.post(url, {
-        username: email,
-        password: password,
+      const url = `${process.env.REACT_APP_REST_API_SERVER}/members/login`;
+      const response = await axios.post(url, {
+        username: user.email?.data,
+        password: user.password?.data,
       });
-      setToken(response.data.data.access_token);
-      localStorage.setItem('token', response.data.data.access_token);
+      setToken(response.headers.authentication);
+      localStorage.setItem('token', response.headers.authentication);
+      resetInfo({ email: null, password: null, nickName: null });
+      alert(response.data.msg);
       navigate('/main');
-      alert('✅ 환영합니다. 좋은하루 되세요. ✅');
     } catch (error) {
       navigate('/signin');
       if (axios.isAxiosError(error) && error.response?.status === 400) {
@@ -42,8 +42,8 @@ const SignIn = () => {
   };
 
   useEffect(() => {
-    email && password && emailstate && PWstate ? setActive(true) : setActive(false);
-  }, [email, password, emailstate, PWstate]);
+    user.email?.state && user.password?.state ? setActive(true) : setActive(false);
+  }, [user.email?.state, user.password?.state]);
 
   return (
     <>
@@ -52,9 +52,9 @@ const SignIn = () => {
         <Logo />
       </div>
       <form className="flex flex-col justify-center items-center gap-6">
-        <Email page={true} setEmail={setEmail} setEmailState={setEmailState} setEmailStatus={setEmailStatus} />
+        <Email page={true} id={'email'} title={'이메일'} type={'email'} placeholder={'abc@email.com'} />
         <div className="relative inputForm">
-          <Password page={true} setPassword={setPassword} setPWState={setPWState} />
+          <Password page={true} setPwData={setPwData} />
         </div>
         <LoginButton name={'로그인'} page={false} active={active} onClick={login} />
         <LoginKakao />

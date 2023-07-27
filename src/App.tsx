@@ -26,22 +26,23 @@ function App() {
   const [token, setToken] = useState('');
   useEffect(() => {
     axios
-      .post('http://localhost:8080/api/member/login', {
-        username: 'user1@example.com',
-        password: '1234',
+      .post(`${process.env.REACT_APP_REST_API_SERVER}/api/members/login`, {
+        username: 'test@test.com',
+        password: 'qwe123@@',
       })
       .then((res) => {
-        setToken(res.data.data.accessToken);
+        setToken(res.headers.authentication);
       });
   }, []);
+
   return (
     <div className="relative">
-      <div className="absolute text-center right-[23%] h-screen border border-gray-200 w-[450px] max-h-[full]">
+      <div className="absolute text-center right-[23%] h-screen border border-gray-200 w-[450px] max-h-[full] overflow-hidden">
         <Routes>
           <Route path="/" element={<Landing />} />
           <Route path="/signin" element={<SignIn />} />
           <Route path="/kakao/redirect" element={<KakaoRedirect />} />
-          {/* <Route path="/oauth2/kakao" element={<KakaoRedirect />} /> */}
+          {/* <Route path="/login/oauth2/code/kakao" element={<KakaoRedirect />} /> */}
           <Route path="/signup" element={<SignUp />} />
           <Route element={<Navigation />}>
             <Route path="/info" element={<Info />} />

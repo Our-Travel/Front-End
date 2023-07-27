@@ -1,10 +1,11 @@
 import { SlArrowLeft } from 'react-icons/sl';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
-import exp from 'constants';
 import ChattingModal from '../Modal/ChattingModal';
 import { BsPencilSquare } from 'react-icons/bs';
 import useLoginCheck from '../../hooks/useLoginCheck';
+import { useResetRecoilState } from 'recoil';
+import { token } from '../../Atom/atom';
 
 interface header {
   title: string;
@@ -18,6 +19,7 @@ const Header = ({ title, back, icon }: header) => {
   const currentURL = window.location.pathname;
   const lastPath = currentURL.substring(currentURL.lastIndexOf('/') + 1);
   const [writeBoard, setWriteBoard] = useState(false);
+  const resetToken = useResetRecoilState(token);
 
   //로그인 되어있는지 확인하는 커스텀 훅
   const loginCheck = useLoginCheck();
