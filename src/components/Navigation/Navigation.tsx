@@ -5,11 +5,15 @@ import { GrLocation } from 'react-icons/gr';
 import { TiMessages } from 'react-icons/ti';
 import { HiOutlineInformationCircle } from 'react-icons/hi';
 import { BiUser } from 'react-icons/bi';
+import useLoginCheck from '../../hooks/useLoginCheck';
 
 const Navigation = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const path: string = location.pathname;
+
+  //로그인 되어있는지 확인하는 커스텀 훅
+  const loginCheck = useLoginCheck();
 
   function getName(currentPath: string, expectedPath: string): string {
     return currentPath.includes(expectedPath) ? 'active' : 'navigationButton';
@@ -28,11 +32,11 @@ const Navigation = () => {
     navigate('/info');
   };
   const mypage = () => {
-    if (localStorage.getItem('token')) {
+    const isLoggedIn = loginCheck();
+    if (isLoggedIn) {
       navigate('/mypage');
     } else {
       navigate('/signin');
-      alert('로그인 후 이용 가능합니다.');
     }
   };
 

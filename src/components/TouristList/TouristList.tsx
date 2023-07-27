@@ -1,8 +1,17 @@
 import React, { useState } from 'react';
-import { AccDummy as dummy } from '../../util/dummy';
+import { tourDummy as dummy } from '../../util/dummy';
 import TourModal from './TourModal';
-import { useRecoilValue } from 'recoil';
-import { aroundLoc } from '../../Atom/atom';
+
+interface TourObject {
+  id: number;
+  title: string;
+  subtitle: string;
+  address: string;
+  call: string;
+  content: string;
+  img: string;
+  km: number;
+}
 
 interface Place {
   address_name: string;
@@ -16,34 +25,43 @@ interface Place {
   y: number;
 }
 const TouristList = () => {
-  const [boardDetail, setBoardDetail] = useState<number | null>(null);
+  const [boardDetail, setBoardDetail] = useState<TourObject | null>(null);
   const [modal, setModal] = useState<boolean>(false);
-  const location = useRecoilValue<Place[] | null>(aroundLoc);
-  console.log(location);
+  const [selectedIdx, setSelectedIdx] = useState<number | null>(null);
+
   const handleItemClick = (index: number) => {
-    setBoardDetail(index);
+    const item = dummy[index]!;
+    const convertedItem: TourObject = {
+      id: item.id,
+      title: item.title,
+      subtitle: item.subtitle,
+      address: item.address,
+      call: item.call,
+      content: item.content,
+      img: item.img,
+      km: Number(item.km),
+    };
+    setSelectedIdx(index);
+    setBoardDetail(convertedItem);
     setModal(true);
   };
+
   return (
-    <>
-      {location !== null ? (
-        location.map((el) => (
-          <div key={el.id} className="listStyles border-b-2 border-red-400" onClick={() => handleItemClick(el.id)}>
-            <div className="w-[60px] bg-pink-300 p-2 rounded-lg">
-              <img src={el.place_url} />
-            </div>
-            <div className="flex flex-col text-left w-[250px]">
-              <span>{el.place_name}</span>
-              <span>{el.address_name}</span>
-            </div>
-            <p className="text-gray-400">{el.distance}m</p>
+    <div className="overflow-y-auto h-[650px]">
+      {dummy.map((el, index) => (
+        <div key={index} className={`listStyles border-b-[2px] border-gray-200 ${index === selectedIdx ? 'border-main-color border' : ''}`} onClick={() => handleItemClick(index)} tabIndex={0} role="button">
+          <div className="w-[60px] bg-pink-300 p-2 rounded-lg">
+            <img src={el.img} alt={el.title} />
           </div>
-        ))
-      ) : (
-        <span>위치정보를 받아올 수 없습니다.</span>
-      )}
-      {/* {modal && <TourModal setModal={setModal} />} */}
-    </>
+          <div className="flex flex-col text-left w-[250px]">
+            <span className="font-semibold text-gray-700">{el.title}</span>
+            <span>{el.subtitle}</span>
+          </div>
+          <p className="text-gray-400">{el.km}</p>
+        </div>
+      ))}
+      {modal && <TourModal boardDetail={boardDetail} setModal={setModal} post={null} />}
+    </div>
   );
 };
 
