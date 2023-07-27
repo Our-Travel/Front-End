@@ -2,58 +2,48 @@ import React, { useRef, useEffect, SetStateAction, Dispatch } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 interface modal {
-  open: boolean;
-  close: Dispatch<SetStateAction<boolean>>;
+  setModal: Dispatch<SetStateAction<boolean>>;
 }
 
-const WriteButton = ({ open, close }: modal) => {
+const WriteButton = ({ setModal }: modal) => {
   const navigate = useNavigate();
-  const outside = useRef<HTMLDivElement>(null);
-  // const modalButton: { text: string }[] = [{ text: '취소하기' }, { text: '작성하기' }];
+  const modalRef = useRef<HTMLButtonElement>(null);
 
   const closeModal = () => {
-    close(false);
+    setModal(false);
   };
-  const openModal = () => {
+  const writeBoardButton = () => {
     navigate('/board');
   };
 
-  const clickOutside = (e: MouseEvent) => {
-    if (outside.current === e.target) {
-      closeModal();
-    }
-  };
-
-  const escClose = (e: KeyboardEvent) => {
-    if (e.key === 'Escape') {
-      closeModal();
+  const handleKeyDown = (event: { preventDefault(): unknown; key: string }) => {
+    if (event.key === 'Escape') {
+      setModal(false);
     }
   };
 
   useEffect(() => {
-    document.addEventListener('click', clickOutside);
-    document.addEventListener('keydown', escClose);
-    return () => {
-      document.removeEventListener('click', clickOutside);
-      document.removeEventListener('keydown', escClose);
-    };
-  });
+    if (modalRef.current) {
+      modalRef.current.focus();
+    }
+  }, []);
 
-  return open ? (
-    <div className="fixed w-[450px] h-full top-0 bg-black bg-opacity-30 z-30 text-center" ref={outside}>
-      <div className="centerPosition relative w-[300px] h-36 rounded-xl text-xl overflow-hidden bg-white flex flex-col">
+  return (
+    <div tabIndex={0} onKeyDown={handleKeyDown} className="relative shadow-2xl">
+      <div onClick={closeModal} className="z-0 absolute w-full h-[100vh] bg-gray-400 opacity-25" />
+      <div className="absolute left-1/2 -translate-x-1/2 translate-y-[250px] w-[300px] h-36 rounded-xl text-xl overflow-hidden bg-white flex flex-col">
         <div className="w-full text-textbase text-lg absolute top-[20%] font-semibold">글을 작성하시겠습니까?</div>
         <div className="flex w-full absolute bottom-2 text-lg">
-          <button className="w-1/2 mx-4 font-semibold bg-gray-200 py-2 rounded-xl" onClick={closeModal}>
+          <button ref={modalRef} onClick={closeModal} className="w-1/2 mx-4 font-semibold bg-gray-200 py-2 rounded-xl">
             취소하기
           </button>
-          <button className="w-1/2 mx-4 text-white font-extrabold bg-main-color2 py-2 rounded-xl" onClick={openModal}>
+          <button onClick={writeBoardButton} className="w-1/2 mx-4 text-white font-extrabold bg-main-color2 py-2 rounded-xl">
             작성하기
           </button>
         </div>
       </div>
     </div>
-  ) : null;
+  );
 };
 
 export default WriteButton;
