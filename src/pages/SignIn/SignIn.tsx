@@ -21,7 +21,7 @@ const SignIn = () => {
   const login = async (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     try {
-      const url = `${process.env.REACT_APP_REST_API_SERVER}/api/members/login`;
+      const url = `${process.env.REACT_APP_REST_API_SERVER}/members/login`;
       const response = await axios.post(url, {
         username: user.email?.data,
         password: user.password?.data,

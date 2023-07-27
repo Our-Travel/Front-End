@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
 import ChattingModal from '../Modal/ChattingModal';
 import { BsPencilSquare } from 'react-icons/bs';
+import useLoginCheck from '../../hooks/useLoginCheck';
 import { useResetRecoilState } from 'recoil';
 import { token } from '../../Atom/atom';
 
@@ -20,6 +21,9 @@ const Header = ({ title, back, icon }: header) => {
   const [writeBoard, setWriteBoard] = useState(false);
   const resetToken = useResetRecoilState(token);
 
+  //로그인 되어있는지 확인하는 커스텀 훅
+  const loginCheck = useLoginCheck();
+
   useEffect(() => {
     if (lastPath === 'board') {
       setWriteBoard(true);
@@ -30,7 +34,10 @@ const Header = ({ title, back, icon }: header) => {
 
   const handleGoBack = () => {
     if (lastPath === 'board') {
-      navigate('/board/writeboard');
+      const isLoggedIn = loginCheck();
+      if (isLoggedIn) {
+        navigate('/board/writeboard');
+      }
     } else {
       window.history.back();
     }
@@ -38,7 +45,10 @@ const Header = ({ title, back, icon }: header) => {
 
   const handleButtonClick = () => {
     if (lastPath == 'board') {
-      navigate('/board/chattinglist');
+      const isLoggedIn = loginCheck();
+      if (isLoggedIn) {
+        navigate('/board/chattinglist');
+      }
     }
     if (lastPath == 'chatting') {
       const isOpen = () => setModal(!modalOpen);
@@ -60,9 +70,11 @@ const Header = ({ title, back, icon }: header) => {
           </button>
         )}
         <h2 className="text-xl font-semibold">{title}</h2>
-        <button type="button" className="absolute right-1 px-2 py-2" onClick={handleButtonClick}>
-          {icon}
-        </button>
+        {icon && (
+          <button type="button" className="absolute right-1 px-2 py-2" onClick={handleButtonClick}>
+            {icon}
+          </button>
+        )}
       </header>
       <ChattingModal open={modalOpen} close={setModal} />
     </>

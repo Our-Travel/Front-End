@@ -138,7 +138,7 @@ const NaverMap = ({ token }: MapProps) => {
                   <Marker onClick={() => handleMapToggle(el)} position={new navermaps.LatLng(el.y, el.x)} />
                 </div>
               ))}
-              {mapToggle && <TourModal setModal={setMapToggle} post={selectPost} />}
+              {mapToggle && <TourModal setModal={setMapToggle} post={selectPost} boardDetail={null} />}
             </Nmap>
           </MapDiv>
         </>

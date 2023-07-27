@@ -40,7 +40,7 @@ const Host = () => {
   const hostRegist = async (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     try {
-      const url = `${process.env.REACT_APP_REST_API_SERVER}/api/hosts`;
+      const url = `${process.env.REACT_APP_REST_API_SERVER}/hosts`;
       const response = await axios.post(
         url,
         {
