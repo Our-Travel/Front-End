@@ -1,6 +1,7 @@
 import React, { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react';
 import { BsHandThumbsUpFill, BsHandThumbsUp } from 'react-icons/bs';
-import { Link } from 'react-router-dom';
+import useLoginCheck from '../../hooks/useLoginCheck';
+import { useNavigate } from 'react-router-dom';
 
 interface Props {
   setModal: Dispatch<SetStateAction<boolean>>;
@@ -10,6 +11,9 @@ interface Props {
 const BoardModal = ({ setModal, item }: Props) => {
   const [isFavorited, setIsFavorited] = useState(false);
   const modalRef = useRef<HTMLDivElement>(null);
+  //로그인 되어있는지 확인하는 커스텀 훅
+  const loginCheck = useLoginCheck();
+  const navigate = useNavigate();
 
   //모달창을 닫음
   const closeModal = () => {
@@ -30,7 +34,13 @@ const BoardModal = ({ setModal, item }: Props) => {
     }
   };
   const toggleFavorite = () => {
-    setIsFavorited((prevIsFavorited) => !prevIsFavorited);
+    //true false로 값을 받아옴
+    const isLoggedIn = loginCheck();
+    if (isLoggedIn) {
+      setIsFavorited((prevIsFavorited) => !prevIsFavorited);
+    } else {
+      navigate('/signin');
+    }
   };
 
   // 모달이 열릴 때 모달 내부의 첫 번째 버튼에 포커스를 줍니다.
@@ -66,9 +76,11 @@ const BoardModal = ({ setModal, item }: Props) => {
             </div>
           </div>
           {/* 추후에 해당 게시글을 작성한 사람과의 채팅으로 넘어가게 변경해야함 */}
-          <Link to="/board/chatting">
-            <button className="absolute bottom-3 w-3/5 h-10 left-1/2 -translate-x-1/2 bg-main-color py-1 rounded-lg text-white text-lg font-extrabold">채팅하러 가기</button>
-          </Link>
+
+          <button onClick={loginCheck} className="absolute bottom-3 w-3/5 h-10 left-1/2 -translate-x-1/2 bg-main-color py-1 rounded-lg text-white text-lg font-extrabold">
+            채팅하러 가기
+          </button>
+
           <div className="absolute right-10 bottom-5 flex items-center translate-x-2 hover:cursor-pointer" tabIndex={0} onClick={toggleFavorite}>
             {isFavorited ? <BsHandThumbsUpFill className=" w-[30px] h-[30px]" /> : <BsHandThumbsUp className=" w-[30px] h-[30px]" />}
           </div>

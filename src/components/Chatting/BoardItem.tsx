@@ -1,5 +1,6 @@
 import React from 'react';
 import { FaThumbsUp } from 'react-icons/fa';
+import useLoginCheck from '../../hooks/useLoginCheck';
 
 interface BoardItemProps {
   nickName: string;

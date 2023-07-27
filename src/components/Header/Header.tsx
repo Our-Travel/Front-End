@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router';
 import exp from 'constants';
 import ChattingModal from '../Modal/ChattingModal';
 import { BsPencilSquare } from 'react-icons/bs';
+import useLoginCheck from '../../hooks/useLoginCheck';
 
 interface header {
   title: string;
@@ -18,6 +19,9 @@ const Header = ({ title, back, icon }: header) => {
   const lastPath = currentURL.substring(currentURL.lastIndexOf('/') + 1);
   const [writeBoard, setWriteBoard] = useState(false);
 
+  //로그인 되어있는지 확인하는 커스텀 훅
+  const loginCheck = useLoginCheck();
+
   useEffect(() => {
     if (lastPath === 'board') {
       setWriteBoard(true);
@@ -27,16 +31,22 @@ const Header = ({ title, back, icon }: header) => {
   }, [lastPath]);
 
   const handleGoBack = () => {
+    const isLoggedIn = loginCheck();
     if (lastPath === 'board') {
-      navigate('/board/writeboard');
+      if (isLoggedIn) {
+        navigate('/board/writeboard');
+      }
     } else {
       window.history.back();
     }
   };
 
   const handleButtonClick = () => {
+    const isLoggedIn = loginCheck();
     if (lastPath == 'board') {
-      navigate('/board/chattinglist');
+      if (isLoggedIn) {
+        navigate('/board/chattinglist');
+      }
     }
     if (lastPath == 'chatting') {
       const isOpen = () => setModal(!modalOpen);

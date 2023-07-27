@@ -1,6 +1,7 @@
 import React, { useState, useRef, SetStateAction, Dispatch, useEffect } from 'react';
 import BoardItem from './BoardItem';
 import BoardModal from './BoardModal';
+import useLoginCheck from '../../hooks/useLoginCheck';
 
 //앞으로 해야하는 작업이 Board.tsx에서 넘어온 지역필터를 통해서 그에맞는 data들을 map으로 돌려야함.
 // Board.tsx에서 서울로 설정되었다면, 현재 페이지에서 서울관련 데이터를 요청. 뿌리기
