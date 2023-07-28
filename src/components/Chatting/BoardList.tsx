@@ -1,11 +1,7 @@
 import React, { useState, useRef, SetStateAction, Dispatch, useEffect } from 'react';
 import BoardItem from './BoardItem';
 import BoardModal from './BoardModal';
-import useLoginCheck from '../../hooks/useLoginCheck';
-
-//앞으로 해야하는 작업이 Board.tsx에서 넘어온 지역필터를 통해서 그에맞는 data들을 map으로 돌려야함.
-// Board.tsx에서 서울로 설정되었다면, 현재 페이지에서 서울관련 데이터를 요청. 뿌리기
-//현재는 더미데이터 (data) 가 경기도 일때만 뜨게 해뒀음
+import axios from 'axios';
 
 interface BoardListProps {
   selectedButtonIndex: number; // 수정된 타입
@@ -33,6 +29,35 @@ const BoardList = ({ selectedButtonIndex, setSelectedButtonIndex }: BoardListPro
   //서버와 통신하여 selectedButtonIndex에 맞는 (즉 지역에맞는) data를 요청하고
   //그에대한 응답으로온 data를 돌리는 형식으로 진행
   // 받아온 데이터의 갯수가 1이상? isEmpty(true) 0이다? false
+
+  //모달로 뜨게될 게시글 하나의 상세정보를 불러오는 통신 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+  const boardId = async () => {
+    const storedToken = localStorage.getItem('token');
+    const headers = {
+      Authorization: `Bearer ${storedToken}`,
+    };
+    try {
+      // 여행 게시글 작성 요청
+      const boardUrl = `${process.env.REACT_APP_REST_API_SERVER}/boards/1`;
+      const response = await axios.post(boardUrl, {
+        headers: headers,
+      });
+      alert('통신성공!');
+      console.log(response);
+    } catch (error) {
+      if (axios.isAxiosError(error) && error.response?.status === 400) {
+        // 에러가 발생하면 해당 에러 메시지를 알림으로 보여줌
+        alert(error.response.data.msg);
+      } else {
+        // 기타 에러 처리
+        alert('데이터를 받아오는 과정에 문제가 생겼습니다.😹');
+      }
+    }
+  };
+
+  useEffect(() => {
+    boardId();
+  }, []);
 
   return (
     <div>
