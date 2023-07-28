@@ -3,6 +3,7 @@ import Header from '../../components/Header/Header';
 import WriteButton from '../../components/Chatting/WriteButton';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import regions from '../../util/region';
 
 const WriteBoard = () => {
   const [modal, setModal] = useState<boolean>(false);
@@ -42,6 +43,9 @@ const WriteBoard = () => {
     } else {
       setModal(true);
     }
+  };
+  const handleLocationChange = (e: { target: { value: React.SetStateAction<string> } }) => {
+    setLocation(e.target.value);
   };
 
   //서버로 통신 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
@@ -109,7 +113,14 @@ const WriteBoard = () => {
           className="w-full h-36 text-sm lg:text-base mt-2 px-3 py-2  border rounded-lg border-slate-400"
         />
         <div className="text-left mt-2 ml-2 text-sm font-semibold text-gray-600">위치</div>
-        <textarea value={location} onChange={(e) => setLocation(e.target.value)} name="content" placeholder="ex) 서울시 홍대입구역" className="w-full h-10 overflow-hidden text-sm lg:text-base mt-2 px-3 py-2  border rounded-lg border-slate-400" />
+        <select value={location} onChange={handleLocationChange} className="select select-bordered w-[100%] text-left text-sm font-semibold mt-2 py-2 px-3 border rounded-lg border-slate-400">
+          {regions.map((region) => (
+            <option key={region.value} value={region.value}>
+              {region.key}
+            </option>
+          ))}
+        </select>
+        {/* <textarea name="content" placeholder="ex) 서울시 홍대입구역" className="w-full h-10 overflow-hidden text-sm lg:text-base mt-2 px-3 py-2  border rounded-lg border-slate-400" /> */}
         <div className="text-left mt-2 ml-2 text-sm font-semibold text-gray-600">모집기간</div>
         <div className="flex items-center">
           <input type="date" id="dateInput1" value={gatherStartDate} onChange={handleGatherStartDateChange} className="w-1/2 mt-2 px-3 py-2 text-left border rounded-lg border-slate-400" />
