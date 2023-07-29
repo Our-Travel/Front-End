@@ -9,12 +9,6 @@ interface BoardListProps {
   setSelectedButtonIndex: (index: number) => void;
 }
 
-const data = [
-  { writer: 'name1', title: '5월에놀러가요', content: 'conetent1' },
-  { writer: 'name2', title: '6월에놀러가요', content: 'content2' },
-  { writer: 'tesfd3', title: '7월에놀러가요', content: 'content3' },
-];
-
 const BoardList = ({ selectedButtonIndex, setSelectedButtonIndex }: BoardListProps) => {
   const [modal, setModal] = useState<boolean>(false);
   //BoardItem에서 클릭된 정보를 저장하기 위한 객체
@@ -22,23 +16,56 @@ const BoardList = ({ selectedButtonIndex, setSelectedButtonIndex }: BoardListPro
   //받아온 데이터의 갯수가 없다면? 을 받는 객체
   const [isEmpty, setEmpty] = useState<boolean>(true);
 
+  let boardList: any[] = [];
+
+  const boardData = {
+    board_id: 1,
+    title: '제목3입니다',
+    content: '내용3입니다',
+    region_code: 123455,
+    number_of_travelers: 3,
+    recruitment_period_start: '2030-08-01',
+    recruitment_period_end: '2030-08-03',
+    journey_period_start: '2030-08-04',
+    journey_period_end: '2030-08-08',
+    recruitment_status: 'UPCOMING',
+    writer: '아아aaaaaa',
+    valid_writer: true,
+    like_board_status: false,
+    like_counts: 3,
+  };
+  const anotherBoardData = {
+    board_id: 2,
+    title: '새로운 글입니다',
+    content: '이것은 새로운 글의 내용입니다',
+    region_code: 789012,
+    number_of_travelers: 5,
+    recruitment_period_start: '2030-09-01',
+    recruitment_period_end: '2030-09-10',
+    journey_period_start: '2030-09-15',
+    journey_period_end: '2030-09-20',
+    recruitment_status: 'RECRUITING',
+    writer: '새로운 작성자',
+    valid_writer: true,
+    like_board_status: true,
+    like_counts: 5,
+  };
+  // 기본 데이터를 boardList에 추가
+  boardList.push(boardData, anotherBoardData);
+
   const handleItemClick = (index: number) => {
-    setSelectedItem(data[index]);
+    setSelectedItem(boardList[index]);
     setModal(true);
   };
-
-  //서버와 통신하여 selectedButtonIndex에 맞는 (즉 지역에맞는) data를 요청하고
-  //그에대한 응답으로온 data를 돌리는 형식으로 진행
-  // 받아온 데이터의 갯수가 1이상? isEmpty(true) 0이다? false
 
   return (
     <div>
       {isEmpty ? (
-        <>
-          {data.map(({ writer, title, content }, index) => (
-            <BoardItem key={index} writer={writer} title={title} content={content} onItemClick={() => handleItemClick(index)} />
+        <div>
+          {boardList.map(({ writer, title, content, like_counts }, index) => (
+            <BoardItem key={index} writer={writer} title={title} content={content} like_counts={like_counts} onItemClick={() => handleItemClick(index)} />
           ))}
-        </>
+        </div>
       ) : (
         <div className="flex flex-col items-center justify-center gap-9 absolute centerPosition w-full">
           <img src="/assets/MyWriteImg.svg" alt="작성한 글이 없어요 페이지 보라색 캐릭터" />

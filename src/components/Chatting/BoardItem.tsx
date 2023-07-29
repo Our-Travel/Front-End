@@ -1,14 +1,16 @@
 import React from 'react';
 import { FaThumbsUp } from 'react-icons/fa';
+import { GoThumbsup } from 'react-icons/go';
 import useLoginCheck from '../../hooks/useLoginCheck';
 
 interface BoardItemProps {
   writer: string;
   title: string;
   content: string;
+  like_counts: number;
   onItemClick: () => void;
 }
-const BoardItem = ({ writer, title, content, onItemClick }: BoardItemProps) => {
+const BoardItem = ({ writer, title, content, like_counts, onItemClick }: BoardItemProps) => {
   const handleClick = () => {
     onItemClick(); // 클릭 이벤트를 BoardList(상위) 컴포넌트로 전달
   };
@@ -29,8 +31,8 @@ const BoardItem = ({ writer, title, content, onItemClick }: BoardItemProps) => {
         <div className="text-gray-600  mr-10">{content}</div>
       </div>
       <p className="absolute flex right-2 top-[50%] -translate-y-[50%] text-gray-500 text-[14px]">
-        <FaThumbsUp className="translate-y-1/4 mr-1" />
-        10
+        <GoThumbsup className="translate-y-1/4 mr-1" />
+        {like_counts}
       </p>
     </div>
   );

@@ -35,7 +35,7 @@ const MyWrite = () => {
     writer: '아아aaaaaa',
     valid_writer: true,
     like_board_status: false,
-    like_counts: 0,
+    like_counts: 3,
   };
   const anotherBoardData = {
     board_id: 2,
@@ -50,8 +50,8 @@ const MyWrite = () => {
     recruitment_status: 'RECRUITING',
     writer: '새로운 작성자',
     valid_writer: true,
-    like_board_status: false,
-    like_counts: 0,
+    like_board_status: true,
+    like_counts: 2,
   };
   // 기본 데이터를 boardList에 추가
   boardList.push(boardData, anotherBoardData);
@@ -69,7 +69,6 @@ const MyWrite = () => {
         headers: headers,
       });
 
-      console.log(response.data); //리스트형태로 내 글들이 떠야함
       boardList.push(response.data.content);
       //받아온 내 게시글 갯수가 0 이면 Empty 활성화
       const dataIsEmpty = boardList.length != 0;
@@ -96,8 +95,8 @@ const MyWrite = () => {
       {editBoard && <EditBoard setEditBoard={setEditBoard} item={selectedItem} />}
       {isEmpty ? (
         <>
-          {boardList.map(({ writer, title, content }, index) => (
-            <BoardItem key={index} writer={writer} title={title} content={content} onItemClick={() => handleItemClick(index)} />
+          {boardList.map(({ writer, title, content, like_counts }, index) => (
+            <BoardItem key={index} writer={writer} title={title} content={content} like_counts={like_counts} onItemClick={() => handleItemClick(index)} />
           ))}
         </>
       ) : (

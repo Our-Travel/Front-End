@@ -114,9 +114,7 @@ const WriteBoard = () => {
         />
         <div className="text-left mt-2 ml-2 text-sm font-semibold text-gray-600">여행할 지역</div>
         <select value={location} onChange={handleLocationChange} className="text-gray-500 select select-bordered w-[100%] text-left text-sm font-semibold mt-2 py-2 px-3 border rounded-lg border-slate-400">
-          <option value="" selected disabled>
-            여행할 지역을 선택해주세요
-          </option>
+          <option value="option">여행할 지역을 선택해주세요</option>
           {regions.map((region) => (
             <option key={region.value} value={region.value}>
               {region.key}

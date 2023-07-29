@@ -66,57 +66,17 @@ const BoardModal = ({ setModal, item }: Props) => {
     }
   };
 
-  //모달로 뜨게될 게시글 하나의 상세정보를 불러오는 통신 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-  const boardId = async () => {
-    const storedToken = localStorage.getItem('token');
-    const headers = {
-      Authorization: `Bearer ${storedToken}`,
-    };
-    try {
-      // 여행 게시글 작성 요청
-      const boardUrl = `${process.env.REACT_APP_REST_API_SERVER}/boards/3`;
-      const response = await axios.get(boardUrl, {
-        headers: headers,
-      });
-
-      const title = response.data.data.title;
-      const content = response.data.data.content;
-      const region = response.data.data.region_code;
-      const recruitment_period_start = response.data.data.recruitment_period_start;
-      const recruitment_period_end = response.data.data.recruitment_period_end;
-      const journey_period_start = response.data.data.journey_period_start;
-      const journey_period_end = response.data.data.journey_period_end;
-      const travelers = response.data.data.number_of_travelers;
-      console.log('제목:', title);
-      console.log('내용:', content);
-      console.log('지역 코드:', region);
-      console.log('모집 시작일:', recruitment_period_start);
-      console.log('모집 종료일:', recruitment_period_end);
-      console.log('여행 시작일:', journey_period_start);
-      console.log('여행 종료일:', journey_period_end);
-      console.log('여행자 수:', travelers);
-    } catch (error) {
-      if (axios.isAxiosError(error) && error.response?.status === 400) {
-        // 에러가 발생하면 해당 에러 메시지를 알림으로 보여줌
-        alert(error.response.data.msg);
-      } else {
-        // 기타 에러 처리
-        alert('데이터를 받아오는 과정에 문제가 생겼습니다.😹');
-      }
-    }
-  };
-
   // 모달이 열릴 때 모달 내부의 첫 번째 버튼에 포커스를 줍니다.
   useEffect(() => {
+    setIsFavorited(item.like_board_status);
     if (modalRef.current) {
       modalRef.current.focus();
     }
-    boardId();
   }, []);
 
   return (
-    <div ref={modalRef} onKeyDown={handleKeyDown} tabIndex={0} className="relative shadow-2xl">
-      <div onClick={closeModal} className="z-0 absolute w-full h-screen modalPosition bg-gray-400 opacity-25" />
+    <div ref={modalRef} onKeyDown={handleKeyDown} tabIndex={0} className=" shadow-2xl">
+      <div onClick={closeModal} className="absolute w-full h-screen modalPosition bg-gray-400 opacity-25" />
       {item && (
         <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[90%] h-[450px] bg-white rounded-xl">
           <h3 className="text-xl font-semibold my-4">{item.title}</h3>
@@ -124,19 +84,23 @@ const BoardModal = ({ setModal, item }: Props) => {
           <div className="mt-3 mx-4 text-left">
             <div className="flex text-sm my-3">
               <div className="w-1/5 font-semibold text-gray-600">여행지</div>
-              <span className="text-gray-500">받아온 여행위치 띄우기!!</span>
+              <span className="text-gray-500">{item.region_code}</span>
             </div>
             <div className="flex text-sm my-3">
               <div className="w-1/5 font-semibold text-gray-600">모집기간</div>
-              <span className="text-gray-500">받아온 모집기간 띄우기!!</span>
+              <span className="text-gray-500">
+                {item.recruitment_period_start} ~ {item.recruitment_period_end}
+              </span>
             </div>
             <div className="flex text-sm my-3">
               <div className="w-1/5 font-semibold text-gray-600">여행기간</div>
-              <span className="text-gray-500">2023/08/01 ~ 2023/08/06</span>
+              <span className="text-gray-500">
+                {item.journey_period_start} ~ {item.journey_period_end}
+              </span>
             </div>
             <div className="flex text-sm my-3">
               <div className="w-1/5 font-semibold text-gray-600">여행인원</div>
-              <span className="text-gray-500">ex)4</span>
+              <span className="text-gray-500">{item.number_of_travelers}</span>
             </div>
           </div>
           {/* 추후에 해당 게시글을 작성한 사람과의 채팅으로 넘어가게 변경해야함 */}
