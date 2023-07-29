@@ -99,7 +99,7 @@ const BoardModal = ({ setModal, item }: Props) => {
               <span className="text-gray-500">
                 {item.recruitment_period_start} ~ {item.recruitment_period_end}
               </span>
-              <span className="ml-6 font-semibold text-orange-500">{item.recruitment_status}</span>
+              <span className="ml-6 font-semibold text-orange-500 animate-pulse">{item.recruitment_status}</span>
             </div>
             <div className="flex text-sm my-3">
               <div className="w-1/5 font-semibold text-gray-600">여행기간</div>
