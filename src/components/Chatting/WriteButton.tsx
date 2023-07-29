@@ -32,7 +32,7 @@ const WriteButton = ({ title, button, setModal, handleButton }: modal) => {
   }, []);
 
   return (
-    <div tabIndex={0} onKeyDown={handleKeyDown} className="relative shadow-2xl">
+    <div tabIndex={0} onKeyDown={handleKeyDown} className="relative shadow-2xl z-10">
       <div onClick={closeModal} className="z-0 absolute w-full h-[100vh] bg-gray-400 opacity-25" />
       <div className="absolute left-1/2 -translate-x-1/2 translate-y-[250px] w-[300px] h-36 rounded-xl text-xl overflow-hidden bg-white flex flex-col">
         <div className="w-full text-textbase text-lg absolute top-[20%] font-semibold">{title}</div>
