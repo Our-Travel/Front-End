@@ -21,6 +21,7 @@ import Board from './pages/Chatting/Board';
 import WriteBoard from './pages/Chatting/WriteBoard';
 import Host from './pages/MyPage/Host';
 import KakaoRedirect from './pages/SignIn/KakaoRedirect';
+import EditBoard from './pages/MyPage/EditBoard';
 
 function App() {
   const [token, setToken] = useState('');
@@ -56,6 +57,7 @@ function App() {
             <Route path="/board/chatting" element={<Chatting />} />
             <Route path="/mypage" element={<MyPage />} />
             <Route path="/mypage/mywrite" element={<MyWrite />} />
+            <Route path="/mypage/editBoard" element={<EditBoard />} />
             <Route path="/mypage/favorite" element={<Favorite />} />
             <Route path="/mypage/notice" element={<Notice />} />
             <Route path="/mypage/host" element={<Host />} />

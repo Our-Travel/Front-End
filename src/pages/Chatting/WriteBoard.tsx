@@ -100,7 +100,7 @@ const WriteBoard = () => {
   return (
     <div className="relative h-[100vh]">
       <Header title="게시글 작성" back={true} icon={''} />
-      {modal && <WriteButton title="글을 작성하시겠습니까?" button="작성하기" setModal={setModal} handleWriteBoardButton={handleWriteBoardButton} />}
+      {modal && <WriteButton title="글을 작성하시겠습니까?" button="작성하기" setModal={setModal} handleButton={handleWriteBoardButton} />}
       <div className="w-[90%] mx-auto">
         <div className="text-left mt-3 ml-2 text-sm font-semibold text-gray-600">제목</div>
         <textarea value={title} onChange={(e) => setTitle(e.target.value)} name="content" placeholder="제목을 작성해주세요." className="w-full h-10 overflow-hidden text-sm lg:text-base mt-2 px-3 py-2  border rounded-lg border-slate-400" />

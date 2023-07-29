@@ -3,12 +3,12 @@ import { useNavigate } from 'react-router-dom';
 
 interface modal {
   setModal: Dispatch<SetStateAction<boolean>>;
-  handleWriteBoardButton: () => void;
+  handleButton: () => void;
   title: string;
   button: string;
 }
 
-const WriteButton = ({ title, button, setModal, handleWriteBoardButton }: modal) => {
+const WriteButton = ({ title, button, setModal, handleButton }: modal) => {
   const navigate = useNavigate();
   const modalRef = useRef<HTMLButtonElement>(null);
 
@@ -16,7 +16,7 @@ const WriteButton = ({ title, button, setModal, handleWriteBoardButton }: modal)
     setModal(false);
   };
   const writeBoardButton = () => {
-    handleWriteBoardButton();
+    handleButton();
   };
 
   const handleKeyDown = (event: { preventDefault(): unknown; key: string }) => {
