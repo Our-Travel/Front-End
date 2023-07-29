@@ -2,6 +2,7 @@ import React, { Dispatch, SetStateAction, useState } from 'react';
 import { AiOutlineClose } from 'react-icons/ai';
 import WriteButton from '../../components/Chatting/WriteButton';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 interface Props {
   setEditBoard: Dispatch<SetStateAction<boolean>>;
@@ -9,6 +10,7 @@ interface Props {
 }
 
 const EditBoard = ({ setEditBoard, item }: Props) => {
+  const navigate = useNavigate();
   const [deleteModal, setDeleteModal] = useState<boolean>(false);
   const [finishModal, setFinishModal] = useState<boolean>(false);
 
@@ -29,23 +31,26 @@ const EditBoard = ({ setEditBoard, item }: Props) => {
   const handleDeleteButton = () => {
     setDeleteModal(false); // 모달 닫기
 
-    deletetest();
+    deleteMyBoard();
   };
+  console.log(item.boardId);
 
   //게시글 삭제 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-  const deletetest = async () => {
+  const deleteMyBoard = async () => {
     const storedToken = localStorage.getItem('token');
     const headers = {
       Authorization: `Bearer ${storedToken}`,
     };
     try {
       // 여행 게시글 작성 요청
-      const boardsUrl = `${process.env.REACT_APP_REST_API_SERVER}/boards/4`;
+      const boardsUrl = `${process.env.REACT_APP_REST_API_SERVER}/boards/${item.board_id}`;
       await axios.delete(boardsUrl, {
         headers: headers,
       });
 
       alert('게시글이 성공적으로 삭제되었습니다!');
+      closeEdit();
+      window.location.reload();
     } catch (error) {
       if (axios.isAxiosError(error) && error.response?.status === 400) {
         // 에러가 발생하면 해당 에러 메시지를 알림으로 보여줌

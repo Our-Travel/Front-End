@@ -7,7 +7,6 @@ import axios from 'axios';
 import EditBoard from './EditBoard';
 
 const MyWrite = () => {
-  const navigate = useNavigate();
   //받아온 데이터의 갯수가 없다면? 을 받는 객체
   const [isEmpty, setEmpty] = useState<boolean>(false);
   const [boardList, setBoardList] = useState([]);
@@ -32,6 +31,7 @@ const MyWrite = () => {
       const response = await axios.get(boardUrl, {
         headers: headers,
       });
+      console.log(response);
 
       const data = response.data.data.content;
       setBoardList(data);
