@@ -1,6 +1,7 @@
 import React, { Dispatch, SetStateAction, useState } from 'react';
 import { AiOutlineClose } from 'react-icons/ai';
 import WriteButton from '../../components/Chatting/WriteButton';
+import axios from 'axios';
 
 interface Props {
   setEditBoard: Dispatch<SetStateAction<boolean>>;
@@ -11,28 +12,55 @@ const EditBoard = ({ setEditBoard, item }: Props) => {
   const [deleteModal, setDeleteModal] = useState<boolean>(false);
   const [finishModal, setFinishModal] = useState<boolean>(false);
 
+  //현재페이지 닫기
+  const closeEdit = () => {
+    setEditBoard(false);
+  };
+
+  //버튼클릭시 모달열리게하기
   const deleteBaord = () => {
     setDeleteModal(true);
   };
-
   const finishBaord = () => {
     setFinishModal(true);
   };
 
-  //삭제하기버튼에 대한 함수
+  //삭제하기모달 -> 삭제하기 누르면 넘어오는 함수
   const handleDeleteButton = () => {
     setDeleteModal(false); // 모달 닫기
-    //삭제하기
+
+    deletetest();
   };
 
-  //마감하기버튼에 대한 함수
+  //게시글 삭제 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+  const deletetest = async () => {
+    const storedToken = localStorage.getItem('token');
+    const headers = {
+      Authorization: `Bearer ${storedToken}`,
+    };
+    try {
+      // 여행 게시글 작성 요청
+      const boardsUrl = `${process.env.REACT_APP_REST_API_SERVER}/boards/4`;
+      await axios.delete(boardsUrl, {
+        headers: headers,
+      });
+
+      alert('게시글이 성공적으로 삭제되었습니다!');
+    } catch (error) {
+      if (axios.isAxiosError(error) && error.response?.status === 400) {
+        // 에러가 발생하면 해당 에러 메시지를 알림으로 보여줌
+        alert(error.response.data.msg);
+      } else {
+        // 기타 에러 처리
+        alert('데이터를 받아오는 과정에 문제가 생겼습니다.😹');
+      }
+    }
+  };
+
+  //마감하기모달 -> 마감하기 버튼 클릭시 넘어오는 함수
   const handleFinishButton = () => {
     setFinishModal(false);
     //마감하기
-  };
-
-  const closeEdit = () => {
-    setEditBoard(false);
   };
 
   return (
