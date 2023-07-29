@@ -26,7 +26,7 @@ const BoardItem = ({ writer, title, content, like_counts, onItemClick }: BoardIt
       <div className="absolute top-[50%] -translate-y-[50%] w-1/5 px-2">
         <p className="font-bold text-lg">{writer}</p>
       </div>
-      <div className="absolute right-0 w-4/5 top-[50%] -translate-y-[50%]  text-left px-3">
+      <div className="absolute left-1/4 w-4/5 top-[50%] -translate-y-[50%] text-left px-3">
         <div className=" font-semibold mr-10">{title}</div>
         <div className="text-gray-600  mr-10">{content}</div>
       </div>
