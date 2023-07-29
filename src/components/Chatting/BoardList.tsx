@@ -10,9 +10,9 @@ interface BoardListProps {
 }
 
 const data = [
-  { nickName: 'name1', title: '5월에놀러가요', content: 'conetent1' },
-  { nickName: 'name2', title: '6월에놀러가요', content: 'content2' },
-  { nickName: 'tesfd3', title: '7월에놀러가요', content: 'content3' },
+  { writer: 'name1', title: '5월에놀러가요', content: 'conetent1' },
+  { writer: 'name2', title: '6월에놀러가요', content: 'content2' },
+  { writer: 'tesfd3', title: '7월에놀러가요', content: 'content3' },
 ];
 
 const BoardList = ({ selectedButtonIndex, setSelectedButtonIndex }: BoardListProps) => {
@@ -35,8 +35,8 @@ const BoardList = ({ selectedButtonIndex, setSelectedButtonIndex }: BoardListPro
     <div>
       {isEmpty ? (
         <>
-          {data.map(({ nickName, title, content }, index) => (
-            <BoardItem key={index} nickName={nickName} title={title} content={content} onItemClick={() => handleItemClick(index)} />
+          {data.map(({ writer, title, content }, index) => (
+            <BoardItem key={index} writer={writer} title={title} content={content} onItemClick={() => handleItemClick(index)} />
           ))}
         </>
       ) : (
