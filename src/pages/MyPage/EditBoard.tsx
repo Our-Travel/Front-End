@@ -3,6 +3,7 @@ import { AiOutlineClose } from 'react-icons/ai';
 import WriteButton from '../../components/Chatting/WriteButton';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import regions from '../../util/region';
 
 interface Props {
   setEditBoard: Dispatch<SetStateAction<boolean>>;
@@ -33,7 +34,13 @@ const EditBoard = ({ setEditBoard, item }: Props) => {
 
     deleteMyBoard();
   };
-  console.log(item.boardId);
+
+  //지역코드를 지역명으로 전처리
+  const findKeyByValue = (value: number) => {
+    const region = regions.find((region) => region.value === value);
+    return region ? region.key : 'Unknown'; // 해당하는 key를 찾으면 출력하고, 없으면 'Unknown'을 출력
+  };
+  const location = findKeyByValue(item.region_code);
 
   //게시글 삭제 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
   const deleteMyBoard = async () => {
@@ -81,13 +88,14 @@ const EditBoard = ({ setEditBoard, item }: Props) => {
         <div className="mt-8 mx-4 text-left">
           <div className="flex text-sm my-3">
             <div className="w-1/5 font-semibold text-gray-600">여행지</div>
-            <span className="text-gray-500">{item.region_code}</span>
+            <span className="text-gray-500">{location}</span>
           </div>
           <div className="flex text-sm my-3">
             <div className="w-1/5 font-semibold text-gray-600">모집기간</div>
             <span className="text-gray-500">
               {item.recruitment_period_start} ~ {item.recruitment_period_end}
             </span>
+            <span className="ml-6 font-semibold text-orange-500">{item.recruitment_status}</span>
           </div>
           <div className="flex text-sm my-3">
             <div className="w-1/5 font-semibold text-gray-600">여행기간</div>

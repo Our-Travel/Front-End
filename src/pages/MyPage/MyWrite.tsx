@@ -31,7 +31,7 @@ const MyWrite = () => {
       const response = await axios.get(boardUrl, {
         headers: headers,
       });
-      console.log(response);
+      console.log(response.data.data.content);
 
       const data = response.data.data.content;
       setBoardList(data);
