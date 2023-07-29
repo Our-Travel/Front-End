@@ -2,6 +2,7 @@ import React, { Dispatch, SetStateAction, useEffect, useRef, useState } from 're
 import { BsHandThumbsUpFill, BsHandThumbsUp } from 'react-icons/bs';
 import useLoginCheck from '../../hooks/useLoginCheck';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 interface Props {
   setModal: Dispatch<SetStateAction<boolean>>;
@@ -65,11 +66,52 @@ const BoardModal = ({ setModal, item }: Props) => {
     }
   };
 
+  //모달로 뜨게될 게시글 하나의 상세정보를 불러오는 통신 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+  const boardId = async () => {
+    const storedToken = localStorage.getItem('token');
+    const headers = {
+      Authorization: `Bearer ${storedToken}`,
+    };
+    try {
+      // 여행 게시글 작성 요청
+      const boardUrl = `${process.env.REACT_APP_REST_API_SERVER}/boards/3`;
+      const response = await axios.get(boardUrl, {
+        headers: headers,
+      });
+
+      const title = response.data.data.title;
+      const content = response.data.data.content;
+      const region = response.data.data.region_code;
+      const recruitment_period_start = response.data.data.recruitment_period_start;
+      const recruitment_period_end = response.data.data.recruitment_period_end;
+      const journey_period_start = response.data.data.journey_period_start;
+      const journey_period_end = response.data.data.journey_period_end;
+      const travelers = response.data.data.number_of_travelers;
+      console.log('제목:', title);
+      console.log('내용:', content);
+      console.log('지역 코드:', region);
+      console.log('모집 시작일:', recruitment_period_start);
+      console.log('모집 종료일:', recruitment_period_end);
+      console.log('여행 시작일:', journey_period_start);
+      console.log('여행 종료일:', journey_period_end);
+      console.log('여행자 수:', travelers);
+    } catch (error) {
+      if (axios.isAxiosError(error) && error.response?.status === 400) {
+        // 에러가 발생하면 해당 에러 메시지를 알림으로 보여줌
+        alert(error.response.data.msg);
+      } else {
+        // 기타 에러 처리
+        alert('데이터를 받아오는 과정에 문제가 생겼습니다.😹');
+      }
+    }
+  };
+
   // 모달이 열릴 때 모달 내부의 첫 번째 버튼에 포커스를 줍니다.
   useEffect(() => {
     if (modalRef.current) {
       modalRef.current.focus();
     }
+    boardId();
   }, []);
 
   return (
