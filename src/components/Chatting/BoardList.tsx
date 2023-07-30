@@ -23,9 +23,6 @@ const BoardList = ({ selectedButtonIndex, setSelectedButtonIndex }: BoardListPro
     setModal(true);
   };
 
-  // selectedButtonIndex와 region_code가 일치하는 데이터만 추출
-  // const filteredData = boardList.filter((data) => data.region_code === selectedButtonIndex);
-
   //서버로 통신 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
   const getBoardList = async () => {
     const storedToken = localStorage.getItem('token');
@@ -55,7 +52,9 @@ const BoardList = ({ selectedButtonIndex, setSelectedButtonIndex }: BoardListPro
   };
 
   useEffect(() => {
-    getBoardList();
+    if (selectedButtonIndex !== 0) {
+      getBoardList();
+    }
   }, [selectedButtonIndex]);
 
   return (
