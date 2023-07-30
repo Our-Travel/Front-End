@@ -1,9 +1,10 @@
 import React, { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react';
-import { BsHandThumbsUpFill, BsHandThumbsUp } from 'react-icons/bs';
+import { FaThumbsUp, FaRegThumbsUp } from 'react-icons/fa';
 import useLoginCheck from '../../hooks/useLoginCheck';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import regions from '../../util/region';
+import { getStatusInKorean } from '../../util/status';
+import axios from 'axios';
 
 interface Props {
   setModal: Dispatch<SetStateAction<boolean>>;
@@ -22,11 +23,6 @@ const BoardModal = ({ setModal, item }: Props) => {
   //모달창을 닫음
   const closeModal = () => {
     setModal(false);
-  };
-
-  //클릭되었을때 토글효과를 주기위함
-  const handleClick = () => {
-    setIsFavorited((prevIsFavorited) => !prevIsFavorited);
   };
 
   //키보드가 눌렸을때의 키별 효과들
@@ -56,12 +52,35 @@ const BoardModal = ({ setModal, item }: Props) => {
     }
   };
 
-  //따봉버튼 눌렀을때 함수
-  const toggleFavorite = () => {
+  /* -------------------------------------------------------------------------- */
+  /*                               //따봉버튼 눌렀을때 함수                               */
+  /* -------------------------------------------------------------------------- */
+  const toggleFavorite = async () => {
     //true false로 값을 받아옴
     const isLoggedIn = loginCheck();
     if (isLoggedIn) {
       setIsFavorited((prevIsFavorited) => !prevIsFavorited);
+      const boardId = item.board_id;
+      const storedToken = localStorage.getItem('token');
+      const headers = {
+        Authorization: `Bearer ${storedToken}`,
+      };
+      try {
+        // 여행 게시글 작성 요청
+        const boardsUrl = `${process.env.REACT_APP_REST_API_SERVER}/boards/${boardId}`;
+        const response = await axios.get(boardsUrl, {
+          headers: headers,
+        });
+        console.log(response);
+      } catch (error) {
+        if (axios.isAxiosError(error) && error.response?.status === 400) {
+          // 에러가 발생하면 해당 에러 메시지를 알림으로 보여줌
+          alert(error.response.data.msg);
+        } else {
+          // 기타 에러 처리
+          alert('데이터를 받아오는 과정에 문제가 생겼습니다.😹');
+        }
+      }
     } else {
       navigate('/signin');
     }
@@ -82,6 +101,14 @@ const BoardModal = ({ setModal, item }: Props) => {
   };
   const location = findKeyByValue(item.region_code);
 
+  /* -------------------------------------------------------------------------- */
+  /*                                 //모집상태 전처리                                 */
+  /* -------------------------------------------------------------------------- */
+  const statusFromServer = item.recruitment_status; // 서버로부터 받은 상태 (예: OPEN, UPCOMING 등)
+  const statusInKorean = getStatusInKorean(statusFromServer); // 한글 상태로 변환
+
+  const isButtonActive = statusFromServer === 'OPEN';
+
   return (
     <div ref={modalRef} onKeyDown={handleKeyDown} tabIndex={0} className=" shadow-2xl">
       <div onClick={closeModal} className="absolute w-full h-screen modalPosition bg-gray-400 opacity-25" />
@@ -99,7 +126,7 @@ const BoardModal = ({ setModal, item }: Props) => {
               <span className="text-gray-500">
                 {item.recruitment_period_start} ~ {item.recruitment_period_end}
               </span>
-              <span className="ml-6 font-semibold text-orange-500 animate-pulse">{item.recruitment_status}</span>
+              <span className="ml-6 font-semibold text-orange-500 animate-pulse">{statusInKorean}</span>
             </div>
             <div className="flex text-sm my-3">
               <div className="w-1/5 font-semibold text-gray-600">여행기간</div>
@@ -114,12 +141,12 @@ const BoardModal = ({ setModal, item }: Props) => {
           </div>
           {/* 추후에 해당 게시글을 작성한 사람과의 채팅으로 넘어가게 변경해야함 */}
 
-          <button ref={chatButtonRef} onClick={handleChatButtonClick} className="absolute bottom-3 w-3/5 h-10 left-1/2 -translate-x-1/2 bg-main-color py-1 rounded-lg text-white text-lg font-extrabold">
+          <button ref={chatButtonRef} onClick={handleChatButtonClick} disabled={!isButtonActive} className="absolute bottom-3 w-3/5 h-10 left-1/2 -translate-x-1/2 bg-main-color py-1 rounded-lg text-white text-lg font-extrabold">
             채팅하러 가기
           </button>
 
           <div className="absolute right-10 bottom-5 flex items-center translate-x-2 hover:cursor-pointer" tabIndex={0} onClick={toggleFavorite} ref={thumbsUpRef}>
-            {isFavorited ? <BsHandThumbsUpFill className=" w-[30px] h-[30px]" /> : <BsHandThumbsUp className=" w-[30px] h-[30px]" />}
+            {isFavorited ? <FaThumbsUp className=" w-[30px] h-[30px]" /> : <FaRegThumbsUp className=" w-[30px] h-[30px]" />}
           </div>
         </div>
       )}
