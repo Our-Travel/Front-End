@@ -28,7 +28,6 @@ const EditBoard = ({ setEditBoard, item }: Props) => {
   const [deleteModal, setDeleteModal] = useState<boolean>(false);
   const [finishModal, setFinishModal] = useState<boolean>(false);
   const [editPage, setEditPage] = useState<boolean>(false);
-  const navigate = useNavigate();
 
   //현재페이지 닫기
   const closeEdit = () => {
@@ -60,8 +59,9 @@ const EditBoard = ({ setEditBoard, item }: Props) => {
   };
 
   //게시글 수정
-  const handleSubmit = () => {
+  const handleEditSubmit = () => {
     editMyBoard();
+    setEditPage(false);
   };
 
   //지역코드를 지역명으로 전처리
@@ -124,7 +124,6 @@ const EditBoard = ({ setEditBoard, item }: Props) => {
       });
 
       alert('게시글 수정이 완료되었습니다!');
-      navigate('/myapge/mywrite');
     } catch (error) {
       if (axios.isAxiosError(error) && error.response?.status === 400) {
         // 에러가 발생하면 해당 에러 메시지를 알림으로 보여줌
@@ -169,7 +168,7 @@ const EditBoard = ({ setEditBoard, item }: Props) => {
           onTripStartDateChange={(e) => setTripStartDate(e.target.value)}
           onTripEndDateChange={(e) => setTripEndDate(e.target.value)}
           onTravelersChange={(e) => setTravelers(Number(e.target.value))}
-          onSubmit={handleSubmit}
+          onSubmit={handleEditSubmit}
         />
       )}
       {deleteModal && <WriteButton title="글을 삭제하시겠습니까?" button="삭제하기" setModal={setDeleteModal} handleButton={handleDeleteButton} />}
