@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect } from 'react';
 import Header from '../../components/Header/Header';
-import BoardList from '../../components/Chatting/BoardList';
+import BoardList from '../../components/Board/BoardList';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/free-mode';

@@ -135,7 +135,7 @@ const BoardModal = ({ setModal, item }: Props) => {
             </div>
             <div className="flex text-sm my-3">
               <div className="w-1/5 font-semibold text-gray-600">여행인원</div>
-              <span className="text-gray-500">{item.number_of_travelers}</span>
+              <span className="text-gray-500">{item.number_of_travelers} 명</span>
             </div>
           </div>
           {/* 추후에 해당 게시글을 작성한 사람과의 채팅으로 넘어가게 변경해야함 */}

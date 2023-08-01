@@ -1,10 +1,10 @@
 import React, { ChangeEvent, useState } from 'react';
 import Header from '../../components/Header/Header';
-import WriteButton from '../../components/Chatting/WriteButton';
+import WriteButton from '../../components/Board/WriteButton';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import regions from '../../util/region';
-import PostForm from '../../components/Chatting/PostForm';
+import PostForm from '../../components/Board/PostForm';
 
 const WriteBoard = () => {
   const [modal, setModal] = useState<boolean>(false);

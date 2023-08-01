@@ -1,10 +1,10 @@
 import React, { Dispatch, SetStateAction, useState, useEffect } from 'react';
 import { AiOutlineClose } from 'react-icons/ai';
-import WriteButton from '../../components/Chatting/WriteButton';
+import WriteButton from '../../components/Board/WriteButton';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import regions from '../../util/region';
-import PostForm from '../../components/Chatting/PostForm';
+import PostForm from '../../components/Board/PostForm';
 
 interface Props {
   setEditBoard: Dispatch<SetStateAction<boolean>>;

@@ -1,7 +1,6 @@
 import React from 'react';
 import { FaThumbsUp } from 'react-icons/fa';
 import { GoThumbsup } from 'react-icons/go';
-import useLoginCheck from '../../hooks/useLoginCheck';
 
 interface BoardItemProps {
   writer: string;
