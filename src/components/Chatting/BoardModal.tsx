@@ -46,7 +46,7 @@ const BoardModal = ({ setModal, item }: Props) => {
   const handleChatButtonClick = () => {
     const isLoggedIn = loginCheck();
     if (isLoggedIn) {
-      navigate('/board/chatting');
+      navigate('/chatting');
     } else {
       navigate('/signin');
     }
