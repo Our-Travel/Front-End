@@ -21,6 +21,7 @@ import Board from './pages/Chatting/Board';
 import WriteBoard from './pages/Chatting/WriteBoard';
 import Host from './pages/MyPage/Host';
 import KakaoRedirect from './pages/SignIn/KakaoRedirect';
+import EditBoard from './pages/MyPage/EditBoard';
 
 function App() {
   const [token, setToken] = useState('');
@@ -52,14 +53,13 @@ function App() {
             <Route path="/map" element={<Map token={token} />} />
             <Route path="/board" element={<Board />} />
             <Route path="/board/writeboard" element={<WriteBoard />} />
-            <Route path="/board/chattinglist" element={<ChattingList />} />
-            <Route path="/board/chatting" element={<Chatting />} />
             <Route path="/mypage" element={<MyPage />} />
             <Route path="/mypage/mywrite" element={<MyWrite />} />
             <Route path="/mypage/favorite" element={<Favorite />} />
             <Route path="/mypage/notice" element={<Notice />} />
             <Route path="/mypage/host" element={<Host />} />
             <Route path="/chatting" element={<Chatting />} />
+            <Route path="/chattinglist" element={<ChattingList />} />
           </Route>
           <Route path="*" element={<NotFound />} />
         </Routes>
