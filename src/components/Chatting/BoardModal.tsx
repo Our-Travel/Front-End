@@ -24,6 +24,7 @@ const BoardModal = ({ setModal, item }: Props) => {
   const closeModal = () => {
     setModal(false);
   };
+  const isLoggedIn = loginCheck();
 
   //키보드가 눌렸을때의 키별 효과들
   const handleKeyDown = (event: { preventDefault(): unknown; key: string }) => {
@@ -44,40 +45,8 @@ const BoardModal = ({ setModal, item }: Props) => {
 
   //채팅하러가기 버튼을 눌렀을때 함수
   const handleChatButtonClick = () => {
-    const isLoggedIn = loginCheck();
     if (isLoggedIn) {
       navigate('/chatting');
-    } else {
-      navigate('/signin');
-    }
-  };
-
-  /* -------------------------------------------------------------------------- */
-  /*                               //따봉버튼 눌렀을때 함수                               */
-  /* -------------------------------------------------------------------------- */
-  const toggleFavorite = async () => {
-    //true false로 값을 받아옴
-    const isLoggedIn = loginCheck();
-    if (isLoggedIn) {
-      setIsFavorited((prevIsFavorited) => !prevIsFavorited);
-      const boardId = item.board_id;
-      const storedToken = localStorage.getItem('token');
-      const headers = {
-        Authorization: `Bearer ${storedToken}`,
-      };
-      try {
-        const boardsUrl = `${process.env.REACT_APP_REST_API_SERVER}/boards/${boardId}/likes`;
-        const response = await axios.post(boardsUrl, {
-          headers: headers,
-        });
-        console.log(response);
-      } catch (error) {
-        if (axios.isAxiosError(error) && error.response?.status === 400) {
-          alert(error.response.data.msg);
-        } else {
-          alert('데이터를 받아오는 과정에 문제가 생겼습니다.😹');
-        }
-      }
     } else {
       navigate('/signin');
     }
@@ -97,6 +66,39 @@ const BoardModal = ({ setModal, item }: Props) => {
     return region ? region.key : 'Unknown'; // 해당하는 key를 찾으면 출력하고, 없으면 'Unknown'을 출력
   };
   const location = findKeyByValue(item.region_code);
+
+  /* -------------------------------------------------------------------------- */
+  /*                               //따봉버튼 눌렀을때 함수                               */
+  /* -------------------------------------------------------------------------- */
+  const toggleFavorite = async () => {
+    if (isLoggedIn) {
+      const boardId = item.board_id;
+      const storedToken = localStorage.getItem('token');
+      const headers = {
+        Authorization: `Bearer ${storedToken}`,
+      };
+      try {
+        const likedUrl = `${process.env.REACT_APP_REST_API_SERVER}/boards/${boardId}/likes`;
+        await axios.post(
+          likedUrl,
+          {},
+          {
+            headers: headers,
+          }
+        );
+
+        setIsFavorited((prevIsFavorited) => !prevIsFavorited);
+      } catch (error) {
+        if (axios.isAxiosError(error) && error.response?.status === 400) {
+          alert(error.response.data.msg);
+        } else {
+          alert('데이터를 받아오는 과정에 문제가 생겼습니다.😹');
+        }
+      }
+    } else {
+      navigate('/signin');
+    }
+  };
 
   /* -------------------------------------------------------------------------- */
   /*                                 //모집상태 전처리                                 */

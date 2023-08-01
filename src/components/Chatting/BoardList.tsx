@@ -55,7 +55,7 @@ const BoardList = ({ selectedButtonIndex, setSelectedButtonIndex }: BoardListPro
     if (selectedButtonIndex !== 0) {
       getBoardList();
     }
-  }, [selectedButtonIndex]);
+  }, [selectedButtonIndex, modal]);
 
   return (
     <div>
