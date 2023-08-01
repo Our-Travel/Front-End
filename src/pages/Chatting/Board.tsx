@@ -1,16 +1,16 @@
 import React, { useRef, useState, useEffect } from 'react';
 import Header from '../../components/Header/Header';
 import BoardList from '../../components/Chatting/BoardList';
-import { BsFillChatDotsFill } from 'react-icons/bs';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/free-mode';
 import 'swiper/css/pagination';
+import { BsPencilSquare } from 'react-icons/bs';
 import regions from '../../util/region';
 
 const Board = () => {
-  const icon = <BsFillChatDotsFill />;
   const [selectedButtonIndex, setSelectedButtonIndex] = useState<number>(0);
+  const icon = <BsPencilSquare />;
 
   const handleButtonClick = (index: React.SetStateAction<number>) => {
     setSelectedButtonIndex(index);

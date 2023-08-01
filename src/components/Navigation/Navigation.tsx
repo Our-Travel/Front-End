@@ -3,7 +3,7 @@ import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { GrHomeRounded } from 'react-icons/gr';
 import { GrLocation } from 'react-icons/gr';
 import { TiMessages } from 'react-icons/ti';
-import { HiOutlineInformationCircle } from 'react-icons/hi';
+import { VscNote } from 'react-icons/vsc';
 import { BiUser } from 'react-icons/bi';
 import useLoginCheck from '../../hooks/useLoginCheck';
 
@@ -22,14 +22,14 @@ const Navigation = () => {
   const main = () => {
     navigate('/main');
   };
-  const chat = () => {
+  const board = () => {
     navigate('/board');
+  };
+  const chatting = () => {
+    navigate('/chattinglist');
   };
   const map = () => {
     navigate('/map');
-  };
-  const info = () => {
-    navigate('/info');
   };
   const mypage = () => {
     const isLoggedIn = loginCheck();
@@ -47,14 +47,14 @@ const Navigation = () => {
           <li className={getName(path, '/main')} onClick={main}>
             <GrHomeRounded className="w-5 h-5 " />
           </li>
-          <li className={getName(path, '/board')} onClick={chat}>
+          <li className={getName(path, '/board')} onClick={board}>
+            <VscNote className="w-6 h-6" />
+          </li>
+          <li className={getName(path, '/chattinglist')} onClick={chatting}>
             <TiMessages className="w-6 h-6" />
           </li>
           <li className={getName(path, '/map')} onClick={map}>
             <GrLocation className="w-6 h-6" />
-          </li>
-          <li className={getName(path, '/info')} onClick={info}>
-            <HiOutlineInformationCircle className="w-6 h-6" />
           </li>
           <li className={getName(path, '/mypage')} onClick={mypage}>
             <BiUser className="w-6 h-6" />

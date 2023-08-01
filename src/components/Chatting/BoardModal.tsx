@@ -66,18 +66,15 @@ const BoardModal = ({ setModal, item }: Props) => {
         Authorization: `Bearer ${storedToken}`,
       };
       try {
-        // 여행 게시글 작성 요청
-        const boardsUrl = `${process.env.REACT_APP_REST_API_SERVER}/boards/${boardId}`;
-        const response = await axios.get(boardsUrl, {
+        const boardsUrl = `${process.env.REACT_APP_REST_API_SERVER}/boards/${boardId}/likes`;
+        const response = await axios.post(boardsUrl, {
           headers: headers,
         });
         console.log(response);
       } catch (error) {
         if (axios.isAxiosError(error) && error.response?.status === 400) {
-          // 에러가 발생하면 해당 에러 메시지를 알림으로 보여줌
           alert(error.response.data.msg);
         } else {
-          // 기타 에러 처리
           alert('데이터를 받아오는 과정에 문제가 생겼습니다.😹');
         }
       }
