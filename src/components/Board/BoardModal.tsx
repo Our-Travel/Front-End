@@ -7,11 +7,12 @@ import { getStatusInKorean } from '../../util/status';
 import axios from 'axios';
 
 interface Props {
+  modal: boolean;
   setModal: Dispatch<SetStateAction<boolean>>;
   item: any;
 }
 
-const BoardModal = ({ setModal, item }: Props) => {
+const BoardModal = ({ modal, setModal, item }: Props) => {
   const [isFavorited, setIsFavorited] = useState(false);
   const modalRef = useRef<HTMLDivElement>(null);
   //로그인 되어있는지 확인하는 커스텀 훅
@@ -58,7 +59,7 @@ const BoardModal = ({ setModal, item }: Props) => {
     if (modalRef.current) {
       modalRef.current.focus();
     }
-  }, []);
+  }, [item.like_board_status, item.recruitment_status]);
 
   //지역코드를 지역명으로 전처리
   const findKeyByValue = (value: number) => {
@@ -109,10 +110,10 @@ const BoardModal = ({ setModal, item }: Props) => {
   const isButtonActive = statusFromServer === 'OPEN';
 
   return (
-    <div ref={modalRef} onKeyDown={handleKeyDown} tabIndex={0} className=" shadow-2xl">
+    <div ref={modalRef} onKeyDown={handleKeyDown} tabIndex={0} className="shadow-2xl">
       <div onClick={closeModal} className="absolute w-full h-screen modalPosition bg-gray-400 opacity-25" />
       {item && (
-        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[90%] h-[450px] bg-white rounded-xl">
+        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[90%] h-[450px] bg-white rounded-xl ">
           <h3 className="text-xl font-semibold my-4">{item.title}</h3>
           <div className="border rounded-lg mx-4 h-[170px] text-left px-3 py-2">{item.content}</div>
           <div className="mt-3 mx-4 text-left">
@@ -140,12 +141,19 @@ const BoardModal = ({ setModal, item }: Props) => {
           </div>
           {/* 추후에 해당 게시글을 작성한 사람과의 채팅으로 넘어가게 변경해야함 */}
 
-          <button ref={chatButtonRef} onClick={handleChatButtonClick} disabled={!isButtonActive} className="absolute bottom-3 w-3/5 h-10 left-1/2 -translate-x-1/2 bg-main-color py-1 rounded-lg text-white text-lg font-extrabold">
+          <button
+            ref={chatButtonRef}
+            onClick={handleChatButtonClick}
+            disabled={!isButtonActive}
+            className={`${
+              isButtonActive ? 'bg-main-color2 hover:bg-main-color' : 'bg-gray-400 text-gray-100'
+            } absolute transition-transform hover:scale-110 bottom-3 w-3/5 h-10 left-1/2 -translate-x-1/2 py-1 rounded-lg text-white text-lg font-extrabold`}
+          >
             채팅하러 가기
           </button>
 
           <div className="absolute right-10 bottom-5 flex items-center translate-x-2 hover:cursor-pointer" tabIndex={0} onClick={toggleFavorite} ref={thumbsUpRef}>
-            {isFavorited ? <FaThumbsUp className=" w-[30px] h-[30px]" /> : <FaRegThumbsUp className=" w-[30px] h-[30px]" />}
+            {isFavorited ? <FaThumbsUp className=" w-[30px] h-[30px] transition-transform hover:scale-125" /> : <FaRegThumbsUp className=" w-[30px] h-[30px] transition-transform hover:scale-125" />}
           </div>
         </div>
       )}

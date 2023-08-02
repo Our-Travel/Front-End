@@ -16,7 +16,7 @@ const Navigation = () => {
   const loginCheck = useLoginCheck();
 
   function getName(currentPath: string, expectedPath: string): string {
-    return currentPath.includes(expectedPath) ? 'active' : 'navigationButton';
+    return currentPath.includes(expectedPath) ? 'active' : 'transition-transform hover:scale-125';
   }
 
   const main = () => {

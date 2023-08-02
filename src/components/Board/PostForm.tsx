@@ -57,7 +57,7 @@ const PostForm: React.FC<PostFormProps> = (props) => {
       </div>
       <div className="text-left mt-2 ml-2 text-sm font-semibold text-gray-600">여행인원</div>
       <textarea value={props.travelers} onChange={props.onTravelersChange} name="content" placeholder="0" className="w-full h-10 overflow-hidden text-sm lg:text-base mt-2 px-3 py-2  border rounded-lg border-slate-400" />
-      <button onClick={props.onSubmit} className="w-[90%] mt-4 mb-20  bg-main-color py-2 rounded-lg text-white text-lg font-extrabold">
+      <button onClick={props.onSubmit} className="w-[90%] mt-4 mb-20  bg-main-color2 hover:bg-main-color py-2 rounded-lg text-white text-lg font-extrabold">
         작성하기
       </button>
     </div>
