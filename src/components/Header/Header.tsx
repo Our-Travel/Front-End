@@ -2,7 +2,6 @@ import { SlArrowLeft } from 'react-icons/sl';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
 import ChattingModal from '../Modal/ChattingModal';
-import { BsPencilSquare } from 'react-icons/bs';
 import useLoginCheck from '../../hooks/useLoginCheck';
 import { useResetRecoilState } from 'recoil';
 import { token } from '../../Atom/atom';
@@ -24,35 +23,20 @@ const Header = ({ title, back, icon }: header) => {
   //로그인 되어있는지 확인하는 커스텀 훅
   const loginCheck = useLoginCheck();
 
-  useEffect(() => {
-    if (lastPath === 'board') {
-      setWriteBoard(true);
-    } else {
-      setWriteBoard(false);
-    }
-  }, [lastPath]);
-
   const handleGoBack = () => {
-    if (lastPath === 'board') {
+    window.history.back();
+  };
+
+  const handleButtonClick = () => {
+    if (lastPath == 'chatting') {
+      const isOpen = () => setModal(!modalOpen);
+      isOpen();
+    }
+    if (lastPath == 'board') {
       const isLoggedIn = loginCheck();
       if (isLoggedIn) {
         navigate('/board/writeboard');
       }
-    } else {
-      window.history.back();
-    }
-  };
-
-  const handleButtonClick = () => {
-    if (lastPath == 'board') {
-      const isLoggedIn = loginCheck();
-      if (isLoggedIn) {
-        navigate('/board/chattinglist');
-      }
-    }
-    if (lastPath == 'chatting') {
-      const isOpen = () => setModal(!modalOpen);
-      isOpen();
     }
   };
 
@@ -62,11 +46,6 @@ const Header = ({ title, back, icon }: header) => {
         {back && (
           <button type="button" className="absolute left-1 px-2 py-2" onClick={handleGoBack}>
             <SlArrowLeft />
-          </button>
-        )}
-        {writeBoard && (
-          <button type="button" className="absolute left-1 px-2 py-2" onClick={handleGoBack}>
-            <BsPencilSquare />
           </button>
         )}
         <h2 className="text-xl font-semibold">{title}</h2>

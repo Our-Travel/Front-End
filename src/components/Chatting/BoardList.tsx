@@ -1,41 +1,78 @@
 import React, { useState, useRef, SetStateAction, Dispatch, useEffect } from 'react';
 import BoardItem from './BoardItem';
 import BoardModal from './BoardModal';
-import useLoginCheck from '../../hooks/useLoginCheck';
-
-//앞으로 해야하는 작업이 Board.tsx에서 넘어온 지역필터를 통해서 그에맞는 data들을 map으로 돌려야함.
-// Board.tsx에서 서울로 설정되었다면, 현재 페이지에서 서울관련 데이터를 요청. 뿌리기
-//현재는 더미데이터 (data) 가 경기도 일때만 뜨게 해뒀음
+import axios from 'axios';
+import regions from './../../util/region';
 
 interface BoardListProps {
   selectedButtonIndex: number; // 수정된 타입
   setSelectedButtonIndex: (index: number) => void;
 }
 
-const data = [
-  { nickName: 'name1', title: '5월에놀러가요', content: 'conetent1' },
-  { nickName: 'name2', title: '6월에놀러가요', content: 'content2' },
-  { nickName: 'tesfd3', title: '7월에놀러가요', content: 'content3' },
-];
-
 const BoardList = ({ selectedButtonIndex, setSelectedButtonIndex }: BoardListProps) => {
   const [modal, setModal] = useState<boolean>(false);
+  const [boardList, setBoardList] = useState([]);
   //BoardItem에서 클릭된 정보를 저장하기 위한 객체
   const [selectedItem, setSelectedItem] = useState<any>(null);
+  const [lastId, setLastId] = useState<any>(100);
+  //받아온 데이터의 갯수가 없다면? 을 받는 객체
+  const [isEmpty, setEmpty] = useState<boolean>(true);
 
   const handleItemClick = (index: number) => {
-    setSelectedItem(data[index]);
+    setSelectedItem(boardList[index]);
     setModal(true);
   };
 
+  //서버로 통신 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+  const getBoardList = async () => {
+    const storedToken = localStorage.getItem('token');
+    const headers = {
+      Authorization: `Bearer ${storedToken}`,
+    };
+    try {
+      // 여행 게시글 작성 요청
+      const boardsUrl = `${process.env.REACT_APP_REST_API_SERVER}/boards?regionCode=${selectedButtonIndex}&lastId=${lastId}`;
+      const response = await axios.get(boardsUrl, {
+        headers: headers,
+      });
+      const data = response.data.data.content;
+      setBoardList(data);
+
+      const dataIsEmpty = response.data.data.content.length === 0;
+      setEmpty(dataIsEmpty);
+    } catch (error) {
+      if (axios.isAxiosError(error) && error.response?.status === 400) {
+        // 에러가 발생하면 해당 에러 메시지를 알림으로 보여줌
+        alert(error.response.data.msg);
+      } else {
+        // 기타 에러 처리
+        alert('데이터를 받아오는 과정에 문제가 생겼습니다.😹');
+      }
+    }
+  };
+
+  useEffect(() => {
+    if (selectedButtonIndex !== 0) {
+      getBoardList();
+    }
+  }, [selectedButtonIndex]);
+
   return (
     <div>
-      {selectedButtonIndex === 1 && ( // selectedButtonIndex가 1일 때만 데이터를 렌더링
-        <>
-          {data.map(({ nickName, title, content }, index) => (
-            <BoardItem key={index} nickName={nickName} title={title} content={content} onItemClick={() => handleItemClick(index)} />
+      {isEmpty ? (
+        <div className="flex flex-col items-center justify-center gap-9 absolute centerPosition w-full">
+          <img src="/assets/MyWriteImg.svg" alt="작성한 글이 없어요 페이지 보라색 캐릭터" />
+          <div>
+            <p className="text-xl">작성된 글이 없어요.</p>
+            <p className="mt-3 text-gray-500">글을 작성해 여행할 동료를 구해보세요.</p>
+          </div>
+        </div>
+      ) : (
+        <div>
+          {boardList.map(({ writer, title, content, like_counts }, index) => (
+            <BoardItem key={index} writer={writer} title={title} content={content} like_counts={like_counts} onItemClick={() => handleItemClick(index)} />
           ))}
-        </>
+        </div>
       )}
       {modal && <BoardModal setModal={setModal} item={selectedItem} />}
     </div>
