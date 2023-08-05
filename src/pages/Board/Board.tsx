@@ -28,7 +28,7 @@ const Board = () => {
         <Swiper slidesPerView={5} spaceBetween={10} keyboard={true} className="mySwiper h-12 relative">
           {regions.map((region) => (
             <SwiperSlide key={region.value} className="bg-transparent absolute translate-y-1/4">
-              <button className={`text-base border rounded-xl w-[70px] ${selectedButtonIndex === region.value ? 'bg-gray-500 text-white font-bold' : ''}`} onClick={() => handleButtonClick(region.value)}>
+              <button className={`text-base border rounded-xl w-[70px] hover:bg-pink-50 ${selectedButtonIndex === region.value ? 'bg-gray-500 text-white font-bold' : ''}`} onClick={() => handleButtonClick(region.value)}>
                 {region.key}
               </button>
             </SwiperSlide>

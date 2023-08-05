@@ -21,7 +21,7 @@ const BoardItem = ({ writer, title, content, like_counts, onItemClick }: BoardIt
   };
 
   return (
-    <div onClick={handleClick} onKeyDown={handleKeyDown} tabIndex={0} className="relative flex h-[80px] hover:bg-gray-100 border-b-2 pb-24 px-2">
+    <div onClick={handleClick} onKeyDown={handleKeyDown} tabIndex={0} className="relative flex h-[80px] hover:bg-pink-50 border-b-2 pb-24 px-2">
       <div className="absolute top-[50%] -translate-y-[50%] w-1/5 px-2">
         <p className="font-bold text-lg">{writer}</p>
       </div>
