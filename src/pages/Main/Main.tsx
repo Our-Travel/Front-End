@@ -30,8 +30,8 @@ const Main = () => {
   };
 
   return (
-    <div>
-      <Header title={'메인'} back={false} icon={undefined} />
+    <>
+      <Header title={'메인'} back={false} icon={''} />
 
       <Banner />
       <div className="text-xl font-semibold -translate-y-4">
@@ -43,8 +43,8 @@ const Main = () => {
             HOST 등록수
           </button>
         </div>
-        {showMap && <MapComponent />}
         {showGraph && <GraphComponent />}
+        {showMap && <MapComponent />}
       </div>
     </>
   );
