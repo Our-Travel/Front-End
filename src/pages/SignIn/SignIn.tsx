@@ -1,7 +1,7 @@
 import Header from '../../components/Header/Header';
 import Logo from '../../components/Logo/Logo';
 import { Email, Password } from '../../components/EmailPassword/EmailPassword';
-import { LoginButton, LoginKakao } from '../../components/LoginButton/LoginButton';
+import { Button, LoginKakao } from '../../components/LoginButton/Button';
 import ChoiceTab from '../../components/ChoiceTab/ChoiceTab';
 import React, { useEffect, useState, MouseEvent } from 'react';
 import axios, { AxiosResponse } from 'axios';
@@ -56,7 +56,7 @@ const SignIn = () => {
         <div className="relative inputForm">
           <Password page={true} setPwData={setPwData} />
         </div>
-        <LoginButton name={'로그인'} page={false} active={active} onClick={login} />
+        <Button name={'로그인'} page={false} active={active} onClick={login} />
         <LoginKakao />
       </form>
       <ChoiceTab />

@@ -1,7 +1,7 @@
 import React, { useEffect, useState, MouseEvent } from 'react';
 import Header from '../../components/Header/Header';
 import { Email, Password } from '../../components/EmailPassword/EmailPassword';
-import { LoginButton } from '../../components/LoginButton/LoginButton';
+import { Button } from '../../components/LoginButton/Button';
 import axios, { AxiosResponse } from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
@@ -52,7 +52,7 @@ const SignUp = () => {
           <Email page={false} id={'nickName'} title={'닉네임'} type={'text'} placeholder={'한글, 영문, 숫자 가능 3~8자'} />
         </div>
         <div className="absolute bottom-7">
-          <LoginButton name={'가입하기'} page={false} active={active} onClick={join} />
+          <Button name={'가입하기'} page={false} active={active} onClick={join} />
         </div>
       </form>
     </>
