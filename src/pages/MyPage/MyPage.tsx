@@ -1,15 +1,19 @@
-import React, { MutableRefObject, RefObject, useRef, useState } from 'react';
+import React, { useState, MouseEvent } from 'react';
 import Header from '../../components/Header/Header';
 import { MypageTab, Profile } from '../../components/MypageInfo/MypageInfo';
 import { Link } from 'react-router-dom';
 import { BiBell } from 'react-icons/bi';
 import { BsPatchCheckFill } from 'react-icons/bs';
-import { MdLogout, MdOutlineMail, MdPersonRemove } from 'react-icons/md';
+import { MdLogout, MdPersonRemove } from 'react-icons/md';
 import { IconType } from 'react-icons';
 import Modal from '../../components/Modal/Modal';
-import UploadProfile from '../../components/Modal/UploadProfile';
 
-const icons: { Icon: IconType; link: string; text: string }[] = [
+const icons: { Icon: IconType | string; link: string; text: string }[] = [
+  {
+    Icon: BsPatchCheckFill,
+    link: '/mypage/host',
+    text: 'Host 등록',
+  },
   {
     Icon: BiBell,
     link: '/mypage/notice',
@@ -21,32 +25,20 @@ const icons: { Icon: IconType; link: string; text: string }[] = [
     text: '로그아웃',
   },
   {
-    Icon: MdOutlineMail,
-    link: '/',
-    text: '고객센터',
-  },
-  {
     Icon: MdPersonRemove,
     link: '/',
     text: '회원탈퇴',
   },
 ];
+
 const logOutModal: { text: string }[] = [{ text: '로그아웃' }, { text: '취소' }];
 const memberShipModal: { text: string }[] = [{ text: '회원탈퇴' }, { text: '취소' }];
+
 const MyPage = () => {
-  const [showImagePopup, setShowImagePopup] = useState(false);
-  const [file, setFile] = useState(null);
   const [modalOpen, setModal] = useState<boolean>(false);
   const [icon, setIcon] = useState<string>('');
-  const [uploadModalOpen, setUploadModal] = useState<boolean>(false);
-  const handleImage = () => {
-    setUploadModal(true);
-  };
-  const closeImagePopup = () => {
-    setUploadModal(false);
-  };
 
-  const isOpen = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const isOpen = (e: MouseEvent<HTMLButtonElement>) => {
     const target = e.target as HTMLButtonElement;
     setModal(!modalOpen);
     setIcon(target.name);
@@ -90,7 +82,7 @@ const MyPage = () => {
     // export default MyPage;
 
     <>
-      <Header title={'마이페이지'} icon={''} back={false} />
+      <Header title={'마이페이지'} back={false} icon={''} />
       <div className="flex flex-col gap-4 w-[25rem] mx-auto my-6">
         <Profile />
         <button onClick={handleImage} className="w-[25rem] h-9 mb-7 border rounded border-main-color text-main-color hover:bg-main-color hover:text-white">
@@ -121,7 +113,6 @@ const MyPage = () => {
         </ul>
       </div>
       {<Modal open={modalOpen} close={setModal} data={icon === '로그아웃' ? logOutModal : memberShipModal} page={'mypage'} />}
-      {uploadModalOpen && <UploadProfile onClose={closeImagePopup} />}
     </>
   );
 };

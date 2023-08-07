@@ -10,10 +10,10 @@
     @apply flex flex-col gap-1;
   }
   .inputStyle {
-    @apply w-[25rem] h-12 border border-gray-300 rounded placeholder:text-gray-300 pl-2;
+    @apply w-[25rem] h-12 border rounded placeholder:text-gray-400 pl-2;
   }
   .signUpInput {
-    @apply w-[18rem] h-12 border border-gray-300 rounded placeholder:text-gray-300 pl-2;
+    @apply w-[18rem] h-12 border rounded placeholder:text-gray-400 pl-2;
   }
   .signUpAddress {
     @apply w-48 h-12;
@@ -25,7 +25,7 @@
     @apply flex justify-center items-center w-[25rem] h-12 mx-auto mt-2 rounded text-white bg-noActive-color;
   }
   .errorText {
-    @apply text-left text-sm text-login-red;
+    @apply text-left text-sm text-check-red;
   }
   .centerPosition {
     @apply top-1/2 left-1/2 -translate-x-[50%] -translate-y-[50%];

@@ -12,14 +12,14 @@ const Navigation = () => {
   const path: string = location.pathname;
 
   function getName(currentPath: string, expectedPath: string): string {
-    return currentPath === expectedPath ? 'active' : 'navigationButton';
+    return currentPath.includes(expectedPath) ? 'active' : 'navigationButton';
   }
 
   const main = () => {
     navigate('/main');
   };
   const chat = () => {
-    navigate('/chatting');
+    navigate('/board');
   };
   const map = () => {
     navigate('/map');
@@ -28,7 +28,12 @@ const Navigation = () => {
     navigate('/info');
   };
   const mypage = () => {
-    navigate('/mypage');
+    if (localStorage.getItem('token')) {
+      navigate('/mypage');
+    } else {
+      navigate('/signin');
+      alert('로그인 후 이용 가능합니다.');
+    }
   };
 
   return (
@@ -38,7 +43,7 @@ const Navigation = () => {
           <li className={getName(path, '/main')} onClick={main}>
             <GrHomeRounded className="w-5 h-5 " />
           </li>
-          <li className={getName(path, '/chatting')} onClick={chat}>
+          <li className={getName(path, '/board')} onClick={chat}>
             <TiMessages className="w-6 h-6" />
           </li>
           <li className={getName(path, '/map')} onClick={map}>
