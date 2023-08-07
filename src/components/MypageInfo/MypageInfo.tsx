@@ -3,12 +3,14 @@ import React, { useEffect, useState } from 'react';
 import { BsPatchCheckFill } from 'react-icons/bs';
 import { MdArrowForwardIos } from 'react-icons/md';
 import { Link, useNavigate } from 'react-router-dom';
-import { useResetRecoilState } from 'recoil';
+import { useResetRecoilState, useRecoilState } from 'recoil';
 import { token } from '../../Atom/atom';
+import { hostCheck } from '../../Atom/userAtom';
 
 export const Profile = () => {
   const [email, setEmail] = useState<string>('');
   const [nickName, setNickName] = useState<string>('');
+  const [hostActive, setHostActive] = useRecoilState(hostCheck);
   const resetToken = useResetRecoilState(token);
   const navigate = useNavigate();
 
@@ -22,6 +24,7 @@ export const Profile = () => {
       .then((response) => {
         setEmail(response.data.data.username);
         setNickName(response.data.data.nick_name);
+        setHostActive(response.data.data.host_authority);
       })
       .catch((error) => {
         alert(`${error.response.data.msg} 다시 로그인 해주세요.`);
@@ -29,7 +32,7 @@ export const Profile = () => {
         resetToken();
         navigate('/signin');
       });
-  }, []);
+  }, [setEmail, setNickName, setHostActive]);
 
   return (
     <div className="w-[25rem] mx-auto flex flex-row items-center gap-3">
@@ -37,7 +40,7 @@ export const Profile = () => {
       <div className="text-left">
         <div className="flex flex-row items-center gap-2">
           <h2>{nickName}</h2>
-          <BsPatchCheckFill className="relative text-main-color" />
+          {hostActive && <BsPatchCheckFill className="relative text-main-color" />}
         </div>
         <p className="mt-1">{email}</p>
       </div>

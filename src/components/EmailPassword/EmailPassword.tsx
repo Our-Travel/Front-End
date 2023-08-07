@@ -1,5 +1,5 @@
 import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
-import axios, { AxiosResponse } from 'axios';
+import axios from 'axios';
 import useInput from '../../hooks/useInput';
 import { MdOutlineCancel } from 'react-icons/md';
 import { userInfo, signUpStatus } from '../../Atom/userAtom';

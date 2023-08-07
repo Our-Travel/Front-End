@@ -3,42 +3,47 @@ import Header from '../../components/Header/Header';
 import { MypageTab, Profile } from '../../components/MypageInfo/MypageInfo';
 import { Link } from 'react-router-dom';
 import { BiBell } from 'react-icons/bi';
-import { BsPatchCheckFill } from 'react-icons/bs';
+import { BsPatchCheckFill, BsPencilFill } from 'react-icons/bs';
 import { MdLogout, MdPersonRemove } from 'react-icons/md';
 import { IconType } from 'react-icons';
-import Modal from '../../components/Modal/Modal';
 import UploadProfile from '../../components/Modal/UploadProfile';
-
-const icons: { Icon: IconType | string; link: string; text: string }[] = [
-  {
-    Icon: BsPatchCheckFill,
-    link: '/mypage/host',
-    text: 'Host 등록',
-  },
-  {
-    Icon: BiBell,
-    link: '/mypage/notice',
-    text: '공지사항',
-  },
-  {
-    Icon: MdLogout,
-    link: '/',
-    text: '로그아웃',
-  },
-  {
-    Icon: MdPersonRemove,
-    link: '/',
-    text: '회원탈퇴',
-  },
-];
-
-const logOutModal: { text: string }[] = [{ text: '로그아웃' }, { text: '취소' }];
-const memberShipModal: { text: string }[] = [{ text: '회원탈퇴' }, { text: '취소' }];
+import { useRecoilValue } from 'recoil';
+import { hostCheck } from '../../Atom/userAtom';
+import WriteButton from '../../components/Chatting/WriteButton';
+import { useNavigate } from 'react-router-dom';
+import { useResetRecoilState } from 'recoil';
+import { token } from '../../Atom/atom';
 
 const MyPage = () => {
-  const [modalOpen, setModal] = useState<boolean>(false);
+  const hostActive = useRecoilValue(hostCheck);
+  const icons: { Icon: IconType | string; link: string; text: string }[] = [
+    {
+      Icon: hostActive ? BsPencilFill : BsPatchCheckFill,
+      link: hostActive ? '/mypage/host/edit' : '/mypage/host',
+      text: hostActive ? 'Host수정' : 'Host 등록',
+    },
+    {
+      Icon: BiBell,
+      link: '/mypage/notice',
+      text: '공지사항',
+    },
+    {
+      Icon: MdLogout,
+      link: '/',
+      text: '로그아웃',
+    },
+    {
+      Icon: MdPersonRemove,
+      link: '/',
+      text: '회원탈퇴',
+    },
+  ];
+  const [modal, setModal] = useState<boolean>(false);
   const [icon, setIcon] = useState<string>('');
   const [uploadModalOpen, setUploadModal] = useState<boolean>(false);
+  const navigate = useNavigate();
+  const resetToken = useResetRecoilState(token);
+
   const handleImage = () => {
     setUploadModal(true);
   };
@@ -48,13 +53,25 @@ const MyPage = () => {
 
   const isOpen = (e: MouseEvent<HTMLButtonElement>) => {
     const target = e.target as HTMLButtonElement;
-    setModal(!modalOpen);
+    setModal(!modal);
     setIcon(target.name);
+  };
+
+  const logout = () => {
+    resetToken();
+    localStorage.removeItem('token');
+    navigate('/');
+    alert('로그아웃 되었습니다.👋');
+  };
+
+  const MemberDelete = () => {
+    console.log('회원탈퇴');
   };
 
   return (
     <>
       <Header title={'마이페이지'} back={false} icon={''} />
+      {modal && <WriteButton title={icon === '로그아웃' ? '로그아웃 하시겠습니까?' : '회원탈퇴 하시겠습니까?'} button={icon === '로그아웃' ? '로그아웃' : '회원탈퇴'} setModal={setModal} handleButton={icon === '로그아웃' ? logout : MemberDelete} />}
       <div className="flex flex-col gap-4 w-[25rem] mx-auto my-6">
         <Profile />
         <button onClick={handleImage} className="w-[25rem] h-9 mb-7 border rounded border-main-color text-main-color hover:bg-main-color hover:text-white">
@@ -69,7 +86,7 @@ const MyPage = () => {
             <li key={index} className="flex items-center justify-center">
               {index <= 1 ? (
                 <Link to={link} className="flex flex-col items-center p-3">
-                  <Icon className={`w-11 h-11 mb-1 + ${index ? '' : 'text-main-color'}`} />
+                  <Icon className={` w-11 h-11 mb-1 + ${index ? '' : hostActive ? 'w-10 h-10 text-black' : 'text-main-color'}`} />
                   <p>{text}</p>
                 </Link>
               ) : (
@@ -84,7 +101,6 @@ const MyPage = () => {
           ))}
         </ul>
       </div>
-      {<Modal open={modalOpen} close={setModal} data={icon === '로그아웃' ? logOutModal : memberShipModal} page={'mypage'} />}
       {uploadModalOpen && <UploadProfile onClose={closeImagePopup} />}
     </>
   );
