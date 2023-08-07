@@ -30,8 +30,9 @@ const Main = () => {
   };
 
   return (
-    <>
-      <Header title={'메인'} back={false} icon={''} />
+    <div>
+      <Header title={'메인'} back={false} icon={undefined} />
+
       <Banner />
       <div className="text-xl font-semibold -translate-y-4">
         <div className="flex justify-center w-full space-x-16 ">
