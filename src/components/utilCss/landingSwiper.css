@@ -1,13 +1,10 @@
 .swiper-slide {
   width: 100%;
-  height: 24rem;
-  font-size: 1.5rem;
-  background-color: pink;
+  font-size: 1rem;
 }
 
 .swiper-pagination {
   position: relative;
-  margin-top: 1.1rem;
 }
 
 .swiper-pagination-bullet {

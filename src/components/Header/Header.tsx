@@ -1,9 +1,10 @@
 import { SlArrowLeft } from 'react-icons/sl';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
-import exp from 'constants';
 import ChattingModal from '../Modal/ChattingModal';
-import { BsPencilSquare } from 'react-icons/bs';
+import useLoginCheck from '../../hooks/useLoginCheck';
+import { useResetRecoilState } from 'recoil';
+import { token } from '../../Atom/atom';
 
 interface header {
   title: string;
@@ -17,30 +18,25 @@ const Header = ({ title, back, icon }: header) => {
   const currentURL = window.location.pathname;
   const lastPath = currentURL.substring(currentURL.lastIndexOf('/') + 1);
   const [writeBoard, setWriteBoard] = useState(false);
+  const resetToken = useResetRecoilState(token);
 
-  useEffect(() => {
-    if (lastPath === 'board') {
-      setWriteBoard(true);
-    } else {
-      setWriteBoard(false);
-    }
-  }, [lastPath]);
+  //로그인 되어있는지 확인하는 커스텀 훅
+  const loginCheck = useLoginCheck();
 
   const handleGoBack = () => {
-    if (lastPath === 'board') {
-      navigate('/board/writeboard');
-    } else {
-      window.history.back();
-    }
+    window.history.back();
   };
 
   const handleButtonClick = () => {
-    if (lastPath == 'board') {
-      navigate('/board/chattinglist');
-    }
     if (lastPath == 'chatting') {
       const isOpen = () => setModal(!modalOpen);
       isOpen();
+    }
+    if (lastPath == 'board') {
+      const isLoggedIn = loginCheck();
+      if (isLoggedIn) {
+        navigate('/board/writeboard');
+      }
     }
   };
 
@@ -52,15 +48,12 @@ const Header = ({ title, back, icon }: header) => {
             <SlArrowLeft />
           </button>
         )}
-        {writeBoard && (
-          <button type="button" className="absolute left-1 px-2 py-2" onClick={handleGoBack}>
-            <BsPencilSquare />
+        <h2 className="text-xl font-semibold">{title}</h2>
+        {icon && (
+          <button type="button" className="absolute right-1 px-2 py-2" onClick={handleButtonClick}>
+            {icon}
           </button>
         )}
-        <h2 className="text-xl font-semibold">{title}</h2>
-        <button type="button" className="absolute right-1 px-2 py-2" onClick={handleButtonClick}>
-          {icon}
-        </button>
       </header>
       <ChattingModal open={modalOpen} close={setModal} />
     </>

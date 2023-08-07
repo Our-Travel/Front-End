@@ -1,9 +1,11 @@
 import { Link } from 'react-router-dom';
 
-export default function Logo() {
+const Logo = () => {
   return (
     <Link to="/">
       <img src="/assets/ourtravel.png" alt="OurTravel" />
     </Link>
   );
-}
+};
+
+export default Logo;
