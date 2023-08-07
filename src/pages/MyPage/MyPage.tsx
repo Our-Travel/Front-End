@@ -7,6 +7,7 @@ import { BsPatchCheckFill } from 'react-icons/bs';
 import { MdLogout, MdPersonRemove } from 'react-icons/md';
 import { IconType } from 'react-icons';
 import Modal from '../../components/Modal/Modal';
+import UploadProfile from '../../components/Modal/UploadProfile';
 
 const icons: { Icon: IconType | string; link: string; text: string }[] = [
   {
@@ -37,6 +38,13 @@ const memberShipModal: { text: string }[] = [{ text: '회원탈퇴' }, { text: '
 const MyPage = () => {
   const [modalOpen, setModal] = useState<boolean>(false);
   const [icon, setIcon] = useState<string>('');
+  const [uploadModalOpen, setUploadModal] = useState<boolean>(false);
+  const handleImage = () => {
+    setUploadModal(true);
+  };
+  const closeImagePopup = () => {
+    setUploadModal(false);
+  };
 
   const isOpen = (e: MouseEvent<HTMLButtonElement>) => {
     const target = e.target as HTMLButtonElement;
@@ -75,6 +83,7 @@ const MyPage = () => {
         </ul>
       </div>
       {<Modal open={modalOpen} close={setModal} data={icon === '로그아웃' ? logOutModal : memberShipModal} page={'mypage'} />}
+      {uploadModalOpen && <UploadProfile onClose={closeImagePopup} />}
     </>
   );
 };

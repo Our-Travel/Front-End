@@ -2,6 +2,7 @@ import React from 'react';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { SouthKoreaSvgMap } from './SouthKoreaSvgMap';
+import { GrFormLocation } from 'react-icons/gr';
 
 type MapDataType = { [location: string]: number };
 
@@ -67,6 +68,10 @@ export const SimpleSouthKoreaMapChart = ({ darkMode = false, data, unit = '개',
 
   return (
     <>
+      <div className="w-full text-left px-2">
+        <GrFormLocation className="w-10 h-10 inline-block font-normal" />
+        <span className="font-semibold text-gray-600 text-base">Host를 찾아보세요</span>
+      </div>
       <SouthKoreaSvgMap data={mapData} setColorByCount={setColorByCount} onLocationMouseOver={handleLocationMouseOver} onLocationMouseOut={handleLocationMouseOut} onLocationMouseMove={handleLocationMouseMove} onLocationClick={handleLocationClick} />
       {customTooltip ? (
         React.cloneElement(customTooltip, {

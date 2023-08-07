@@ -1,15 +1,19 @@
-import React from 'react';
-import { Navigate, Outlet, useLocation, useNavigate } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { GrHomeRounded } from 'react-icons/gr';
 import { GrLocation } from 'react-icons/gr';
 import { TiMessages } from 'react-icons/ti';
-import { HiOutlineInformationCircle } from 'react-icons/hi';
+import { VscNote } from 'react-icons/vsc';
 import { BiUser } from 'react-icons/bi';
+import useLoginCheck from '../../hooks/useLoginCheck';
 
 const Navigation = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const path: string = location.pathname;
+
+  //로그인 되어있는지 확인하는 커스텀 훅
+  const loginCheck = useLoginCheck();
 
   function getName(currentPath: string, expectedPath: string): string {
     return currentPath.includes(expectedPath) ? 'active' : 'navigationButton';
@@ -18,21 +22,21 @@ const Navigation = () => {
   const main = () => {
     navigate('/main');
   };
-  const chat = () => {
+  const board = () => {
     navigate('/board');
+  };
+  const chatting = () => {
+    navigate('/chattinglist');
   };
   const map = () => {
     navigate('/map');
   };
-  const info = () => {
-    navigate('/info');
-  };
   const mypage = () => {
-    if (localStorage.getItem('token')) {
+    const isLoggedIn = loginCheck();
+    if (isLoggedIn) {
       navigate('/mypage');
     } else {
       navigate('/signin');
-      alert('로그인 후 이용 가능합니다.');
     }
   };
 
@@ -43,14 +47,14 @@ const Navigation = () => {
           <li className={getName(path, '/main')} onClick={main}>
             <GrHomeRounded className="w-5 h-5 " />
           </li>
-          <li className={getName(path, '/board')} onClick={chat}>
+          <li className={getName(path, '/board')} onClick={board}>
+            <VscNote className="w-6 h-6" />
+          </li>
+          <li className={getName(path, '/chattinglist')} onClick={chatting}>
             <TiMessages className="w-6 h-6" />
           </li>
           <li className={getName(path, '/map')} onClick={map}>
             <GrLocation className="w-6 h-6" />
-          </li>
-          <li className={getName(path, '/info')} onClick={info}>
-            <HiOutlineInformationCircle className="w-6 h-6" />
           </li>
           <li className={getName(path, '/mypage')} onClick={mypage}>
             <BiUser className="w-6 h-6" />

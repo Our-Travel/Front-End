@@ -28,9 +28,9 @@
     "recoil": "^0.7.7",
     "recoil-devtools-logger": "^0.5.0",
     "styled-components": "^5.3.10",
-    "swiper": "^9.3.1",
+    "swiper": "^9.4.1",
     "typescript": "^4.9.5",
-    "victory": "^36.6.10",
+    "victory": "^36.6.11",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
@@ -58,6 +58,7 @@
     ]
   },
   "devDependencies": {
+    "@types/swiper": "^6.0.0",
     "eslint": "^8.39.0",
     "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-prettier": "^4.2.1",

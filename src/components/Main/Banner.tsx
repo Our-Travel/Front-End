@@ -1,19 +1,16 @@
+import { useRef } from 'react';
+import SwiperCore, { Autoplay, EffectFade, Navigation, Pagination, Scrollbar } from 'swiper';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { GrPrevious, GrNext } from 'react-icons/gr';
 // Import Swiper styles
 import 'swiper/css';
 import 'swiper/css/effect-fade';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 
-import 테스트 from '../../../src/test.png';
-import 멍뭉이 from '../../../src/멍뭉이.png';
-import 숲 from '../../../src/숲.png';
-import mokpo from '../../../src/image 56.svg';
-
-import { GrPrevious, GrNext } from 'react-icons/gr';
-
-import { useRef } from 'react';
-import SwiperCore, { Autoplay, EffectFade, Navigation, Pagination, Scrollbar } from 'swiper';
-import { Swiper, SwiperSlide } from 'swiper/react';
+import test from '../../assets/test.png';
+import forest from '../../assets/숲.png';
+import mokpo from '../../assets/image 56.svg';
 
 const Banner = () => {
   SwiperCore.use([Navigation, Scrollbar]);
@@ -21,7 +18,7 @@ const Banner = () => {
   const prevRef = useRef<HTMLButtonElement>(null);
   const nextRef = useRef<HTMLButtonElement>(null);
 
-  const items = [{ src: 숲 }, { src: 멍뭉이 }, { src: 테스트 }, { src: mokpo }]; //테스트 이미지
+  const items = [{ src: test }, { src: forest }, { src: mokpo }];
 
   const navigationSettings = {
     navigation: {

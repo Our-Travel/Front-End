@@ -1,6 +1,6 @@
 import { GrFormPrevious } from 'react-icons/gr';
 import { useNavigate } from 'react-router-dom';
-import Ellipse from '../../Ellipse 40.png';
+import Ellipse from '../../assets/Ellipse 40.png';
 
 const FindMate = () => {
   const navigate = useNavigate();
@@ -9,7 +9,6 @@ const FindMate = () => {
   };
 
   const otMembers = [
-    { name: '안정민', image: Ellipse },
     { name: '조윤호', image: Ellipse },
     { name: '김수민', image: Ellipse },
     { name: '이정민', image: Ellipse },

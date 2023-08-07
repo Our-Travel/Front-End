@@ -4,18 +4,22 @@ const useInput = () => {
   const [data, setData] = useState<string>('');
   const [state, setState] = useState<boolean>(false);
 
-  const emailValid = /([\w-.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
+  const emailValid = /([\w-.]+)@(([\w-]+\.)+)([a-zA-Z]{2,4})(\]?)$/;
   const passwordValid = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,16}$/;
   const nickNameValid = /^(?=.*[a-z0-9가-힣])[a-z0-9가-힣]{3,8}$/;
+  const hashTagValid = /#[^\s]{2}/;
 
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setData(e.target.value);
-    if (e.target.id === 'userEmail') {
-      setState(emailValid.test(e.target.value) ? true : false);
-    } else if (e.target.id === 'userPw1') {
-      setState(passwordValid.test(e.target.value) ? true : false);
-    } else if (e.target.id === 'userNickName') {
-      setState(nickNameValid.test(e.target.value) ? true : false);
+    const { id, value } = e.target;
+    setData(value);
+    if (id === 'email') {
+      setState(emailValid.test(value) ? true : false);
+    } else if (id === 'userPw1') {
+      setState(passwordValid.test(value) ? true : false);
+    } else if (id === 'nickName') {
+      setState(nickNameValid.test(value) ? true : false);
+    } else if (id === 'hashTag') {
+      setState(hashTagValid.test(value) ? true : false);
     }
   };
 

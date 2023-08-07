@@ -1,7 +1,7 @@
 import React, { useRef, useEffect, Dispatch, SetStateAction, MouseEvent, KeyboardEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useResetRecoilState } from 'recoil';
-import { token } from '../../recoil/loginAtom';
+import { token } from '../../Atom/atom';
 
 interface modal {
   open: boolean;
