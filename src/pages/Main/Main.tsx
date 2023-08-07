@@ -1,11 +1,16 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Header from '../../components/Header/Header';
 import Banner from '../../components/Main/Banner';
 import GraphComponent from '../../components/Main/GraphComponent';
 import MapComponent from '../../components/Main/MapComponent';
+
 const Main = () => {
   const [showMap, setShowMap] = useState(false);
   const [showGraph, setShowGraph] = useState(false);
+
+  useEffect(() => {
+    handleGraphButtonClick();
+  }, []);
 
   const handleGraphButtonClick = () => {
     setShowMap(false);
@@ -28,8 +33,8 @@ const Main = () => {
     <>
       <Header title={'메인'} back={false} icon={''} />
       <Banner />
-      <div className="text-xl font-semibold -translate-y-4  ">
-        <div className="flex justify-center w-full space-x-10 ">
+      <div className="text-xl font-semibold -translate-y-4">
+        <div className="flex justify-center w-full space-x-16 ">
           <button className={`h-10 hover:scale-110 transition-transform border-main-color ${getName(path, 'tourist')}`} onClick={handleGraphButtonClick}>
             방문객수
           </button>

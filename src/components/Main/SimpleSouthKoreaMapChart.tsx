@@ -60,8 +60,8 @@ export const SimpleSouthKoreaMapChart = ({ darkMode = false, data, unit = '개',
   const handleLocationMouseMove = (event: any) => {
     const tooltipStyle = {
       display: 'block',
-      top: event.clientY - 50,
-      left: event.clientX - 60,
+      top: event.clientY - 200,
+      left: event.clientX - 350,
     };
     setTooltipStyle(tooltipStyle);
   };

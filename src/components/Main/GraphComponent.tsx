@@ -46,7 +46,7 @@ function GraphComponent() {
   };
   return (
     <>
-      <div className="w-[400px] h-[150px] pl-10  mx-auto ">
+      <div className="w-[400px] h-[150px] pl-10 mt-7 mx-auto ">
         <Line data={chartData} />
       </div>
       <div className="w-[400px] h-[250px]  mx-auto">
