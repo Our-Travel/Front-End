@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import Logo from '../../components/Logo/Logo';
-import { LoginButton, LoginKakao } from '../../components/LoginButton/LoginButton';
+import { Button, LoginKakao } from '../../components/LoginButton/Button';
 import ChoiceTab from '../../components/ChoiceTab/ChoiceTab';
-import Modal from '../../components/Modal/Modal';
 import { Link, useNavigate } from 'react-router-dom';
 import { Pagination, Autoplay, A11y } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -10,22 +9,27 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 import '../../components/utilCss/landingSwiper.css';
 import { GrLanguage } from 'react-icons/gr';
+import WriteButton from '../../components/Chatting/WriteButton';
 
 const promotionImg: { title: string }[] = [{ title: '광고이미지' }, { title: '광고이미지' }, { title: '광고이미지' }];
-const modalButton: { text: string }[] = [{ text: '한국어 (South Korea)' }, { text: 'English' }];
 
 export default function Landing() {
-  const [modalOpen, setModal] = useState<boolean>(false);
+  const [modal, setModal] = useState<boolean>(false);
   const [active, setActive] = useState<boolean>(false);
   const navigate = useNavigate();
 
-  const isOpen = () => setModal(!modalOpen);
+  const isOpen = () => setModal(!modal);
+
+  const handleLanguage = () => {
+    console.log('언어설정');
+  };
 
   return (
     <>
       <div className="w-20 h-20 mx-auto my-4">
         <Logo />
       </div>
+      {modal && <WriteButton title={'언어를 선택해주세요.'} button={'English'} setModal={setModal} handleButton={handleLanguage} />}
       <Swiper pagination={{ clickable: true }} modules={[Pagination, Autoplay, A11y]} autoplay={{ delay: 3000, disableOnInteraction: false }} loop={true}>
         {promotionImg.map(({ title }, index) => (
           <SwiperSlide key={index}>
@@ -34,7 +38,7 @@ export default function Landing() {
         ))}
       </Swiper>
       <div className="flex flex-col gap-6">
-        <LoginButton name={'로그인'} page={true} active={active} onClick={() => navigate('/signin')} />
+        <Button name={'로그인'} page={true} active={active} onClick={() => navigate('/signin')} />
         <LoginKakao />
       </div>
       <div className="flex flex-row items-center justify-center">
@@ -50,7 +54,6 @@ export default function Landing() {
           <span className="text-gray-500">feedback</span>
         </Link>
       </div>
-      <Modal open={modalOpen} close={setModal} data={modalButton} page={'landing'} />
     </>
   );
 }
