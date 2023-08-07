@@ -74,9 +74,7 @@ const MyPage = () => {
       {modal && <WriteButton title={icon === '로그아웃' ? '로그아웃 하시겠습니까?' : '회원탈퇴 하시겠습니까?'} button={icon === '로그아웃' ? '로그아웃' : '회원탈퇴'} setModal={setModal} handleButton={icon === '로그아웃' ? logout : MemberDelete} />}
       <div className="flex flex-col gap-4 w-[25rem] mx-auto my-6">
         <Profile />
-        <button onClick={handleImage} className="w-[25rem] h-9 mb-7 border rounded border-main-color text-main-color hover:bg-main-color hover:text-white">
-          프로필 수정
-        </button>
+        <button className="w-[25rem] h-9 mb-7 border rounded border-main-color text-main-color hover:bg-main-color hover:text-white">프로필 수정</button>
         <div className="flex flex-col gap-5 line">
           <MypageTab name={'내가 작성한 글'} link={'/mypage/mywrite'} />
           <MypageTab name={'즐겨찾기'} link={'/mypage/favorite'} />

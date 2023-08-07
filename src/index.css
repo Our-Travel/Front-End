@@ -59,4 +59,22 @@ div:focus,
   .modalPosition {
     @apply top-1/2 left-1/2 -translate-x-[50%] -translate-y-[50%];
   }
+  .svg-map {
+    @apply w-full h-[330px] stroke-gray-400 stroke-1;
+  }
+  .svg-map__location {
+    @apply cursor-pointer;
+  }
+  .svg-map__location:focus {
+    @apply outline-0;
+  }
+  .svg-map__location:hover {
+    @apply outline-0;
+  }
+  .modalBlack {
+    @apply fixed top-0 left-0 right-0 bottom-0 z-30 bg-black bg-opacity-30;
+  }
+  .addPhotoConatiner {
+    @apply lg:w-[500px] w-[400px] h-auto block border-2 rounded-lg bg-orange-100 p-5 absolute top-1/2 left-1/2 -translate-x-[50%] -translate-y-[50%] z-10;
+  }
 }
