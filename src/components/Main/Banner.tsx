@@ -1,19 +1,16 @@
+import { useRef } from 'react';
+import SwiperCore, { Autoplay, EffectFade, Navigation, Pagination, Scrollbar } from 'swiper';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { GrPrevious, GrNext } from 'react-icons/gr';
 // Import Swiper styles
 import 'swiper/css';
 import 'swiper/css/effect-fade';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 
-import 테스트 from '../../test.png';
-import 멍뭉이 from '../../멍뭉이.png';
-import 오렌지 from '../../오렌지.png';
-import 숲 from '../../숲.png';
-
-import { GrPrevious, GrNext } from 'react-icons/gr';
-
-import { useRef } from 'react';
-import SwiperCore, { Autoplay, EffectFade, Navigation, Pagination, Scrollbar } from 'swiper';
-import { Swiper, SwiperSlide } from 'swiper/react';
+import test from '../../assets/test.png';
+import forest from '../../assets/숲.png';
+import mokpo from '../../assets/image 56.svg';
 
 const Banner = () => {
   SwiperCore.use([Navigation, Scrollbar]);
@@ -21,7 +18,7 @@ const Banner = () => {
   const prevRef = useRef<HTMLButtonElement>(null);
   const nextRef = useRef<HTMLButtonElement>(null);
 
-  const items = [{ src: 숲 }, { src: 멍뭉이 }, { src: 테스트 }, { src: 오렌지 }]; //테스트 이미지
+  const items = [{ src: test }, { src: forest }, { src: mokpo }];
 
   const navigationSettings = {
     navigation: {
@@ -50,22 +47,22 @@ const Banner = () => {
           clickable: true,
         }}
         modules={[Navigation, EffectFade, Pagination, Autoplay]}
-        className="w-[450px] h-[200px]"
+        className="w-[450px] h-[120px]"
         loop={true}
         {...navigationSettings}
       >
         {items.map((item, idx) => {
           return (
             <SwiperSlide key={idx}>
-              <img src={item.src} className="w-[450px] h-[200px]" />
+              <img src={item.src} className="w-[450px] h-[120px] " />
             </SwiperSlide>
           );
         })}
       </Swiper>
-      <button ref={prevRef} className="w-[25px] h-[25px] border-[1px] border-slate-500 border-opacity-30 rounded-2xl relative bottom-28 z-10 right-44  bg-slate-300 bg-opacity-30 ">
-        <GrPrevious className="w-[15px] h-[15px] m-auto" />
+      <button ref={prevRef} className="w-[25px] h-[25px] border-[1px] border-slate-500 border-opacity-30 rounded-2xl relative bottom-16 z-10 right-44  bg-slate-300 bg-opacity-30 ">
+        <GrPrevious className="w-[15px] h-[15px]  m-auto" />
       </button>
-      <button ref={nextRef} className="w-[25px] h-[25px] border-[1px] border-slate-500 border-opacity-30 rounded-2xl relative bottom-28 z-10 left-44 bg-slate-300 bg-opacity-30">
+      <button ref={nextRef} className="w-[25px] h-[25px] border-[1px] border-slate-500 border-opacity-30 rounded-2xl relative bottom-16 z-10 left-44 bg-slate-300 bg-opacity-30">
         <GrNext className="w-[15px] h-[15px] m-auto " />
       </button>
     </>
