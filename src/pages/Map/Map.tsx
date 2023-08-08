@@ -1,5 +1,5 @@
 import React from 'react';
-import NaverMap from '../../components/NaverMap/NaverMap';
+import KakaoMap from '../../components/KakaoMap/KakaoMap';
 
 interface MapProps {
   token: string;
@@ -9,7 +9,7 @@ const Map = ({ token }: MapProps) => {
     <div className="h-screen">
       <h1>map페이지</h1>
       <div className="p-1">
-        <NaverMap token={token} />
+        <KakaoMap />
       </div>
     </div>
   );

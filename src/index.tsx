@@ -4,21 +4,17 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
-import { NavermapsProvider } from 'react-naver-maps';
 import { RecoilRoot } from 'recoil';
 import { RecoilLogger } from 'recoil-devtools-logger';
 import { token } from './Atom/atom';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
-const ncpClientId: string = process.env.REACT_APP_NAVER_KEY || '';
 root.render(
   <RecoilRoot>
-    <NavermapsProvider ncpClientId={ncpClientId}>
-      <BrowserRouter>
-        {/* <RecoilLogger values={[token]} /> */}
-        <App />
-      </BrowserRouter>
-    </NavermapsProvider>
+    <BrowserRouter>
+      {/* <RecoilLogger values={[token]} /> */}
+      <App />
+    </BrowserRouter>
   </RecoilRoot>
 );
 
