@@ -1,9 +1,12 @@
 import { Chart, LineElement, PointElement, CategoryScale, LinearScale, Tooltip, Legend, ChartData } from 'chart.js';
 import { Line } from 'react-chartjs-2';
+import { ChartOptions } from 'chart.js';
+import { GrFormLocation } from 'react-icons/gr';
 
 Chart.register(LineElement, PointElement, CategoryScale, LinearScale, Tooltip, Legend);
 
 import { VictoryAxis, VictoryBar, VictoryChart, VictoryStack, VictoryTheme } from 'victory';
+import { cls } from '../../util/util';
 
 const 강원도 = [
   { quarter: 1, visit: 13000 },
@@ -44,12 +47,56 @@ function GraphComponent() {
       },
     ],
   };
+
+  const options: ChartOptions<'line'> = {
+    maintainAspectRatio: false, // 비율 유지하지 않음
+    responsive: true, // 반응형 활성화
+    animation: {
+      duration: 1000, // 애니메이션 지속 시간 (밀리초)
+      easing: 'linear', // 애니메이션 이징 함수
+    },
+    scales: {
+      y: {
+        ticks: {
+          display: true, // 눈금 표시 여부
+          stepSize: 1, // 눈금 간격 설정
+        },
+        beginAtZero: true,
+        max: 20,
+        min: 0,
+      },
+    },
+    layout: {
+      padding: {
+        top: 0, // 그래프 위쪽 패딩
+      },
+    },
+    plugins: {
+      legend: {
+        display: false, // 범례 숨기기
+      },
+      tooltip: {
+        callbacks: {
+          label: function (context) {
+            const label = context.datasetIndex + 1;
+            const value = context.parsed.y;
+            return label + ': ' + value + '여기바꿔야해애애ㅐ'; // 툴팁 라벨 포맷 변경
+          },
+        },
+      },
+    },
+  };
+
   return (
     <>
-      <div className="w-[400px] h-[150px] pl-10 mt-7 mx-auto ">
-        <Line data={chartData} />
+      <div className="flex justify-center mt-7">
+        <GrFormLocation className="w-10 h-10 inline-block font-thin -translate-y-1" />
+        <h3>현재 지역</h3>
       </div>
-      <div className="w-[400px] h-[250px]  mx-auto">
+      <div className="w-[400px] h-[300px] flex justify-center mt-4 mx-auto ">
+        <Line data={chartData} options={options} />
+      </div>
+      {/* <div className="w-[400px] h-[250px]  mx-auto">
         <VictoryChart domainPadding={20} theme={VictoryTheme.material}>
           <VictoryAxis tickValues={[1, 2, 3, 4]} tickFormat={['강원도', '경상도', '전라도', '제주도']} />
           <VictoryAxis dependentAxis tickFormat={(x) => `${x / 1000}k`} />
@@ -60,7 +107,7 @@ function GraphComponent() {
             <VictoryBar data={제주도} x="quarter" y="visit" />
           </VictoryStack>
         </VictoryChart>
-      </div>
+      </div> */}
     </>
   );
 }
