@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import { Chart, LineElement, PointElement, CategoryScale, LinearScale, Tooltip, Legend, ChartData } from 'chart.js';
 import { Line } from 'react-chartjs-2';
 import { ChartOptions } from 'chart.js';
@@ -5,37 +6,9 @@ import { GrFormLocation } from 'react-icons/gr';
 
 Chart.register(LineElement, PointElement, CategoryScale, LinearScale, Tooltip, Legend);
 
-import { VictoryAxis, VictoryBar, VictoryChart, VictoryStack, VictoryTheme } from 'victory';
-import { cls } from '../../util/util';
-
-const 강원도 = [
-  { quarter: 1, visit: 13000 },
-  { quarter: 2, visit: 16500 },
-  { quarter: 3, visit: 14250 },
-  { quarter: 4, visit: 19000 },
-];
-
-const 경상도 = [
-  { quarter: 1, visit: 15000 },
-  { quarter: 2, visit: 12500 },
-  { quarter: 3, visit: 19500 },
-  { quarter: 4, visit: 13000 },
-];
-
-const 전라도 = [
-  { quarter: 1, visit: 11500 },
-  { quarter: 2, visit: 13250 },
-  { quarter: 3, visit: 20000 },
-  { quarter: 4, visit: 15500 },
-];
-
-const 제주도 = [
-  { quarter: 1, visit: 18000 },
-  { quarter: 2, visit: 13250 },
-  { quarter: 3, visit: 15000 },
-  { quarter: 4, visit: 12000 },
-];
 function GraphComponent() {
+  const address = addressGetter();
+
   const chartData: ChartData<'line'> = {
     labels: ['1월', '2월', '3월', '4월', '5월', '6월', '7월'],
     datasets: [
@@ -91,7 +64,7 @@ function GraphComponent() {
     <>
       <div className="flex justify-center mt-7">
         <GrFormLocation className="w-10 h-10 inline-block font-thin -translate-y-1" />
-        <h3>현재 지역</h3>
+        <h3>{address}</h3>
       </div>
       <div className="w-[400px] h-[300px] flex justify-center mt-4 mx-auto ">
         <Line data={chartData} options={options} />
@@ -112,3 +85,36 @@ function GraphComponent() {
   );
 }
 export default GraphComponent;
+
+import { VictoryAxis, VictoryBar, VictoryChart, VictoryStack, VictoryTheme } from 'victory';
+import { cls } from '../../util/util';
+import GeolocationWithAddress from '../../hooks/addressGetter';
+import addressGetter from '../../hooks/addressGetter';
+
+// const 강원도 = [
+//   { quarter: 1, visit: 13000 },
+//   { quarter: 2, visit: 16500 },
+//   { quarter: 3, visit: 14250 },
+//   { quarter: 4, visit: 19000 },
+// ];
+
+// const 경상도 = [
+//   { quarter: 1, visit: 15000 },
+//   { quarter: 2, visit: 12500 },
+//   { quarter: 3, visit: 19500 },
+//   { quarter: 4, visit: 13000 },
+// ];
+
+// const 전라도 = [
+//   { quarter: 1, visit: 11500 },
+//   { quarter: 2, visit: 13250 },
+//   { quarter: 3, visit: 20000 },
+//   { quarter: 4, visit: 15500 },
+// ];
+
+// const 제주도 = [
+//   { quarter: 1, visit: 18000 },
+//   { quarter: 2, visit: 13250 },
+//   { quarter: 3, visit: 15000 },
+//   { quarter: 4, visit: 12000 },
+// ];
