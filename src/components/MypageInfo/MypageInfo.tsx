@@ -32,7 +32,7 @@ export const Profile = () => {
         resetToken();
         navigate('/signin');
       });
-  }, [setEmail, setNickName, setHostActive]);
+  }, []);
 
   return (
     <div className="w-[25rem] mx-auto flex flex-row items-center gap-3">
