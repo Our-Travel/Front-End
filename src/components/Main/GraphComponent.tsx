@@ -2,23 +2,53 @@ import { useEffect, useState } from 'react';
 import { Chart, LineElement, PointElement, CategoryScale, LinearScale, Tooltip, Legend, ChartData } from 'chart.js';
 import { Line } from 'react-chartjs-2';
 import { ChartOptions } from 'chart.js';
-import { GrFormLocation } from 'react-icons/gr';
+import { SlLocationPin } from 'react-icons/sl';
+import addressGetter from '../../hooks/addressGetter';
+import { visitor } from 'util/visitor';
+import Papa from 'papaparse';
 
 Chart.register(LineElement, PointElement, CategoryScale, LinearScale, Tooltip, Legend);
 
 function GraphComponent() {
   const address = addressGetter();
-
-  const chartData: ChartData<'line'> = {
-    labels: ['1월', '2월', '3월', '4월', '5월', '6월', '7월'],
+  const [minValue, setMinValue] = useState(Number);
+  const [chartData, setChartData] = useState<ChartData<'line'>>({
+    labels: [],
     datasets: [
       {
         label: '월',
-        data: [3, 2, 3, 1, 2, 4, 2],
+        data: [],
         borderColor: '#FF928A',
         tension: 0.4,
       },
     ],
+  });
+
+  useEffect(() => {
+    retry();
+  }, []);
+
+  const retry = async () => {
+    if (address) {
+      const areaData = visitor.filter((item) => item.area === address);
+      console.log(areaData);
+
+      const visitorData = areaData.map((item) => parseInt(item.visitor));
+      const dateLabels = areaData.map((item) => item.date);
+      setMinValue(Math.min(...visitorData));
+      const newChartData: ChartData<'line'> = {
+        labels: dateLabels,
+        datasets: [
+          {
+            label: '월',
+            data: visitorData,
+            borderColor: '#FF928A',
+            tension: 0.4,
+          },
+        ],
+      };
+      setChartData(newChartData);
+    }
   };
 
   const options: ChartOptions<'line'> = {
@@ -32,11 +62,9 @@ function GraphComponent() {
       y: {
         ticks: {
           display: true, // 눈금 표시 여부
-          stepSize: 1, // 눈금 간격 설정
         },
         beginAtZero: true,
-        max: 20,
-        min: 0,
+        min: minValue,
       },
     },
     layout: {
@@ -51,9 +79,9 @@ function GraphComponent() {
       tooltip: {
         callbacks: {
           label: function (context) {
-            const label = context.datasetIndex + 1;
+            const label = context.parsed.x + 1;
             const value = context.parsed.y;
-            return label + ': ' + value + '여기바꿔야해애애ㅐ'; // 툴팁 라벨 포맷 변경
+            return label + '월 : ' + value + '명'; // 툴팁 라벨 포맷 변경
           },
         },
       },
@@ -62,34 +90,36 @@ function GraphComponent() {
 
   return (
     <>
-      <div className="flex justify-center mt-7">
-        <GrFormLocation className="w-10 h-10 inline-block font-thin -translate-y-1" />
-        <h3>{address}</h3>
+      <div onClick={retry} className="flex justify-center mt-7 text-xl bg-main-color2 py-4 font-semibold text-white cursor-pointer hover:underline hover:text-gray-200">
+        <SlLocationPin className="inline-block mr-2 font-thin translate-y-1" />
+        <h3 className="hover:scale-110">{address}</h3>
       </div>
-      <div className="w-[400px] h-[300px] flex justify-center mt-4 mx-auto ">
+      <div className="w-[400px] h-[300px] flex justify-center mt-7 mx-auto ">
         <Line data={chartData} options={options} />
       </div>
-      {/* <div className="w-[400px] h-[250px]  mx-auto">
-        <VictoryChart domainPadding={20} theme={VictoryTheme.material}>
-          <VictoryAxis tickValues={[1, 2, 3, 4]} tickFormat={['강원도', '경상도', '전라도', '제주도']} />
-          <VictoryAxis dependentAxis tickFormat={(x) => `${x / 1000}k`} />
-          <VictoryStack colorScale={'warm'}>
-            <VictoryBar data={강원도} x="quarter" y="visit" />
-            <VictoryBar data={경상도} x="quarter" y="visit" />
-            <VictoryBar data={전라도} x="quarter" y="visit" />
-            <VictoryBar data={제주도} x="quarter" y="visit" />
-          </VictoryStack>
-        </VictoryChart>
-      </div> */}
     </>
   );
 }
 export default GraphComponent;
 
+// console.log(visitor);
+
+// const chartData: ChartData<'line'> = {
+//   labels: ['1월', '2월', '3월', '4월', '5월', '6월', '7월'],
+//   datasets: [
+//     {
+//       label: '월',
+//       data: [3, 2, 3, 1, 2, 4, 2],
+//       borderColor: '#FF928A',
+//       tension: 0.4,
+//     },
+//   ],
+// };
+
 import { VictoryAxis, VictoryBar, VictoryChart, VictoryStack, VictoryTheme } from 'victory';
 import { cls } from '../../util/util';
 import GeolocationWithAddress from '../../hooks/addressGetter';
-import addressGetter from '../../hooks/addressGetter';
+import { type } from 'os';
 
 // const 강원도 = [
 //   { quarter: 1, visit: 13000 },
@@ -118,3 +148,17 @@ import addressGetter from '../../hooks/addressGetter';
 //   { quarter: 3, visit: 15000 },
 //   { quarter: 4, visit: 12000 },
 // ];
+{
+  /* <div className="w-[400px] h-[250px]  mx-auto">
+        <VictoryChart domainPadding={20} theme={VictoryTheme.material}>
+          <VictoryAxis tickValues={[1, 2, 3, 4]} tickFormat={['강원도', '경상도', '전라도', '제주도']} />
+          <VictoryAxis dependentAxis tickFormat={(x) => `${x / 1000}k`} />
+          <VictoryStack colorScale={'warm'}>
+            <VictoryBar data={강원도} x="quarter" y="visit" />
+            <VictoryBar data={경상도} x="quarter" y="visit" />
+            <VictoryBar data={전라도} x="quarter" y="visit" />
+            <VictoryBar data={제주도} x="quarter" y="visit" />
+          </VictoryStack>
+        </VictoryChart>
+      </div> */
+}

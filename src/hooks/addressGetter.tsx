@@ -7,7 +7,8 @@ function addressGetter() {
   const [address, setAddress] = useState('');
   const latitude = location.coordinates?.lat;
   const longitude = location.coordinates?.lng;
-
+  // const latitude = 36.348315;
+  // const longitude = 127.390594;
   useEffect(() => {
     if (latitude && longitude) {
       const fetchAddress = async () => {
@@ -20,6 +21,8 @@ function addressGetter() {
 
           const locations = response.data.documents[0];
           const formattedAddress = `${locations.address.region_1depth_name}`;
+          console.log(locations);
+
           setAddress(formattedAddress);
         } catch (error) {
           console.error(error);
