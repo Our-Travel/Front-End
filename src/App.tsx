@@ -58,6 +58,7 @@ function App() {
             <Route path="/mypage/favorite" element={<Favorite />} />
             <Route path="/mypage/notice" element={<Notice />} />
             <Route path="/mypage/host" element={<Host />} />
+            <Route path="/mypage/host/edit" element={<Host />} />
             <Route path="/chatting" element={<Chatting />} />
             <Route path="/chattinglist" element={<ChattingList />} />
           </Route>
