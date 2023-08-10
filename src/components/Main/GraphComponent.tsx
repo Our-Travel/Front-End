@@ -91,7 +91,7 @@ function GraphComponent() {
 
   return (
     <>
-      <div onClick={retry} className="flex justify-center mt-7 text-xl bg-main-color py-4 font-semibold text-white cursor-pointer hover:bg-main-color2 hover:underline">
+      <div onClick={retry} className="flex justify-center mt-7 text-xl py-4 font-semibold text-white cursor-pointer buttonHoverSize buttonHoverColor">
         <SlLocationPin className="inline-block mr-2 font-thin translate-y-1" />
         <h3 className="hover:scale-110">{area}</h3>
       </div>

@@ -145,15 +145,13 @@ const BoardModal = ({ modal, setModal, item }: Props) => {
             ref={chatButtonRef}
             onClick={handleChatButtonClick}
             disabled={!isButtonActive}
-            className={`${
-              isButtonActive ? 'bg-main-color2 hover:bg-main-color' : 'bg-gray-400 text-gray-100'
-            } absolute transition-transform hover:scale-110 bottom-3 w-3/5 h-10 left-1/2 -translate-x-1/2 py-1 rounded-lg text-white text-lg font-extrabold`}
+            className={`${isButtonActive ? 'buttonHoverColor' : 'bg-gray-400 text-gray-100'} absolute buttonHoverSize bottom-3 w-3/5 h-10 left-1/2 -translate-x-1/2 py-1 rounded-lg text-lg font-extrabold`}
           >
             채팅하러 가기
           </button>
 
           <div className="absolute right-10 bottom-5 flex items-center translate-x-2 hover:cursor-pointer" tabIndex={0} onClick={toggleFavorite} ref={thumbsUpRef}>
-            {isFavorited ? <FaThumbsUp className=" w-[30px] h-[30px] transition-transform hover:scale-125" /> : <FaRegThumbsUp className=" w-[30px] h-[30px] transition-transform hover:scale-125" />}
+            {isFavorited ? <FaThumbsUp className=" w-[30px] h-[30px] buttonHoverSize125" /> : <FaRegThumbsUp className=" w-[30px] h-[30px] buttonHoverSize125" />}
           </div>
         </div>
       )}

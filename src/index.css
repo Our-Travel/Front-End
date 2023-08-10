@@ -47,6 +47,15 @@ div:focus,
   .active {
     @apply cursor-pointer px-2 border-b-4 border-transparent border-main-color;
   }
+  .buttonHoverSize {
+    @apply transition-transform hover:scale-110;
+  }
+  .buttonHoverSize125 {
+    @apply transition-transform hover:scale-125;
+  }
+  .buttonHoverColor {
+    @apply bg-main-color2 hover:bg-main-color text-white;
+  }
 }
 
 @layer components {

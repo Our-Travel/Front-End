@@ -182,7 +182,7 @@ const EditBoard = ({ setEditBoard, item }: Props) => {
       {finishModal && <WriteButton title="글을 마감하시겠습니까?" button="마감하기" setModal={setFinishModal} handleButton={handleFinishButton} />}
       <div className="mx-auto pt-8">
         <h3 className="font-medium mb-5 text-2xl">{item.title}</h3>
-        <button onClick={closeEdit} className="absolute right-10 top-8 transition-transform hover:scale-125">
+        <button onClick={closeEdit} className="absolute right-10 top-8 buttonHoverSize125">
           <AiOutlineClose className=" w-[30px] h-[30px]" />
         </button>
         <div className="border rounded-lg mx-4 h-[170px] text-left px-3 py-2">{item.content}</div>
@@ -210,13 +210,13 @@ const EditBoard = ({ setEditBoard, item }: Props) => {
           </div>
         </div>
         <div className="my-10 left-1/2 mx-20">
-          <button onClick={editBoard} className="w-full h-8 my-2 bg-main-color2 hover:bg-main-color transition-transform hover:scale-110 rounded-lg text-white text-lg font-semibold">
+          <button onClick={editBoard} className="w-full h-8 my-2 rounded-lg text-lg font-semibold buttonHoverSize buttonHoverColor">
             수정하기
           </button>
-          <button onClick={deleteBaord} className="w-full h-8 my-2 bg-main-color2 hover:bg-main-color transition-transform hover:scale-110 rounded-lg text-white text-lg font-semibold">
+          <button onClick={deleteBaord} className="w-full h-8 my-2 rounded-lg text-lg font-semibold buttonHoverSize buttonHoverColor">
             삭제하기
           </button>
-          <button onClick={finishBaord} className="w-full h-8 my-2 bg-main-color2 hover:bg-main-color transition-transform hover:scale-110 rounded-lg text-white text-lg font-semibold">
+          <button onClick={finishBaord} className="w-full h-8 my-2 rounded-lg text-lg font-semibold buttonHoverSize buttonHoverColor">
             마감하기
           </button>
         </div>
