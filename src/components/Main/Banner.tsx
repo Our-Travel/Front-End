@@ -8,9 +8,9 @@ import 'swiper/css/effect-fade';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 
-import test from '../../assets/test.png';
-import forest from '../../assets/숲.png';
-import mokpo from '../../assets/image 56.svg';
+import test from '../../assets/kor.png';
+import forest from '../../assets/cat.png';
+import mokpo from '../../assets/udon.png';
 
 const Banner = () => {
   SwiperCore.use([Navigation, Scrollbar]);
