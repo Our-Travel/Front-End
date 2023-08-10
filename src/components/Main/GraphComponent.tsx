@@ -13,8 +13,6 @@ Chart.register(LineElement, PointElement, CategoryScale, LinearScale, Tooltip, L
 function GraphComponent() {
   const address = addressGetter();
   const area = convertAddressToKey(address);
-  console.log(area);
-
   const [minValue, setMinValue] = useState(Number);
   const { numToKorean } = require('num-to-korean');
   const [chartData, setChartData] = useState<ChartData<'line'>>({
@@ -33,11 +31,9 @@ function GraphComponent() {
     retry();
   }, []);
 
-  const retry = async () => {
+  const retry = () => {
     if (area) {
       const areaData = visitor.filter((item) => item.area === area);
-      console.log(areaData);
-
       const visitorData = areaData.map((item) => parseInt(item.visitor));
       const dateLabels = areaData.map((item) => item.date);
       setMinValue(Math.min(...visitorData));
@@ -95,13 +91,21 @@ function GraphComponent() {
 
   return (
     <>
-      <div onClick={retry} className="flex justify-center mt-7 text-xl bg-main-color2 py-4 font-semibold text-white cursor-pointer hover:underline hover:text-gray-200">
+      <div onClick={retry} className="flex justify-center mt-7 text-xl bg-main-color py-4 font-semibold text-white cursor-pointer hover:bg-main-color2 hover:underline">
         <SlLocationPin className="inline-block mr-2 font-thin translate-y-1" />
         <h3 className="hover:scale-110">{area}</h3>
       </div>
       <div className="w-[400px] h-[300px] flex justify-center mt-7 mx-auto ">
         <Line data={chartData} options={options} />
       </div>
+      <div className="font-normal mt-8">
+        2023년 상반기{' '}
+        <strong onClick={retry} className="text-main-color2 text-2xl cursor-pointer">
+          {area}
+        </strong>
+        의 방문객 현황입니다.
+      </div>
+      <div className="text-base text-gray-400 mt-3 font-normal">(그래프가 제대로 그려지지 않는다면, 지역명을 클릭해주세요)</div>
     </>
   );
 }

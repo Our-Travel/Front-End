@@ -5,25 +5,21 @@ import GraphComponent from '../../components/Main/GraphComponent';
 import MapComponent from '../../components/Main/MapComponent';
 
 const Main = () => {
+  const [showGraph, setShowGraph] = useState(true);
   const [showMap, setShowMap] = useState(false);
-  const [showGraph, setShowGraph] = useState(false);
-
-  useEffect(() => {
-    handleGraphButtonClick();
-  }, []);
 
   const handleGraphButtonClick = () => {
     setShowMap(false);
     setShowGraph(true);
-    setPath('tourist'); // 버튼이 선택되면 path를 업데이트
+    setPath('tourist');
   };
   const handleMapButtonClick = () => {
     setShowMap(true);
     setShowGraph(false);
-    setPath('host'); // 버튼이 선택되면 path를 업데이트
+    setPath('host');
   };
 
-  const [path, setPath] = useState('tourist'); // 예시로 초기 path를 'tourist'로 설정
+  const [path, setPath] = useState('tourist');
 
   const getName = (selected: string, componentName: string) => {
     return selected === componentName ? 'border-b-[3px]' : '';
@@ -39,7 +35,7 @@ const Main = () => {
           <button className={`h-10 hover:scale-110 transition-transform border-main-color ${getName(path, 'tourist')}`} onClick={handleGraphButtonClick}>
             방문객수
           </button>
-          <button className={`h-10 hover:scale-110 transition-transform  border-main-color ${getName(path, 'host')}`} onClick={handleMapButtonClick}>
+          <button className={`h-10 hover:scale-110 transition-transform border-main-color ${getName(path, 'host')}`} onClick={handleMapButtonClick}>
             HOST 등록수
           </button>
         </div>
