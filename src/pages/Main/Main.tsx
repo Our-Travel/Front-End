@@ -32,10 +32,10 @@ const Main = () => {
       <Banner />
       <div className="text-xl font-semibold -translate-y-4">
         <div className="flex justify-center w-full space-x-16 ">
-          <button className={`h-10 hover:scale-110 transition-transform border-main-color ${getName(path, 'tourist')}`} onClick={handleGraphButtonClick}>
+          <button className={`h-10 buttonHoverSize border-main-color ${getName(path, 'tourist')}`} onClick={handleGraphButtonClick}>
             방문객수
           </button>
-          <button className={`h-10 hover:scale-110 transition-transform border-main-color ${getName(path, 'host')}`} onClick={handleMapButtonClick}>
+          <button className={`h-10 buttonHoverSize border-main-color ${getName(path, 'host')}`} onClick={handleMapButtonClick}>
             HOST 등록수
           </button>
         </div>

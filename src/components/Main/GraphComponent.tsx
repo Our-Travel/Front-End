@@ -28,10 +28,10 @@ function GraphComponent() {
   });
 
   useEffect(() => {
-    retry();
-  }, []);
+    openGraph();
+  }, [area]);
 
-  const retry = () => {
+  const openGraph = () => {
     if (area) {
       const areaData = visitor.filter((item) => item.area === area);
       const visitorData = areaData.map((item) => parseInt(item.visitor));
@@ -91,7 +91,7 @@ function GraphComponent() {
 
   return (
     <>
-      <div onClick={retry} className="flex justify-center mt-7 text-xl py-4 font-semibold text-white cursor-pointer buttonHoverSize buttonHoverColor">
+      <div onClick={openGraph} className="flex justify-center mt-7 text-xl py-4 font-semibold text-white cursor-pointer buttonHoverSize buttonHoverColor">
         <SlLocationPin className="inline-block mr-2 font-thin translate-y-1" />
         <h3 className="hover:scale-110">{area}</h3>
       </div>
@@ -100,7 +100,7 @@ function GraphComponent() {
       </div>
       <div className="font-normal mt-8">
         2023년 상반기{' '}
-        <strong onClick={retry} className="text-main-color2 text-2xl cursor-pointer">
+        <strong onClick={openGraph} className="text-main-color2 text-2xl cursor-pointer">
           {area}
         </strong>
         의 방문객 현황입니다.
