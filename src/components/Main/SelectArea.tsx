@@ -1,5 +1,5 @@
 import React, { Dispatch, KeyboardEvent, MouseEvent, SetStateAction, useRef, useState } from 'react';
-
+import { SlLocationPin } from 'react-icons/sl';
 interface modal {
   modal: boolean;
   setModal: Dispatch<SetStateAction<boolean>>;
@@ -26,7 +26,11 @@ const SelectArea = ({ modal, setModal, setArea, nowArea }: modal) => {
 
   return (
     <div className="fixed w-[450px] h-full -top-10 z-30" onClick={clickCancel} ref={outside}>
-      <div className="relative centerPosition w-[400px] h-[300px] text-gray-600 rounded-xl overflow-hidden bg-white border-[1px] shadow-2xl">
+      <div className="relative centerPosition w-[400px] h-[350px] text-gray-600 rounded-xl overflow-hidden bg-white border-[1px] shadow-2xl">
+        <h3 className="my-5 mx-auto w-[85%] text-main-color3 border-2 border-main-color4 px-1 rounded-lg py-1">
+          <SlLocationPin className="inline-block mr-2 font-thin -translate-y-1" />
+          지역별 방문자 수를 확인하세요
+        </h3>
         <div className="w-[90%] mx-auto flex justify-around mt-3 ">
           <button className={`w-[100px] rounded-lg border-2 hover:border-red-200 ${nowArea === '서울' ? 'bg-main-color2 border-main-color2 text-white' : ''}`} onClick={() => handleButtonSelection('서울')}>
             서울
