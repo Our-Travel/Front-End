@@ -7,13 +7,18 @@ import addressGetter from '../../hooks/addressGetter';
 import { visitor } from 'util/visitor';
 import { convertAddressToKey } from 'util/convertAddress';
 import Papa from 'papaparse';
+import SelectArea from './SelectArea';
 
 Chart.register(LineElement, PointElement, CategoryScale, LinearScale, Tooltip, Legend);
 
 function GraphComponent() {
   const address = addressGetter();
-  const area = convertAddressToKey(address);
+  let area = convertAddressToKey(address);
+  const [location, setLocation] = useState('');
+  const [selectArea, setSelectArea] = useState('');
   const [minValue, setMinValue] = useState(Number);
+  const [openModal, setOpenModal] = useState<boolean>(false);
+  const isOpen = () => setOpenModal(!openModal);
   const { numToKorean } = require('num-to-korean');
   const [chartData, setChartData] = useState<ChartData<'line'>>({
     labels: [],
@@ -28,8 +33,17 @@ function GraphComponent() {
   });
 
   useEffect(() => {
+    setLocation(area);
     openGraph();
   }, [area]);
+
+  useEffect(() => {
+    if (selectArea) {
+      area = selectArea;
+      setLocation(selectArea);
+      openGraph();
+    }
+  }, [selectArea]);
 
   const openGraph = () => {
     if (area) {
@@ -91,9 +105,10 @@ function GraphComponent() {
 
   return (
     <>
-      <div onClick={openGraph} className="flex justify-center mt-7 text-xl py-4 font-semibold text-white cursor-pointer buttonHoverSize buttonHoverColor">
+      {openModal && <SelectArea modal={openModal} setModal={setOpenModal} setArea={setSelectArea} nowArea={location} />}
+      <div onClick={isOpen} className="flex justify-center mt-7 text-xl py-4 font-semibold text-white cursor-pointer buttonHoverSize buttonHoverColor">
         <SlLocationPin className="inline-block mr-2 font-thin translate-y-1" />
-        <h3 className="hover:scale-110">{area}</h3>
+        <h3 className="hover:scale-110">{location}</h3>
       </div>
       <div className="w-[400px] h-[300px] flex justify-center mt-7 mx-auto ">
         <Line data={chartData} options={options} />
@@ -101,7 +116,7 @@ function GraphComponent() {
       <div className="font-normal mt-8">
         2023년 상반기{' '}
         <strong onClick={openGraph} className="text-main-color2 text-2xl cursor-pointer">
-          {area}
+          {location}
         </strong>
         의 방문객 현황입니다.
       </div>

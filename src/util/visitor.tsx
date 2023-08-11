@@ -102,5 +102,5 @@ export const visitor = [
   { date: '202303', area: '제주도', visitor: '5275678' },
   { date: '202304', area: '제주도', visitor: '5121691' },
   { date: '202305', area: '제주도', visitor: '5203799' },
-  { date: '202306', area: '제도', visitor: '5053105' },
+  { date: '202306', area: '제주도', visitor: '5053105' },
 ];
