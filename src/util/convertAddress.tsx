@@ -2,8 +2,10 @@ export function convertAddressToKey(address: string) {
   switch (address) {
     case '세종특별자치시':
       return '세종';
+    case '경기':
+      return '경기도';
     case '강원특별자치도':
-      return '강원';
+      return '강원도';
     case '충북':
       return '충청북도';
     case '충남':

@@ -60,13 +60,13 @@ const SelectArea = ({ modal, setModal, setArea, nowArea }: modal) => {
           <button className={`w-[100px] rounded-lg border-2 hover:border-red-200 ${nowArea === '세종' ? 'bg-main-color2 border-main-color2 text-white' : ''}`} onClick={() => handleButtonSelection('세종')}>
             세종
           </button>
-          <button className={`w-[100px] rounded-lg border-2 hover:border-red-200 ${nowArea === '경기' ? 'bg-main-color2 border-main-color2 text-white' : ''}`} onClick={() => handleButtonSelection('경기')}>
-            경기
+          <button className={`w-[100px] rounded-lg border-2 hover:border-red-200 ${nowArea === '경기도' ? 'bg-main-color2 border-main-color2 text-white' : ''}`} onClick={() => handleButtonSelection('경기도')}>
+            경기도
           </button>
         </div>
         <div className="w-[90%] mx-auto flex justify-around mt-3 ">
-          <button className={`w-[100px] rounded-lg border-2 hover:border-red-200 ${nowArea === '강원' ? 'bg-main-color2 border-main-color2 text-white' : ''}`} onClick={() => handleButtonSelection('강원')}>
-            강원
+          <button className={`w-[100px] rounded-lg border-2 hover:border-red-200 ${nowArea === '강원도' ? 'bg-main-color2 border-main-color2 text-white' : ''}`} onClick={() => handleButtonSelection('강원도')}>
+            강원도
           </button>
           <button className={`w-[100px] rounded-lg border-2 hover:border-red-200 ${nowArea === '충청북도' ? 'bg-main-color2 border-main-color2 text-white' : ''}`} onClick={() => handleButtonSelection('충청북도')}>
             충청북도
