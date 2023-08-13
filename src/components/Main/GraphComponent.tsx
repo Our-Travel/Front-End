@@ -46,6 +46,9 @@ function GraphComponent() {
   }, [selectArea]);
 
   const openGraph = () => {
+    if (selectArea) {
+      area = selectArea;
+    }
     if (area) {
       const areaData = visitor.filter((item) => item.area === area);
       const visitorData = areaData.map((item) => parseInt(item.visitor));
