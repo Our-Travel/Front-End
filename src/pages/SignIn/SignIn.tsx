@@ -28,7 +28,6 @@ const SignIn = () => {
       });
       setToken(response.headers.authentication);
       localStorage.setItem('token', response.headers.authentication);
-      resetInfo({ email: null, password: null, nickName: null });
       alert(response.data.msg);
       navigate('/main');
     } catch (error) {
