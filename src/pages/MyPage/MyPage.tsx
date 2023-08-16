@@ -84,7 +84,7 @@ const MyPage = () => {
             <li key={index} className="flex items-center justify-center">
               {index <= 1 ? (
                 <Link to={link} className="flex flex-col items-center p-3">
-                  <Icon className={` w-11 h-11 mb-1 + ${index ? '' : hostActive ? 'w-10 h-10 text-black' : 'text-main-color'}`} />
+                  <Icon className={` w-11 h-11 mb-1 ${index ? '' : hostActive ? 'w-9 h-10 text-black' : 'text-main-color'}`} />
                   <p>{text}</p>
                 </Link>
               ) : (
