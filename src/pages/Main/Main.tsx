@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Header from '../../components/Header/Header';
 import Banner from '../../components/Main/Banner';
 import GraphComponent from '../../components/Main/GraphComponent';
-import MapComponent from '../../components/Main/MapComponent';
+import KoreaMapChart from '../../components/Main/KoreaMapChart';
 
 const Main = () => {
   const [showMap, setShowMap] = useState(false);
@@ -15,15 +15,15 @@ const Main = () => {
   const handleGraphButtonClick = () => {
     setShowMap(false);
     setShowGraph(true);
-    setPath('tourist'); // 버튼이 선택되면 path를 업데이트
+    setPath('tourist');
   };
   const handleMapButtonClick = () => {
     setShowMap(true);
     setShowGraph(false);
-    setPath('host'); // 버튼이 선택되면 path를 업데이트
+    setPath('host');
   };
 
-  const [path, setPath] = useState('tourist'); // 예시로 초기 path를 'tourist'로 설정
+  const [path, setPath] = useState('tourist');
 
   const getName = (selected: string, componentName: string) => {
     return selected === componentName ? 'border-b-[3px]' : '';
@@ -32,10 +32,9 @@ const Main = () => {
   return (
     <>
       <Header title={'메인'} back={false} icon={''} />
-
       <Banner />
-      <div className="text-xl font-semibold -translate-y-4">
-        <div className="flex justify-center w-full space-x-16 ">
+      <div className="relative w-full h-full text-xl font-semibold -translate-y-4">
+        <div className="flex justify-evenly">
           <button className={`h-10 hover:scale-110 transition-transform border-main-color ${getName(path, 'tourist')}`} onClick={handleGraphButtonClick}>
             방문객수
           </button>
@@ -44,7 +43,7 @@ const Main = () => {
           </button>
         </div>
         {showGraph && <GraphComponent />}
-        {showMap && <MapComponent />}
+        {showMap && <KoreaMapChart />}
       </div>
     </>
   );
