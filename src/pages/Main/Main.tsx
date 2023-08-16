@@ -33,7 +33,7 @@ const Main = () => {
     <>
       <Header title={'메인'} back={false} icon={''} />
       <Banner />
-      <div className="relative w-full h-full text-xl font-semibold -translate-y-4">
+      <div className="w-full h-full flex flex-col gap-1 text-xl font-semibold -my-4">
         <div className="flex justify-evenly">
           <button className={`h-10 hover:scale-110 transition-transform border-main-color ${getName(path, 'tourist')}`} onClick={handleGraphButtonClick}>
             방문객수

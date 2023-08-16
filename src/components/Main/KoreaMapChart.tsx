@@ -1,5 +1,4 @@
 import React, { MouseEvent } from 'react';
-import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import KoreaMap from './KoreaMap';
 import { GrFormLocation } from 'react-icons/gr';

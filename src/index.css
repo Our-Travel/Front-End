@@ -51,7 +51,7 @@ div:focus,
     @apply cursor-pointer px-2 border-b-4 border-transparent border-main-color;
   }
   .svgStyle {
-    @apply m-auto fill-gray-300 stroke-white stroke-2 overflow-visible;
+    @apply w-full h-[70%] fill-gray-300 stroke-white stroke-2;
   }
 }
 

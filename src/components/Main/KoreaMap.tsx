@@ -8,8 +8,8 @@ interface locationClick {
 
 const KoreaMap = ({ handleLocationClick }: locationClick) => {
   return (
-    <>
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox={mapData.viewBox} className="svgStyle w-11/12" role="group" aria-label={mapData.label}>
+    <div className="relative w-full h-full">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox={mapData.viewBox} className="svgStyle 2xl:scale-105 transition-all duration-500" role="group" aria-label={mapData.label}>
         <g role="group">
           {mapData.locations.map((location) => (
             <g key={location.id} id={location.id} focusable={true}>
@@ -27,7 +27,7 @@ const KoreaMap = ({ handleLocationClick }: locationClick) => {
           ))}
         </g>
       </svg>
-    </>
+    </div>
   );
 };
 
