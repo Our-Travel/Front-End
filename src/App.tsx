@@ -25,16 +25,16 @@ import EditBoard from './pages/MyPage/EditBoard';
 
 function App() {
   const [token, setToken] = useState('');
-  useEffect(() => {
-    axios
-      .post(`${process.env.REACT_APP_REST_API_SERVER}/members/login`, {
-        username: 'test@test.com',
-        password: 'qwe123@@',
-      })
-      .then((res) => {
-        setToken(res.headers.authentication);
-      });
-  }, []);
+  // useEffect(() => {
+  //   axios
+  //     .post(`${process.env.REACT_APP_REST_API_SERVER}/members/login`, {
+  //       username: 'test@test.com',
+  //       password: 'qwe123@@',
+  //     })
+  //     .then((res) => {
+  //       setToken(res.headers.authentication);
+  //     });
+  // }, []);
 
   return (
     <div className="relative">
@@ -58,7 +58,7 @@ function App() {
             <Route path="/mypage/favorite" element={<Favorite />} />
             <Route path="/mypage/notice" element={<Notice />} />
             <Route path="/mypage/host" element={<Host />} />
-            <Route path="/chatting" element={<Chatting />} />
+            <Route path="/chatting/:roomnum" element={<Chatting />} />
             <Route path="/chattinglist" element={<ChattingList />} />
           </Route>
           <Route path="*" element={<NotFound />} />

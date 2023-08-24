@@ -31,7 +31,7 @@ const BoardList = ({ selectedButtonIndex, setSelectedButtonIndex }: BoardListPro
     };
     try {
       // 여행 게시글 작성 요청
-      const boardsUrl = `${process.env.REACT_APP_REST_API_SERVER}/boards?regionCode=${selectedButtonIndex}&lastId=${lastId}`;
+      const boardsUrl = `${process.env.REACT_APP_REST_API_SERVER}/boards/list?regionCode=${selectedButtonIndex}&lastId=${lastId}`;
       const response = await axios.get(boardsUrl, {
         headers: headers,
       });

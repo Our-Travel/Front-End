@@ -24,3 +24,8 @@ export const accommodation = atom<Place[] | null>({
   key: 'accommodation',
   default: null,
 });
+
+export const chattingenter = atom<any>({
+  key: 'chattingenter',
+  default: null,
+});

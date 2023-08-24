@@ -5,6 +5,8 @@ import { useNavigate } from 'react-router-dom';
 import regions from '../../util/region';
 import { getStatusInKorean } from '../../util/status';
 import axios from 'axios';
+import { chattingenter } from '../../Atom/atom';
+import { useSetRecoilState } from 'recoil';
 
 interface Props {
   setModal: Dispatch<SetStateAction<boolean>>;
@@ -12,14 +14,17 @@ interface Props {
 }
 
 const BoardModal = ({ setModal, item }: Props) => {
+  console.log(item);
+  const setChatEnter = useSetRecoilState(chattingenter);
   const [isFavorited, setIsFavorited] = useState(false);
   const modalRef = useRef<HTMLDivElement>(null);
   //로그인 되어있는지 확인하는 커스텀 훅
   const loginCheck = useLoginCheck();
   const navigate = useNavigate();
+  // 클라이언트
   const chatButtonRef = useRef<HTMLButtonElement>(null); // "채팅하러 가기" 버튼에 대한 ref 추가
   const thumbsUpRef = useRef<HTMLDivElement>(null); // thumbsUpRef의 형식을 RefObject<HTMLDivElement>로 변경
-
+  const token = localStorage.getItem('token');
   //모달창을 닫음
   const closeModal = () => {
     setModal(false);
@@ -46,7 +51,15 @@ const BoardModal = ({ setModal, item }: Props) => {
   const handleChatButtonClick = () => {
     const isLoggedIn = loginCheck();
     if (isLoggedIn) {
-      navigate('/chatting');
+      axios
+        .get(`https://ourtravel.site/api/dev/room/${item.board_id}`, { headers: { Authorization: `Bearer ${token}` } })
+        .then((res) => {
+          setChatEnter(res);
+        })
+        .catch((err) => {
+          alert(err);
+        });
+      navigate(`/chatting/${item.board_id}`);
     } else {
       navigate('/signin');
     }
