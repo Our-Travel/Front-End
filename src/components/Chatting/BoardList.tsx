@@ -3,6 +3,8 @@ import BoardItem from './BoardItem';
 import BoardModal from './BoardModal';
 import axios from 'axios';
 import regions from './../../util/region';
+import { useRecoilState } from 'recoil';
+import { boardItem } from '../../Atom/atom';
 
 interface BoardListProps {
   selectedButtonIndex: number; // 수정된 타입
@@ -13,7 +15,7 @@ const BoardList = ({ selectedButtonIndex, setSelectedButtonIndex }: BoardListPro
   const [modal, setModal] = useState<boolean>(false);
   const [boardList, setBoardList] = useState([]);
   //BoardItem에서 클릭된 정보를 저장하기 위한 객체
-  const [selectedItem, setSelectedItem] = useState<any>(null);
+  const [selectedItem, setSelectedItem] = useRecoilState<any>(boardItem);
   const [lastId, setLastId] = useState<any>(100);
   //받아온 데이터의 갯수가 없다면? 을 받는 객체
   const [isEmpty, setEmpty] = useState<boolean>(true);
@@ -74,7 +76,7 @@ const BoardList = ({ selectedButtonIndex, setSelectedButtonIndex }: BoardListPro
           ))}
         </div>
       )}
-      {modal && <BoardModal setModal={setModal} item={selectedItem} />}
+      {modal && <BoardModal setModal={setModal} />}
     </div>
   );
 };

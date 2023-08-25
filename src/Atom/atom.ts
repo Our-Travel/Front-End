@@ -29,3 +29,7 @@ export const chattingenter = atom<any>({
   key: 'chattingenter',
   default: null,
 });
+export const boardItem = atom<any>({
+  key: 'boardItem',
+  default: null,
+});

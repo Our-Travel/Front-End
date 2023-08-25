@@ -5,17 +5,16 @@ import { useNavigate } from 'react-router-dom';
 import regions from '../../util/region';
 import { getStatusInKorean } from '../../util/status';
 import axios from 'axios';
-import { chattingenter } from '../../Atom/atom';
-import { useSetRecoilState } from 'recoil';
+import { boardItem, chattingenter } from '../../Atom/atom';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 
 interface Props {
   setModal: Dispatch<SetStateAction<boolean>>;
-  item: any;
 }
 
-const BoardModal = ({ setModal, item }: Props) => {
-  console.log(item);
+const BoardModal = ({ setModal }: Props) => {
   const setChatEnter = useSetRecoilState(chattingenter);
+  const item = useRecoilValue(boardItem);
   const [isFavorited, setIsFavorited] = useState(false);
   const modalRef = useRef<HTMLDivElement>(null);
   //로그인 되어있는지 확인하는 커스텀 훅
@@ -54,6 +53,7 @@ const BoardModal = ({ setModal, item }: Props) => {
       axios
         .get(`https://ourtravel.site/api/dev/room/${item.board_id}`, { headers: { Authorization: `Bearer ${token}` } })
         .then((res) => {
+          console.log(res);
           setChatEnter(res);
         })
         .catch((err) => {
