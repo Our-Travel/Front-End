@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, SetStateAction, Dispatch } from 'react';
+import React, { useRef, useEffect, SetStateAction, Dispatch, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 interface modal {
