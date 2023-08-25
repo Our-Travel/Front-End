@@ -53,6 +53,9 @@ div:focus,
   .svgStyle {
     @apply w-full h-[70%] fill-gray-300 stroke-white stroke-2;
   }
+  .pathStyle {
+    @apply hover:fill-red-300 cursor-pointer outline-none transition-[fill];
+  }
 }
 
 @layer components {

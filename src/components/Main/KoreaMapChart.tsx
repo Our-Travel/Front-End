@@ -18,7 +18,7 @@ const KoreaMapChart = () => {
       <div className="w-full text-left px-2">
         <GrFormLocation className="w-10 h-10 inline-block font-normal" />
         <span className="font-semibold text-gray-600 text-base">
-          해당 <b className="text-main-color">지역을 클릭해</b> Host를 찾아보세요
+          해당 <b className="text-main-color">지역을 클릭해</b> Host를 찾아보세요.
         </span>
       </div>
       <KoreaMap handleLocationClick={handleLocationClick} />
