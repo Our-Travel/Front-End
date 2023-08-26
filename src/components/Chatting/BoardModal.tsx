@@ -49,17 +49,29 @@ const BoardModal = ({ setModal }: Props) => {
   //채팅하러가기 버튼을 눌렀을때 함수
   const handleChatButtonClick = () => {
     const isLoggedIn = loginCheck();
-    if (isLoggedIn) {
+    if (isLoggedIn && item) {
       axios
-        .get(`https://ourtravel.site/api/dev/room/${item.board_id}`, { headers: { Authorization: `Bearer ${token}` } })
-        .then((res) => {
-          console.log(res);
-          setChatEnter(res);
+        .get(`https://ourtravel.site/api/dev/boards/${item.board_id}`, {
+          headers: { Authorization: `Bearer ${token}` },
+        })
+        .then((response) => {
+          const room_id = response.data.data.room_id;
+          axios
+            .get(`https://ourtravel.site/api/dev/room/${room_id}`, {
+              headers: { Authorization: `Bearer ${token}` },
+            })
+            .then((res) => {
+              setChatEnter(res);
+            })
+            .catch((err) => {
+              alert(err);
+            });
+
+          navigate(`/chatting/${room_id}`);
         })
         .catch((err) => {
           alert(err);
         });
-      navigate(`/chatting/${item.board_id}`);
     } else {
       navigate('/signin');
     }

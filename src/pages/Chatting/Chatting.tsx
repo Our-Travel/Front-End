@@ -27,12 +27,11 @@ const Chatting = () => {
   const icon = <CiMenuKebab />;
   const sendText = useRef<HTMLInputElement>(null);
   let mainChat = useRef<HTMLDivElement>(null);
-
+  console.log(mainChat);
   // 웹소켓 테스트
   const client = useRef<CompatClient>();
   const [inputMessage, setInputMessage] = useState('');
   const [messages, setMessages] = useState<string[]>([]);
-  console.log(messages);
   const connectHandler = () => {
     const headers = {
       Authorization: token,
@@ -45,11 +44,14 @@ const Chatting = () => {
       client.current?.subscribe('/sub/message/' + chatEnter.data.data.chat_room_id, (message) => {
         const newMessage = JSON.parse(message.body);
         setMessages((prevMessages) => [...prevMessages, newMessage]);
-        console.log(message);
       });
     });
   };
   const sendHandler = () => {
+    if (inputMessage.trim() === '') {
+      alert('메시지를 입력해주세요!');
+      return;
+    }
     client.current?.send(
       '/pub/message',
       {},
@@ -59,18 +61,19 @@ const Chatting = () => {
         message: inputMessage,
       })
     );
+    setInputMessage('');
   };
   useEffect(() => {
     if (chatEnter && chatEnter.status === 200 && item) {
       connectHandler();
     }
-  }, [chatEnter, chatlist]);
+  }, [chatEnter]);
 
   return (
     <div>
       <Header title={'상대 유저 아이디'} back={true} icon={icon} />
       <div className="w-full h-full">
-        <div className="text-[#FF626F] pt-2 pb-2 text-sm">맷돌이님과 블루님이 채팅을 시작하였습니다.</div>
+        <div className="text-[#FF626F] pt-2 pb-2 text-sm">{chatEnter && chatEnter.data.msg}</div>
         <div className="main-chat mx-2.5 overflow-y-auto h-screen pb-60" ref={mainChat}>
           {chatlist && messages && (
             <div>
@@ -78,7 +81,7 @@ const Chatting = () => {
                 <div key={index}>{message.member_id === 2 ? <FriendChat nickName={message.nickname} content={message.message} /> : <MeChat content={message.message} />}</div>
               ))}
               {messages.map((message: any, index: number) => (
-                <div key={index}>{chatlist.nickname === message.writer_nickname ? <FriendChat nickName={message.writer_nickname} content={message.message} /> : <MeChat content={message.message} />}</div>
+                <div key={index}>{message.writer_id === chatlist.member_id ? <FriendChat nickName={message.writer_nickname} content={message.message} /> : <MeChat content={message.message} />}</div>
               ))}
             </div>
           )}
@@ -94,6 +97,7 @@ const Chatting = () => {
             name="chatinput"
             placeholder=""
             ref={sendText}
+            value={inputMessage}
           />
           <button onClick={sendHandler} id="sendbtn">
             <img src="/sendButton.svg" alt="메세지 전송버튼" className="mr-3" />
