@@ -1,8 +1,6 @@
 import { useEffect, useState } from 'react';
 import Header from '../../components/Header/Header';
-import { Profile } from '../../components/MypageInfo/MypageInfo';
-import BoardItem from '../../components/Chatting/BoardItem';
-import { useNavigate } from 'react-router-dom';
+import BoardItem from '../../components/Board/BoardItem';
 import axios from 'axios';
 import EditBoard from './EditBoard';
 

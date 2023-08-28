@@ -9,7 +9,8 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 import '../../components/utilCss/landingSwiper.css';
 import { GrLanguage } from 'react-icons/gr';
-import WriteButton from '../../components/Chatting/WriteButton';
+// import WriteButton from '../../components/Chatting/WriteButton';
+import WriteButton from 'components/Board/WriteButton';
 
 const promotionImg: { title: string }[] = [{ title: '광고이미지' }, { title: '광고이미지' }, { title: '광고이미지' }];
 

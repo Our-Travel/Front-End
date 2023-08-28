@@ -1,10 +1,10 @@
 import React, { ChangeEvent, useState } from 'react';
 import Header from '../../components/Header/Header';
-import WriteButton from '../../components/Chatting/WriteButton';
+import WriteButton from '../../components/Board/WriteButton';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import regions from '../../util/region';
-import PostForm from '../../components/Chatting/PostForm';
+import PostForm from '../../components/Board/PostForm';
 
 const WriteBoard = () => {
   const [modal, setModal] = useState<boolean>(false);
@@ -42,7 +42,7 @@ const WriteBoard = () => {
     try {
       // 여행 게시글 작성 요청
       const boardsUrl = `${process.env.REACT_APP_REST_API_SERVER}/boards`;
-      await axios.post(boardsUrl, postData, {
+      const response = await axios.post(boardsUrl, postData, {
         headers: headers,
       });
 

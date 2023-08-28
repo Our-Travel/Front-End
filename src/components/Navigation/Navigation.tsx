@@ -12,7 +12,7 @@ const Navigation = () => {
   const path: string = location.pathname;
 
   function getName(currentPath: string, expectedPath: string): string {
-    return currentPath.includes(expectedPath) ? 'active' : 'navigationButton';
+    return currentPath.includes(expectedPath) ? 'active' : 'transition-transform hover:scale-125';
   }
 
   const main = () => {

@@ -5,12 +5,8 @@ import GraphComponent from '../../components/Main/GraphComponent';
 import KoreaMapChart from '../../components/Main/KoreaMapChart';
 
 const Main = () => {
+  const [showGraph, setShowGraph] = useState(true);
   const [showMap, setShowMap] = useState(false);
-  const [showGraph, setShowGraph] = useState(false);
-
-  useEffect(() => {
-    handleGraphButtonClick();
-  }, []);
 
   const handleGraphButtonClick = () => {
     setShowMap(false);
@@ -33,12 +29,12 @@ const Main = () => {
     <>
       <Header title={'메인'} back={false} icon={''} />
       <Banner />
-      <div className="w-full h-full flex flex-col gap-1 text-xl font-semibold -my-4">
-        <div className="flex justify-evenly">
-          <button className={`h-10 hover:scale-110 transition-transform border-main-color ${getName(path, 'tourist')}`} onClick={handleGraphButtonClick}>
+      <div className="text-xl font-semibold -translate-y-4">
+        <div className="flex justify-center w-full space-x-16 ">
+          <button className={`h-10 buttonHoverSize border-main-color ${getName(path, 'tourist')}`} onClick={handleGraphButtonClick}>
             방문객수
           </button>
-          <button className={`h-10 hover:scale-110 transition-transform  border-main-color ${getName(path, 'host')}`} onClick={handleMapButtonClick}>
+          <button className={`h-10 buttonHoverSize border-main-color ${getName(path, 'host')}`} onClick={handleMapButtonClick}>
             HOST 등록수
           </button>
         </div>

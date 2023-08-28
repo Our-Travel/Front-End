@@ -44,11 +44,17 @@ div:focus,
   .line {
     @apply after:content-[''] after:w-full after:h-[1px] after:bg-gray-200;
   }
-  .navigationButton {
-    @apply relative cursor-pointer px-2 transition-colors duration-500 hover:border-b-4 border-transparent hover:border-main-color;
-  }
   .active {
     @apply cursor-pointer px-2 border-b-4 border-transparent border-main-color;
+  }
+  .buttonHoverSize {
+    @apply transition-transform hover:scale-110;
+  }
+  .buttonHoverSize125 {
+    @apply transition-transform hover:scale-125;
+  }
+  .buttonHoverColor {
+    @apply bg-main-color2 hover:bg-main-color text-white;
   }
   .svgStyle {
     @apply w-full h-[70%] fill-gray-300 stroke-white stroke-2;
