@@ -15,23 +15,25 @@ export const Profile = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    axios
-      .get(`${process.env.REACT_APP_REST_API_SERVER}/members`, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('token')}`,
-        },
-      })
-      .then((response) => {
+    const profileInfo = async () => {
+      try {
+        const url = `${process.env.REACT_APP_REST_API_SERVER}/members`;
+        const response = await axios.get(url, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
+          },
+        });
         setEmail(response.data.data.username);
         setNickName(response.data.data.nick_name);
         setHostActive(response.data.data.host_authority);
-      })
-      .catch((error) => {
-        alert(`${error.response.data.msg}`);
+      } catch (error) {
+        alert(`${axios.isAxiosError(error) && error.response?.data.msg}`);
         localStorage.removeItem('token');
         resetToken();
         navigate('/signin');
-      });
+      }
+    };
+    profileInfo();
   }, []);
 
   return (
