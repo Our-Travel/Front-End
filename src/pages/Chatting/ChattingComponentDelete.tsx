@@ -7,7 +7,7 @@ interface ChattingComponentProps {
   // isCheckbox: boolean;
 }
 
-const ChattingComponenet = ({ nickName, content, time }: ChattingComponentProps) => {
+const ChattingComponenetDelete = ({ nickName, content, time }: ChattingComponentProps) => {
   return (
     <div className="relative">
       <li className="h-[100px] flex items-center px-[20px] py-[10px] border-b-[1px] hover:bg-gray-100">
@@ -20,13 +20,11 @@ const ChattingComponenet = ({ nickName, content, time }: ChattingComponentProps)
           <p className="mt-[7px] whitespace-nowrap overflow-hidden text-ellipsis text-gray-600">{content}</p>
         </div>
         <div className="absolute right-4">
-          <div className="">
-            <p className="text-white bg-red-500 rounded-full font-semibold text-[14px] mt-[7px] mr-0 w-[21px] pr-0">1</p>
-          </div>
+          <input type="checkbox" />
         </div>
       </li>
     </div>
   );
 };
 
-export default ChattingComponenet;
+export default ChattingComponenetDelete;

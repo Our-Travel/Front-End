@@ -42,6 +42,12 @@ const Header = ({ title, back, icon }: header) => {
       const isOpen = () => setModal(!modalOpen);
       isOpen();
     }
+    if (lastPath == 'chattinglist') {
+      navigate('/board/chattinglist/delete');
+    }
+    if (lastPath == 'delete') {
+      // navigate('/board/chattinglist');
+    }
   };
 
   return (
