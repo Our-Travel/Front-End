@@ -50,7 +50,7 @@ const Header = ({ title, back, icon }: header) => {
         )}
         <h2 className="text-xl font-semibold">{title}</h2>
         {icon && (
-          <button type="button" className="absolute right-1 px-2 py-2" onClick={handleButtonClick}>
+          <button type="button" className="absolute right-1 px-2 py-2 transition-transform hover:scale-125" onClick={handleButtonClick}>
             {icon}
           </button>
         )}
