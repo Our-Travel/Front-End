@@ -32,3 +32,8 @@ export const signUpStatus = atom<status>({
     nickName: null,
   },
 });
+
+export const hostCheck = atom<boolean>({
+  key: 'hostCheck',
+  default: false,
+});

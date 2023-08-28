@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Header from '../../components/Header/Header';
 import Banner from '../../components/Main/Banner';
 import GraphComponent from '../../components/Main/GraphComponent';
-import MapComponent from '../../components/Main/MapComponent';
+import KoreaMapChart from '../../components/Main/KoreaMapChart';
 
 const Main = () => {
   const [showGraph, setShowGraph] = useState(true);
@@ -28,7 +28,6 @@ const Main = () => {
   return (
     <>
       <Header title={'메인'} back={false} icon={''} />
-
       <Banner />
       <div className="text-xl font-semibold -translate-y-4">
         <div className="flex justify-center w-full space-x-16 ">
@@ -40,7 +39,7 @@ const Main = () => {
           </button>
         </div>
         {showGraph && <GraphComponent />}
-        {showMap && <MapComponent />}
+        {showMap && <KoreaMapChart />}
       </div>
     </>
   );

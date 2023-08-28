@@ -42,7 +42,7 @@ const WriteBoard = () => {
     try {
       // 여행 게시글 작성 요청
       const boardsUrl = `${process.env.REACT_APP_REST_API_SERVER}/boards`;
-      await axios.post(boardsUrl, postData, {
+      const response = await axios.post(boardsUrl, postData, {
         headers: headers,
       });
 

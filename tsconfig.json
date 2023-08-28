@@ -4,6 +4,7 @@
     "paths": {
       "@assets/*": ["assets/*"]
     },
+    "types": ["kakao.maps.d.ts"],
     "target": "es5",
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,

@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, SetStateAction, Dispatch } from 'react';
+import React, { useRef, useEffect, SetStateAction, Dispatch, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 interface modal {
@@ -34,13 +34,19 @@ const WriteButton = ({ title, button, setModal, handleButton }: modal) => {
   return (
     <div tabIndex={0} onKeyDown={handleKeyDown} className="relative shadow-2xl z-10">
       <div onClick={closeModal} className="z-0 absolute w-full h-[100vh] bg-gray-400 opacity-25" />
-      <div className="absolute left-1/2 -translate-x-1/2 translate-y-[250px] w-[300px] h-36 rounded-xl text-xl overflow-hidden bg-white flex flex-col">
-        <div className="w-full text-textbase text-lg absolute top-[20%] font-semibold">{title}</div>
-        <div className="flex w-full absolute bottom-2 text-lg">
-          <button ref={modalRef} onClick={closeModal} className="w-1/2 mx-4 font-semibold bg-gray-200 py-2 rounded-xl">
-            취소하기
+      <div className="absolute left-1/2 -translate-x-1/2 translate-y-[250px] w-[350px] h-40 rounded-xl text-xl overflow-hidden bg-white px-1 flex flex-col justify-evenly">
+        <p className="w-full font-semibold">{title}</p>
+        <div className="flex w-full text-lg">
+          <button type="button" ref={modalRef} onClick={closeModal} className={`w-1/2 mx-2 font-semibold py-4 rounded-xl ${title === '언어를 선택해주세요.' ? 'bg-main-color2 text-white' : 'bg-gray-200'}`}>
+            {title === '언어를 선택해주세요.' ? (
+              <span>
+                한국어 <br /> (South Korea)
+              </span>
+            ) : (
+              <span>취소하기</span>
+            )}
           </button>
-          <button onClick={writeBoardButton} className="w-1/2 mx-4 text-white font-extrabold bg-main-color2 py-2 rounded-xl">
+          <button onClick={writeBoardButton} className="w-1/2 mx-2 text-white bg-main-color2 font-extrabold py-2 rounded-xl">
             {button}
           </button>
         </div>
