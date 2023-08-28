@@ -1,17 +1,17 @@
 import React, { MouseEvent } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import KoreaMap from './KoreaMap';
 import { GrFormLocation } from 'react-icons/gr';
 
 const KoreaMapChart = () => {
   const navigate = useNavigate();
 
-  const handleLocationClick = (e: MouseEvent<SVGPathElement | SVGTextElement>) => {
-    const target = e.target as SVGPathElement | SVGTextElement;
-    if (target.tagName === 'path' || target.tagName === 'tspan') {
-      navigate('/main/selectLocation');
-    }
-  };
+  // const handleLocationClick = (e: MouseEvent<SVGPathElement | SVGTextElement>) => {
+  //   const target = e.target as SVGPathElement | SVGTextElement;
+  //   if (target.tagName === 'path' || target.tagName === 'tspan') {
+  //     navigate('/main/hostlist');
+  //   }
+  // };
 
   return (
     <>
@@ -21,7 +21,9 @@ const KoreaMapChart = () => {
           해당 <b className="text-main-color">지역을 클릭해</b> Host를 찾아보세요.
         </span>
       </div>
-      <KoreaMap handleLocationClick={handleLocationClick} />
+      <KoreaMap
+      // handleLocationClick={handleLocationClick}
+      />
     </>
   );
 };
