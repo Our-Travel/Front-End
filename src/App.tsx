@@ -11,7 +11,7 @@ import Info from './pages/Info/Info';
 import Navigation from './components/Navigation/Navigation';
 import NotFound from './pages/NotFound/NotFound';
 import SelectLocation from './pages/Main/SelectLocation';
-import FindMate from './pages/Main/FindMate';
+import HostList from './pages/Main/HostList';
 import MyWrite from './pages/MyPage/MyWrite';
 import Favorite from './pages/MyPage/Favorite';
 import Notice from './pages/MyPage/Notice';
@@ -38,7 +38,7 @@ function App() {
 
   return (
     <div className="relative">
-      <div className="absolute text-center right-[23%] h-screen border border-gray-200 w-[450px] max-h-[full] overflow-hidden">
+      <div className="absolute text-center right-[23%] h-screen border border-gray-200 w-[450px] max-h-[full]">
         <Routes>
           <Route path="/" element={<Landing />} />
           <Route path="/signin" element={<SignIn />} />
@@ -49,7 +49,7 @@ function App() {
             <Route path="/info" element={<Info />} />
             <Route path="/main" element={<Main />} />
             <Route path="/main/selectLocation" element={<SelectLocation />} />
-            <Route path="/main/findmate" element={<FindMate />} />
+            <Route path="/main/hostlist" element={<HostList title={''} />} />
             <Route path="/map" element={<Map token={token} />} />
             <Route path="/board" element={<Board />} />
             <Route path="/board/writeboard" element={<WriteBoard />} />

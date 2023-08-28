@@ -9,6 +9,7 @@ import SockJS from 'sockjs-client';
 import { useRecoilValue } from 'recoil';
 import { boardItem, chattingenter } from '../../Atom/atom';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 interface MessageDto {
   member_id: number;
