@@ -58,7 +58,7 @@ const MyWrite = () => {
       <Header title={'내가 작성한 글'} back={true} icon={''} />
       {editBoard && <EditBoard setEditBoard={setEditBoard} item={selectedItem} />}
       {isEmpty ? (
-        <div className="flex flex-col items-center justify-center gap-9 absolute centerPosition w-full">
+        <div className="flex flex-col items-center justify-center gap-4 absolute centerPosition w-full">
           <img src="/assets/MyWriteImg.svg" alt="작성한 글이 없어요 페이지 보라색 캐릭터" />
           <div>
             <p className="text-xl">작성한 글이 없어요.</p>

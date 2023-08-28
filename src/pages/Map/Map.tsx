@@ -4,6 +4,7 @@ import KakaoMap from '../../components/KakaoMap/KakaoMap';
 interface MapProps {
   token: string;
 }
+
 const Map = ({ token }: MapProps) => {
   return (
     <div className="h-screen">
