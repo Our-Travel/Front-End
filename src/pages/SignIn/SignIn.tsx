@@ -9,6 +9,18 @@ import { useNavigate } from 'react-router-dom';
 import { useSetRecoilState, useRecoilValue } from 'recoil';
 import { token } from '../../Atom/atom';
 import { userInfo } from '../../Atom/userAtom';
+import jwtDecode, { JwtPayload } from 'jwt-decode';
+
+interface DecodedToken {
+  id: number;
+  username: string;
+  nickName: string;
+  authorities: { authority: string }[];
+  exp: number;
+}
+interface Token {
+  body: string;
+}
 
 const SignIn = () => {
   const [pwData, setPwData] = useState<string>('');
@@ -26,8 +38,13 @@ const SignIn = () => {
         username: user.email?.data,
         password: user.password?.data,
       });
+      const receivedToken: string = response.headers.authentication;
+      const decoded = jwtDecode<Token>(receivedToken);
+      const parsedBody: DecodedToken = JSON.parse(decoded.body);
+      const nickName = parsedBody.nickName;
       setToken(response.headers.authentication);
       localStorage.setItem('token', response.headers.authentication);
+      localStorage.setItem('nickname', nickName);
       resetInfo({ email: null, password: null, nickName: null });
       alert(response.data.msg);
       navigate('/main');

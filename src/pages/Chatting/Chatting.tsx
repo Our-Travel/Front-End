@@ -6,9 +6,8 @@ import FriendChat from './../../components/Chatting/FriendChat';
 import MeChat from './../../components/Chatting/MeChat';
 import { Client, CompatClient, Message, Stomp } from '@stomp/stompjs';
 import SockJS from 'sockjs-client';
-import { useRecoilValue } from 'recoil';
-import { boardItem, chattingenter } from '../../Atom/atom';
-import { useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
+import axios from 'axios';
 
 interface MessageDto {
   member_id: number;
@@ -17,21 +16,37 @@ interface MessageDto {
   created_date: string;
   // Add other properties if needed
 }
+interface ChatMessage {
+  created_date: string;
+  member_id: number;
+  message: string;
+  nickname: string;
+}
+interface ApiResponse {
+  result_code: 'S' | 'F';
+  msg: string;
+  data: {
+    chat_room_id: number;
+    chat_room_message_dto_list: ChatMessage[];
+    my_member_id: number;
+  };
+}
 
 const Chatting = () => {
-  const navigation = useNavigate();
-  const chatEnter = useRecoilValue(chattingenter);
-  const chatlist = chatEnter && chatEnter.data.data.chat_room_message_dto_list;
-  const item = useRecoilValue(boardItem);
+  const [chatEnter, setChatEnter] = useState<ApiResponse>();
+  const chatlist = chatEnter?.data.chat_room_message_dto_list;
   const token = localStorage.getItem('token');
+  const nickName = localStorage.getItem('nickname');
   const icon = <CiMenuKebab />;
   const sendText = useRef<HTMLInputElement>(null);
   let mainChat = useRef<HTMLDivElement>(null);
-  console.log(mainChat);
+
   // 웹소켓 테스트
   const client = useRef<CompatClient>();
   const [inputMessage, setInputMessage] = useState('');
   const [messages, setMessages] = useState<string[]>([]);
+  const { roomnum } = useParams();
+  // 웹소켓 연결 함수
   const connectHandler = () => {
     const headers = {
       Authorization: token,
@@ -41,7 +56,7 @@ const Chatting = () => {
       return sock;
     });
     client.current.connect(headers, () => {
-      client.current?.subscribe('/sub/message/' + chatEnter.data.data.chat_room_id, (message) => {
+      client.current?.subscribe('/sub/message/' + chatEnter?.data.chat_room_id, (message) => {
         const newMessage = JSON.parse(message.body);
         setMessages((prevMessages) => [...prevMessages, newMessage]);
       });
@@ -56,35 +71,62 @@ const Chatting = () => {
       '/pub/message',
       {},
       JSON.stringify({
-        room_id: item.board_id,
-        writer_nickname: item.writer,
+        room_id: roomnum,
+        writer_nickname: nickName,
         message: inputMessage,
       })
     );
+    scrollToBottom();
     setInputMessage('');
   };
   useEffect(() => {
-    if (chatEnter && chatEnter.status === 200 && item) {
+    axios
+      .get(`https://ourtravel.site/api/dev/room/${roomnum}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then((res) => {
+        if (res.status === 200) {
+          setChatEnter(res.data);
+        } else {
+          alert('에러가 발생하였습니다');
+        }
+      });
+  }, [roomnum, token]);
+  const scrollToBottom = () => {
+    if (mainChat.current) {
+      const { scrollHeight, clientHeight } = mainChat.current;
+      mainChat.current.scrollTop = scrollHeight - clientHeight;
+    }
+  };
+
+  useEffect(() => {
+    if (chatEnter) {
+      scrollToBottom();
       connectHandler();
     }
+    return () => {
+      if (client.current) {
+        client.current.disconnect();
+      }
+    };
   }, [chatEnter]);
-
   return (
     <div>
       <Header title={'상대 유저 아이디'} back={true} icon={icon} />
       <div className="w-full h-full">
-        <div className="text-[#FF626F] pt-2 pb-2 text-sm">{chatEnter && chatEnter.data.msg}</div>
+        <div className="text-[#FF626F] pt-2 pb-2 text-sm">{chatEnter && chatEnter.msg}</div>
         <div className="main-chat mx-2.5 overflow-y-auto h-screen pb-60" ref={mainChat}>
           {chatlist && messages && (
             <div>
               {chatlist.map((message: MessageDto, index: number) => (
-                <div key={index}>{message.member_id === 2 ? <FriendChat nickName={message.nickname} content={message.message} /> : <MeChat content={message.message} />}</div>
-              ))}
-              {messages.map((message: any, index: number) => (
-                <div key={index}>{message.writer_id === chatlist.member_id ? <FriendChat nickName={message.writer_nickname} content={message.message} /> : <MeChat content={message.message} />}</div>
+                <div key={index}>{message.nickname === nickName ? <MeChat content={message.message} /> : <FriendChat nickName={message.nickname} content={message.message} />}</div>
               ))}
             </div>
           )}
+          {chatEnter &&
+            messages.length !== 0 &&
+            messages.map((message: any, index: number) => <div key={index}>{nickName === message.writer_nickname ? <MeChat content={message.message} /> : <FriendChat nickName={message.writer_nickname} content={message.message} />}</div>)}
+          <div ref={mainChat} />
         </div>
         <div className="insert-box sticky bottom-14 h-14 flex">
           <input

@@ -32,6 +32,7 @@ const Modal = ({ open, close, data, page }: modal) => {
   const logout = () => {
     resetToken();
     localStorage.removeItem('token');
+    localStorage.removeItem('nickname');
     navigate('/');
     alert('로그아웃 되었습니다.👋');
   };

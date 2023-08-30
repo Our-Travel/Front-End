@@ -13,7 +13,6 @@ interface Props {
 }
 
 const BoardModal = ({ setModal }: Props) => {
-  const setChatEnter = useSetRecoilState(chattingenter);
   const item = useRecoilValue(boardItem);
   const [isFavorited, setIsFavorited] = useState(false);
   const modalRef = useRef<HTMLDivElement>(null);
@@ -56,17 +55,6 @@ const BoardModal = ({ setModal }: Props) => {
         })
         .then((response) => {
           const room_id = response.data.data.room_id;
-          axios
-            .get(`https://ourtravel.site/api/dev/room/${room_id}`, {
-              headers: { Authorization: `Bearer ${token}` },
-            })
-            .then((res) => {
-              setChatEnter(res);
-            })
-            .catch((err) => {
-              alert(err);
-            });
-
           navigate(`/chatting/${room_id}`);
         })
         .catch((err) => {
