@@ -1,39 +1,27 @@
 import { atom } from 'recoil';
+import { recoilPersist } from 'recoil-persist';
 
-interface IUser {
-  data: string;
-  state: boolean;
+const { persistAtom } = recoilPersist();
+
+interface hostData {
+  host_intro: string;
+  host_hashTag: string;
+  host_region: string | undefined;
 }
 
-interface User {
-  email: IUser | null;
-  password: IUser | null;
-  nickName: IUser | null;
-}
-
-interface status {
-  email: number | null;
-  nickName: number | null;
-}
-
-export const userInfo = atom<User>({
-  key: 'userInfo',
-  default: {
-    email: null,
-    password: null,
-    nickName: null,
-  },
-});
-
-export const signUpStatus = atom<status>({
-  key: 'signUpStatus',
-  default: {
-    email: null,
-    nickName: null,
-  },
+export const userName = atom<string>({
+  key: 'userName',
+  default: '',
+  effects_UNSTABLE: [persistAtom],
 });
 
 export const hostCheck = atom<boolean>({
   key: 'hostCheck',
   default: false,
+});
+
+export const hostInfo = atom<{ [user: string]: hostData[] }>({
+  key: 'hostInfo',
+  default: {},
+  effects_UNSTABLE: [persistAtom],
 });
