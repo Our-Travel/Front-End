@@ -8,7 +8,7 @@ import { MdLogout, MdPersonRemove } from 'react-icons/md';
 import { IconType } from 'react-icons';
 import UploadProfile from '../../components/Modal/UploadProfile';
 import { useRecoilValue } from 'recoil';
-import { hostCheck } from '../../Atom/userAtom';
+import { hostCheck, userName } from '../../Atom/userAtom';
 // import WriteButton from '../../components/Chatting/WriteButton';
 import WriteButton from 'components/Board/WriteButton';
 import { useNavigate } from 'react-router-dom';
@@ -16,12 +16,12 @@ import { useResetRecoilState } from 'recoil';
 import { token } from '../../Atom/atom';
 
 const MyPage = () => {
-  const hostActive = useRecoilValue(hostCheck);
+  const hostEditMode = useRecoilValue(hostCheck);
   const icons: { Icon: IconType | string; link: string; text: string }[] = [
     {
-      Icon: hostActive ? BsPencilFill : BsPatchCheckFill,
-      link: hostActive ? '/mypage/host/edit' : '/mypage/host',
-      text: hostActive ? 'Host수정' : 'Host 등록',
+      Icon: hostEditMode ? BsPencilFill : BsPatchCheckFill,
+      link: hostEditMode ? '/mypage/host/edit' : '/mypage/host',
+      text: hostEditMode ? 'Host수정' : 'Host 등록',
     },
     {
       Icon: BiBell,
@@ -44,6 +44,7 @@ const MyPage = () => {
   const [uploadModalOpen, setUploadModal] = useState<boolean>(false);
   const navigate = useNavigate();
   const resetToken = useResetRecoilState(token);
+  const resetUserEmail = useResetRecoilState(userName);
 
   const handleImage = () => {
     setUploadModal(true);
@@ -60,6 +61,7 @@ const MyPage = () => {
 
   const logout = () => {
     resetToken();
+    resetUserEmail();
     localStorage.removeItem('token');
     navigate('/');
     alert('로그아웃 되었습니다.👋');
@@ -85,7 +87,7 @@ const MyPage = () => {
             <li key={index} className="flex items-center justify-center">
               {index <= 1 ? (
                 <Link to={link} className="flex flex-col items-center p-3">
-                  <Icon className={` w-11 h-11 mb-1 ${index ? '' : hostActive ? 'w-9 h-10 text-black' : 'text-main-color'}`} />
+                  <Icon className={` w-11 h-11 mb-1 ${index ? '' : hostEditMode ? 'w-9 h-10 text-black' : 'text-main-color'}`} />
                   <p>{text}</p>
                 </Link>
               ) : (
