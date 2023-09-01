@@ -2,6 +2,17 @@
 @tailwind components;
 @tailwind utilities;
 
+a:focus,
+input:focus,
+button:focus,
+textarea:focus,
+div:focus,
+.swiper-button-prev:focus,
+.swiper-button-next:focus,
+.swiper-pagination-bullet:focus {
+  outline: 2px solid pink;
+}
+
 @layer components {
   .hideTitle {
     @apply absolute w-[1px] h-[1px] overflow-hidden;
@@ -33,11 +44,17 @@
   .line {
     @apply after:content-[''] after:w-full after:h-[1px] after:bg-gray-200;
   }
-  .navigationButton {
-    @apply relative cursor-pointer px-2 transition-colors duration-500 hover:border-b-4 border-transparent hover:border-main-color;
-  }
   .active {
     @apply cursor-pointer px-2 border-b-4 border-transparent border-main-color;
+  }
+  .buttonHoverSize {
+    @apply transition-transform hover:scale-110;
+  }
+  .buttonHoverSize125 {
+    @apply transition-transform hover:scale-125;
+  }
+  .buttonHoverColor {
+    @apply bg-main-color2 hover:bg-main-color text-white;
   }
 }
 
@@ -47,5 +64,23 @@
   }
   .modalPosition {
     @apply top-1/2 left-1/2 -translate-x-[50%] -translate-y-[50%];
+  }
+  .svg-map {
+    @apply w-full h-[330px] stroke-gray-400 stroke-1;
+  }
+  .svg-map__location {
+    @apply cursor-pointer;
+  }
+  .svg-map__location:focus {
+    @apply outline-0;
+  }
+  .svg-map__location:hover {
+    @apply outline-0;
+  }
+  .modalBlack {
+    @apply fixed top-0 left-0 right-0 bottom-0 z-30 bg-black bg-opacity-30;
+  }
+  .addPhotoConatiner {
+    @apply lg:w-[500px] w-[400px] h-auto block border-2 rounded-lg bg-orange-100 p-5 absolute top-1/2 left-1/2 -translate-x-[50%] -translate-y-[50%] z-10;
   }
 }
