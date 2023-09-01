@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import Header from '../../components/Header/Header';
 import Banner from '../../components/Main/Banner';
 import GraphComponent from '../../components/Main/GraphComponent';
