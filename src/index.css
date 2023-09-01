@@ -21,10 +21,10 @@ div:focus,
     @apply flex flex-col gap-1;
   }
   .inputStyle {
-    @apply w-[25rem] h-12 border rounded placeholder:text-gray-400 pl-2;
+    @apply w-[25rem] h-12 border border-gray-400 rounded placeholder:text-gray-400 pl-2;
   }
-  .signUpInput {
-    @apply w-[18rem] h-12 border rounded placeholder:text-gray-400 pl-2;
+  .shortInput {
+    @apply w-[18rem] h-12 border border-gray-400 rounded placeholder:text-gray-400 pl-2;
   }
   .signUpAddress {
     @apply w-48 h-12;
@@ -57,10 +57,16 @@ div:focus,
     @apply bg-main-color2 hover:bg-main-color text-white;
   }
   .svgStyle {
-    @apply w-full h-[70%] fill-gray-300 stroke-white stroke-2;
+    @apply w-11/12 fill-gray-300 stroke-white stroke-2 mx-auto;
   }
   .pathStyle {
     @apply hover:fill-red-300 cursor-pointer outline-none transition-[fill];
+  }
+  .svgBig {
+    @apply 2xl:absolute 2xl:top-[170%] 2xl:left-[5%] 2xl:scale-110;
+  }
+  .effectArea {
+    @apply hover:border-main-color hover:text-main-color outline-red-300 transition-all duration-300;
   }
 }
 
