@@ -8,8 +8,8 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { MdOutlineCancel } from 'react-icons/md';
 import regions from '../../util/region';
-import { useRecoilValue } from 'recoil';
-import { hostCheck } from '../../Atom/userAtom';
+import { useRecoilValue, useRecoilState } from 'recoil';
+import { hostCheck, hostInfo, userName } from '../../Atom/userAtom';
 
 interface optionType {
   value: number;
@@ -20,10 +20,12 @@ const Host = () => {
   const [active, setActive] = useState<boolean>(false);
   const [city, setCity] = useState<SingleValue<optionType>>(null);
   const [newCity, setNewCity] = useState<SingleValue<optionType>>(null);
+  const [userData, setUserData] = useRecoilState(hostInfo);
   const hostActive = useRecoilValue(hostCheck);
+  const userEmail = useRecoilValue(userName);
   const myInfo = useInput();
-  const myInfoModify = useInput();
   const hashTag = useInput();
+  const myInfoModify = useInput();
   const hashTagModify = useInput();
   const navigate = useNavigate();
   const regionData: optionType[] = [];
@@ -33,7 +35,7 @@ const Host = () => {
   });
 
   // host 등록
-  const hostRegist = async (e: MouseEvent<HTMLButtonElement>) => {
+  const hostRegist = async (e: MouseEvent<HTMLButtonElement>, user: string) => {
     e.preventDefault();
     try {
       const url = `${process.env.REACT_APP_REST_API_SERVER}/hosts`;
@@ -50,6 +52,7 @@ const Host = () => {
           },
         }
       );
+      setUserData((userData) => ({ ...userData, [user]: [{ host_intro: myInfo.data, host_hashTag: hashTag.data, host_region: city?.label }] }));
       alert(response.data.msg);
       navigate('/mypage');
     } catch (error) {
@@ -62,7 +65,7 @@ const Host = () => {
   };
 
   // host 수정
-  const hostModify = async (e: MouseEvent<HTMLButtonElement>) => {
+  const hostModify = async (e: MouseEvent<HTMLButtonElement>, user: string) => {
     e.preventDefault();
     try {
       const url = `${process.env.REACT_APP_REST_API_SERVER}/hosts`;
@@ -79,6 +82,7 @@ const Host = () => {
           },
         }
       );
+      setUserData((userData) => ({ ...userData, [user]: [{ host_intro: myInfoModify.data, host_hashTag: hashTagModify.data, host_region: newCity?.label }] }));
       alert(response.data.msg);
       navigate('/mypage');
     } catch (error) {
@@ -87,7 +91,7 @@ const Host = () => {
   };
 
   // host 삭제
-  const hostDelete = async (e: MouseEvent<HTMLButtonElement>) => {
+  const hostDelete = async (e: MouseEvent<HTMLButtonElement>, user: string) => {
     e.preventDefault();
     try {
       const url = `${process.env.REACT_APP_REST_API_SERVER}/hosts`;
@@ -96,10 +100,19 @@ const Host = () => {
           Authorization: `Bearer ${localStorage.getItem('token')}`,
         },
       });
+      setUserData((userData) => ({ ...userData, [user]: [{ host_intro: '', host_hashTag: '', host_region: '' }] }));
       alert(response.data.msg);
       navigate('/mypage');
     } catch (error) {
       alert('데이터를 받아오는 과정에 문제가 생겼습니다.😹');
+    }
+  };
+
+  const hostData = (id: string, user: string) => {
+    for (let value of userData[user]) {
+      if (id === 'infoModify') return value.host_intro;
+      else if (id === 'hashTagModify') return value.host_hashTag;
+      else return value.host_region;
     }
   };
 
@@ -121,20 +134,25 @@ const Host = () => {
   return (
     <div className="flex flex-col">
       <Header title={hostActive ? 'Host 수정' : 'Host 등록'} back={true} icon={''} />
-      <div className="flex flex-col gap-4 my-6 line">
+      <div className={`flex flex-col gap-4 line ${hostActive ? 'mt-6' : 'my-6'}`}>
         <Profile />
         <button className="w-[25rem] mx-auto h-9 mb-3 border rounded border-main-color text-main-color hover:bg-main-color hover:text-white">프로필 수정</button>
       </div>
-      <form className="flex flex-col gap-4 text-left mx-auto">
+      <form className="flex flex-col gap-3 text-left mx-auto">
+        {hostActive && (
+          <p className="text-sm mt-2">
+            <b className="text-main-color">※ 기존에 등록된 정보</b>를 참고하여 <b className="text-main-color">수정</b>해주세요.
+          </p>
+        )}
         <div className="inputForm">
           <label htmlFor="introduction">한줄소개</label>
           <div className="relative flex flex-row items-center">
             <input
               required
               type="text"
-              id="introduction"
+              id={hostActive ? 'infoModify' : 'infoRegist'}
               className="inputStyle"
-              placeholder="나를 소개해주세요.(25자 제한)"
+              placeholder={hostActive ? hostData('infoModify', userEmail) : '나를 소개해주세요.(25자 제한)'}
               maxLength={25}
               onChange={hostActive ? myInfoModify.onChange : myInfo.onChange}
               value={hostActive ? myInfoModify.data : myInfo.data}
@@ -145,16 +163,31 @@ const Host = () => {
         </div>
         <div className="inputForm">
           <label htmlFor="hashTag">해시태그</label>
-          <input required type="text" id="hashTag" className="inputStyle" placeholder="#맛집전문  #가이드투어" onChange={hostActive ? hashTagModify.onChange : hashTag.onChange} value={hostActive ? hashTagModify.data : hashTag.data} />
+          <input
+            required
+            type="text"
+            id={hostActive ? 'hashTagModify' : 'hashTag'}
+            className="inputStyle"
+            placeholder={hostActive ? hostData('hashTagModify', userEmail) : '#맛집전문 #가이드투어'}
+            onChange={hostActive ? hashTagModify.onChange : hashTag.onChange}
+            value={hostActive ? hashTagModify.data : hashTag.data}
+          />
           <span className="errorText">{hashTagCheck()}</span>
         </div>
         <div className="flex flex-col gap-1">
           <h2>위치</h2>
-          <Select className="w-full" options={regionData} maxMenuHeight={200} placeholder="지역을 선택해 주세요." onChange={hostActive ? regionModify : regionHandle} />
+          <Select
+            id={hostActive ? 'regionModify' : 'region'}
+            className="w-full"
+            options={regionData}
+            maxMenuHeight={hostActive ? 190 : 200}
+            placeholder={hostActive ? hostData('regionModify', userEmail) : '지역을 선택해 주세요.'}
+            onChange={hostActive ? regionModify : regionHandle}
+          />
         </div>
         <div className="absolute flex flex-col gap-2 bottom-16">
-          <Button name={hostActive ? '수정하기' : '등록하기'} page={false} active={active} onClick={hostActive ? hostModify : hostRegist} />
-          {hostActive && <Button name={'Host 삭제하기'} page={true} active={active} onClick={hostDelete} />}
+          <Button name={hostActive ? '수정하기' : '등록하기'} page={false} active={active} onClick={hostActive ? (e) => hostModify(e, userEmail) : (e) => hostRegist(e, userEmail)} />
+          {hostActive && <Button name={'Host 삭제하기'} page={true} active={active} onClick={(e) => hostDelete(e, userEmail)} />}
         </div>
       </form>
     </div>
