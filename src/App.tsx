@@ -1,4 +1,4 @@
-import { Outlet, Route, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import Landing from './pages/Landing/Landing';
 import Main from './pages/Main/Main';
 import SignIn from './pages/SignIn/SignIn';
@@ -15,8 +15,7 @@ import HostList from './pages/Main/HostList';
 import MyWrite from './pages/MyPage/MyWrite';
 import Favorite from './pages/MyPage/Favorite';
 import Notice from './pages/MyPage/Notice';
-import { useEffect, useState } from 'react';
-import axios from 'axios';
+import { useState } from 'react';
 import Board from './pages/Board/Board';
 import WriteBoard from './pages/Board/WriteBoard';
 import Host from './pages/MyPage/Host';
@@ -25,16 +24,6 @@ import EditBoard from './pages/MyPage/EditBoard';
 
 function App() {
   const [token, setToken] = useState('');
-  // useEffect(() => {
-  //   axios
-  //     .post(`${process.env.REACT_APP_REST_API_SERVER}/members/login`, {
-  //       username: 'test@test.com',
-  //       password: 'qwe123@@',
-  //     })
-  //     .then((res) => {
-  //       setToken(res.headers.authentication);
-  //     });
-  // }, []);
 
   return (
     <div className="relative">

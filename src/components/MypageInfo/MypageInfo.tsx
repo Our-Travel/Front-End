@@ -1,11 +1,11 @@
 import axios from 'axios';
-import React, { useEffect, useLayoutEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { BsPatchCheckFill } from 'react-icons/bs';
 import { MdArrowForwardIos } from 'react-icons/md';
 import { Link, useNavigate } from 'react-router-dom';
 import { useResetRecoilState, useRecoilState } from 'recoil';
 import { token } from '../../Atom/atom';
-import { hostCheck, userInfo } from '../../Atom/userAtom';
+import { hostCheck } from '../../Atom/userAtom';
 
 export const Profile = () => {
   const [email, setEmail] = useState<string>('');
