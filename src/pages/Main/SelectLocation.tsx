@@ -1,7 +1,9 @@
+import { Link } from 'react-router-dom';
 import Header from '../../components/Header/Header';
 import regions from './../../util/region';
 const SelectLocation = () => {
   const region = regions;
+
   return (
     <>
       <Header title={'지역선택'} back={true} icon={''} />

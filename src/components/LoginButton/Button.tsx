@@ -8,7 +8,7 @@ interface buttonInfo {
   onClick: (e: MouseEvent<HTMLButtonElement>) => void;
 }
 
-export function LoginButton({ name, page, active, onClick }: buttonInfo) {
+export function Button({ name, page, active, onClick }: buttonInfo) {
   return (
     <button type="submit" className={page || active ? 'buttonStyle' : 'noActiveButton'} onClick={onClick} disabled={page ? active : !active}>
       {name}
