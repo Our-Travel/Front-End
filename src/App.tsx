@@ -25,16 +25,16 @@ import EditBoard from './pages/MyPage/EditBoard';
 
 function App() {
   const [token, setToken] = useState('');
-  // useEffect(() => {
-  //   axios
-  //     .post(`${process.env.REACT_APP_REST_API_SERVER}/members/login`, {
-  //       username: 'test@test.com',
-  //       password: 'qwe123@@',
-  //     })
-  //     .then((res) => {
-  //       setToken(res.headers.authentication);
-  //     });
-  // }, []);
+  useEffect(() => {
+    axios
+      .post('https://ourtravel.site/api/dev/member/login', {
+        username: 'user1@example.com',
+        password: '1234',
+      })
+      .then((res) => {
+        setToken(res.data.data.accessToken);
+      });
+  }, []);
 
   return (
     <div className="relative">
