@@ -33,7 +33,7 @@ export default function Landing() {
       {modal && <WriteButton title={'언어를 선택해주세요.'} button={'English'} setModal={setModal} handleButton={handleLanguage} />}
       <Swiper pagination={{ clickable: true }} modules={[Pagination, Autoplay, A11y]} autoplay={{ delay: 3000, disableOnInteraction: false }} loop={true}>
         {promotionImg.map(({ title }, index) => (
-          <SwiperSlide key={index}>
+          <SwiperSlide key={index} className="landingSlide">
             {index + 1}번 {title}
           </SwiperSlide>
         ))}
