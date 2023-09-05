@@ -3,15 +3,13 @@ import React, { useEffect, useState } from 'react';
 import { BsPatchCheckFill } from 'react-icons/bs';
 import { MdArrowForwardIos } from 'react-icons/md';
 import { Link, useNavigate } from 'react-router-dom';
-import { useResetRecoilState, useRecoilState } from 'recoil';
-import { token } from '../../Atom/atom';
+import { useRecoilState } from 'recoil';
 import { hostCheck } from '../../Atom/userAtom';
 
 export const Profile = () => {
   const [email, setEmail] = useState<string>('');
   const [nickName, setNickName] = useState<string>('');
   const [hostActive, setHostActive] = useRecoilState(hostCheck);
-  const resetToken = useResetRecoilState(token);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -29,7 +27,6 @@ export const Profile = () => {
       } catch (error) {
         alert(`${axios.isAxiosError(error) && error.response?.data.msg}`);
         localStorage.removeItem('token');
-        resetToken();
         navigate('/signin');
       }
     };

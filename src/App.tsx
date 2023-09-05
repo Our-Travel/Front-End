@@ -38,7 +38,7 @@ function App() {
             <Route path="/info" element={<Info />} />
             <Route path="/main" element={<Main />} />
             <Route path="/main/selectLocation" element={<SelectLocation />} />
-            <Route path="/main/hostlist" element={<HostList title={''} />} />
+            <Route path="/main/hostlist/:regionCode/:regionName" element={<HostList />} />
             <Route path="/map" element={<Map token={token} />} />
             <Route path="/board" element={<Board />} />
             <Route path="/board/writeboard" element={<WriteBoard />} />

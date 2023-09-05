@@ -2,14 +2,11 @@ import axios from 'axios';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
-import { useSetRecoilState } from 'recoil';
-import { token } from '../../Atom/atom';
 // import { userInfo } from '../../Atom/userAtom';
 
 const KakaoRedirect = () => {
   // const [info, setInfo] = useRecoilState(userInfo); user 상태관리 삭제함
   const navigate = useNavigate();
-  const setToken = useSetRecoilState(token);
 
   // useEffect(() => {
   const code = new URL(window.location.href).searchParams.get('code');
