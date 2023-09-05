@@ -4,7 +4,7 @@ import { useState } from 'react';
 const useCheck = () => {
   const [status, setStatus] = useState<number>(0);
 
-  const nickNameCheck = async (type: string, data: string) => {
+  const signupCheck = async (type: string, data: string) => {
     try {
       const url = `${process.env.REACT_APP_REST_API_SERVER}/members/exists/${type}/${data}`;
       const response = await axios.get(url);
@@ -20,7 +20,7 @@ const useCheck = () => {
     }
   };
 
-  return { status, nickNameCheck };
+  return { status, signupCheck };
 };
 
 export default useCheck;

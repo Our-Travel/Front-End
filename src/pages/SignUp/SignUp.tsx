@@ -9,7 +9,7 @@ import useCheck from '../../hooks/useCheck';
 
 const SignUp = () => {
   const [active, setActive] = useState<boolean>(false);
-  const { status, nickNameCheck } = useCheck();
+  const { status, signupCheck } = useCheck();
   const email = useInput();
   const nickName = useInput();
   const password = useInput();
@@ -36,21 +36,10 @@ const SignUp = () => {
     }
   };
 
-  const handleNickName = () => {
-    nickNameCheck('nickName', nickName.data);
-  };
-
-  const nickNameBtn = () => {
-    return status === 200 ? 'text-green-600 border-green-600' : status === 400 ? 'text-check-red border-check-red' : 'text-gray-500 border-gray-400';
-  };
-
-  const nickNameInput = () => {
-    return !nickName.data.length || nickName.state ? 'border-gray-400' : 'border-check-red outline-check-red';
-  };
-
-  const passwordInput = () => {
-    return !pwCheck.data.length || password.data === pwCheck.data ? 'border-gray-400' : 'border-check-red outline-check-red';
-  };
+  const handleNickName = () => signupCheck('nickName', nickName.data);
+  const nickNameBtn = () => (status === 200 ? 'text-green-600 border-green-600' : status === 400 ? 'text-check-red border-check-red' : 'text-gray-500 border-gray-400');
+  const nickNameInput = () => (!nickName.data.length || nickName.state ? 'border-gray-400' : 'border-check-red outline-check-red');
+  const passwordInput = () => (!pwCheck.data.length || password.data === pwCheck.data ? 'border-gray-400' : 'border-check-red outline-check-red');
 
   useEffect(() => {
     password.data === pwCheck.data && status === 200 ? setActive(true) : setActive(false);
