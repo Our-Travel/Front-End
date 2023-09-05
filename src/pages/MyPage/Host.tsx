@@ -8,21 +8,26 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { MdOutlineCancel } from 'react-icons/md';
 import regions from '../../util/region';
-import { useRecoilValue, useRecoilState } from 'recoil';
-import { hostCheck, hostInfo, userName } from '../../Atom/userAtom';
+import { useRecoilValue } from 'recoil';
+import { hostCheck } from '../../Atom/userAtom';
 
 interface optionType {
   value: number;
   label: string;
 }
 
+interface newData {
+  new_intro: string;
+  new_hashTag: string;
+  new_region: number;
+}
+
 const Host = () => {
   const [active, setActive] = useState<boolean>(false);
   const [city, setCity] = useState<SingleValue<optionType>>(null);
   const [newCity, setNewCity] = useState<SingleValue<optionType>>(null);
-  const [userData, setUserData] = useRecoilState(hostInfo);
+  const [modifyData, setModifyData] = useState<newData[]>([]);
   const hostActive = useRecoilValue(hostCheck);
-  const userEmail = useRecoilValue(userName);
   const myInfo = useInput();
   const hashTag = useInput();
   const myInfoModify = useInput();
@@ -30,12 +35,18 @@ const Host = () => {
   const navigate = useNavigate();
   const regionData: optionType[] = [];
 
+  const config = {
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem('token')}`,
+    },
+  };
+
   regions.map((region) => {
     regionData.push({ label: region.key, value: region.value });
   });
 
   // host 등록
-  const hostRegist = async (e: MouseEvent<HTMLButtonElement>, user: string) => {
+  const hostRegist = async (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     try {
       const url = `${process.env.REACT_APP_REST_API_SERVER}/hosts`;
@@ -46,13 +57,8 @@ const Host = () => {
           hash_tag: hashTag.data,
           region_code: city?.value,
         },
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem('token')}`,
-          },
-        }
+        config
       );
-      setUserData((userData) => ({ ...userData, [user]: [{ host_intro: myInfo.data, host_hashTag: hashTag.data, host_region: city?.label }] }));
       alert(response.data.msg);
       navigate('/mypage');
     } catch (error) {
@@ -65,7 +71,7 @@ const Host = () => {
   };
 
   // host 수정
-  const hostModify = async (e: MouseEvent<HTMLButtonElement>, user: string) => {
+  const hostModify = async (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     try {
       const url = `${process.env.REACT_APP_REST_API_SERVER}/hosts`;
@@ -76,13 +82,8 @@ const Host = () => {
           hash_tag: hashTagModify.data,
           region_code: newCity?.value,
         },
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem('token')}`,
-          },
-        }
+        config
       );
-      setUserData((userData) => ({ ...userData, [user]: [{ host_intro: myInfoModify.data, host_hashTag: hashTagModify.data, host_region: newCity?.label }] }));
       alert(response.data.msg);
       navigate('/mypage');
     } catch (error) {
@@ -90,17 +91,26 @@ const Host = () => {
     }
   };
 
+  // 수정된 정보가져오기
+  useEffect(() => {
+    const newHostData = async () => {
+      try {
+        const url = `${process.env.REACT_APP_REST_API_SERVER}/hosts`;
+        const response = await axios.get(url, config);
+        setModifyData([{ new_intro: response.data.data.introduction, new_hashTag: response.data.data.hash_tag, new_region: response.data.data.region_code }]);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    newHostData();
+  }, [modifyData]);
+
   // host 삭제
-  const hostDelete = async (e: MouseEvent<HTMLButtonElement>, user: string) => {
+  const hostDelete = async (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     try {
       const url = `${process.env.REACT_APP_REST_API_SERVER}/hosts`;
-      const response = await axios.delete(url, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('token')}`,
-        },
-      });
-      setUserData((userData) => ({ ...userData, [user]: [{ host_intro: '', host_hashTag: '', host_region: '' }] }));
+      const response = await axios.delete(url, config);
       alert(response.data.msg);
       navigate('/mypage');
     } catch (error) {
@@ -108,24 +118,21 @@ const Host = () => {
     }
   };
 
-  const hostData = (id: string, user: string) => {
-    for (let value of userData[user]) {
-      if (id === 'infoModify') return value.host_intro;
-      else if (id === 'hashTagModify') return value.host_hashTag;
-      else return value.host_region;
+  // host 수정된 정보를 태그 id에 맞는 값 가져오기
+  const newHostData = (id: string) => {
+    for (let item of modifyData) {
+      if (id === 'infoModify') return item.new_intro;
+      else if (id === 'hashTagModify') return item.new_hashTag;
+      else {
+        const findLabel = regionData.find((el) => el.value === item.new_region);
+        return findLabel?.label;
+      }
     }
   };
 
-  const regionHandle = (option: SingleValue<optionType>) => {
-    setCity(option);
-  };
-  const regionModify = (option: SingleValue<optionType>) => {
-    setNewCity(option);
-  };
-
-  const hashTagCheck = () => {
-    return (hashTag.data.length > 0 && !hashTag.state) || (hashTagModify.data.length > 0 && !hashTagModify.state) ? '단어 앞에 #을 반드시 입력해주세요.(2자 이상)' : '';
-  };
+  const regionHandle = (option: SingleValue<optionType>) => setCity(option);
+  const regionModify = (option: SingleValue<optionType>) => setNewCity(option);
+  const hashTagCheck = () => ((hashTag.data.length > 0 && !hashTag.state) || (hashTagModify.data.length > 0 && !hashTagModify.state) ? '단어 앞에 #을 반드시 입력해주세요.(2자 이상)' : '');
 
   useEffect(() => {
     (myInfo.data.length < 25 && hashTag.data && hashTag.state && city) || (myInfoModify.data.length < 25 && hashTagModify.data && hashTagModify.state && newCity) ? setActive(true) : setActive(false);
@@ -151,8 +158,8 @@ const Host = () => {
               required
               type="text"
               id={hostActive ? 'infoModify' : 'infoRegist'}
-              className="inputStyle"
-              placeholder={hostActive ? hostData('infoModify', userEmail) : '나를 소개해주세요.(25자 제한)'}
+              className="inputStyle placeholder:placeholder:overflow-x-auto"
+              placeholder={hostActive ? newHostData('infoModify') : '나를 소개해주세요.(25자 제한)'}
               maxLength={25}
               onChange={hostActive ? myInfoModify.onChange : myInfo.onChange}
               value={hostActive ? myInfoModify.data : myInfo.data}
@@ -167,8 +174,8 @@ const Host = () => {
             required
             type="text"
             id={hostActive ? 'hashTagModify' : 'hashTag'}
-            className="inputStyle"
-            placeholder={hostActive ? hostData('hashTagModify', userEmail) : '#맛집전문 #가이드투어'}
+            className="inputStyle placeholder:overflow-x-auto"
+            placeholder={hostActive ? newHostData('hashTagModify') : '#맛집전문 #가이드투어'}
             onChange={hostActive ? hashTagModify.onChange : hashTag.onChange}
             value={hostActive ? hashTagModify.data : hashTag.data}
           />
@@ -181,13 +188,13 @@ const Host = () => {
             className="w-full"
             options={regionData}
             maxMenuHeight={hostActive ? 190 : 200}
-            placeholder={hostActive ? hostData('regionModify', userEmail) : '지역을 선택해 주세요.'}
+            placeholder={hostActive ? newHostData('regionModify') : '지역을 선택해 주세요.'}
             onChange={hostActive ? regionModify : regionHandle}
           />
         </div>
         <div className="absolute flex flex-col gap-2 bottom-16">
-          <Button name={hostActive ? '수정하기' : '등록하기'} page={false} active={active} onClick={hostActive ? (e) => hostModify(e, userEmail) : (e) => hostRegist(e, userEmail)} />
-          {hostActive && <Button name={'Host 삭제하기'} page={true} active={active} onClick={(e) => hostDelete(e, userEmail)} />}
+          <Button name={hostActive ? '수정하기' : '등록하기'} page={false} active={active} onClick={hostActive ? hostModify : hostRegist} />
+          {hostActive && <Button name={'Host 삭제하기'} page={true} active={active} onClick={hostDelete} />}
         </div>
       </form>
     </div>

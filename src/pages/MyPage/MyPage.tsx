@@ -8,12 +8,10 @@ import { MdLogout, MdPersonRemove } from 'react-icons/md';
 import { IconType } from 'react-icons';
 import UploadProfile from '../../components/Modal/UploadProfile';
 import { useRecoilValue } from 'recoil';
-import { hostCheck, userName } from '../../Atom/userAtom';
+import { hostCheck } from '../../Atom/userAtom';
 // import WriteButton from '../../components/Chatting/WriteButton';
 import WriteButton from 'components/Board/WriteButton';
 import { useNavigate } from 'react-router-dom';
-import { useResetRecoilState } from 'recoil';
-import { token } from '../../Atom/atom';
 
 const MyPage = () => {
   const hostEditMode = useRecoilValue(hostCheck);
@@ -43,8 +41,6 @@ const MyPage = () => {
   const [icon, setIcon] = useState<string>('');
   const [uploadModalOpen, setUploadModal] = useState<boolean>(false);
   const navigate = useNavigate();
-  const resetToken = useResetRecoilState(token);
-  const resetUserEmail = useResetRecoilState(userName);
 
   const handleImage = () => {
     setUploadModal(true);
@@ -60,8 +56,6 @@ const MyPage = () => {
   };
 
   const logout = () => {
-    resetToken();
-    resetUserEmail();
     localStorage.removeItem('token');
     navigate('/');
     alert('로그아웃 되었습니다.👋');

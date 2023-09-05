@@ -6,15 +6,10 @@ import ChoiceTab from '../../components/ChoiceTab/ChoiceTab';
 import React, { useEffect, useState, MouseEvent } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import { useSetRecoilState } from 'recoil';
-import { token } from '../../Atom/atom';
 import useInput from 'hooks/useInput';
-import { userName } from 'Atom/userAtom';
 
 const SignIn = () => {
   const [active, setActive] = useState<boolean>(false);
-  const userEmail = useSetRecoilState(userName);
-  const setToken = useSetRecoilState(token);
   const navigate = useNavigate();
   const email = useInput();
   const password = useInput();
@@ -27,8 +22,6 @@ const SignIn = () => {
         username: email.data,
         password: password.data,
       });
-      userEmail(email.data);
-      setToken(response.headers.authentication);
       localStorage.setItem('token', response.headers.authentication);
       alert(response.data.msg);
       navigate('/main');
