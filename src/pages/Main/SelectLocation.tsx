@@ -1,20 +1,21 @@
 import { Link } from 'react-router-dom';
 import Header from '../../components/Header/Header';
 import regions from './../../util/region';
-const SelectLocation = () => {
-  const region = regions;
 
+const SelectLocation = () => {
   return (
     <>
       <Header title={'지역선택'} back={true} icon={''} />
-      <div className="flex  mt-4 space-x-4 pl-2">
-        <div className="inline-block">
-          {region.map((region) => (
-            <button key={region.value} className="text-ml border-[#FF787D] border-2 border-opacity-20 p-2 w-[200px] h-[60px] rounded-md m-1 bg-[#FF776D] bg-opacity-20 drop-shadow-md">
-              {region.key}
-            </button>
+      <div className="mt-6 px-4">
+        <ul className="grid grid-cols-2 gap-4">
+          {regions.map((region) => (
+            <Link key={region.value} to={`/main/hostlist/${region.value}/${region.key}`}>
+              <li tabIndex={0} className="flex items-center justify-center h-14 2xl:h-16 border rounded-lg shadow-md text-lg effectArea">
+                <span>{region.key}</span>
+              </li>
+            </Link>
           ))}
-        </div>
+        </ul>
       </div>
     </>
   );

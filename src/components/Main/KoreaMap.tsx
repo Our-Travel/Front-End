@@ -1,13 +1,7 @@
-import React, { MouseEvent, useCallback, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import React, { MouseEvent, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import mapData from './mapData';
 import mapText from './mapText';
-import HostList from '../../pages/Main/HostList';
-import { idText } from 'typescript';
-
-interface location {
-  handleLocationClick: (e: MouseEvent<SVGPathElement | SVGTextElement>) => void;
-}
 
 const KoreaMap = () => {
   const navigate = useNavigate();
@@ -17,9 +11,7 @@ const KoreaMap = () => {
   const handleLocationClick = (e: MouseEvent<SVGPathElement | SVGTextElement>) => {
     const target = e.target as SVGPathElement | SVGTextElement;
     if (target.tagName === 'path' || target.tagName === 'tspan') {
-      <HostList title={target.textContent} />;
-      navigate('/main/hostlist');
-      console.log(target.textContent);
+      navigate('/main/selectLocation');
     }
   };
 
@@ -35,8 +27,8 @@ const KoreaMap = () => {
   };
 
   return (
-    <div className="relative w-full h-full">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox={mapData.viewBox} className="svgStyle 2xl:scale-105 transition-all duration-500" role="group" aria-label={mapData.label}>
+    <div className="w-full h-full">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox={mapData.viewBox} className="svgStyle svgBig transition-all duration-500" role="group" aria-label={mapData.label}>
         <g role="group" onClick={handleLocationClick}>
           <g>
             {mapData.locations.map((location) => (
