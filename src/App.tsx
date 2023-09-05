@@ -38,7 +38,7 @@ function App() {
 
   return (
     <div className="relative">
-      <div className="absolute text-center right-[23%] h-screen border border-gray-200 w-[450px] max-h-[full] overflow-hidden">
+      <div className="relative text-center mx-auto my-0 h-screen border border-gray-200 w-[450px] max-h-[full] overflow-hidden">
         <Routes>
           <Route path="/" element={<Landing />} />
           <Route path="/signin" element={<SignIn />} />

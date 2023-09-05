@@ -1,33 +1,33 @@
-import React from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import ChattingComponent from './ChattingComponent';
-
-const chat = [
-  {
-    nickName: '맷돌이',
-    content: '혹시 프로젝트 통과하나요?',
-    time: '14:15',
-  },
-  {
-    nickName: '다시',
-    content: '혹시 프로젝트 통과하나요?',
-    time: '14:15',
-  },
-  {
-    nickName: '지금까지',
-    content: '혹시 프로젝트 통과하나요?',
-    time: '14:15',
-  },
-];
+import axios from 'axios';
+import { useRecoilValue } from 'recoil';
+import { chatMessages } from '../../Atom/atom';
 
 const ChattingItem = () => {
+  const [chatList, setChatList] = useState([]);
+  console.log(chatList);
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    axios
+      .get('https://ourtravel.site/api/dev/room', {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then((res) => {
+        if (res.status === 200) {
+          setChatList(res.data.data);
+        }
+      });
+  }, []);
   return (
     <div>
-      {chat.map(({ nickName, content, time }, index) => (
-        <Link to={'/chatting'} key={index}>
-          <ChattingComponent key={index} nickName={nickName} content={content} time={time} />
-        </Link>
-      ))}
+      {chatList &&
+        chatList.map(({ room_id, writer, latest_message, latest_message_time }, index) => (
+          <Link to={`/${room_id}`} key={index}>
+            <ChattingComponent key={index} nickName={writer} content={latest_message} time={latest_message_time} />
+          </Link>
+        ))}
     </div>
   );
 };

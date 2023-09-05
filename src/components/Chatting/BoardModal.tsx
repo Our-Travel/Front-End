@@ -120,7 +120,7 @@ const BoardModal = ({ setModal }: Props) => {
   const isButtonActive = statusFromServer === 'OPEN';
 
   return (
-    <div ref={modalRef} onKeyDown={handleKeyDown} tabIndex={0} className=" shadow-2xl">
+    <div ref={modalRef} onKeyDown={handleKeyDown} tabIndex={0} className="shadow-2xl">
       <div onClick={closeModal} className="absolute w-full h-screen modalPosition bg-gray-400 opacity-25" />
       {item && (
         <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[90%] h-[450px] bg-white rounded-xl">
@@ -151,7 +151,7 @@ const BoardModal = ({ setModal }: Props) => {
           </div>
           {/* 추후에 해당 게시글을 작성한 사람과의 채팅으로 넘어가게 변경해야함 */}
 
-          <button ref={chatButtonRef} onClick={handleChatButtonClick} disabled={!isButtonActive} className="absolute bottom-3 w-3/5 h-10 left-1/2 -translate-x-1/2 bg-main-color py-1 rounded-lg text-white text-lg font-extrabold">
+          <button ref={chatButtonRef} onClick={handleChatButtonClick} disabled={!isButtonActive} className="absolute bottom-3 w-3/5 h-10 left-1/2 -translate-x-1/2 bg-main-color py-1 rounded-lg text-white text-lg font-extrabold disabled:bg-slate-400">
             채팅하러 가기
           </button>
 
