@@ -34,7 +34,7 @@ const Host = () => {
   const hashTagModify = useInput();
   const navigate = useNavigate();
   const regionData: optionType[] = [];
-
+  const url = `${process.env.REACT_APP_REST_API_SERVER}/hosts`;
   const config = {
     headers: {
       Authorization: `Bearer ${localStorage.getItem('token')}`,
@@ -49,7 +49,6 @@ const Host = () => {
   const hostRegist = async (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     try {
-      const url = `${process.env.REACT_APP_REST_API_SERVER}/hosts`;
       const response = await axios.post(
         url,
         {
@@ -74,7 +73,6 @@ const Host = () => {
   const hostModify = async (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     try {
-      const url = `${process.env.REACT_APP_REST_API_SERVER}/hosts`;
       const response = await axios.patch(
         url,
         {
@@ -95,7 +93,6 @@ const Host = () => {
   useEffect(() => {
     const newHostData = async () => {
       try {
-        const url = `${process.env.REACT_APP_REST_API_SERVER}/hosts`;
         const response = await axios.get(url, config);
         setModifyData([{ new_intro: response.data.data.introduction, new_hashTag: response.data.data.hash_tag, new_region: response.data.data.region_code }]);
       } catch (error) {
@@ -103,13 +100,12 @@ const Host = () => {
       }
     };
     newHostData();
-  }, [modifyData]);
+  }, []);
 
   // host 삭제
   const hostDelete = async (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     try {
-      const url = `${process.env.REACT_APP_REST_API_SERVER}/hosts`;
       const response = await axios.delete(url, config);
       alert(response.data.msg);
       navigate('/mypage');
@@ -118,13 +114,13 @@ const Host = () => {
     }
   };
 
-  // host 수정된 정보를 태그 id에 맞는 값 가져오기
+  // host 수정된 정보를 태그 id에 맞는 값 표시
   const newHostData = (id: string) => {
-    for (let item of modifyData) {
-      if (id === 'infoModify') return item.new_intro;
-      else if (id === 'hashTagModify') return item.new_hashTag;
+    for (let data of modifyData) {
+      if (id === 'infoModify') return data.new_intro;
+      else if (id === 'hashTagModify') return data.new_hashTag;
       else {
-        const findLabel = regionData.find((el) => el.value === item.new_region);
+        const findLabel = regionData.find((item) => item.value === data.new_region);
         return findLabel?.label;
       }
     }
