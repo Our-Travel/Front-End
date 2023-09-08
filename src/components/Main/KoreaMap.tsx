@@ -26,7 +26,7 @@ const KoreaMap = () => {
   useEffect(() => {
     const hostDataCount = async () => {
       try {
-        const url = 'https://ourtravel.site/api/dev/hosts/map';
+        const url = `${process.env.REACT_APP_REST_API_SERVER}/hosts/map`;
         const response = await axios.get(url, { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } });
         setHostMap(response.data.data);
       } catch (error) {
