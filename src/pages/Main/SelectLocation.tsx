@@ -10,7 +10,7 @@ const SelectLocation = () => {
         <ul className="grid grid-cols-2 gap-4">
           {regions.map((region) => (
             <Link key={region.value} to={`/main/hostlist/${region.value}/${region.key}`}>
-              <li tabIndex={0} className="flex items-center justify-center h-14 2xl:h-16 border rounded-lg shadow-md text-lg effectArea">
+              <li className="flex items-center justify-center h-14 2xl:h-16 border rounded-lg shadow-md text-lg effectArea">
                 <span>{region.key}</span>
               </li>
             </Link>
