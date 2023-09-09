@@ -1,6 +1,6 @@
 import React, { ChangeEvent } from 'react';
 import { MdOutlineCancel } from 'react-icons/md';
-import useCheck from 'hooks/useCheck';
+import useFetch from 'hooks/useFetch';
 
 interface userInfo {
   page: boolean;
@@ -11,7 +11,7 @@ interface userInfo {
 }
 
 export const Email = ({ page, data, state, onChange, onReset }: userInfo) => {
-  const { status, signupCheck } = useCheck();
+  const { status, signupCheck } = useFetch();
 
   const handleEmail = () => signupCheck('username', data);
   const emailBtn = () => (status === 200 ? 'text-green-600 border-green-600' : status === 400 ? 'text-check-red border-check-red' : 'text-gray-500 border-gray-400');

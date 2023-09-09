@@ -5,11 +5,11 @@ import { Button } from '../../components/LoginButton/Button';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import useInput from 'hooks/useInput';
-import useCheck from '../../hooks/useCheck';
+import useFetch from '../../hooks/useFetch';
 
 const SignUp = () => {
   const [active, setActive] = useState<boolean>(false);
-  const { status, signupCheck } = useCheck();
+  const { status, signupCheck } = useFetch();
   const email = useInput();
   const nickName = useInput();
   const password = useInput();
@@ -28,10 +28,8 @@ const SignUp = () => {
       alert(response.data.msg);
       navigate('/signin');
     } catch (error) {
-      if (axios.isAxiosError(error) && error.response?.status === 400) {
-        alert(error.response.data.msg);
-      } else {
-        alert('데이터를 받아오는 과정에 문제가 생겼습니다.😹');
+      if (axios.isAxiosError(error)) {
+        alert(error.response?.data.msg);
       }
     }
   };
