@@ -27,10 +27,8 @@ const SignIn = () => {
       navigate('/main');
     } catch (error) {
       navigate('/signin');
-      if (axios.isAxiosError(error) && error.response?.status === 400) {
-        alert(error.response.data.msg);
-      } else {
-        alert('데이터를 받아오는 과정에 문제가 생겼습니다.😹');
+      if (axios.isAxiosError(error)) {
+        alert(error.response?.data.msg);
       }
     }
   };

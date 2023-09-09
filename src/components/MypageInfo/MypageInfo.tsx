@@ -25,7 +25,9 @@ export const Profile = () => {
         setNickName(response.data.data.nick_name);
         setHostActive(response.data.data.host_authority);
       } catch (error) {
-        alert(`${axios.isAxiosError(error) && error.response?.data.msg}`);
+        if (axios.isAxiosError(error)) {
+          alert(error.response?.data.msg);
+        }
         localStorage.removeItem('token');
         navigate('/signin');
       }

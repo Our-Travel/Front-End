@@ -61,10 +61,8 @@ const Host = () => {
       alert(response.data.msg);
       navigate('/mypage');
     } catch (error) {
-      if (axios.isAxiosError(error) && error.response?.status === 403) {
-        alert(error.response.data.msg);
-      } else {
-        alert('데이터를 받아오는 과정에 문제가 생겼습니다.😹');
+      if (axios.isAxiosError(error)) {
+        alert(error.response?.data.msg);
       }
     }
   };
@@ -85,34 +83,28 @@ const Host = () => {
       alert(response.data.msg);
       navigate('/mypage');
     } catch (error) {
-      alert('데이터를 받아오는 과정에서 문제가 생겼습니다.');
+      if (axios.isAxiosError(error)) {
+        alert(error.response?.data.msg);
+      }
     }
   };
 
   // 수정된 정보가져오기
   useEffect(() => {
-    const newHostData = async () => {
-      try {
-        const response = await axios.get(url, config);
-        setModifyData([{ new_intro: response.data.data.introduction, new_hashTag: response.data.data.hash_tag, new_region: response.data.data.region_code }]);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    newHostData();
-  }, []);
-
-  // host 삭제
-  const hostDelete = async (e: MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    try {
-      const response = await axios.delete(url, config);
-      alert(response.data.msg);
-      navigate('/mypage');
-    } catch (error) {
-      alert('데이터를 받아오는 과정에 문제가 생겼습니다.😹');
+    if (hostActive) {
+      const hostGetNewData = async () => {
+        try {
+          const response = await axios.get(`${process.env.REACT_APP_REST_API_SERVER}/hosts`, config);
+          setModifyData([{ new_intro: response.data.data.introduction, new_hashTag: response.data.data.hash_tag, new_region: response.data.data.region_code }]);
+        } catch (error) {
+          if (axios.isAxiosError(error)) {
+            alert(error.response?.data.msg);
+          }
+        }
+      };
+      hostGetNewData();
     }
-  };
+  }, [hostActive]);
 
   // host 수정된 정보를 태그 id에 맞는 값 표시
   const newHostData = (id: string) => {
@@ -122,6 +114,20 @@ const Host = () => {
       else {
         const findLabel = regionData.find((item) => item.value === data.new_region);
         return findLabel?.label;
+      }
+    }
+  };
+
+  // host 삭제
+  const hostDelete = async (e: MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    try {
+      const response = await axios.delete(url, config);
+      alert(response.data.msg);
+      navigate('/mypage');
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        alert(error.response?.data.msg);
       }
     }
   };

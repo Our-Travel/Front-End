@@ -72,7 +72,6 @@ const HostList = () => {
       const response = await axios.get(url, config);
       alert(response.data.msg);
       navigate(`/chatting/${room_id}`);
-      console.log(response);
     } catch (error) {
       if (axios.isAxiosError(error)) {
         alert(error.response?.data.msg);
