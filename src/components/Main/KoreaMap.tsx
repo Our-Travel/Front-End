@@ -1,17 +1,12 @@
-import axios from 'axios';
-import React, { MouseEvent, KeyboardEvent, useState, useEffect } from 'react';
+import React, { MouseEvent, KeyboardEvent, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import mapData from './mapData';
 import mapText from './mapText';
-
-interface hostMapData {
-  region_code: number;
-  count: number;
-}
+import useFetch from 'hooks/useFetch';
 
 const KoreaMap = () => {
+  const { hostDataCount, hostMapData } = useFetch();
   const navigate = useNavigate();
-  const [hostMap, setHostMap] = useState<hostMapData[]>([]);
 
   const handleLocation = (e: MouseEvent<SVGElement> | KeyboardEvent<SVGElement>) => {
     const mouse = e as MouseEvent<SVGElement>;
@@ -24,26 +19,8 @@ const KoreaMap = () => {
   };
 
   useEffect(() => {
-    const hostDataCount = async () => {
-      try {
-        const url = `${process.env.REACT_APP_REST_API_SERVER}/hosts/map`;
-        const response = await axios.get(url, { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } });
-        setHostMap(response.data.data);
-      } catch (error) {
-        if (axios.isAxiosError(error)) {
-          alert(error.response?.data.msg);
-        }
-      }
-    };
     hostDataCount();
   }, []);
-
-  // 지역코드와 매개변수로 받은 code가 맞으면 해당 지역 등록된 host count 표시
-  const hostMapData = (code: number) => {
-    for (let data of hostMap) {
-      if (data.region_code === code) return data.count;
-    }
-  };
 
   return (
     <div className="w-full h-full">
