@@ -42,7 +42,7 @@ const Header = ({ title, back, icon }: header) => {
 
   return (
     <>
-      <header className="relative flex justify-center items-center text-2xl py-3 border-b border-gray-200">
+      <header className="relative flex justify-center items-center text-2xl py-3 border-b  border-gray-200">
         {back && (
           <button type="button" className="absolute left-1 px-2 py-2" onClick={handleGoBack}>
             <SlArrowLeft />

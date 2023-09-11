@@ -55,6 +55,7 @@ const BoardModal = ({ setModal }: Props) => {
         })
         .then((response) => {
           const room_id = response.data.data.room_id;
+          console.log(response);
           navigate(`/chatting/${room_id}`);
         })
         .catch((err) => {

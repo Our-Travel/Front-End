@@ -6,11 +6,9 @@ import { BsTrash } from 'react-icons/bs';
 
 const ChattingList = () => {
   const [isEmpty, setEmpty] = useState<boolean>(true);
-  const icon = <BsTrash />;
 
   return (
-    <div className="">
-      <Header title="채팅목록" back={false} icon={icon} />
+    <div>
       <div>{isEmpty ? <ChattingItem /> : <ChattingEmpty />}</div>
     </div>
   );

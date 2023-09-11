@@ -8,6 +8,7 @@ import { Client, CompatClient, Message, Stomp } from '@stomp/stompjs';
 import SockJS from 'sockjs-client';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
+import { useDebounce } from '../../hooks/useDebounce';
 
 interface MessageDto {
   member_id: number;
@@ -44,6 +45,8 @@ const Chatting = () => {
   // 웹소켓 테스트
   const client = useRef<CompatClient>();
   const [inputMessage, setInputMessage] = useState('');
+  const debounceMessage = useDebounce(inputMessage, 1000);
+  const [modalOpen, setModalOpen] = useState<boolean>(false);
   const [messages, setMessages] = useState<string[]>([]);
   const { roomnum } = useParams();
   // 웹소켓 연결 함수
@@ -80,6 +83,7 @@ const Chatting = () => {
     setInputMessage('');
   };
   useEffect(() => {
+    sendText.current?.focus();
     axios
       .get(`https://ourtravel.site/api/dev/room/${roomnum}`, {
         headers: { Authorization: `Bearer ${token}` },
@@ -98,7 +102,15 @@ const Chatting = () => {
       mainChat.current.scrollTop = scrollHeight - clientHeight;
     }
   };
-
+  const activeEnter = (e: any) => {
+    if (e.key === 'Enter') {
+      if (e.nativeEvent.isComposing) return;
+      sendHandler();
+    }
+  };
+  // 디바운스 훅 넣어보기
+  // useEffect(() => {}, []);
+  // 다른 페이지 이동시 웹소켓 연결 끊기
   useEffect(() => {
     if (chatEnter) {
       scrollToBottom();
@@ -133,6 +145,7 @@ const Chatting = () => {
             onChange={(e) => {
               setInputMessage(e.target.value);
             }}
+            onKeyDown={(e) => activeEnter(e)}
             type="text"
             className="grow m-3 rounded bg-[#f2f2f2]"
             id="chattext"
