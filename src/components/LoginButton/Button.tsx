@@ -17,11 +17,7 @@ export function Button({ name, page, active, onClick }: buttonInfo) {
 }
 
 export function LoginKakao() {
-  const KAKAO_KEY = process.env.REACT_APP_REST_API_KEY;
-  const REDIRECT_URI = 'http://localhost:3000/kakao/redirect';
-  // const REDIRECT_URI = `${process.env.REACT_APP_REST_API_SERVER}/login/oauth2/code/kakao`;
-  const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${KAKAO_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
-
+  const KAKAO_AUTH_URL = 'https://ourtravel.site/api/dev/oauth2/authorization/kakao';
   return (
     <div className="buttonStyle">
       <Link to={KAKAO_AUTH_URL}>

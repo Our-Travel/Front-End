@@ -42,7 +42,6 @@ function App() {
         <Routes>
           <Route path="/" element={<Landing />} />
           <Route path="/signin" element={<SignIn />} />
-          <Route path="/kakao/redirect" element={<KakaoRedirect />} />
           {/* <Route path="/login/oauth2/code/kakao" element={<KakaoRedirect />} /> */}
           <Route path="/signup" element={<SignUp />} />
           <Route element={<Navigation />}>
@@ -61,6 +60,7 @@ function App() {
             <Route path="/mypage/host/edit" element={<Host />} />
             <Route path="/chatting/:roomnum" element={<Chatting />} />
             <Route path="/chattinglist" element={<ChattingList />} />
+            <Route path="/oauth2/redirect/:token" element={<KakaoRedirect />} />
           </Route>
           <Route path="*" element={<NotFound />} />
         </Routes>
