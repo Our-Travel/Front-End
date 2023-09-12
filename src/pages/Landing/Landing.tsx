@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Logo from '../../components/Logo/Logo';
-import { Button, LoginKakao } from '../../components/LoginButton/Button';
+import { Button, LoginKakao, LoginNaver, LoginGoogle } from '../../components/LoginButton/Button';
 import ChoiceTab from '../../components/ChoiceTab/ChoiceTab';
 import { Link, useNavigate } from 'react-router-dom';
 import { Pagination, Autoplay, A11y } from 'swiper';
@@ -12,7 +12,11 @@ import { GrLanguage } from 'react-icons/gr';
 // import WriteButton from '../../components/Chatting/WriteButton';
 import WriteButton from 'components/Board/WriteButton';
 
-const promotionImg: { title: string }[] = [{ title: '광고이미지' }, { title: '광고이미지' }, { title: '광고이미지' }];
+const promotionImg = [
+  { title: '광안대교', imgSrc: '/assets/bridge.JPG' },
+  { title: '집에서본 광안대교', imgSrc: '/assets/bridge2.JPG' },
+  { title: '집', imgSrc: '/assets/house.JPG' },
+];
 
 export default function Landing() {
   const [modal, setModal] = useState<boolean>(false);
@@ -32,15 +36,26 @@ export default function Landing() {
       </div>
       {modal && <WriteButton title={'언어를 선택해주세요.'} button={'English'} setModal={setModal} handleButton={handleLanguage} />}
       <Swiper pagination={{ clickable: true }} modules={[Pagination, Autoplay, A11y]} autoplay={{ delay: 3000, disableOnInteraction: false }} loop={true}>
-        {promotionImg.map(({ title }, index) => (
+        {promotionImg.map(({ title, imgSrc }, index) => (
           <SwiperSlide key={index} className="landingSlide">
-            {index + 1}번 {title}
+            <img src={imgSrc} alt={title} className="w-full h-full object-cover" />
           </SwiperSlide>
         ))}
       </Swiper>
-      <div className="flex flex-col gap-6">
+      <div className="flex flex-col gap-6 mb-4">
         <Button name={'로그인'} page={true} active={active} onClick={() => navigate('/signin')} />
-        <LoginKakao />
+        <div className="text-center">
+          <div className="flex items-center">
+            <div className="flex-grow border-b"></div>
+            <div className="px-2 text-gray-500 text-xs">Social Login</div>
+            <div className="flex-grow border-b"></div>
+          </div>
+        </div>
+        <div className="flex justify-center items-center space-x-8">
+          <LoginKakao />
+          <LoginNaver />
+          <LoginGoogle />
+        </div>
       </div>
       <div className="flex flex-row items-center justify-center">
         <button type="button" name="language" className="flex flex-row items-center gap-1 px-1 text-gray-500" onClick={isOpen}>
