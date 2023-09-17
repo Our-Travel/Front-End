@@ -6,7 +6,6 @@ import { BiBell } from 'react-icons/bi';
 import { BsPatchCheckFill, BsPencilFill } from 'react-icons/bs';
 import { MdLogout, MdPersonRemove } from 'react-icons/md';
 import { IconType } from 'react-icons';
-import UploadProfile from '../../components/Modal/UploadProfile';
 import { useRecoilValue } from 'recoil';
 import { hostCheck } from '../../Atom/userAtom';
 // import WriteButton from '../../components/Chatting/WriteButton';
@@ -39,14 +38,10 @@ const MyPage = () => {
   ];
   const [modal, setModal] = useState<boolean>(false);
   const [icon, setIcon] = useState<string>('');
-  const [uploadModalOpen, setUploadModal] = useState<boolean>(false);
   const navigate = useNavigate();
 
-  const handleImage = () => {
-    setUploadModal(true);
-  };
-  const closeImagePopup = () => {
-    setUploadModal(false);
+  const handleEdit = () => {
+    navigate('profileEdit');
   };
 
   const isOpen = (e: MouseEvent<HTMLButtonElement>) => {
@@ -70,8 +65,10 @@ const MyPage = () => {
       <Header title={'마이페이지'} back={false} icon={''} />
       {modal && <WriteButton title={icon === '로그아웃' ? '로그아웃 하시겠습니까?' : '회원탈퇴 하시겠습니까?'} button={icon === '로그아웃' ? '로그아웃' : '회원탈퇴'} setModal={setModal} handleButton={icon === '로그아웃' ? logout : MemberDelete} />}
       <div className="flex flex-col gap-4 w-[25rem] mx-auto my-6">
-        <Profile />
-        <button className="w-[25rem] h-9 mb-7 border rounded border-main-color text-main-color hover:bg-main-color hover:text-white">프로필 수정</button>
+        <Profile page={true} />
+        <button className="profileEdit" onClick={handleEdit}>
+          프로필 수정
+        </button>
         <div className="flex flex-col gap-5 line">
           <MypageTab name={'내가 작성한 글'} link={'/mypage/mywrite'} />
           <MypageTab name={'즐겨찾기'} link={'/mypage/favorite'} />
@@ -96,7 +93,6 @@ const MyPage = () => {
           ))}
         </ul>
       </div>
-      {uploadModalOpen && <UploadProfile onClose={closeImagePopup} />}
     </>
   );
 };
