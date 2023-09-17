@@ -1,7 +1,7 @@
 import { atom } from 'recoil';
-// import { recoilPersist } from 'recoil-persist';
+import { recoilPersist } from 'recoil-persist';
 
-// const { persistAtom } = recoilPersist();
+const { persistAtom } = recoilPersist();
 
 export const hostCheck = atom<boolean>({
   key: 'hostCheck',
@@ -11,4 +11,10 @@ export const hostCheck = atom<boolean>({
 export const hostRoomId = atom<number>({
   key: 'hostRoomId',
   default: 0,
+});
+
+export const profileUpdate = atom<boolean>({
+  key: 'profileUpdate',
+  default: false,
+  effects_UNSTABLE: [persistAtom],
 });
