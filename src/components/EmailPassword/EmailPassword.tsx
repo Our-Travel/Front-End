@@ -4,13 +4,14 @@ import useFetch from 'hooks/useFetch';
 
 interface userInfo {
   page: boolean;
+  title: string;
   data: string;
   state: boolean;
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
   onReset: () => void;
 }
 
-export const Email = ({ page, data, state, onChange, onReset }: userInfo) => {
+export const Email = ({ page, title, data, state, onChange, onReset }: userInfo) => {
   const { status, signupCheck } = useFetch();
 
   const handleEmail = () => signupCheck('username', data);
@@ -21,7 +22,7 @@ export const Email = ({ page, data, state, onChange, onReset }: userInfo) => {
     <>
       <div className="relative inputForm">
         <label htmlFor="email" className="text-left text-gray-500">
-          이메일
+          {title}
         </label>
         <div className="flex flex-row justify-between">
           <div className="flex flex-row items-center">
@@ -40,11 +41,11 @@ export const Email = ({ page, data, state, onChange, onReset }: userInfo) => {
   );
 };
 
-export const Password = ({ page, data, state, onChange, onReset }: userInfo) => {
+export const Password = ({ page, title, data, state, onChange, onReset }: userInfo) => {
   return (
     <>
       <label htmlFor="userPw1" className="text-left text-gray-500">
-        비밀번호
+        {title}
       </label>
       <div className="flex flex-row items-center">
         <input

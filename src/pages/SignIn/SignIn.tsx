@@ -44,9 +44,9 @@ const SignIn = () => {
         <Logo />
       </div>
       <form className="flex flex-col justify-center items-center gap-6">
-        <Email page={true} data={email.data} state={email.state} onChange={email.onChange} onReset={email.onReset} />
+        <Email page={true} title={'이메일'} data={email.data} state={email.state} onChange={email.onChange} onReset={email.onReset} />
         <div className="relative inputForm">
-          <Password page={true} data={password.data} state={password.state} onChange={password.onChange} onReset={password.onReset} />
+          <Password page={true} title={'비밀번호'} data={password.data} state={password.state} onChange={password.onChange} onReset={password.onReset} />
         </div>
         <Button name={'로그인'} page={false} active={active} onClick={login} />
         <LoginKakao />

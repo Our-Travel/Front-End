@@ -40,7 +40,7 @@ const SignUp = () => {
   const passwordInput = () => (!pwCheck.data.length || password.data === pwCheck.data ? 'border-gray-400' : 'border-check-red outline-check-red');
 
   useEffect(() => {
-    password.data === pwCheck.data && status === 200 ? setActive(true) : setActive(false);
+    password.data && password.data === pwCheck.data && status === 200 ? setActive(true) : setActive(false);
   }, [password.data, pwCheck.data, status]);
 
   return (
@@ -48,9 +48,9 @@ const SignUp = () => {
       <Header title={'회원가입'} back={true} icon={''} />
       <form className="w-[25rem] mx-auto mt-6">
         <div className="flex flex-col gap-4">
-          <Email page={false} data={email.data} state={email.state} onChange={email.onChange} onReset={email.onReset} />
+          <Email page={false} title={'이메일'} data={email.data} state={email.state} onChange={email.onChange} onReset={email.onReset} />
           <div className="inputForm">
-            <Password page={false} data={password.data} state={password.state} onChange={password.onChange} onReset={password.onReset} />
+            <Password page={false} title={'비밀번호'} data={password.data} state={password.state} onChange={password.onChange} onReset={password.onReset} />
           </div>
           <div className="inputForm">
             <label htmlFor="userPw2" className="text-left text-gray-500">
@@ -60,7 +60,7 @@ const SignUp = () => {
             <span className="errorText">{pwCheck.data.length && password.data !== pwCheck.data ? '비밀번호가 일치 하지 않습니다.' : null}</span>
           </div>
           <div className="inputForm">
-            <label htmlFor={'nickName'} className="text-left text-gray-600">
+            <label htmlFor={'nickName'} className="text-left text-gray-500">
               닉네임
             </label>
             <div className="flex justify-between">
