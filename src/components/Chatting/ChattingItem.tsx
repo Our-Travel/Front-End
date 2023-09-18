@@ -1,34 +1,40 @@
-import React from 'react';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import ChattingComponent from './ChattingComponent';
 
-const chat = [
-  {
-    nickName: '맷돌이',
-    content: '혹시 프로젝트 통과하나요?',
-    time: '14:15',
-  },
-  {
-    nickName: '다시',
-    content: '혹시 프로젝트 통과하나요?',
-    time: '14:15',
-  },
-  {
-    nickName: '지금까지',
-    content: '혹시 프로젝트 통과하나요?',
-    time: '14:15',
-  },
-];
-
+// host 채팅 테스트
 const ChattingItem = () => {
+  const [chatList, setChatList] = useState([]);
+
+  useEffect(() => {
+    const chatList = async () => {
+      try {
+        const url = `${process.env.REACT_APP_REST_API_SERVER}/room`;
+        const response = await axios.get(url, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
+          },
+        });
+        console.log(response);
+        setChatList(response.data.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    chatList();
+  }, []);
+
+  console.log(chatList);
+
   return (
-    <div>
-      {chat.map(({ nickName, content, time }, index) => (
-        <Link to={'/chatting'} key={index}>
-          <ChattingComponent key={index} nickName={nickName} content={content} time={time} />
+    <ul className="relative">
+      {chatList.map(({ room_id, room_title, writer, read_at, latest_message_time, latest_message }) => (
+        <Link to={`/chatting/${room_id}`} key={room_id}>
+          <ChattingComponent writer={writer} latest_message={latest_message} time={latest_message_time} />
         </Link>
       ))}
-    </div>
+    </ul>
   );
 };
 

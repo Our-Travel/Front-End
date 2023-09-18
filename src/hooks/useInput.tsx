@@ -18,7 +18,7 @@ const useInput = () => {
       setState(passwordValid.test(value) ? true : false);
     } else if (id === 'nickName') {
       setState(nickNameValid.test(value) ? true : false);
-    } else if (id === 'hashTag') {
+    } else if (id === 'hashTag' || id === 'hashTagModify') {
       setState(hashTagValid.test(value) ? true : false);
     }
   };

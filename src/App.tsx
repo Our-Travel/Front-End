@@ -1,4 +1,4 @@
-import { Outlet, Route, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import Landing from './pages/Landing/Landing';
 import Main from './pages/Main/Main';
 import SignIn from './pages/SignIn/SignIn';
@@ -21,19 +21,11 @@ import WriteBoard from './pages/Board/WriteBoard';
 import Host from './pages/MyPage/Host';
 import KakaoRedirect from './pages/SignIn/KakaoRedirect';
 import EditBoard from './pages/MyPage/EditBoard';
+import ProfileEdit from 'components/MypageInfo/ProfileEdit';
+import ProfileCheck from 'components/MypageInfo/ProfileCheck';
 
 function App() {
   const [token, setToken] = useState('');
-  // useEffect(() => {
-  //   axios
-  //     .post(`${process.env.REACT_APP_REST_API_SERVER}/members/login`, {
-  //       username: 'test@test.com',
-  //       password: 'qwe123@@',
-  //     })
-  //     .then((res) => {
-  //       setToken(res.headers.authentication);
-  //     });
-  // }, []);
 
   return (
     <div className="relative">
@@ -48,11 +40,13 @@ function App() {
               <Route path="/info" element={<Info />} />
               <Route path="/main" element={<Main />} />
               <Route path="/main/selectLocation" element={<SelectLocation />} />
-              <Route path="/main/hostlist" element={<HostList title={''} />} />
+              <Route path="/main/hostlist/:regionCode/:regionName" element={<HostList />} />
               <Route path="/map" element={<Map token={token} />} />
               <Route path="/board" element={<Board />} />
               <Route path="/board/writeboard" element={<WriteBoard />} />
               <Route path="/mypage" element={<MyPage />} />
+              <Route path="/mypage/profileCheck" element={<ProfileCheck />} />
+              <Route path="/mypage/profileEdit" element={<ProfileEdit />} />
               <Route path="/mypage/mywrite" element={<MyWrite />} />
               <Route path="/mypage/favorite" element={<Favorite />} />
               <Route path="/mypage/notice" element={<Notice />} />

@@ -6,13 +6,12 @@ import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
 import { RecoilLogger } from 'recoil-devtools-logger';
-import { token } from './Atom/atom';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
   <RecoilRoot>
     <BrowserRouter>
-      {/* <RecoilLogger values={[token]} /> */}
+      {/* <RecoilLogger /> */}
       <App />
     </BrowserRouter>
   </RecoilRoot>
