@@ -35,15 +35,15 @@ const Host = () => {
   const navigate = useNavigate();
   const regionData: optionType[] = [];
   const url = `${process.env.REACT_APP_REST_API_SERVER}/hosts`;
-  const config = {
-    headers: {
-      Authorization: `Bearer ${localStorage.getItem('token')}`,
-    },
-  };
+  const config = { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } };
 
   regions.map((region) => {
     regionData.push({ label: region.key, value: region.value });
   });
+
+  const handleEdit = () => {
+    navigate('/mypage/ProfileEdit');
+  };
 
   // host 등록
   const hostRegist = async (e: MouseEvent<HTMLButtonElement>) => {
@@ -143,9 +143,11 @@ const Host = () => {
   return (
     <div className="flex flex-col">
       <Header title={hostActive ? 'Host 수정' : 'Host 등록'} back={true} icon={''} />
-      <div className={`flex flex-col gap-4 line ${hostActive ? 'mt-6' : 'my-6'}`}>
-        <Profile />
-        <button className="w-[25rem] mx-auto h-9 mb-3 border rounded border-main-color text-main-color hover:bg-main-color hover:text-white">프로필 수정</button>
+      <div className={`flex flex-col gap-4 mx-auto line ${hostActive ? 'mt-6' : 'my-6'}`}>
+        <Profile page={true} />
+        <button className="profileEdit" onClick={handleEdit}>
+          프로필 수정
+        </button>
       </div>
       <form className="flex flex-col gap-3 text-left mx-auto">
         {hostActive && (

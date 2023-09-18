@@ -68,6 +68,21 @@ div:focus,
   .effectArea {
     @apply hover:border-main-color hover:text-main-color outline-red-300 transition-all duration-300;
   }
+  .hostList {
+    @apply w-full flex flex-col justify-center gap-2 p-2 border-2 hover:border-red-300 cursor-pointer;
+  }
+  .hostListBtn {
+    @apply flex justify-center text-gray-600 border border-gray-400 rounded-lg hover:bg-red-100 hover:border-red-200;
+  }
+  .profileEditBtn {
+    @apply px-3 py-1 border rounded border-main-color text-main-color hover:bg-main-color hover:text-white;
+  }
+  .profileUpload {
+    @apply px-5 py-1 text-base font-semibold border-2 rounded-xl border-gray-200 hover:bg-green-400 hover:text-white;
+  }
+  .profileEdit {
+    @apply w-[25rem] mx-auto h-9 mb-3 border rounded border-main-color text-main-color hover:bg-main-color hover:text-white;
+  }
 }
 
 @layer components {

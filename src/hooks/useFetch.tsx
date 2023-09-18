@@ -36,7 +36,7 @@ const useFetch = () => {
   // 지역별로 등록된 host count
   const hostDataCount = async () => {
     try {
-      const url = `${baseUrl}/hosts/map`;
+      const url = `${process.env.REACT_APP_REST_API_SERVER}/hosts/map`;
       const response = await axios.get(url, config);
       setHostMap(response.data.data);
     } catch (error) {

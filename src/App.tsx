@@ -22,6 +22,7 @@ import Host from './pages/MyPage/Host';
 import KakaoRedirect from './pages/SignIn/KakaoRedirect';
 import EditBoard from './pages/MyPage/EditBoard';
 import ProfileEdit from 'components/MypageInfo/ProfileEdit';
+import ProfileCheck from 'components/MypageInfo/ProfileCheck';
 
 function App() {
   const [token, setToken] = useState('');
@@ -44,6 +45,7 @@ function App() {
             <Route path="/board" element={<Board />} />
             <Route path="/board/writeboard" element={<WriteBoard />} />
             <Route path="/mypage" element={<MyPage />} />
+            <Route path="/mypage/profileCheck" element={<ProfileCheck />} />
             <Route path="/mypage/profileEdit" element={<ProfileEdit />} />
             <Route path="/mypage/mywrite" element={<MyWrite />} />
             <Route path="/mypage/favorite" element={<Favorite />} />
