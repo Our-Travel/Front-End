@@ -13,6 +13,12 @@ div:focus,
   outline: 2px solid pink;
 }
 
+.main-backGround {
+  background-image: url('/public/assets/ot.png');
+  background-size: cover;
+  background-position: center;
+}
+
 @layer components {
   .hideTitle {
     @apply absolute w-[1px] h-[1px] overflow-hidden;
