@@ -39,7 +39,7 @@ export const Profile = () => {
   return (
     <div className="w-[25rem] mx-auto flex flex-row items-center gap-3">
       <img src="/assets/profile.svg" alt="마이페이지 프로필사진 캐릭터" />
-      <div className="text-left">
+      <div className="text-left overflow-hidden whitespace-nowrap">
         <div className="flex flex-row items-center gap-2">
           <p>{nickName}</p>
           {hostActive && <BsPatchCheckFill className="relative text-main-color" />}
