@@ -27,7 +27,7 @@ const Main = () => {
 
   return (
     <>
-      <Header title={'메인'} back={false} icon={''} />
+      <Header title={'Our Travel'} back={false} icon={''} />
       <Banner />
       <div className="text-xl font-semibold -translate-y-4">
         <div className="flex justify-center w-full space-x-16 ">

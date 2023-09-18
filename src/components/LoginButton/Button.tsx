@@ -1,5 +1,8 @@
 import React, { MouseEvent } from 'react';
 import { Link } from 'react-router-dom';
+import { RiKakaoTalkFill } from 'react-icons/ri';
+import { SiNaver } from 'react-icons/si';
+import { BsGoogle } from 'react-icons/bs';
 
 interface buttonInfo {
   name: string;
@@ -17,15 +20,33 @@ export function Button({ name, page, active, onClick }: buttonInfo) {
 }
 
 export function LoginKakao() {
-  const KAKAO_KEY = process.env.REACT_APP_REST_API_KEY;
-  const REDIRECT_URI = 'http://localhost:3000/kakao/redirect';
-  // const REDIRECT_URI = `${process.env.REACT_APP_REST_API_SERVER}/login/oauth2/code/kakao`;
-  const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${KAKAO_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
-
+  const KAKAO_AUTH_URL = 'https://ourtravel.site/api/dev/oauth2/authorization/kakao';
   return (
-    <div className="buttonStyle">
-      <Link to={KAKAO_AUTH_URL}>
-        <img src="/assets/kakaoLogin.svg" alt="카카오계정으로 로그인" />
+    <div className="circleButtonStyle bg-yellow-300">
+      <Link to={KAKAO_AUTH_URL} className="w-full h-full ">
+        <RiKakaoTalkFill className="w-full h-full p-2" />
+      </Link>
+    </div>
+  );
+}
+
+export function LoginNaver() {
+  const KAKAO_AUTH_URL = 'https://ourtravel.site/api/dev/oauth2/authorization/naver';
+  return (
+    <div className="circleButtonStyle bg-naver-color">
+      <Link to={KAKAO_AUTH_URL} className="w-full h-full ">
+        <SiNaver className="w-full h-full p-3" />
+      </Link>
+    </div>
+  );
+}
+
+export function LoginGoogle() {
+  const KAKAO_AUTH_URL = 'https://ourtravel.site/api/dev/oauth2/authorization/google';
+  return (
+    <div className="circleButtonStyle bg-white border-2 border-google-color">
+      <Link to={KAKAO_AUTH_URL} className="w-full h-full ">
+        <BsGoogle className="w-full h-full p-2" />
       </Link>
     </div>
   );

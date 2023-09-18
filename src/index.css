@@ -13,6 +13,12 @@ div:focus,
   outline: 2px solid pink;
 }
 
+.main-backGround {
+  background-image: url('/public/assets/ot.png');
+  background-size: cover;
+  background-position: center;
+}
+
 @layer components {
   .hideTitle {
     @apply absolute w-[1px] h-[1px] overflow-hidden;
@@ -31,6 +37,9 @@ div:focus,
   }
   .buttonStyle {
     @apply flex justify-center items-center w-[25rem] h-12 mx-auto mt-2 rounded text-white bg-main-color;
+  }
+  .circleButtonStyle {
+    @apply flex justify-center w-11 h-11 rounded-[50%];
   }
   .noActiveButton {
     @apply flex justify-center items-center w-[25rem] h-12 mx-auto mt-2 rounded text-white bg-noActive-color;

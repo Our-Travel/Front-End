@@ -16,7 +16,6 @@ import MyWrite from './pages/MyPage/MyWrite';
 import Favorite from './pages/MyPage/Favorite';
 import Notice from './pages/MyPage/Notice';
 import { useEffect, useState } from 'react';
-import axios from 'axios';
 import Board from './pages/Board/Board';
 import WriteBoard from './pages/Board/WriteBoard';
 import Host from './pages/MyPage/Host';
@@ -38,32 +37,34 @@ function App() {
 
   return (
     <div className="relative">
-      <div className="absolute text-center right-[23%] h-screen border border-gray-200 w-[450px] max-h-[full]">
-        <Routes>
-          <Route path="/" element={<Landing />} />
-          <Route path="/signin" element={<SignIn />} />
-          <Route path="/kakao/redirect" element={<KakaoRedirect />} />
-          {/* <Route path="/login/oauth2/code/kakao" element={<KakaoRedirect />} /> */}
-          <Route path="/signup" element={<SignUp />} />
-          <Route element={<Navigation />}>
-            <Route path="/info" element={<Info />} />
-            <Route path="/main" element={<Main />} />
-            <Route path="/main/selectLocation" element={<SelectLocation />} />
-            <Route path="/main/hostlist" element={<HostList title={''} />} />
-            <Route path="/map" element={<Map token={token} />} />
-            <Route path="/board" element={<Board />} />
-            <Route path="/board/writeboard" element={<WriteBoard />} />
-            <Route path="/mypage" element={<MyPage />} />
-            <Route path="/mypage/mywrite" element={<MyWrite />} />
-            <Route path="/mypage/favorite" element={<Favorite />} />
-            <Route path="/mypage/notice" element={<Notice />} />
-            <Route path="/mypage/host" element={<Host />} />
-            <Route path="/mypage/host/edit" element={<Host />} />
-            <Route path="/chatting/:roomnum" element={<Chatting />} />
-            <Route path="/chattinglist" element={<ChattingList />} />
-          </Route>
-          <Route path="*" element={<NotFound />} />
-        </Routes>
+      <div className="w-full h-screen main-backGround">
+        <div className="absolute text-center right-[23%] bg-white h-screen border border-gray-200 w-[450px] max-h-[full]">
+          <Routes>
+            <Route path="/" element={<Landing />} />
+            <Route path="/signin" element={<SignIn />} />
+            {/* <Route path="/login/oauth2/code/kakao" element={<KakaoRedirect />} /> */}
+            <Route path="/signup" element={<SignUp />} />
+            <Route element={<Navigation />}>
+              <Route path="/info" element={<Info />} />
+              <Route path="/main" element={<Main />} />
+              <Route path="/main/selectLocation" element={<SelectLocation />} />
+              <Route path="/main/hostlist" element={<HostList title={''} />} />
+              <Route path="/map" element={<Map token={token} />} />
+              <Route path="/board" element={<Board />} />
+              <Route path="/board/writeboard" element={<WriteBoard />} />
+              <Route path="/mypage" element={<MyPage />} />
+              <Route path="/mypage/mywrite" element={<MyWrite />} />
+              <Route path="/mypage/favorite" element={<Favorite />} />
+              <Route path="/mypage/notice" element={<Notice />} />
+              <Route path="/mypage/host" element={<Host />} />
+              <Route path="/mypage/host/edit" element={<Host />} />
+              <Route path="/chatting/:roomnum" element={<Chatting />} />
+              <Route path="/chattinglist" element={<ChattingList />} />
+              <Route path="/oauth2/redirect/:token" element={<KakaoRedirect />} />
+            </Route>
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </div>
       </div>
     </div>
   );
