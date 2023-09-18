@@ -21,23 +21,23 @@ export const Profile = ({ page }: pageInfo) => {
   const [hostActive, setHostActive] = useRecoilState(hostCheck);
   const [data, setData] = useState<userProfile>({ username: '', nick_name: '', image_path: '' });
   const config = { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } };
+  const [loading, setLoading] = useState<boolean>(true);
   const update = useRecoilValue(profileUpdate);
   const navigate = useNavigate();
-  // const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     axios
       .get(`${process.env.REACT_APP_REST_API_SERVER}/members`, config)
       .then((res) => {
-        // setTimeout(() => {
-        setData({
-          username: res.data.data.username,
-          nick_name: res.data.data.nick_name,
-          image_path: res.data.data.image_path,
-        });
-        setHostActive(res.data.data.host_authority);
-        // setLoading(false);
-        // }, 150);
+        setTimeout(() => {
+          setData({
+            username: res.data.data.username,
+            nick_name: res.data.data.nick_name,
+            image_path: res.data.data.image_path,
+          });
+          setHostActive(res.data.data.host_authority);
+          setLoading(false);
+        }, 150);
       })
       .catch((error) => {
         if (axios.isAxiosError(error)) {
@@ -51,22 +51,22 @@ export const Profile = ({ page }: pageInfo) => {
   return (
     <>
       <div className="w-[25rem] mx-auto">
-        {/* {loading ? (
+        {loading ? (
           <Spinner />
-        ) : ( */}
-        <div className="flex flex-row items-center gap-4">
-          <img src={data.image_path || '/assets/profile.svg'} className={`${page ? 'w-20 h-20' : 'w-40 h-40 mx-auto shadow-lg'} rounded-full border border-gray-300`} alt="마이페이지 프로필사진" />
-          {page && (
-            <div className="text-left">
-              <div className="flex flex-row items-center gap-2">
-                <p>{data.nick_name}</p>
-                {hostActive && <BsPatchCheckFill className="relative text-main-color" />}
+        ) : (
+          <div className="flex flex-row items-center gap-4">
+            <img src={data.image_path || '/assets/profile.svg'} className={`${page ? 'w-20 h-20' : 'w-40 h-40 mx-auto shadow-lg'} rounded-full border border-gray-300`} alt="마이페이지 프로필사진" />
+            {page && (
+              <div className="text-left">
+                <div className="flex flex-row items-center gap-2">
+                  <p>{data.nick_name}</p>
+                  {hostActive && <BsPatchCheckFill className="relative text-main-color" />}
+                </div>
+                <p className="mt-1">{data.username}</p>
               </div>
-              <p className="mt-1">{data.username}</p>
-            </div>
-          )}
-        </div>
-        {/* )} */}
+            )}
+          </div>
+        )}
       </div>
     </>
   );

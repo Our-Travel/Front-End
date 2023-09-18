@@ -9,7 +9,7 @@ const override: CSSProperties = {
 
 const Spinner = () => {
   return (
-    <div className="sweet-loading absolute modalPosition">
+    <div className="w-full h-20 mx-auto">
       <ClipLoader color="#0000" cssOverride={override} size={50} aria-label="Loading Spinner" data-testid="loader" />
     </div>
   );

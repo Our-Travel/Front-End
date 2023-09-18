@@ -82,8 +82,6 @@ const ProfileEdit = () => {
   return (
     <>
       <Header title={'프로필수정'} back={true} icon={''} />
-      {/* 비밀번호 체크 페이지 */}
-      {/* <ProfileCheck /> */}
       {uploadModalOpen && <UploadProfile onClose={closeImagePopup} />}
       <form className="w-[25rem] mx-auto">
         <div className="flex flex-col items-center justify-center gap-5 my-4">
