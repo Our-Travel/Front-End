@@ -41,7 +41,7 @@ const MyPage = () => {
   const navigate = useNavigate();
 
   const handleEdit = () => {
-    navigate('profileCheck');
+    navigate('profileEdit');
   };
 
   const isOpen = (e: MouseEvent<HTMLButtonElement>) => {

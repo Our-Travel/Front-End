@@ -1,7 +1,7 @@
 import Header from '../../components/Header/Header';
 import Logo from '../../components/Logo/Logo';
 import { Email, Password } from '../../components/EmailPassword/EmailPassword';
-import { Button, LoginKakao } from '../../components/LoginButton/Button';
+import { Button, LoginGoogle, LoginKakao, LoginNaver } from '../../components/LoginButton/Button';
 import ChoiceTab from '../../components/ChoiceTab/ChoiceTab';
 import React, { useEffect, useState, MouseEvent } from 'react';
 import axios from 'axios';
@@ -49,7 +49,18 @@ const SignIn = () => {
           <Password page={true} title={'비밀번호'} data={password.data} state={password.state} onChange={password.onChange} onReset={password.onReset} />
         </div>
         <Button name={'로그인'} page={false} active={active} onClick={login} />
-        <LoginKakao />
+        <div className="text-center">
+          <div className="flex items-center">
+            <div className="flex-grow border-b"></div>
+            <div className="px-2 text-gray-500 text-xs">Social Login</div>
+            <div className="flex-grow border-b"></div>
+          </div>
+        </div>
+        <div className="flex justify-center items-center space-x-8">
+          <LoginKakao />
+          <LoginNaver />
+          <LoginGoogle />
+        </div>
       </form>
       <ChoiceTab />
     </>
