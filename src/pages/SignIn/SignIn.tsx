@@ -7,9 +7,12 @@ import React, { useEffect, useState, MouseEvent } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import useInput from 'hooks/useInput';
+import { useSetRecoilState } from 'recoil';
+import { loginType } from 'Atom/userAtom';
 
 const SignIn = () => {
   const [active, setActive] = useState<boolean>(false);
+  const signType = useSetRecoilState(loginType);
   const navigate = useNavigate();
   const email = useInput();
   const password = useInput();
@@ -23,6 +26,7 @@ const SignIn = () => {
         password: password.data,
       });
       localStorage.setItem('token', response.headers.authentication);
+      signType(true);
       alert(response.data.msg);
       navigate('/main');
     } catch (error) {

@@ -6,8 +6,8 @@ import { BiBell } from 'react-icons/bi';
 import { BsPatchCheckFill, BsPencilFill } from 'react-icons/bs';
 import { MdLogout, MdPersonRemove } from 'react-icons/md';
 import { IconType } from 'react-icons';
-import { useRecoilValue } from 'recoil';
-import { hostCheck } from '../../Atom/userAtom';
+import { useRecoilValue, useResetRecoilState } from 'recoil';
+import { hostCheck, loginType } from '../../Atom/userAtom';
 // import WriteButton from '../../components/Chatting/WriteButton';
 import WriteButton from 'components/Board/WriteButton';
 import { useNavigate } from 'react-router-dom';
@@ -38,6 +38,7 @@ const MyPage = () => {
   ];
   const [modal, setModal] = useState<boolean>(false);
   const [icon, setIcon] = useState<string>('');
+  const resetLoginType = useResetRecoilState(loginType);
   const navigate = useNavigate();
 
   const handleEdit = () => {
@@ -52,6 +53,7 @@ const MyPage = () => {
 
   const logout = () => {
     localStorage.removeItem('token');
+    resetLoginType();
     navigate('/');
     alert('로그아웃 되었습니다.👋');
   };

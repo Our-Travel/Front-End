@@ -1,6 +1,5 @@
 import { Password } from 'components/EmailPassword/EmailPassword';
 import Header from 'components/Header/Header';
-import ProfileCheck from './ProfileCheck';
 import useInput from '../../hooks/useInput';
 import useFetch from 'hooks/useFetch';
 import { Button } from 'components/LoginButton/Button';
@@ -10,8 +9,9 @@ import UploadProfile from 'components/Modal/UploadProfile';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { Profile } from './MypageInfo';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { profileUpdate } from 'Atom/userAtom';
+import { loginType } from '../../Atom/userAtom';
 
 const profileBtn = [{ title: '프로필 이미지 편집' }, { title: '기본 이미지로 변경' }];
 
@@ -24,6 +24,7 @@ const ProfileEdit = () => {
   const [active, setActive] = useState<boolean>(false);
   const [update, setUpdate] = useRecoilState(profileUpdate);
   const config = { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } };
+  const signType = useRecoilValue(loginType);
   const navigate = useNavigate();
 
   const openImagePopup = () => {
@@ -41,8 +42,8 @@ const ProfileEdit = () => {
       const response = await axios.patch(
         url,
         {
-          password: newPassword.data,
-          verify_password: newPwCheck.data,
+          password: signType ? newPassword.data : '',
+          verify_password: signType ? newPwCheck.data : '',
           nick_name: newNickName.data,
         },
         config
@@ -76,15 +77,24 @@ const ProfileEdit = () => {
   const nickNameBtn = () => (status === 200 ? 'text-green-600 border-green-600' : status === 400 ? 'text-check-red border-check-red' : 'text-gray-500 border-gray-400');
 
   useEffect(() => {
-    newPassword.data && newPassword.data === newPwCheck.data && status === 200 ? setActive(true) : setActive(false);
-  }, [newPassword.data, newPwCheck.data, status]);
+    if ((signType && newPassword.data && newPassword.data === newPwCheck.data && status === 200) || (!signType && status)) {
+      return setActive(true);
+    } else {
+      return setActive(false);
+    }
+  }, [newPassword.data, newPwCheck.data, status, signType]);
 
   return (
     <>
       <Header title={'프로필수정'} back={true} icon={''} />
+      {!signType && (
+        <p className="my-4">
+          ※ <b className="text-main-color">소셜 로그인</b>은 비밀번호 변경이 불가능합니다.
+        </p>
+      )}
       {uploadModalOpen && <UploadProfile onClose={closeImagePopup} />}
       <form className="w-[25rem] mx-auto">
-        <div className="flex flex-col items-center justify-center gap-5 my-4">
+        <div className="flex flex-col items-center justify-center gap-5 my-8">
           <Profile page={false} />
           <div className="flex gap-3">
             {profileBtn.map(({ title }, index) => (
@@ -96,16 +106,20 @@ const ProfileEdit = () => {
           </div>
         </div>
         <div className="flex flex-col gap-3">
-          <div className="inputForm">
-            <Password page={false} title={'비밀번호 변경'} data={newPassword.data} state={newPassword.state} onChange={newPassword.onChange} onReset={newPassword.onReset} />
-          </div>
-          <div className="inputForm">
-            <label htmlFor="userPw2" className="text-left text-gray-500">
-              비밀번호 재확인
-            </label>
-            <input required type="password" name="userPw2" id="userPw2" placeholder="영문, 숫자, 특수문자 포함 8~16자" className={`inputStyle ${passwordInput()}`} onChange={newPwCheck.onChange} />
-            <span className="errorText">{newPwCheck.data.length && newPassword.data !== newPwCheck.data ? '비밀번호가 일치 하지 않습니다.' : null}</span>
-          </div>
+          {signType && (
+            <>
+              <div className="inputForm">
+                <Password page={false} title={'비밀번호 변경'} data={newPassword.data} state={newPassword.state} onChange={newPassword.onChange} onReset={newPassword.onReset} />
+              </div>
+              <div className="inputForm">
+                <label htmlFor="userPw2" className="text-left text-gray-500">
+                  비밀번호 재확인
+                </label>
+                <input required type="password" name="userPw2" id="userPw2" placeholder="영문, 숫자, 특수문자 포함 8~16자" className={`inputStyle ${passwordInput()}`} onChange={newPwCheck.onChange} />
+                <span className="errorText">{newPwCheck.data.length && newPassword.data !== newPwCheck.data ? '비밀번호가 일치 하지 않습니다.' : null}</span>
+              </div>
+            </>
+          )}
           <div className="inputForm">
             <label htmlFor={'nickName'} className="text-left text-gray-500">
               닉네임
