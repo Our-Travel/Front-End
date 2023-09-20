@@ -60,7 +60,7 @@ export const Profile = ({ page }: pageInfo) => {
             {page && (
               <div className="text-left">
                 <div className="flex flex-row items-center gap-2">
-                  <p>{data.nick_name}</p>
+                  <p className="font-bold text-gray-600 text-lg">{data.nick_name}</p>
                   {hostActive && <BsPatchCheckFill className="relative text-main-color" />}
                 </div>
                 <p className="mt-1">{data.username}</p>
