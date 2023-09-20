@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Logo from '../../components/Logo/Logo';
 import { Button, LoginKakao, LoginGoogle } from '../../components/LoginButton/Button';
-import ChoiceTab from '../../components/ChoiceTab/ChoiceTab';
+import ChoiceTab from '../../components/SignIn/ChoiceTab';
 import { Link, useNavigate } from 'react-router-dom';
 import { Pagination, Autoplay, A11y } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -57,17 +57,7 @@ export default function Landing() {
         </div>
       </div>
       <div className="flex flex-row items-center justify-center">
-        <button type="button" name="language" className="flex flex-row items-center gap-1 px-1 text-gray-500" onClick={isOpen}>
-          <GrLanguage />
-          <span>언어설정</span>
-        </button>
-        <span className="mx-4">|</span>
         <ChoiceTab />
-      </div>
-      <div>
-        <Link to="/">
-          <span className="text-gray-500">feedback</span>
-        </Link>
       </div>
     </>
   );
