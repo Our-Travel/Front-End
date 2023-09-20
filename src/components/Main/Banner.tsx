@@ -7,14 +7,13 @@ import 'swiper/css/effect-fade';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 
-import test from '../../assets/kor.png';
-import forest from '../../assets/cat.png';
-import mokpo from '../../assets/udon.png';
-
 const Banner = () => {
   SwiperCore.use([Navigation, Scrollbar]);
+  const banner1 = '/assets/banner1.png';
+  const banner2 = '/assets/banner2.png';
+  const banner3 = '/assets/banner3.png';
 
-  const items = [{ src: test }, { src: forest }, { src: mokpo }];
+  const items = [{ src: banner1 }, { src: banner2 }, { src: banner3 }];
 
   const navigationSettings = {
     onBeforeInit: (swiper: SwiperCore) => {

@@ -13,9 +13,9 @@ import { GrLanguage } from 'react-icons/gr';
 import WriteButton from 'components/Board/WriteButton';
 
 const promotionImg = [
-  { title: '광안대교', imgSrc: '/assets/bridge.JPG' },
-  { title: '집에서본 광안대교', imgSrc: '/assets/bridge2.JPG' },
-  { title: '집', imgSrc: '/assets/house.JPG' },
+  { title: 'welcome Korea', imgSrc: '/assets/square1.png' },
+  { title: '경복궁', imgSrc: '/assets/square2.png' },
+  { title: '부산으로 간다', imgSrc: '/assets/square3.png' },
 ];
 
 export default function Landing() {
