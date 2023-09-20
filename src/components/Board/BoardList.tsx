@@ -1,8 +1,7 @@
-import React, { useState, useRef, SetStateAction, Dispatch, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import BoardItem from './BoardItem';
 import BoardModal from './BoardModal';
 import axios from 'axios';
-import regions from './../../util/region';
 import { useRecoilState } from 'recoil';
 import { boardItem } from '../../Atom/atom';
 
@@ -38,6 +37,7 @@ const BoardList = ({ selectedButtonIndex, setSelectedButtonIndex }: BoardListPro
         headers: headers,
       });
       const data = response.data.data.content;
+
       setBoardList(data);
 
       const dataIsEmpty = response.data.data.content.length === 0;
@@ -71,8 +71,8 @@ const BoardList = ({ selectedButtonIndex, setSelectedButtonIndex }: BoardListPro
         </div>
       ) : (
         <div>
-          {boardList.map(({ writer, title, content, like_counts }, index) => (
-            <BoardItem key={index} writer={writer} title={title} content={content} like_counts={like_counts} onItemClick={() => handleItemClick(index)} />
+          {boardList.map(({ image_path, writer, title, like_counts }, index) => (
+            <BoardItem key={index} writer={writer} title={title} image_path={image_path} like_counts={like_counts} onItemClick={() => handleItemClick(index)} content={''} />
           ))}
         </div>
       )}
