@@ -13,7 +13,7 @@ interface buttonInfo {
 
 export function Button({ name, page, active, onClick }: buttonInfo) {
   return (
-    <button type="submit" className={page || active ? 'buttonStyle' : 'noActiveButton'} onClick={onClick} disabled={page ? active : !active}>
+    <button type="submit" className={page || active ? 'buttonStyle buttonHoverColor' : 'noActiveButton'} onClick={onClick} disabled={page ? active : !active}>
       {name}
     </button>
   );
