@@ -30,17 +30,6 @@ export function LoginKakao() {
   );
 }
 
-export function LoginNaver() {
-  const KAKAO_AUTH_URL = 'https://ourtravel.site/api/dev/oauth2/authorization/naver';
-  return (
-    <div className="circleButtonStyle bg-naver-color">
-      <Link to={KAKAO_AUTH_URL} className="w-full h-full ">
-        <SiNaver className="w-full h-full p-3" />
-      </Link>
-    </div>
-  );
-}
-
 export function LoginGoogle() {
   const KAKAO_AUTH_URL = 'https://ourtravel.site/api/dev/oauth2/authorization/google';
   return (

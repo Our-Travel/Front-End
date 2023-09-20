@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Logo from '../../components/Logo/Logo';
-import { Button, LoginKakao, LoginNaver, LoginGoogle } from '../../components/LoginButton/Button';
+import { Button, LoginKakao, LoginGoogle } from '../../components/LoginButton/Button';
 import ChoiceTab from '../../components/ChoiceTab/ChoiceTab';
 import { Link, useNavigate } from 'react-router-dom';
 import { Pagination, Autoplay, A11y } from 'swiper';
@@ -53,7 +53,6 @@ export default function Landing() {
         </div>
         <div className="flex justify-center items-center space-x-8">
           <LoginKakao />
-          <LoginNaver />
           <LoginGoogle />
         </div>
       </div>

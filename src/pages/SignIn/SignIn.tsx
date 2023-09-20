@@ -1,7 +1,7 @@
 import Header from '../../components/Header/Header';
 import Logo from '../../components/Logo/Logo';
 import { Email, Password } from '../../components/EmailPassword/EmailPassword';
-import { Button, LoginGoogle, LoginKakao, LoginNaver } from '../../components/LoginButton/Button';
+import { Button, LoginGoogle, LoginKakao } from '../../components/LoginButton/Button';
 import ChoiceTab from '../../components/ChoiceTab/ChoiceTab';
 import React, { useEffect, useState, MouseEvent } from 'react';
 import axios from 'axios';
@@ -58,7 +58,6 @@ const SignIn = () => {
         </div>
         <div className="flex justify-center items-center space-x-8">
           <LoginKakao />
-          <LoginNaver />
           <LoginGoogle />
         </div>
       </form>
