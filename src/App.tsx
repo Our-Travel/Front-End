@@ -22,7 +22,6 @@ import Host from './pages/MyPage/Host';
 import KakaoRedirect from './pages/SignIn/KakaoRedirect';
 import EditBoard from './pages/MyPage/EditBoard';
 import ProfileEdit from 'components/MypageInfo/ProfileEdit';
-import ProfileCheck from 'components/MypageInfo/ProfileCheck';
 
 function App() {
   const [token, setToken] = useState('');
@@ -34,7 +33,6 @@ function App() {
           <Routes>
             <Route path="/" element={<Landing />} />
             <Route path="/signin" element={<SignIn />} />
-            {/* <Route path="/login/oauth2/code/kakao" element={<KakaoRedirect />} /> */}
             <Route path="/signup" element={<SignUp />} />
             <Route element={<Navigation />}>
               <Route path="/info" element={<Info />} />
@@ -45,7 +43,6 @@ function App() {
               <Route path="/board" element={<Board />} />
               <Route path="/board/writeboard" element={<WriteBoard />} />
               <Route path="/mypage" element={<MyPage />} />
-              <Route path="/mypage/profileCheck" element={<ProfileCheck />} />
               <Route path="/mypage/profileEdit" element={<ProfileEdit />} />
               <Route path="/mypage/mywrite" element={<MyWrite />} />
               <Route path="/mypage/favorite" element={<Favorite />} />

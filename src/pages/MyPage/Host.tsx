@@ -152,7 +152,7 @@ const Host = () => {
       <form className="flex flex-col gap-3 text-left mx-auto">
         {hostActive && (
           <p className="text-sm mt-2">
-            <b className="text-main-color">※ 기존에 등록된 정보</b>를 참고하여 <b className="text-main-color">수정</b>해주세요.
+            ※<b className="text-main-color"> 기존에 등록된 정보</b>를 참고하여 <b className="text-main-color">수정</b>해주세요.
           </p>
         )}
         <div className="inputForm">
