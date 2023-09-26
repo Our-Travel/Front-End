@@ -2,9 +2,12 @@ import React, { useEffect, useRef, useState } from 'react';
 import useGeolocation from '../../hooks/useGeolocation';
 import Spinner from '../../shared/Spinner';
 import TourModal from '../TouristList/TourModal';
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
 import { aroundLoc, accommodation } from '../../Atom/atom';
 import { useRecoilState, useSetRecoilState } from 'recoil';
+import Map from './../../pages/Map/Map';
+import KakaoMapMarker from './KakaoMapMarker';
+import KakaoMapModal from './KakaoMapModal';
 
 declare global {
   interface Window {
@@ -28,6 +31,35 @@ interface Place {
   y: number;
 }
 
+export interface Location {
+  address: string;
+  content_id: number;
+  content_type_id: number;
+  home_page: string;
+  image: string;
+  latitude: number;
+  longitude: number;
+  over_view: string;
+  tel: string;
+  tel_name: string;
+  title: string;
+}
+
+export interface LocationArr {
+  address: string;
+  content_id: number;
+  content_type_id: number;
+  home_page: string;
+  image: string;
+  latitude: number;
+  longitude: number;
+  over_view: string;
+  tel: string;
+  tel_name: string;
+  title: string;
+}
+[];
+
 const KakaoMap = ({ token }: MapProps) => {
   const [map, setMap] = useState<any>();
   const [marker, setMarker] = useState<any>();
@@ -42,37 +74,10 @@ const KakaoMap = ({ token }: MapProps) => {
     setSelectPost(place);
     setMapToggle(!mapToggle);
   };
+  const [locationList, setLocationList] = useState<Array<Location>>([]);
+  // const [positionList, setPositionList] = useState<any | null>(null);
 
-  useEffect(() => {
-    if (location.loaded && location.coordinates) {
-      const resAroundLoc = axios.get(`http://localhost:8080/api/local-place/spot?latitude=${location.coordinates?.lat}&longitude=${location.coordinates?.lng}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-
-      const resAccommodation = axios.get(`http://localhost:8080/api/local-place/hotel?latitude=${location.coordinates?.lat}&longitude=${location.coordinates?.lng}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-
-      axios
-        .all([resAroundLoc, resAccommodation])
-        .then(
-          axios.spread((res1, res2) => {
-            // 첫 번째 요청 결과: res1.data
-            // 두 번째 요청 결과: res2.data
-            setAroundPlace(res1.data.data.documents);
-            setCcommo(res2.data.data.documents);
-            console.log(res2.data.data.documents);
-          })
-        )
-        .catch((err) => {
-          console.log(err);
-        });
-    }
-  }, [location.loaded]);
+  const [markers, setMarkers] = useState([]);
 
   useEffect(() => {
     window.kakao.maps.load(() => {
@@ -91,9 +96,99 @@ const KakaoMap = ({ token }: MapProps) => {
     });
   }, [location]);
 
+  useEffect(() => {
+    const getData = async () => {
+      try {
+        const response = await axios.get(`${process.env.REACT_APP_REST_API_SERVER}/local-place`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        let locationArr = response.data.data;
+        setLocationList(locationArr);
+      } catch (error) {
+        alert('데이터를 불러오는 과정에서 에러가 발생했습니다!!');
+      }
+    };
+    getData();
+  }, []);
+
+  // function makePositionArr() {
+  //   let points: any = [];
+  //   locationList.map((item: Location) => {
+  //     let la = item.latitude;
+  //     let lo = item.longitude;
+  //     points.push(new window.kakao.maps.LatLng(la, lo));
+  //   });
+  //   // locationList?.map(({ latitude, longitude }, index: Number) => {
+  //   //   points.push(new window.kakao.maps.LatLng(latitude, longitude));
+  //   // });
+  //   setPositionList(points);
+  // }
+
+  // addMarker(new window.kakao.maps.LatLng(location.coordinates?.lat, location.coordinates?.lng));
+
+  // console.log(locationList);
+  // console.log(li.map((i) => console.log(i)));
+
+  // let zoomControl = new window.kakao.maps.ZoomControl();
+  // map.addControl(zoomControl, window.kakao.maps.ControlPosition.RIGHT);
+
+  function createMarkerImage(markerSrc: any, markerSize: any) {
+    let markerImage = new window.kakao.maps.MarkerImage(markerSrc, markerSize);
+
+    return markerImage;
+  }
+
+  // let selectedMarker: any = null;
+
+  function addMarker(position: any) {
+    let markerSize = '';
+    // if (normalSrc === '/map/markerEllipse3.svg') markerSize = new window.kakao.maps.Size(18, 18);
+    // else markerSize = new window.kakao.maps.Size(28, 43);
+    let clickmarkerSize = new window.kakao.maps.Size(28, 43);
+    let markerSrc = 'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png';
+
+    // let normalImage = createMarkerImage(normalSrc, markerSize),
+    let overImage = createMarkerImage(markerSrc, clickmarkerSize),
+      clickImage = createMarkerImage(markerSrc, clickmarkerSize);
+
+    let marker = new window.kakao.maps.Marker({
+      map: map,
+      position: position,
+      image: overImage,
+    });
+
+    marker.overImage = overImage;
+
+    // if (!selectedMarker || selectedMarker !== marker) {
+    //   !!selectedMarker && selectedMarker.setImage(selectedMarker.normalImage);
+
+    //   marker.setImage(clickImage);
+    // }
+
+    // selectedMarker = marker;
+    // setSelected(marker);
+
+    return marker;
+  }
+
+  const [modalClose, setModalClose] = useState(false);
+  const [clickIndex, setClickIndex] = useState<Number | null>(null);
+
+  const modalShow = () => {
+    // if (!(e.target.tagName === "svg" || e.target.tagName === "path")) {
+    // setIndex(e.currentTarget.id);
+    setModalClose(true);
+    // }
+  };
+
   return (
     <>
-      <div id="map" className="w-full h-screen"></div>
+      <div id="map" className="w-full h-screen">
+        {locationList && map && <KakaoMapMarker locationList={locationList} map={map} modalShow={modalShow} setClickIndex={setClickIndex} />}
+        {locationList && map && modalClose && clickIndex && <KakaoMapModal locationList={locationList} setModalClose={setModalClose} clickIndex={clickIndex} />}
+      </div>
     </>
   );
 };

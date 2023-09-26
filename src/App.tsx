@@ -24,17 +24,17 @@ import KakaoRedirect from './pages/SignIn/KakaoRedirect';
 import EditBoard from './pages/MyPage/EditBoard';
 
 function App() {
-  const [token, setToken] = useState('');
-  useEffect(() => {
-    axios
-      .post('https://ourtravel.site/api/dev/member/login', {
-        username: 'user1@example.com',
-        password: '1234',
-      })
-      .then((res) => {
-        setToken(res.data.data.accessToken);
-      });
-  }, []);
+  const [token, setToken] = useState(`${process.env.REACT_APP_NAVER_KEY}`);
+  // useEffect(() => {
+  //   axios
+  //     .post('https://ourtravel.site/api/dev/member/login', {
+  //       username: 'user1@example.com',
+  //       password: '1234',
+  //     })
+  //     .then((res) => {
+  //       setToken(res.data.data.accessToken);
+  //     });
+  // }, []);
 
   return (
     <div className="relative">
