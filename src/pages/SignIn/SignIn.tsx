@@ -66,7 +66,9 @@ const SignIn = () => {
           <LoginGoogle />
         </div>
       </form>
-      <ChoiceTab />
+      <div className="flex flex-row justify-center">
+        <ChoiceTab />
+      </div>
     </>
   );
 };
