@@ -25,16 +25,11 @@ export default function Landing() {
 
   const isOpen = () => setModal(!modal);
 
-  const handleLanguage = () => {
-    console.log('언어설정');
-  };
-
   return (
     <>
       <div className="w-20 h-20 mx-auto my-4">
         <Logo />
       </div>
-      {modal && <WriteButton title={'언어를 선택해주세요.'} button={'English'} setModal={setModal} handleButton={handleLanguage} />}
       <Swiper pagination={{ clickable: true }} modules={[Pagination, Autoplay, A11y]} autoplay={{ delay: 3000, disableOnInteraction: false }} loop={true}>
         {promotionImg.map(({ title, imgSrc }, index) => (
           <SwiperSlide key={index} className="landingSlide">
@@ -42,7 +37,7 @@ export default function Landing() {
           </SwiperSlide>
         ))}
       </Swiper>
-      <div className="flex flex-col gap-6 mb-4">
+      <div className="flex flex-col gap-5 mb-4">
         <Button name={'로그인'} page={true} active={active} onClick={() => navigate('/signin')} />
         <div className="text-center">
           <div className="flex items-center">
@@ -57,18 +52,8 @@ export default function Landing() {
           <LoginGoogle />
         </div>
       </div>
-      <div className="flex flex-row items-center justify-center">
-        <button type="button" name="language" className="flex flex-row items-center gap-1 px-1 text-gray-500" onClick={isOpen}>
-          <GrLanguage />
-          <span>언어설정</span>
-        </button>
-        <span className="mx-4">|</span>
+      <div className="flex flex-row justify-center">
         <ChoiceTab />
-      </div>
-      <div>
-        <Link to="/">
-          <span className="text-gray-500">feedback</span>
-        </Link>
       </div>
     </>
   );
