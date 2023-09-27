@@ -33,7 +33,7 @@ const Navigation = () => {
 
   return (
     <>
-      <div className="absolute bg-white w-full h-14 bottom-0 z-50 box-border">
+      <div className="fixed w-[445px] bg-white  h-14 bottom-0 z-50 box-border">
         <ul className="flex w-full justify-around relative top-[50%] translate-y-[-50%] h-7">
           <li className={getName(path, '/main')} onClick={main}>
             <GrHomeRounded className="w-5 h-5 " />
