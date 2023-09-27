@@ -38,13 +38,7 @@ const WriteButton = ({ title, button, setModal, handleButton }: modal) => {
         <p className="w-full font-semibold">{title}</p>
         <div className="flex w-full text-lg">
           <button type="button" ref={modalRef} onClick={closeModal} className={`w-1/2 mx-2 font-semibold py-4 rounded-xl ${title === '언어를 선택해주세요.' ? 'bg-main-color2 text-white' : 'bg-gray-200'}`}>
-            {title === '언어를 선택해주세요.' ? (
-              <span>
-                한국어 <br /> (South Korea)
-              </span>
-            ) : (
-              <span>취소하기</span>
-            )}
+            취소하기
           </button>
           <button onClick={writeBoardButton} className="w-1/2 mx-2 text-white bg-main-color2 font-extrabold py-2 rounded-xl">
             {button}

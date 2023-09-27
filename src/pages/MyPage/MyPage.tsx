@@ -4,11 +4,10 @@ import { MypageTab, Profile } from '../../components/MypageInfo/MypageInfo';
 import { Link } from 'react-router-dom';
 import { BiBell } from 'react-icons/bi';
 import { BsPatchCheckFill, BsPencilFill } from 'react-icons/bs';
-import { MdLogout, MdPersonRemove } from 'react-icons/md';
+import { MdLogout } from 'react-icons/md';
 import { IconType } from 'react-icons';
 import { useRecoilValue, useResetRecoilState } from 'recoil';
-import { hostCheck, loginType } from '../../Atom/userAtom';
-// import WriteButton from '../../components/Chatting/WriteButton';
+import { hostCheck, loginType, profileUpdate } from '../../Atom/userAtom';
 import WriteButton from 'components/Board/WriteButton';
 import { useNavigate } from 'react-router-dom';
 
@@ -30,43 +29,29 @@ const MyPage = () => {
       link: '/',
       text: '로그아웃',
     },
-    {
-      Icon: MdPersonRemove,
-      link: '/',
-      text: '회원탈퇴',
-    },
   ];
   const [modal, setModal] = useState<boolean>(false);
-  const [icon, setIcon] = useState<string>('');
   const resetLoginType = useResetRecoilState(loginType);
+  const resetProfileUpload = useResetRecoilState(profileUpdate);
   const navigate = useNavigate();
 
-  const handleEdit = () => {
-    navigate('profileEdit');
-  };
+  const handleEdit = () => navigate('profileEdit');
 
-  const isOpen = (e: MouseEvent<HTMLButtonElement>) => {
-    const target = e.target as HTMLButtonElement;
-    setModal(!modal);
-    setIcon(target.name);
-  };
+  const isOpen = () => setModal(!modal);
 
   const logout = () => {
     localStorage.removeItem('token');
     resetLoginType();
+    resetProfileUpload();
     navigate('/');
     alert('로그아웃 되었습니다.👋');
   };
 
-  const MemberDelete = () => {
-    console.log('회원탈퇴');
-  };
-
   return (
-    <>
+    <div className="h-full flex flex-col">
       <Header title={'마이페이지'} back={false} icon={''} />
-      {modal && <WriteButton title={icon === '로그아웃' ? '로그아웃 하시겠습니까?' : '회원탈퇴 하시겠습니까?'} button={icon === '로그아웃' ? '로그아웃' : '회원탈퇴'} setModal={setModal} handleButton={icon === '로그아웃' ? logout : MemberDelete} />}
-      <div className="flex flex-col gap-4 w-[25rem] mx-auto my-6">
+      {modal && <WriteButton title="로그아웃 하시겠습니까?" button="로그아웃" setModal={setModal} handleButton={logout} />}
+      <div className="flex flex-col flex-grow gap-4 mx-auto my-6">
         <Profile page={true} />
         <button className="profileEdit" onClick={handleEdit}>
           프로필 수정
@@ -75,27 +60,28 @@ const MyPage = () => {
           <MypageTab name={'내가 작성한 글'} link={'/mypage/mywrite'} />
           <MypageTab name={'즐겨찾기'} link={'/mypage/favorite'} />
         </div>
-        <ul className="grid grid-cols-2 w-80 h-60 mx-auto my-3">
+        <ul className="flex flex-grow-[0.7] items-center justify-center">
           {icons.map(({ Icon, link, text }, index) => (
             <li key={index} className="flex items-center justify-center">
               {index <= 1 ? (
                 <Link to={link} className="flex flex-col items-center p-3">
-                  <Icon className={` w-11 h-11 mb-1 ${index ? '' : hostEditMode ? 'w-9 h-10 text-black' : 'text-main-color'}`} />
+                  <Icon className={`w-11 h-11 mb-1 ${index ? '' : hostEditMode ? 'w-9 h-10 text-black' : 'text-main-color'}`} />
                   <p>{text}</p>
                 </Link>
               ) : (
                 <button type="button" name={text} className="p-3" onClick={isOpen}>
                   <div className="flex flex-col items-center pointer-events-none">
-                    <Icon className="w-11 h-11 mb-1" />
+                    <Icon className="w-12 h-12 mb-1" />
                     <p>{text}</p>
                   </div>
                 </button>
               )}
+              {index !== icons.length - 1 && <span className="w-[1px] h-10 mx-5 bg-gray-500"></span>}
             </li>
           ))}
         </ul>
       </div>
-    </>
+    </div>
   );
 };
 

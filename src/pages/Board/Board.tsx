@@ -7,6 +7,7 @@ import 'swiper/css/free-mode';
 import 'swiper/css/pagination';
 import { BsPencilSquare } from 'react-icons/bs';
 import regions from '../../util/region';
+import { useNavigate } from 'react-router-dom';
 
 const Board = () => {
   const [selectedButtonIndex, setSelectedButtonIndex] = useState<number>(0);

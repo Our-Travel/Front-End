@@ -92,7 +92,9 @@ const HostList = () => {
                 <div onClick={() => hostChatting(list.member_id)}>
                   <img src={list.host_profile_image ? list.host_profile_image : '/assets/profile.svg'} className="w-20 h-20 mx-auto rounded-full" alt="호스트 기본 이미지" />
                   <span>{list.nick_name}</span>
-                  <span className={`line-clamp-2 text-blue-500 ${list.member_id === numberId && 'block'}`}>{list.hash_tag}</span>
+                </div>
+                <div className="border-t-[1px]">
+                  <span className={`mt-1 line-clamp-2 text-blue-500 ${list.member_id === numberId && 'block'}`}>{list.hash_tag}</span>
                 </div>
                 {list.hash_tag.length > 25 && (
                   <button type="button" id={list.nick_name} className="hostListBtn" onClick={(e) => idCheck(e, list.member_id)}>

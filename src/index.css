@@ -36,13 +36,13 @@ div:focus,
     @apply w-48 h-12;
   }
   .buttonStyle {
-    @apply flex justify-center items-center w-[25rem] h-12 mx-auto mt-2 rounded text-white bg-main-color;
+    @apply flex justify-center items-center w-[25rem] h-12 mx-auto rounded text-white bg-main-color;
   }
   .circleButtonStyle {
     @apply flex justify-center w-11 h-11 rounded-[50%];
   }
   .noActiveButton {
-    @apply flex justify-center items-center w-[25rem] h-12 mx-auto mt-2 rounded text-white bg-noActive-color;
+    @apply flex justify-center items-center w-[25rem] h-12 mx-auto rounded text-white bg-noActive-color;
   }
   .errorText {
     @apply text-left text-sm text-check-red;
@@ -78,7 +78,7 @@ div:focus,
     @apply hover:border-main-color hover:text-main-color outline-red-300 transition-all duration-300;
   }
   .hostList {
-    @apply w-full flex flex-col justify-center gap-2 p-2 border-2 hover:border-red-300 cursor-pointer;
+    @apply w-full flex flex-col justify-center gap-1 p-2 border-2 hover:border-red-300 cursor-pointer;
   }
   .hostListBtn {
     @apply flex justify-center text-gray-600 border border-gray-400 rounded-lg hover:bg-red-100 hover:border-red-200;
