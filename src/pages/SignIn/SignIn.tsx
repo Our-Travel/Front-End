@@ -6,9 +6,21 @@ import ChoiceTab from '../../components/ChoiceTab/ChoiceTab';
 import React, { useEffect, useState, MouseEvent } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { useSetRecoilState, useRecoilValue } from 'recoil';
+import jwtDecode, { JwtPayload } from 'jwt-decode';
 import useInput from 'hooks/useInput';
-import { useSetRecoilState } from 'recoil';
 import { loginType } from 'Atom/userAtom';
+
+interface DecodedToken {
+  id: number;
+  username: string;
+  nickName: string;
+  authorities: { authority: string }[];
+  exp: number;
+}
+interface Token {
+  body: string;
+}
 
 const SignIn = () => {
   const [active, setActive] = useState<boolean>(false);
@@ -25,6 +37,12 @@ const SignIn = () => {
         username: email.data,
         password: password.data,
       });
+      const receivedToken: string = response.headers.authentication;
+      const decoded = jwtDecode<Token>(receivedToken);
+      const parsedBody: DecodedToken = JSON.parse(decoded.body);
+      const nickName = parsedBody.nickName;
+      localStorage.setItem('token', response.headers.authentication);
+      localStorage.setItem('nickname', nickName);
       localStorage.setItem('token', response.headers.authentication);
       signType(true);
       alert(response.data.msg);
@@ -36,7 +54,6 @@ const SignIn = () => {
       }
     }
   };
-
   useEffect(() => {
     email.state && password.state ? setActive(true) : setActive(false);
   }, [email.state, password.state]);
