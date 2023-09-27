@@ -10,7 +10,7 @@ interface ChattingComponentProps {
 const ChattingComponenet = ({ writer, latest_message, time }: ChattingComponentProps) => {
   return (
     <li className="h-[100px] flex items-center px-[20px] py-[10px] border-b-[1px] hover:bg-gray-100">
-      <img src="/character.svg" alt="프로필사진" className="w-1/6" />
+      <img src="/assets/character.svg" alt="프로필사진" className="w-1/6" />
       <div className=" text-left ml-4">
         <p className="font-semibold flex flex-nowrap">
           {writer}

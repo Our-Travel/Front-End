@@ -10,7 +10,7 @@ interface ChattingComponentProps {
 const FriendChat = ({ nickName, content }: ChattingComponentProps) => {
   return (
     <div className="friend-chat flex justify-start mt-2">
-      <img src="/chattingProfile.svg" alt="채팅프로필사진" className="w-[12%] self-start" />
+      <img src="/assets/chattingProfile.svg" alt="채팅프로필사진" className="w-[12%] self-start" />
       <div className="flex flex-col ml-2 text-left">
         <span>{nickName}</span>
         <div className="mt-3">

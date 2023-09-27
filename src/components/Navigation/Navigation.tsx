@@ -1,4 +1,3 @@
-import React, { useEffect } from 'react';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { GrHomeRounded } from 'react-icons/gr';
 import { GrLocation } from 'react-icons/gr';
@@ -35,23 +34,34 @@ const Navigation = () => {
     <>
       <div className="fixed w-[445px] bg-white  h-14 bottom-0 z-50 box-border">
         <ul className="flex w-full justify-around relative top-[50%] translate-y-[-50%] h-7">
-          <li className={getName(path, '/main')} onClick={main}>
-            <GrHomeRounded className="w-5 h-5 " />
+          <li>
+            <button className={getName(path, '/main')} onClick={main}>
+              <GrHomeRounded className="w-5 h-5" />
+            </button>
           </li>
-          <li className={getName(path, '/board')} onClick={board}>
-            <VscNote className="w-6 h-6" />
+          <li>
+            <button className={getName(path, '/board')} onClick={board}>
+              <VscNote className="w-6 h-6" />
+            </button>
           </li>
-          <li className={getName(path, '/chattinglist')} onClick={chatting}>
-            <TiMessages className="w-6 h-6" />
+          <li>
+            <button className={getName(path, '/chattinglist')} onClick={chatting}>
+              <TiMessages className="w-6 h-6" />
+            </button>
           </li>
-          <li className={getName(path, '/map')} onClick={map}>
-            <GrLocation className="w-6 h-6" />
+          <li>
+            <button className={getName(path, '/map')} onClick={map}>
+              <GrLocation className="w-6 h-6" />
+            </button>
           </li>
-          <li className={getName(path, '/mypage')} onClick={mypage}>
-            <BiUser className="w-6 h-6" />
+          <li>
+            <button className={getName(path, '/mypage')} onClick={mypage}>
+              <BiUser className="w-6 h-6" />
+            </button>
           </li>
         </ul>
       </div>
+
       <Outlet />
     </>
   );

@@ -13,7 +13,7 @@ interface buttonInfo {
 
 export function Button({ name, page, active, onClick }: buttonInfo) {
   return (
-    <button type="submit" className={page || active ? 'buttonStyle' : 'noActiveButton'} onClick={onClick} disabled={page ? active : !active}>
+    <button type="submit" className={page || active ? 'buttonStyle buttonHoverColor' : 'noActiveButton'} onClick={onClick} disabled={page ? active : !active}>
       {name}
     </button>
   );
@@ -25,17 +25,6 @@ export function LoginKakao() {
     <div className="circleButtonStyle bg-yellow-300">
       <Link to={KAKAO_AUTH_URL} className="w-full h-full ">
         <RiKakaoTalkFill className="w-full h-full p-2" />
-      </Link>
-    </div>
-  );
-}
-
-export function LoginNaver() {
-  const KAKAO_AUTH_URL = 'https://ourtravel.site/api/dev/oauth2/authorization/naver';
-  return (
-    <div className="circleButtonStyle bg-naver-color">
-      <Link to={KAKAO_AUTH_URL} className="w-full h-full ">
-        <SiNaver className="w-full h-full p-3" />
       </Link>
     </div>
   );
