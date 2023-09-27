@@ -2,7 +2,7 @@ import Header from '../../components/Header/Header';
 import Logo from '../../components/Logo/Logo';
 import { Email, Password } from '../../components/EmailPassword/EmailPassword';
 import { Button, LoginGoogle, LoginKakao } from '../../components/LoginButton/Button';
-import ChoiceTab from '../../components/SignIn/ChoiceTab';
+import ChoiceTab from 'components/SignIn/ChoiceTab';
 import React, { useEffect, useState, MouseEvent } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';

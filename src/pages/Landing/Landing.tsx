@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Logo from '../../components/Logo/Logo';
 import { Button, LoginKakao, LoginGoogle } from '../../components/LoginButton/Button';
-import ChoiceTab from '../../components/SignIn/ChoiceTab';
+import ChoiceTab from 'components/SignIn/ChoiceTab';
 import { Link, useNavigate } from 'react-router-dom';
 import { Pagination, Autoplay, A11y } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
