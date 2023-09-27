@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Logo from '../../components/Logo/Logo';
-import { Button, LoginKakao, LoginNaver, LoginGoogle } from '../../components/LoginButton/Button';
-import ChoiceTab from '../../components/ChoiceTab/ChoiceTab';
+import { Button, LoginKakao, LoginGoogle } from '../../components/LoginButton/Button';
+import ChoiceTab from 'components/SignIn/ChoiceTab';
 import { Link, useNavigate } from 'react-router-dom';
 import { Pagination, Autoplay, A11y } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -13,9 +13,9 @@ import { GrLanguage } from 'react-icons/gr';
 import WriteButton from 'components/Board/WriteButton';
 
 const promotionImg = [
-  { title: '광안대교', imgSrc: '/assets/bridge.JPG' },
-  { title: '집에서본 광안대교', imgSrc: '/assets/bridge2.JPG' },
-  { title: '집', imgSrc: '/assets/house.JPG' },
+  { title: 'welcome Korea', imgSrc: '/assets/square1.png' },
+  { title: '경복궁', imgSrc: '/assets/square2.png' },
+  { title: '부산으로 간다', imgSrc: '/assets/square3.png' },
 ];
 
 export default function Landing() {
@@ -48,7 +48,6 @@ export default function Landing() {
         </div>
         <div className="flex justify-center items-center space-x-8">
           <LoginKakao />
-          <LoginNaver />
           <LoginGoogle />
         </div>
       </div>

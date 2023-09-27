@@ -29,7 +29,7 @@ const Main = () => {
     <>
       <Header title={'Our Travel'} back={false} icon={''} />
       <Banner />
-      <div className="text-xl font-semibold -translate-y-4">
+      <div className="text-xl font-semibold translate-y-4">
         <div className="flex justify-center w-full space-x-16 ">
           <button className={`h-10 buttonHoverSize border-main-color ${getName(path, 'tourist')}`} onClick={handleGraphButtonClick}>
             방문객수
