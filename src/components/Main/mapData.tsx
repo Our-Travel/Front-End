@@ -1,6 +1,6 @@
 export default {
   label: '대한민국 지도',
-  viewBox: '0 0 524 631',
+  viewBox: '0 -10 545 605',
   locations: [
     {
       name: '서울',
