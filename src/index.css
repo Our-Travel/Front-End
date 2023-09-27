@@ -14,7 +14,7 @@ div:focus,
 }
 
 .main-backGround {
-  background-image: url('/public/assets/ot.png');
+  background-image: url('/public/assets/otBackground.png');
   background-size: cover;
   background-position: center;
 }
