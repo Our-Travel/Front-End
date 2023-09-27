@@ -5,18 +5,14 @@ import { GrLocation } from 'react-icons/gr';
 import { TiMessages } from 'react-icons/ti';
 import { VscNote } from 'react-icons/vsc';
 import { BiUser } from 'react-icons/bi';
-import useLoginCheck from '../../hooks/useLoginCheck';
 
 const Navigation = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const path: string = location.pathname;
 
-  //로그인 되어있는지 확인하는 커스텀 훅
-  const loginCheck = useLoginCheck();
-
   function getName(currentPath: string, expectedPath: string): string {
-    return currentPath.includes(expectedPath) ? 'active' : 'navigationButton';
+    return currentPath.includes(expectedPath) ? 'active' : 'transition-transform hover:scale-125';
   }
 
   const main = () => {
@@ -32,12 +28,7 @@ const Navigation = () => {
     navigate('/map');
   };
   const mypage = () => {
-    const isLoggedIn = loginCheck();
-    if (isLoggedIn) {
-      navigate('/mypage');
-    } else {
-      navigate('/signin');
-    }
+    navigate('/mypage');
   };
 
   return (

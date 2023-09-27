@@ -1,0 +1,21 @@
+export default {
+  mapInfo: [
+    { value: 11, name: '서울', x: '155', y: '125' },
+    { value: 26, name: '부산', x: '355', y: '430' },
+    { value: 27, name: '대구', x: '305', y: '328' },
+    { value: 28, name: '인천', x: '73', y: '145' },
+    { value: 29, name: '광주', x: '143', y: '403' },
+    { value: 30, name: '대전', x: '188', y: '300' },
+    { value: 31, name: '울산', x: '392', y: '380' },
+    { value: 36, name: '세종', x: '175', y: '242' },
+    { value: 41, name: '경기', x: '177', y: '175' },
+    { value: 42, name: '강원', x: '275', y: '115' },
+    { value: 43, name: '충북', x: '230', y: '212' },
+    { value: 44, name: '충남', x: '92', y: '262' },
+    { value: 45, name: '전북', x: '162', y: '353' },
+    { value: 46, name: '전남', x: '135', y: '450' },
+    { value: 47, name: '경북', x: '308', y: '270' },
+    { value: 48, name: '경남', x: '266', y: '392' },
+    { value: 50, name: '제주', x: '105', y: '555' },
+  ],
+};

@@ -116,7 +116,7 @@ const ChattingItem = () => {
                 navigate(`/chatting/${room_id}`);
               }}
             >
-              <ChattingComponent key={index} nickName={writer} content={latest_message} time={latest_message_time} />
+              <ChattingComponent key={index} writer={writer} latest_message={latest_message} time={latest_message_time} />
             </label>
             {trash && <input id={`room${index}`} type="checkbox" value={room_id} checked={checkedRooms.includes(room_id)} onChange={() => toggleRoomSelection(room_id)} />}
             {trash && (

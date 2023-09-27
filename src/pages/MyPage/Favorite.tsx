@@ -16,9 +16,6 @@ const Favorite = () => {
   return (
     <>
       <Header title={'즐겨찾기'} back={true} icon={''} />
-      <div className="flex flex-col gap-4 my-6 line">
-        <Profile />
-      </div>
       <div className="flex flex-row justify-evenly text-xl font-semibold">
         <button type="button" name="tour" onClick={handleToggle} className={cls(!toggle ? 'w-[80px] border-b-[2px] border-main-color pt-[2px]' : 'w-[80px] p-2')}>
           관광지

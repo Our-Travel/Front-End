@@ -1,66 +1,129 @@
+import { useEffect, useState } from 'react';
 import { Chart, LineElement, PointElement, CategoryScale, LinearScale, Tooltip, Legend, ChartData } from 'chart.js';
 import { Line } from 'react-chartjs-2';
+import { ChartOptions } from 'chart.js';
+import { SlLocationPin } from 'react-icons/sl';
+import addressGetter from '../../hooks/addressGetter';
+import { visitor } from 'util/visitor';
+import { convertAddressToKey } from 'util/convertAddress';
+import Papa from 'papaparse';
+import SelectArea from './SelectArea';
 
 Chart.register(LineElement, PointElement, CategoryScale, LinearScale, Tooltip, Legend);
 
-import { VictoryAxis, VictoryBar, VictoryChart, VictoryStack, VictoryTheme } from 'victory';
-
-const 강원도 = [
-  { quarter: 1, visit: 13000 },
-  { quarter: 2, visit: 16500 },
-  { quarter: 3, visit: 14250 },
-  { quarter: 4, visit: 19000 },
-];
-
-const 경상도 = [
-  { quarter: 1, visit: 15000 },
-  { quarter: 2, visit: 12500 },
-  { quarter: 3, visit: 19500 },
-  { quarter: 4, visit: 13000 },
-];
-
-const 전라도 = [
-  { quarter: 1, visit: 11500 },
-  { quarter: 2, visit: 13250 },
-  { quarter: 3, visit: 20000 },
-  { quarter: 4, visit: 15500 },
-];
-
-const 제주도 = [
-  { quarter: 1, visit: 18000 },
-  { quarter: 2, visit: 13250 },
-  { quarter: 3, visit: 15000 },
-  { quarter: 4, visit: 12000 },
-];
 function GraphComponent() {
-  const chartData: ChartData<'line'> = {
-    labels: ['1월', '2월', '3월', '4월', '5월', '6월', '7월'],
+  const address = addressGetter();
+  let area = convertAddressToKey(address);
+  const [location, setLocation] = useState('');
+  const [selectArea, setSelectArea] = useState('');
+  const [minValue, setMinValue] = useState(Number);
+  const [openModal, setOpenModal] = useState<boolean>(false);
+  const isOpen = () => setOpenModal(!openModal);
+  const { numToKorean } = require('num-to-korean');
+  const [chartData, setChartData] = useState<ChartData<'line'>>({
+    labels: [],
     datasets: [
       {
         label: '월',
-        data: [3, 2, 3, 1, 2, 4, 2],
+        data: [],
         borderColor: '#FF928A',
         tension: 0.4,
       },
     ],
+  });
+
+  useEffect(() => {
+    setLocation(area);
+    openGraph();
+  }, [area]);
+
+  useEffect(() => {
+    if (selectArea) {
+      area = selectArea;
+      setLocation(selectArea);
+      openGraph();
+    }
+  }, [selectArea]);
+
+  const openGraph = () => {
+    if (selectArea) {
+      area = selectArea;
+    }
+    if (area) {
+      const areaData = visitor.filter((item) => item.area === area);
+      const visitorData = areaData.map((item) => parseInt(item.visitor));
+      const dateLabels = areaData.map((item) => item.date);
+      setMinValue(Math.min(...visitorData));
+      const newChartData: ChartData<'line'> = {
+        labels: dateLabels,
+        datasets: [
+          {
+            label: '월',
+            data: visitorData,
+            borderColor: '#FF928A',
+            tension: 0.4,
+          },
+        ],
+      };
+      setChartData(newChartData);
+    }
   };
+
+  const options: ChartOptions<'line'> = {
+    maintainAspectRatio: false, // 비율 유지하지 않음
+    responsive: true, // 반응형 활성화
+    animation: {
+      duration: 2000, // 애니메이션 지속 시간 (밀리초)
+      easing: 'easeInOutSine', // 애니메이션 이징 함수
+    },
+    scales: {
+      y: {
+        ticks: {
+          display: true, // 눈금 표시 여부
+        },
+        beginAtZero: true,
+        min: minValue,
+      },
+    },
+    layout: {
+      padding: {
+        top: 10, // 그래프 위쪽 패딩
+      },
+    },
+    plugins: {
+      legend: {
+        display: false, // 범례 숨기기
+      },
+      tooltip: {
+        callbacks: {
+          label: function (context) {
+            const label = context.parsed.x + 1;
+            const value = context.parsed.y;
+            return label + '월 : "' + numToKorean(value) + '" 명';
+          },
+        },
+      },
+    },
+  };
+
   return (
     <>
-      <div className="w-[400px] h-[150px] pl-10 mt-7 mx-auto ">
-        <Line data={chartData} />
+      {openModal && <SelectArea modal={openModal} setModal={setOpenModal} setArea={setSelectArea} nowArea={location} />}
+      <div onClick={isOpen} className="flex justify-center mt-7 text-xl py-4 font-semibold text-white cursor-pointer buttonHoverSize buttonHoverColor">
+        <SlLocationPin className="inline-block mr-2 font-thin translate-y-1" />
+        <h3 className="hover:scale-110">{location}</h3>
       </div>
-      <div className="w-[400px] h-[250px]  mx-auto">
-        <VictoryChart domainPadding={20} theme={VictoryTheme.material}>
-          <VictoryAxis tickValues={[1, 2, 3, 4]} tickFormat={['강원도', '경상도', '전라도', '제주도']} />
-          <VictoryAxis dependentAxis tickFormat={(x) => `${x / 1000}k`} />
-          <VictoryStack colorScale={'warm'}>
-            <VictoryBar data={강원도} x="quarter" y="visit" />
-            <VictoryBar data={경상도} x="quarter" y="visit" />
-            <VictoryBar data={전라도} x="quarter" y="visit" />
-            <VictoryBar data={제주도} x="quarter" y="visit" />
-          </VictoryStack>
-        </VictoryChart>
+      <div className="w-[400px] h-[300px] flex justify-center mt-7 mx-auto ">
+        <Line data={chartData} options={options} />
       </div>
+      <div className="font-normal mt-8">
+        2023년 상반기{' '}
+        <strong onClick={openGraph} className="text-main-color2 text-2xl cursor-pointer">
+          {location}
+        </strong>
+        의 방문객 현황입니다.
+      </div>
+      <div className="text-base text-gray-400 mt-3 font-normal">(그래프가 제대로 그려지지 않는다면, 지역명을 클릭해주세요)</div>
     </>
   );
 }

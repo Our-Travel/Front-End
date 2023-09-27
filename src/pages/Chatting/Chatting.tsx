@@ -11,7 +11,6 @@ import axios from 'axios';
 import { useDebounce } from '../../hooks/useDebounce';
 import { useRecoilValue } from 'recoil';
 import { exitChat } from '../../Atom/atom';
-
 interface MessageDto {
   member_id: number;
   nickname: string;

@@ -15,10 +15,10 @@ const useInput = () => {
     if (id === 'email') {
       setState(emailValid.test(value) ? true : false);
     } else if (id === 'userPw1') {
-      setState(passwordValid.test(value) ? true : false);
+      passwordValid.test(value) || !value ? setState(true) : setState(false);
     } else if (id === 'nickName') {
       setState(nickNameValid.test(value) ? true : false);
-    } else if (id === 'hashTag') {
+    } else if (id === 'hashTag' || id === 'hashTagModify') {
       setState(hashTagValid.test(value) ? true : false);
     }
   };

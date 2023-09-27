@@ -1,10 +1,11 @@
 import React, { Dispatch, SetStateAction, useState, useEffect } from 'react';
 import { AiOutlineClose } from 'react-icons/ai';
-import WriteButton from '../../components/Chatting/WriteButton';
+import WriteButton from '../../components/Board/WriteButton';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import regions from '../../util/region';
-import PostForm from '../../components/Chatting/PostForm';
+import PostForm from '../../components/Board/PostForm';
+import { getStatusInKorean } from '../../util/status';
 
 interface Props {
   setEditBoard: Dispatch<SetStateAction<boolean>>;
@@ -48,14 +49,13 @@ const EditBoard = ({ setEditBoard, item }: Props) => {
   //삭제하기모달 -> 삭제하기 누르면 넘어오는 함수
   const handleDeleteButton = () => {
     setDeleteModal(false); // 모달 닫기
-
     deleteMyBoard();
   };
 
   //마감하기모달 -> 마감하기 버튼 클릭시 넘어오는 함수
   const handleFinishButton = () => {
     setFinishModal(false);
-    //마감하기
+    closedMyBoard();
   };
 
   //게시글 수정
@@ -134,6 +134,34 @@ const EditBoard = ({ setEditBoard, item }: Props) => {
       }
     }
   };
+  //마감하기 통신@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+  const closedMyBoard = async () => {
+    const storedToken = localStorage.getItem('token');
+    const headers = {
+      Authorization: `Bearer ${storedToken}`,
+    };
+    try {
+      // 여행 게시글 작성 요청
+      const boardsUrl = `${process.env.REACT_APP_REST_API_SERVER}/boards/${boardId}`;
+      await axios.patch(
+        boardsUrl,
+        {},
+        {
+          headers: headers,
+        }
+      );
+
+      alert('게시글 수정이 완료되었습니다!');
+    } catch (error) {
+      if (axios.isAxiosError(error) && error.response?.status === 400) {
+        // 에러가 발생하면 해당 에러 메시지를 알림으로 보여줌
+        alert(error.response.data.msg);
+      } else {
+        // 기타 에러 처리
+        alert('데이터를 받아오는 과정에 문제가 생겼습니다.😹');
+      }
+    }
+  };
 
   useEffect(() => {
     // 기존 데이터를 초기 상태로 설정
@@ -147,6 +175,12 @@ const EditBoard = ({ setEditBoard, item }: Props) => {
     setTravelers(item.number_of_travelers);
     setBoardId(item.board_id);
   }, [item]);
+
+  /* -------------------------------------------------------------------------- */
+  /*                                 //모집상태 전처리                                 */
+  /* -------------------------------------------------------------------------- */
+  const statusFromServer = item.recruitment_status; // 서버로부터 받은 상태 (예: OPEN, UPCOMING 등)
+  const statusInKorean = getStatusInKorean(statusFromServer); // 한글 상태로 변환
 
   return (
     <div className="relative h-full w-full bg-white">
@@ -175,7 +209,7 @@ const EditBoard = ({ setEditBoard, item }: Props) => {
       {finishModal && <WriteButton title="글을 마감하시겠습니까?" button="마감하기" setModal={setFinishModal} handleButton={handleFinishButton} />}
       <div className="mx-auto pt-8">
         <h3 className="font-medium mb-5 text-2xl">{item.title}</h3>
-        <button onClick={closeEdit} className="absolute right-10 top-8">
+        <button onClick={closeEdit} className="absolute right-10 top-8 buttonHoverSize125">
           <AiOutlineClose className=" w-[30px] h-[30px]" />
         </button>
         <div className="border rounded-lg mx-4 h-[170px] text-left px-3 py-2">{item.content}</div>
@@ -189,7 +223,7 @@ const EditBoard = ({ setEditBoard, item }: Props) => {
             <span className="text-gray-500">
               {item.recruitment_period_start} ~ {item.recruitment_period_end}
             </span>
-            <span className="ml-6 font-semibold text-orange-500 animate-bounce z-0">{item.recruitment_status}</span>
+            <span className="ml-6 font-semibold text-orange-500 animate-bounce z-0">{statusInKorean}</span>
           </div>
           <div className="flex text-sm my-3">
             <div className="w-1/5 font-semibold text-gray-600">여행기간</div>
@@ -203,13 +237,13 @@ const EditBoard = ({ setEditBoard, item }: Props) => {
           </div>
         </div>
         <div className="my-10 left-1/2 mx-20">
-          <button onClick={editBoard} className="w-full h-8 my-2  bg-main-color rounded-lg text-white text-lg font-semibold">
+          <button onClick={editBoard} className="w-full h-8 my-2 rounded-lg text-lg font-semibold buttonHoverSize buttonHoverColor">
             수정하기
           </button>
-          <button onClick={deleteBaord} className="w-full h-8 my-2  bg-main-color rounded-lg text-white text-lg font-semibold">
+          <button onClick={deleteBaord} className="w-full h-8 my-2 rounded-lg text-lg font-semibold buttonHoverSize buttonHoverColor">
             삭제하기
           </button>
-          <button onClick={finishBaord} className="w-full h-8 my-2  bg-main-color rounded-lg text-white text-lg font-semibold">
+          <button onClick={finishBaord} className="w-full h-8 my-2 rounded-lg text-lg font-semibold buttonHoverSize buttonHoverColor">
             마감하기
           </button>
         </div>

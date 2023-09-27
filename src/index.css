@@ -13,6 +13,12 @@ div:focus,
   outline: 2px solid pink;
 }
 
+.main-backGround {
+  background-image: url('/public/assets/ot.png');
+  background-size: cover;
+  background-position: center;
+}
+
 @layer components {
   .hideTitle {
     @apply absolute w-[1px] h-[1px] overflow-hidden;
@@ -21,19 +27,22 @@ div:focus,
     @apply flex flex-col gap-1;
   }
   .inputStyle {
-    @apply w-[25rem] h-12 border rounded placeholder:text-gray-400 pl-2;
+    @apply w-[25rem] h-12 border border-gray-400 rounded placeholder:text-gray-400 pl-2;
   }
-  .signUpInput {
-    @apply w-[18rem] h-12 border rounded placeholder:text-gray-400 pl-2;
+  .shortInput {
+    @apply w-[18rem] h-12 border border-gray-400 rounded placeholder:text-gray-400 pl-2;
   }
   .signUpAddress {
     @apply w-48 h-12;
   }
   .buttonStyle {
-    @apply flex justify-center items-center w-[25rem] h-12 mx-auto mt-2 rounded text-white bg-main-color;
+    @apply flex justify-center items-center w-[25rem] h-12 mx-auto rounded text-white bg-main-color;
+  }
+  .circleButtonStyle {
+    @apply flex justify-center w-11 h-11 rounded-[50%];
   }
   .noActiveButton {
-    @apply flex justify-center items-center w-[25rem] h-12 mx-auto mt-2 rounded text-white bg-noActive-color;
+    @apply flex justify-center items-center w-[25rem] h-12 mx-auto rounded text-white bg-noActive-color;
   }
   .errorText {
     @apply text-left text-sm text-check-red;
@@ -44,11 +53,44 @@ div:focus,
   .line {
     @apply after:content-[''] after:w-full after:h-[1px] after:bg-gray-200;
   }
-  .navigationButton {
-    @apply relative cursor-pointer px-2 transition-colors duration-500 hover:border-b-4 border-transparent hover:border-main-color;
-  }
   .active {
     @apply cursor-pointer px-2 border-b-4 border-transparent border-main-color;
+  }
+  .buttonHoverSize {
+    @apply transition-transform hover:scale-110;
+  }
+  .buttonHoverSize125 {
+    @apply transition-transform hover:scale-125;
+  }
+  .buttonHoverColor {
+    @apply bg-main-color2 hover:bg-main-color text-white;
+  }
+  .svgStyle {
+    @apply w-11/12 fill-gray-300 stroke-white stroke-2 mx-auto;
+  }
+  .pathStyle {
+    @apply hover:fill-red-300 cursor-pointer outline-none transition-[fill];
+  }
+  .svgBig {
+    @apply 2xl:absolute 2xl:top-[170%] 2xl:left-[5%] 2xl:scale-110;
+  }
+  .effectArea {
+    @apply hover:border-main-color hover:text-main-color outline-red-300 transition-all duration-300;
+  }
+  .hostList {
+    @apply w-full flex flex-col justify-center gap-1 p-2 border-2 hover:border-red-300 cursor-pointer;
+  }
+  .hostListBtn {
+    @apply flex justify-center text-gray-600 border border-gray-400 rounded-lg hover:bg-red-100 hover:border-red-200;
+  }
+  .profileEditBtn {
+    @apply px-3 py-1 border rounded border-main-color text-main-color hover:bg-main-color hover:text-white;
+  }
+  .profileUpload {
+    @apply px-5 py-1 text-base font-semibold border-2 rounded-xl border-gray-200 hover:bg-green-400 hover:text-white;
+  }
+  .profileEdit {
+    @apply w-[25rem] mx-auto h-9 mb-3 border rounded border-main-color text-main-color hover:bg-main-color hover:text-white;
   }
 }
 
@@ -58,18 +100,6 @@ div:focus,
   }
   .modalPosition {
     @apply top-1/2 left-1/2 -translate-x-[50%] -translate-y-[50%];
-  }
-  .svg-map {
-    @apply w-full h-[330px] stroke-gray-400 stroke-1;
-  }
-  .svg-map__location {
-    @apply cursor-pointer;
-  }
-  .svg-map__location:focus {
-    @apply outline-0;
-  }
-  .svg-map__location:hover {
-    @apply outline-0;
   }
   .modalBlack {
     @apply fixed top-0 left-0 right-0 bottom-0 z-30 bg-black bg-opacity-30;
