@@ -9,6 +9,8 @@ import SockJS from 'sockjs-client';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import { useDebounce } from '../../hooks/useDebounce';
+import { useRecoilValue } from 'recoil';
+import { exitChat } from '../../Atom/atom';
 
 interface MessageDto {
   member_id: number;
@@ -48,6 +50,7 @@ const Chatting = () => {
   const debounceMessage = useDebounce(inputMessage, 1000);
   const [modalOpen, setModalOpen] = useState<boolean>(false);
   const [messages, setMessages] = useState<string[]>([]);
+  const exitUser = useRecoilValue(exitChat);
   const { roomnum } = useParams();
   // 웹소켓 연결 함수
   const connectHandler = () => {
@@ -138,6 +141,11 @@ const Chatting = () => {
           {chatEnter &&
             messages.length !== 0 &&
             messages.map((message: any, index: number) => <div key={index}>{nickName === message.writer_nickname ? <MeChat content={message.message} /> : <FriendChat nickName={message.writer_nickname} content={message.message} />}</div>)}
+          {exitUser && (
+            <div>
+              {nickName}님이 {exitUser}
+            </div>
+          )}
           <div ref={mainChat} />
         </div>
         <div className="insert-box sticky bottom-14 h-14 flex">
