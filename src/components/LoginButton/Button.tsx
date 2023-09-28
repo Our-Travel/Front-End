@@ -1,7 +1,6 @@
 import React, { MouseEvent } from 'react';
 import { Link } from 'react-router-dom';
 import { RiKakaoTalkFill } from 'react-icons/ri';
-import { SiNaver } from 'react-icons/si';
 import { BsGoogle } from 'react-icons/bs';
 
 interface buttonInfo {
@@ -20,7 +19,7 @@ export function Button({ name, page, active, onClick }: buttonInfo) {
 }
 
 export function LoginKakao() {
-  const KAKAO_AUTH_URL = 'https://ourtravel.site/api/dev/oauth2/authorization/kakao';
+  const KAKAO_AUTH_URL = `${process.env.REACT_APP_KAKAO_AUTH_URL}`;
   return (
     <div className="circleButtonStyle bg-yellow-300">
       <Link to={KAKAO_AUTH_URL} className="w-full h-full ">
@@ -31,10 +30,10 @@ export function LoginKakao() {
 }
 
 export function LoginGoogle() {
-  const KAKAO_AUTH_URL = 'https://ourtravel.site/api/dev/oauth2/authorization/google';
+  const GOOGLE_AUTH_URL = `${process.env.REACT_APP_GOOGLE_AUTH_URL}`;
   return (
     <div className="circleButtonStyle bg-white border-2 border-google-color">
-      <Link to={KAKAO_AUTH_URL} className="w-full h-full ">
+      <Link to={GOOGLE_AUTH_URL} className="w-full h-full ">
         <BsGoogle className="w-full h-full p-2" />
       </Link>
     </div>
