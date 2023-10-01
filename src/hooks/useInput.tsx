@@ -6,7 +6,7 @@ const useInput = () => {
 
   const emailValid = /([\w-.]+)@(([\w-]+\.)+)([a-zA-Z]{2,4})(\]?)$/;
   const passwordValid = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,16}$/;
-  const nickNameValid = /^(?=.*[a-z0-9가-힣])[a-z0-9가-힣]{3,8}$/;
+  const nickNameValid = /^(?=.*[a-z0-9가-힣])[a-z0-9가-힣]{3,10}$/;
   const hashTagValid = /#[^\s]{2}/;
 
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
