@@ -15,7 +15,7 @@ export const Email = ({ page, title, data, state, onChange, onReset }: userInfo)
   const { status, signupCheck } = useFetch();
 
   const handleEmail = () => signupCheck('username', data);
-  const emailBtn = () => (status === 200 ? 'text-green-600 border-green-600' : status === 400 ? 'text-check-red border-check-red' : 'text-gray-500 border-gray-400');
+  const emailBtn = () => (status === 200 ? 'text-green-600 border-green-600' : status === 400 ? 'text-check-red border-check-red' : state ? 'text-black border-black' : 'text-gray-500 border-gray-400');
   const emailInput = () => (!data.length || state ? 'border-gray-400' : 'border-check-red outline-check-red');
 
   return (
