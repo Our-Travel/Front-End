@@ -83,7 +83,7 @@ const ProfileEdit = () => {
   const handleNickName = () => signupCheck('nickName', newNickName.data);
   const passwordInput = () => (!newPwCheck.data.length || newPassword.data === newPwCheck.data ? 'border-gray-400' : 'border-check-red outline-check-red');
   const nickNameInput = () => (!newNickName.data.length || newNickName.state ? 'border-gray-400' : 'border-check-red outline-check-red');
-  const nickNameBtn = () => (status === 200 ? 'text-green-600 border-green-600' : status === 400 ? 'text-check-red border-check-red' : 'text-gray-500 border-gray-400');
+  const nickNameBtn = () => (status === 200 ? 'text-green-600 border-green-600' : status === 400 ? 'text-check-red border-check-red' : newNickName.state ? 'text-black border-black' : 'text-gray-500 border-gray-400');
 
   useEffect(() => {
     if ((signType && newPassword.data && newPassword.data === newPwCheck.data && status === 200) || (!signType && status)) {
@@ -108,7 +108,7 @@ const ProfileEdit = () => {
             <Profile page={false} />
             <BsQuestionSquare className="absolute top-0 left-28 hover:text-main-color" onMouseEnter={tooltipEnter} onMouseLeave={tooltipLeave} />
             {show && (
-              <div className="absolute top-5 left-12 flex flex-col gap-1 shadow-xl border rounded-lg px-5 py-3 bg-white">
+              <div className="absolute w-3/4 top-5 left-1/2 -translate-x-[50%] flex flex-col gap-1 shadow-xl border rounded-lg px-5 py-3 bg-white">
                 {profileToolTip.map(({ src, alt }, index) => (
                   <div key={index} className="flex items-center justify-center gap-1">
                     <img src={src} className="w-14 h-15" alt={alt} />
@@ -147,7 +147,7 @@ const ProfileEdit = () => {
               닉네임
             </label>
             <div className="flex justify-between">
-              <input required type="text" name="nickName" id="nickName" placeholder="한글, 영문, 숫자 가능 3~8자" className={`shortInput ${nickNameInput()}`} onChange={newNickName.onChange} value={newNickName.data} />
+              <input required type="text" name="nickName" id="nickName" placeholder="한글, 영문, 숫자 가능 3~10자" className={`shortInput ${nickNameInput()}`} onChange={newNickName.onChange} value={newNickName.data} />
               <button type="button" className={`w-24 h-12 border rounded ${nickNameBtn()}`} onClick={handleNickName} disabled={!newNickName.state}>
                 중복확인
               </button>
