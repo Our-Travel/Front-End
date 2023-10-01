@@ -6,8 +6,9 @@ import Spinner from '../../shared/Spinner';
 import { AiOutlineConsoleSql } from 'react-icons/ai';
 import { BiChevronUp, BiChevronDown } from 'react-icons/bi';
 import { useRecoilState } from 'recoil';
-import { hostRoomId } from 'Atom/userAtom';
+import { hostRoomId, roomList } from 'Atom/userAtom';
 import { BsArrowCounterclockwise } from 'react-icons/bs';
+import { RiContactsBookLine } from 'react-icons/ri';
 
 interface listInfo {
   member_id: number;
@@ -33,12 +34,13 @@ const HostList = () => {
         const response = await axios.get(url, config);
         setHosts(response.data.data);
         response.data.data.forEach((el: any) => setRoomCheck(el.chat_room_exist));
+        console.log(response);
       } catch (error) {
         if (axios.isAxiosError(error)) setHostMsg(error.response?.data.msg);
       }
     };
     hostData();
-  }, [roomCheck]);
+  }, []);
 
   // 채팅방 유무에 따른 생성 및 입장 (새로고침 이슈)
   const hostChatting = async (memberId: number) => {
@@ -48,6 +50,7 @@ const HostList = () => {
       if (!roomCheck) {
         const createRes = await axios.post(url, {}, config);
         console.log(createRes);
+        console.log(createRes.data.msg);
         chatEnter(createRes.data.data.chat_room_id);
         setRoomId(createRes.data.data.chat_room_id);
       } else {

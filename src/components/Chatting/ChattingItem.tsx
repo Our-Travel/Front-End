@@ -4,10 +4,11 @@ import ChattingComponent from './ChattingComponent';
 import axios from 'axios';
 import Header from '../../components/Header/Header';
 import { BsTrash } from 'react-icons/bs';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { exitChat } from '../../Atom/atom';
 import { CompatClient, Stomp } from '@stomp/stompjs';
 import SockJS from 'sockjs-client';
+import { hostRoomId, roomList } from 'Atom/userAtom';
 
 const ChattingItem = () => {
   const navigate = useNavigate();
@@ -18,6 +19,8 @@ const ChattingItem = () => {
   console.log(checkedRooms);
   const token = localStorage.getItem('token');
   const client = useRef<CompatClient>();
+
+  const [test, setTest] = useRecoilState(roomList);
 
   // useEffect(() => {
   //   axios
@@ -60,6 +63,8 @@ const ChattingItem = () => {
         console.log(res);
         if (res.status === 200) {
           setChatList(res.data.data);
+          // host 채팅 테스트
+          // setTest(res.data.data.map((el: any) => el.room_id));
         }
       })
       .catch((err) => console.log(err.message));
@@ -94,6 +99,7 @@ const ChattingItem = () => {
       }
     }
   };
+
   return (
     <div>
       <div className="flex justify-center items-center">
