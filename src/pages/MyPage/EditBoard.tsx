@@ -176,6 +176,25 @@ const EditBoard = ({ setEditBoard, item }: Props) => {
     setBoardId(item.board_id);
   }, [item]);
 
+  const handleTravelersChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const value = event.target.value;
+
+    if (isNaN(Number(value))) {
+      alert('숫자를 입력해주세요!');
+    } else {
+      if (Number(value) <= 30) {
+        setTravelers(Number(value));
+      } else {
+        setTravelers(0);
+        const element = document.getElementById('maxTravelers');
+        if (element) {
+          element.classList.add('text-red-500');
+          element.classList.add('animate-pulse');
+        }
+      }
+    }
+  };
+
   /* -------------------------------------------------------------------------- */
   /*                                 //모집상태 전처리                                 */
   /* -------------------------------------------------------------------------- */
@@ -201,7 +220,7 @@ const EditBoard = ({ setEditBoard, item }: Props) => {
           onGatherEndDateChange={(e) => setGatherEndDate(e.target.value)}
           onTripStartDateChange={(e) => setTripStartDate(e.target.value)}
           onTripEndDateChange={(e) => setTripEndDate(e.target.value)}
-          onTravelersChange={(e) => setTravelers(Number(e.target.value))}
+          onTravelersChange={handleTravelersChange}
           onSubmit={handleEditSubmit}
         />
       )}
