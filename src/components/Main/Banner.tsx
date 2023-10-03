@@ -32,14 +32,14 @@ const Banner = () => {
           clickable: true,
         }}
         modules={[Navigation, EffectFade, Pagination, Autoplay]}
-        className="w-[450px] h-[120px]"
+        className="w-full h-[120px]"
         loop={true}
         {...navigationSettings}
       >
         {items.map((item, idx) => {
           return (
             <SwiperSlide key={idx}>
-              <img src={item.src} className="w-[450px] h-[120px] " />
+              <img src={item.src} className="max-w-full h-[120px] " />
             </SwiperSlide>
           );
         })}
