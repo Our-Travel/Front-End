@@ -21,6 +21,7 @@ div:focus,
 @media (max-width: 768px) {
   .main-backGround {
     background-image: none;
+    background-color: rgb(250, 238, 241);
   }
 }
 
