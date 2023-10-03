@@ -51,7 +51,7 @@ export const Profile = ({ page }: pageInfo) => {
 
   return (
     <>
-      <div className="w-[25rem] mx-auto">
+      <div className="w-full mx-auto">
         {loading ? (
           <Spinner page={page} />
         ) : (
@@ -80,7 +80,7 @@ interface MyTab {
 
 export const MypageTab = ({ name, link }: MyTab) => {
   return (
-    <Link to={link} className="flex flex-row justify-between items-center w-[25rem] h-14 text-lg">
+    <Link to={link} className="flex flex-row justify-between items-center w-full h-14 text-lg">
       <p>{name}</p>
       <MdArrowForwardIos className="w-5 h-5" />
     </Link>

@@ -48,18 +48,19 @@ const MyPage = () => {
   };
 
   return (
-    <div className="h-full flex flex-col">
+    <div className="mx-5">
       <Header title={'마이페이지'} back={false} icon={''} />
       {modal && <WriteButton title="로그아웃 하시겠습니까?" button="로그아웃" setModal={setModal} handleButton={logout} />}
-      <div className="flex flex-col flex-grow gap-4 mx-auto my-6">
+      <div className="flex text-center flex-col flex-grow gap-4 mx-auto my-6">
         <Profile page={true} />
         <button className="profileEdit" onClick={handleEdit}>
           프로필 수정
         </button>
-        <div className="flex flex-col gap-5 line">
-          <MypageTab name={'내가 작성한 글'} link={'/mypage/mywrite'} />
-          <MypageTab name={'즐겨찾기'} link={'/mypage/favorite'} />
-        </div>
+
+        <MypageTab name={'내가 작성한 글'} link={'/mypage/mywrite'} />
+        <MypageTab name={'즐겨찾기'} link={'/mypage/favorite'} />
+        <div className="line" />
+
         <ul className="flex flex-grow-[0.7] items-center justify-center">
           {icons.map(({ Icon, link, text }, index) => (
             <li key={index} className="flex items-center justify-center">
