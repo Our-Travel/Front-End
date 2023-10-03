@@ -123,6 +123,7 @@ const BoardModal = ({ setModal }: Props) => {
   const statusInKorean = getStatusInKorean(statusFromServer); // 한글 상태로 변환
 
   const isButtonActive = statusFromServer === 'OPEN';
+  const isButtonEnabled = isButtonActive && item.had_count !== item.number_of_travelers;
 
   return (
     <div ref={modalRef} onKeyDown={handleKeyDown} tabIndex={0} className="shadow-2xl">
@@ -151,16 +152,17 @@ const BoardModal = ({ setModal }: Props) => {
             </div>
             <div className="flex text-sm my-3">
               <div className="w-1/5 font-semibold text-gray-600">여행인원</div>
-              <span className="text-gray-500">{item.number_of_travelers} 명</span>
+              <span className="text-gray-500">
+                {item.number_of_travelers} 명 ( {item.head_count == null ? '?' : item.head_count} / {item.number_of_travelers} )
+              </span>
             </div>
           </div>
-          {/* 추후에 해당 게시글을 작성한 사람과의 채팅으로 넘어가게 변경해야함 */}
 
           <button
             ref={chatButtonRef}
             onClick={handleChatButtonClick}
-            disabled={!isButtonActive}
-            className={`${isButtonActive ? 'buttonHoverColor buttonHoverSize' : 'bg-gray-400 text-gray-100'} absolute bottom-3 w-3/5 h-10 left-1/2 -translate-x-1/2 py-1 rounded-lg text-lg font-extrabold`}
+            disabled={!isButtonEnabled}
+            className={`${isButtonEnabled ? 'buttonHoverColor buttonHoverSize' : 'bg-gray-400 text-gray-100'} absolute bottom-3 w-3/5 h-10 left-1/2 -translate-x-1/2 py-1 rounded-lg text-lg font-extrabold`}
           >
             채팅하러 가기
           </button>
