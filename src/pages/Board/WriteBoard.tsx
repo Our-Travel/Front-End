@@ -70,6 +70,18 @@ const WriteBoard = () => {
     write();
   };
 
+  const handleTravelersChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const value = event.target.value;
+
+    // 입력값(value)이 숫자가 아닌 경우에만 경고 메시지 표시
+    if (isNaN(Number(value))) {
+      alert('숫자를 입력해주세요!');
+    } else {
+      // 숫자인 경우만 상태 업데이트
+      setTravelers(Number(value));
+    }
+  };
+
   return (
     <div className="relative h-[100vh]">
       <Header title="게시글 작성" back={true} icon={''} />
@@ -90,7 +102,7 @@ const WriteBoard = () => {
         onGatherEndDateChange={(e) => setGatherEndDate(e.target.value)}
         onTripStartDateChange={(e) => setTripStartDate(e.target.value)}
         onTripEndDateChange={(e) => setTripEndDate(e.target.value)}
-        onTravelersChange={(e) => setTravelers(Number(e.target.value))}
+        onTravelersChange={handleTravelersChange}
         onSubmit={handleSubmit}
       />
     </div>

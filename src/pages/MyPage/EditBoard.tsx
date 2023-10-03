@@ -176,6 +176,18 @@ const EditBoard = ({ setEditBoard, item }: Props) => {
     setBoardId(item.board_id);
   }, [item]);
 
+  const handleTravelersChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const value = event.target.value;
+
+    // 입력값(value)이 숫자가 아닌 경우에만 경고 메시지 표시
+    if (isNaN(Number(value))) {
+      alert('숫자를 입력해주세요!');
+    } else {
+      // 숫자인 경우만 상태 업데이트
+      setTravelers(Number(value));
+    }
+  };
+
   /* -------------------------------------------------------------------------- */
   /*                                 //모집상태 전처리                                 */
   /* -------------------------------------------------------------------------- */
@@ -201,7 +213,7 @@ const EditBoard = ({ setEditBoard, item }: Props) => {
           onGatherEndDateChange={(e) => setGatherEndDate(e.target.value)}
           onTripStartDateChange={(e) => setTripStartDate(e.target.value)}
           onTripEndDateChange={(e) => setTripEndDate(e.target.value)}
-          onTravelersChange={(e) => setTravelers(Number(e.target.value))}
+          onTravelersChange={handleTravelersChange}
           onSubmit={handleEditSubmit}
         />
       )}
