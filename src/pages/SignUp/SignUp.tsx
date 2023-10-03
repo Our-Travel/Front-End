@@ -46,7 +46,7 @@ const SignUp = () => {
   return (
     <>
       <Header title={'회원가입'} back={true} icon={''} />
-      <form className="w-[25rem] mx-auto mt-6">
+      <form className="w-full px-4 mt-6">
         <div className="flex flex-col gap-4">
           <Email page={false} title={'이메일'} data={email.data} state={email.state} onChange={email.onChange} onReset={email.onReset} />
           <div className="inputForm">
@@ -65,17 +65,17 @@ const SignUp = () => {
             </label>
             <div className="flex justify-between">
               <input required type="text" name="nickName" id="nickName" placeholder="한글, 영문, 숫자 가능 3~8자" className={`shortInput ${nickNameInput()}`} onChange={nickName.onChange} value={nickName.data} />
-              <button type="button" className={`w-24 h-12 border rounded ${nickNameBtn()}`} onClick={handleNickName} disabled={!nickName.state}>
+              <button type="button" className={`w-24 h-12 ml-7 border rounded ${nickNameBtn()}`} onClick={handleNickName} disabled={!nickName.state}>
                 중복확인
               </button>
             </div>
             <span className="errorText">{nickName.data && !nickName.state && '올바른 닉네임을 입력해주세요. (공백 불가)'}</span>
           </div>
         </div>
-        <div className="absolute bottom-7">
-          <Button name={'가입하기'} page={false} active={active} onClick={join} />
-        </div>
       </form>
+      <div className="absolute w-full px-4 bottom-7">
+        <Button name={'가입하기'} page={false} active={active} onClick={join} />
+      </div>
     </>
   );
 };

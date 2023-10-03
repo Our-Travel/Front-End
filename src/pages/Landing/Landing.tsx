@@ -37,9 +37,11 @@ export default function Landing() {
           </SwiperSlide>
         ))}
       </Swiper>
-      <div className="flex flex-col gap-5 mb-4">
-        <Button name={'로그인'} page={true} active={active} onClick={() => navigate('/signin')} />
-        <div className="text-center">
+      <div className="mt-5">
+        <div className="mx-4">
+          <Button name={'로그인'} page={true} active={active} onClick={() => navigate('/signin')} />
+        </div>
+        <div className="text-center my-7">
           <div className="flex items-center">
             <div className="flex-grow border-b"></div>
             <div className="px-2 text-gray-500 text-xs">Social Login</div>
@@ -51,7 +53,7 @@ export default function Landing() {
           <LoginGoogle />
         </div>
       </div>
-      <div className="flex flex-row justify-center">
+      <div className="flex flex-row justify-center mx-4">
         <ChoiceTab />
       </div>
     </>

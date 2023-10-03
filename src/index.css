@@ -33,10 +33,10 @@ div:focus,
     @apply flex flex-col gap-1;
   }
   .inputStyle {
-    @apply w-[25rem] h-12 border border-gray-400 rounded placeholder:text-gray-400 pl-2;
+    @apply w-full h-12 border border-gray-400 rounded placeholder:text-gray-400 pl-2;
   }
   .shortInput {
-    @apply w-[18rem] h-12 border border-gray-400 rounded placeholder:text-gray-400 pl-2;
+    @apply w-full h-12 border border-gray-400 rounded placeholder:text-gray-400 pl-2;
   }
   .signUpAddress {
     @apply w-48 h-12;
