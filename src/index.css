@@ -18,6 +18,11 @@ div:focus,
   background-size: cover;
   background-position: center;
 }
+@media (max-width: 768px) {
+  .main-backGround {
+    background-image: none;
+  }
+}
 
 @layer components {
   .hideTitle {
