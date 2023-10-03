@@ -123,7 +123,7 @@ const BoardModal = ({ setModal }: Props) => {
   const statusInKorean = getStatusInKorean(statusFromServer); // 한글 상태로 변환
 
   const isButtonActive = statusFromServer === 'OPEN';
-  const isButtonEnabled = isButtonActive && item.had_count !== item.number_of_travelers;
+  const isButtonEnabled = isButtonActive && item.head_count !== item.number_of_travelers;
 
   return (
     <div ref={modalRef} onKeyDown={handleKeyDown} tabIndex={0} className="shadow-2xl">
