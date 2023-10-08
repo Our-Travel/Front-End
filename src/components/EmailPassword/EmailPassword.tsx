@@ -25,9 +25,9 @@ export const Email = ({ page, title, data, state, onChange, onReset }: userInfo)
           {title}
         </label>
         <div className="flex">
-          <div className="w-full">
+          <div className="w-full relative">
             <input required type="email" id="email" placeholder="email@email.com" className={page ? `${emailInput()} inputStyle` : `${emailInput()} shortInput`} onChange={onChange} value={data} />
-            {page && data && <MdOutlineCancel className="absolute right-5 w-6 h-6 text-gray-600 cursor-pointer" onClick={onReset} />}
+            {page && data && <MdOutlineCancel className="absolute top-1/4 right-4 w-6 h-6 text-gray-600 cursor-pointer" onClick={onReset} />}
           </div>
           {page || (
             <button type="button" className={`w-24 h-12 ml-7 border rounded ${emailBtn()}`} onClick={handleEmail} disabled={!state}>
@@ -47,7 +47,7 @@ export const Password = ({ page, title, data, state, onChange, onReset }: userIn
       <label htmlFor="userPw1" className="text-left text-gray-500">
         {title}
       </label>
-      <div className="">
+      <div className="relative">
         <input
           required
           type="password"
@@ -58,7 +58,7 @@ export const Password = ({ page, title, data, state, onChange, onReset }: userIn
           onChange={onChange}
           value={data}
         />
-        {page && data ? <MdOutlineCancel className="absolute right-5 w-6 h-6 text-gray-700 cursor-pointer" onClick={onReset} /> : null}
+        {page && data ? <MdOutlineCancel className="absolute top-1/4 right-4 w-6 h-6 text-gray-700 cursor-pointer" onClick={onReset} /> : null}
       </div>
       <span className={page ? 'absolute top-[4.8rem] text-xs errorText' : 'errorText'}>{data && !state ? '형식에 알맞는 비밀번호를 입력해주세요.' : null}</span>
     </>
