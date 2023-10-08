@@ -127,7 +127,7 @@ const BoardModal = ({ setModal }: Props) => {
 
   return (
     <div ref={modalRef} onKeyDown={handleKeyDown} tabIndex={0} className="shadow-2xl">
-      <div onClick={closeModal} className="absolute w-full h-screen modalPosition bg-gray-400 opacity-25" />
+      <div onClick={closeModal} className="absolute w-full h-screen centerPosition bg-gray-400 opacity-25" />
       {item && (
         <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[90%] h-[450px] bg-white rounded-xl ">
           <h3 className="text-xl font-semibold my-4">{item.title}</h3>
