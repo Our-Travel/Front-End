@@ -26,7 +26,7 @@ export default function Landing() {
   const isOpen = () => setModal(!modal);
 
   return (
-    <>
+    <div className="relative">
       <div className="w-20 h-20 mx-auto my-4">
         <Logo />
       </div>
@@ -53,9 +53,9 @@ export default function Landing() {
           <LoginGoogle />
         </div>
       </div>
-      <div className="flex flex-row justify-center mx-4">
+      <div className="w-full">
         <ChoiceTab />
       </div>
-    </>
+    </div>
   );
 }

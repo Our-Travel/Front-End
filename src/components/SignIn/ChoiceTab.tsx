@@ -8,8 +8,7 @@ const ChoiceTab = () => {
     setModal(true);
   };
   return (
-    <>
-      {modal && <Feedback setModal={setModal} />}
+    <div className="w-full">
       <div className="flex felx-row items-center justify-center my-6 text-gray-500">
         <button className="text-gray-500" onClick={openModal}>
           feedback
@@ -23,7 +22,8 @@ const ChoiceTab = () => {
           <span>둘러보기</span>
         </Link>
       </div>
-    </>
+      {modal && <Feedback setModal={setModal} />}
+    </div>
   );
 };
 
