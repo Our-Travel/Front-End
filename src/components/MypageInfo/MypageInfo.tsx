@@ -51,7 +51,7 @@ export const Profile = ({ page }: pageInfo) => {
 
   return (
     <>
-      <div>
+      <div className="my-4">
         {loading ? (
           <Spinner page={page} />
         ) : (

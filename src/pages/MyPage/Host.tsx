@@ -143,7 +143,7 @@ const Host = () => {
   return (
     <div>
       <Header title={hostActive ? 'Host 수정' : 'Host 등록'} back={true} icon={''} />
-      <div className={`px-4 line ${hostActive ? 'mt-6' : 'my-6'}`}>
+      <div className="px-4 line">
         <Profile page={true} />
         <button className="profileEdit" onClick={handleEdit}>
           프로필 수정
