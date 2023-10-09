@@ -1,6 +1,6 @@
 import React, { ChangeEvent, useState } from 'react';
 import Header from '../../components/Header/Header';
-import WriteButton from '../../components/Board/WriteButton';
+import ModalButton from '../../components/Modal/ModalButton';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import regions from '../../util/region';
@@ -70,10 +70,29 @@ const WriteBoard = () => {
     write();
   };
 
+  const handleTravelersChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const value = event.target.value;
+
+    if (isNaN(Number(value))) {
+      alert('숫자를 입력해주세요!');
+    } else {
+      if (Number(value) <= 30) {
+        setTravelers(Number(value));
+      } else {
+        setTravelers(0);
+        const element = document.getElementById('maxTravelers');
+        if (element) {
+          element.classList.add('text-red-500');
+          element.classList.add('animate-pulse');
+        }
+      }
+    }
+  };
+
   return (
     <div className="relative h-[100vh]">
       <Header title="게시글 작성" back={true} icon={''} />
-      {modal && <WriteButton title="글을 작성하시겠습니까?" button="작성하기" setModal={setModal} handleButton={handleWriteBoardButton} />}
+      {modal && <ModalButton title="글을 작성하시겠습니까?" button="작성하기" setModal={setModal} handleButton={handleWriteBoardButton} />}
       <PostForm
         title={title}
         content={content}
@@ -90,7 +109,7 @@ const WriteBoard = () => {
         onGatherEndDateChange={(e) => setGatherEndDate(e.target.value)}
         onTripStartDateChange={(e) => setTripStartDate(e.target.value)}
         onTripEndDateChange={(e) => setTripEndDate(e.target.value)}
-        onTravelersChange={(e) => setTravelers(Number(e.target.value))}
+        onTravelersChange={handleTravelersChange}
         onSubmit={handleSubmit}
       />
     </div>

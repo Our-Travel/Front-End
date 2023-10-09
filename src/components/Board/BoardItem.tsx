@@ -6,12 +6,12 @@ import { useRecoilValue } from 'recoil';
 interface BoardItemProps {
   writer: string;
   title: string;
-  image_path: string;
+  profile_image_full_path: string;
   content: string;
   like_counts: number;
   onItemClick: () => void;
 }
-const BoardItem = ({ image_path, writer, title, like_counts, onItemClick }: BoardItemProps) => {
+const BoardItem = ({ profile_image_full_path, writer, title, like_counts, onItemClick }: BoardItemProps) => {
   const signType = useRecoilValue(loginType);
   const handleClick = () => {
     onItemClick(); // 클릭 이벤트를 BoardList(상위) 컴포넌트로 전달
@@ -25,10 +25,10 @@ const BoardItem = ({ image_path, writer, title, like_counts, onItemClick }: Boar
 
   return (
     <div onClick={handleClick} onKeyDown={handleKeyDown} tabIndex={0} className="relative flex h-[80px] hover:bg-pink-50 border-b-2 pb-24 px-2">
-      <div className="absolute top-[50%] -translate-y-[50%] w-20 px-2 overflow-hidden whitespace-nowrap">
-        <img src={image_path || (signType ? '/assets/profileSocial.svg' : image_path)} className="w-full h-full rounded-full border border-gray-300" alt="마이페이지 프로필사진" />
+      <div className="absolute top-[50%] -translate-y-[50%] w-24 px-2 overflow-hidden whitespace-nowrap">
+        <img src={profile_image_full_path || (signType ? '/assets/profile.svg' : '/assets/profileSocial.svg')} className="w-full h-full rounded-full border border-gray-300" alt="프로필" />
       </div>
-      <div className="absolute left-[20%] w-4/5 top-[50%] -translate-y-[50%] text-left px-3">
+      <div className="absolute left-[30%] sm:left-1/4 top-[50%] -translate-y-[50%] text-left px-3">
         <div className="font-semibold mr-10">{writer}</div>
         <div className="text-gray-600  mr-10">{title}</div>
       </div>

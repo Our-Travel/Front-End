@@ -1,5 +1,4 @@
 import React, { useState, useRef, ReactElement, useEffect } from 'react';
-import ChattingHeader from '../../components/Header/ChattingHeader';
 import Header from '../../components/Header/Header';
 import { CiMenuKebab } from 'react-icons/ci';
 import FriendChat from './../../components/Chatting/FriendChat';
