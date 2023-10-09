@@ -14,19 +14,6 @@ export const hostCheck = atom<boolean>({
   default: false,
 });
 
-export const hostRoomId = atom<number>({
-  key: 'hostRoomId',
-  default: 0,
-  // effects_UNSTABLE: [persistAtom],
-});
-
-// roomId 테스트
-export const roomList = atom<number[]>({
-  key: 'roomList',
-  default: [],
-  effects_UNSTABLE: [persistAtom],
-});
-
 export const profileUpdate = atom<boolean>({
   key: 'profileUpdate',
   default: false,
