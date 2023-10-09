@@ -64,9 +64,9 @@ const SignIn = () => {
       <div className="w-52 h-52 mx-auto my-10">
         <Logo />
       </div>
-      <form className="w-full px-4">
+      <form className="w-full flex flex-col gap-5 px-4">
         <Email page={true} title={'이메일'} data={email.data} state={email.state} onChange={email.onChange} onReset={email.onReset} />
-        <div className="mt-3 inputForm">
+        <div className="relative inputForm">
           <Password page={true} title={'비밀번호'} data={password.data} state={password.state} onChange={password.onChange} onReset={password.onReset} />
         </div>
         <div className="mt-7">

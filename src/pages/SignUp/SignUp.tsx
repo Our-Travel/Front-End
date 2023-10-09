@@ -35,7 +35,7 @@ const SignUp = () => {
   };
 
   const handleNickName = () => signupCheck('nickName', nickName.data);
-  const nickNameBtn = () => (status === 200 ? 'text-green-600 border-green-600' : status === 400 ? 'text-check-red border-check-red' : 'text-gray-500 border-gray-400');
+  const nickNameBtn = () => (status === 200 ? 'text-green-600 border-green-600' : status === 400 ? 'text-check-red border-check-red' : nickName.state ? 'text-black border-black' : 'text-gray-500 border-gray-400');
   const nickNameInput = () => (!nickName.data.length || nickName.state ? 'border-gray-400' : 'border-check-red outline-check-red');
   const passwordInput = () => (!pwCheck.data.length || password.data === pwCheck.data ? 'border-gray-400' : 'border-check-red outline-check-red');
 
@@ -64,8 +64,8 @@ const SignUp = () => {
               닉네임
             </label>
             <div className="flex justify-between">
-              <input required type="text" name="nickName" id="nickName" placeholder="한글, 영문, 숫자 가능 3~8자" className={`shortInput ${nickNameInput()}`} onChange={nickName.onChange} value={nickName.data} />
-              <button type="button" className={`w-24 h-12 ml-7 border rounded ${nickNameBtn()}`} onClick={handleNickName} disabled={!nickName.state}>
+              <input required type="text" name="nickName" id="nickName" placeholder="한글, 영문, 숫자 가능 3~8자" className={`inputStyle ${nickNameInput()}`} onChange={nickName.onChange} value={nickName.data} />
+              <button type="button" className={`w-28 h-12 ml-7 border rounded ${nickNameBtn()}`} onClick={handleNickName} disabled={!nickName.state}>
                 중복확인
               </button>
             </div>

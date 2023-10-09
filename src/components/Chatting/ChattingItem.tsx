@@ -19,6 +19,9 @@ const ChattingItem = () => {
   const token = localStorage.getItem('token');
   const client = useRef<CompatClient>();
 
+  // 삭제 탐지 테스트
+  const [test, setTest] = useState(false);
+
   // useEffect(() => {
   //   axios
   //     .get('https://ourtravel.site/api/dev/room', {
@@ -57,13 +60,13 @@ const ChattingItem = () => {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((res) => {
-        console.log(res);
         if (res.status === 200) {
+          console.log(res);
           setChatList(res.data.data);
         }
       })
-      .catch((err) => console.log(err.message));
-  }, [token, setExitUser]);
+      .catch((err) => console.log(err));
+  }, [token, setExitUser, test]);
 
   const toggleRoomSelection = (room_id: string) => {
     // 이미 선택한 방인지 확인
@@ -77,6 +80,7 @@ const ChattingItem = () => {
       setCheckedRooms([...checkedRooms, room_id]);
     }
   };
+
   const deleteChatting = () => {
     if (checkedRooms.length > 0) {
       // 선택한 방들을 나가는 요청 처리
@@ -89,11 +93,17 @@ const ChattingItem = () => {
           .then((res) => {
             console.log(res);
             setExitUser(res.data.msg);
+
+            // 탐지 test
+            alert(res.data.msg);
+            setTest(!test);
+            setTrash(!trash);
           })
           .catch((err) => console.error(err));
       }
     }
   };
+
   return (
     <div>
       <div className="flex justify-center items-center">
