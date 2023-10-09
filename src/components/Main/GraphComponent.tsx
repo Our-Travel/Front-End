@@ -115,7 +115,7 @@ function GraphComponent() {
           <h3 className="hover:scale-110">{location}</h3>
         </div>
       </div>
-      <div className="w-[400px] h-[300px] flex justify-center mt-7 mx-auto ">
+      <div className="max-w-[400px] h-[300px] flex justify-center mt-7 mx-auto ">
         <Line data={chartData} options={options} />
       </div>
       <div className="font-normal mt-8">

@@ -2,15 +2,12 @@ import React, { useState } from 'react';
 import Logo from '../../components/Logo/Logo';
 import { Button, LoginKakao, LoginGoogle } from '../../components/LoginButton/Button';
 import ChoiceTab from 'components/SignIn/ChoiceTab';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { Pagination, Autoplay, A11y } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import '../../components/utilCss/landingSwiper.css';
-import { GrLanguage } from 'react-icons/gr';
-// import WriteButton from '../../components/Chatting/WriteButton';
-import WriteButton from 'components/Board/WriteButton';
 
 const promotionImg = [
   { title: 'welcome Korea', imgSrc: '/assets/square1.png' },
@@ -26,7 +23,7 @@ export default function Landing() {
   const isOpen = () => setModal(!modal);
 
   return (
-    <>
+    <div className="relative">
       <div className="w-20 h-20 mx-auto my-4">
         <Logo />
       </div>
@@ -37,9 +34,11 @@ export default function Landing() {
           </SwiperSlide>
         ))}
       </Swiper>
-      <div className="flex flex-col gap-5 mb-4">
-        <Button name={'로그인'} page={true} active={active} onClick={() => navigate('/signin')} />
-        <div className="text-center">
+      <div className="mt-5">
+        <div className="mx-4">
+          <Button name={'로그인'} page={true} active={active} onClick={() => navigate('/signin')} />
+        </div>
+        <div className="text-center my-7">
           <div className="flex items-center">
             <div className="flex-grow border-b"></div>
             <div className="px-2 text-gray-500 text-xs">Social Login</div>
@@ -51,9 +50,9 @@ export default function Landing() {
           <LoginGoogle />
         </div>
       </div>
-      <div className="flex flex-row justify-center">
+      <div className="w-full">
         <ChoiceTab />
       </div>
-    </>
+    </div>
   );
 }

@@ -102,13 +102,13 @@ const ProfileEdit = () => {
         </p>
       )}
       {uploadModalOpen && <UploadProfile onClose={closeImagePopup} />}
-      <form className="w-[25rem] mx-auto">
-        <div className="flex flex-col items-center justify-center gap-5 my-8">
+      <form className="w-full px-4">
+        <div className="items-center justify-center gap-5 my-8">
           <div className="relative">
             <Profile page={false} />
-            <BsQuestionSquare className="absolute top-0 left-28 hover:text-main-color" onMouseEnter={tooltipEnter} onMouseLeave={tooltipLeave} />
+            <BsQuestionSquare className="absolute top-0 right-0 hover:text-main-color" onMouseEnter={tooltipEnter} onMouseLeave={tooltipLeave} />
             {show && (
-              <div className="absolute top-5 left-12 flex flex-col gap-1 shadow-xl border rounded-lg px-5 py-3 bg-white">
+              <div className="absolute top-5 right-2 flex flex-col gap-1 shadow-xl border rounded-lg px-5 py-3 bg-white">
                 {profileToolTip.map(({ src, alt }, index) => (
                   <div key={index} className="flex items-center justify-center gap-1">
                     <img src={src} className="w-14 h-15" alt={alt} />
@@ -118,7 +118,7 @@ const ProfileEdit = () => {
               </div>
             )}
           </div>
-          <div className="flex gap-3">
+          <div className="flex justify-center gap-3 mt-4">
             {profileBtn.map(({ title }, index) => (
               <button key={index} type="button" className="flex items-center justify-center gap-1 profileEditBtn" onClick={index ? defaultImage : openImagePopup}>
                 {!index && <AiOutlineSetting />}
@@ -155,10 +155,10 @@ const ProfileEdit = () => {
             <span className="errorText">{newNickName.data && !newNickName.state && '올바른 닉네임을 입력해주세요. (공백 불가)'}</span>
           </div>
         </div>
-        <div className="absolute bottom-16">
-          <Button name={'수정하기'} page={false} active={active} onClick={userDataEdit} />
-        </div>
       </form>
+      <div className="absolute w-full bottom-16 px-4">
+        <Button name={'수정하기'} page={false} active={active} onClick={userDataEdit} />
+      </div>
     </>
   );
 };
