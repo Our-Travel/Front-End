@@ -1,6 +1,6 @@
 import React, { ChangeEvent, useState } from 'react';
 import Header from '../../components/Header/Header';
-import WriteButton from '../../components/Board/WriteButton';
+import ModalButton from '../../components/Modal/ModalButton';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import regions from '../../util/region';
@@ -92,7 +92,7 @@ const WriteBoard = () => {
   return (
     <div className="relative h-[100vh]">
       <Header title="게시글 작성" back={true} icon={''} />
-      {modal && <WriteButton title="글을 작성하시겠습니까?" button="작성하기" setModal={setModal} handleButton={handleWriteBoardButton} />}
+      {modal && <ModalButton title="글을 작성하시겠습니까?" button="작성하기" setModal={setModal} handleButton={handleWriteBoardButton} />}
       <PostForm
         title={title}
         content={content}

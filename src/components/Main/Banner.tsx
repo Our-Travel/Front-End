@@ -1,4 +1,3 @@
-import { useRef } from 'react';
 import SwiperCore, { Autoplay, EffectFade, Navigation, Pagination, Scrollbar } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 // Import Swiper styles

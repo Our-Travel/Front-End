@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction } from 'react';
+import React from 'react';
 import regions from '../../util/region';
 
 interface PostFormProps {

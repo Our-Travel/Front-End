@@ -1,4 +1,4 @@
-import React, { useState, MouseEvent } from 'react';
+import React, { useState } from 'react';
 import Header from '../../components/Header/Header';
 import { MypageTab, Profile } from '../../components/MypageInfo/MypageInfo';
 import { Link } from 'react-router-dom';
@@ -8,7 +8,7 @@ import { MdLogout } from 'react-icons/md';
 import { IconType } from 'react-icons';
 import { useRecoilValue, useResetRecoilState } from 'recoil';
 import { hostCheck, loginType, profileUpdate } from '../../Atom/userAtom';
-import WriteButton from 'components/Board/WriteButton';
+import ModalButton from 'components/Modal/ModalButton';
 import { useNavigate } from 'react-router-dom';
 
 const MyPage = () => {
@@ -83,7 +83,7 @@ const MyPage = () => {
           </ul>
         </div>
       </div>
-      {modal && <WriteButton title="로그아웃 하시겠습니까?" button="로그아웃" setModal={setModal} handleButton={logout} />}
+      {modal && <ModalButton title="로그아웃 하시겠습니까?" button="로그아웃" setModal={setModal} handleButton={logout} />}
     </div>
   );
 };

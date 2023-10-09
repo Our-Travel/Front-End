@@ -2,15 +2,12 @@ import React, { useState } from 'react';
 import Logo from '../../components/Logo/Logo';
 import { Button, LoginKakao, LoginGoogle } from '../../components/LoginButton/Button';
 import ChoiceTab from 'components/SignIn/ChoiceTab';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { Pagination, Autoplay, A11y } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import '../../components/utilCss/landingSwiper.css';
-import { GrLanguage } from 'react-icons/gr';
-// import WriteButton from '../../components/Chatting/WriteButton';
-import WriteButton from 'components/Board/WriteButton';
 
 const promotionImg = [
   { title: 'welcome Korea', imgSrc: '/assets/square1.png' },

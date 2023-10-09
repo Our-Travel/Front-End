@@ -7,7 +7,7 @@ interface modal {
   button: string;
 }
 
-const WriteButton = ({ title, button, setModal, handleButton }: modal) => {
+const ModalButton = ({ title, button, setModal, handleButton }: modal) => {
   const modalRef = useRef<HTMLButtonElement>(null);
 
   const closeModal = () => {
@@ -49,4 +49,4 @@ const WriteButton = ({ title, button, setModal, handleButton }: modal) => {
   );
 };
 
-export default WriteButton;
+export default ModalButton;

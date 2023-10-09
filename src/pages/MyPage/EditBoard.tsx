@@ -1,8 +1,7 @@
 import React, { Dispatch, SetStateAction, useState, useEffect } from 'react';
 import { AiOutlineClose } from 'react-icons/ai';
-import WriteButton from '../../components/Board/WriteButton';
+import ModalButton from '../../components/Modal/ModalButton';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
 import regions from '../../util/region';
 import PostForm from '../../components/Board/PostForm';
 import { getStatusInKorean } from '../../util/status';
@@ -224,8 +223,8 @@ const EditBoard = ({ setEditBoard, item }: Props) => {
           onSubmit={handleEditSubmit}
         />
       )}
-      {deleteModal && <WriteButton title="글을 삭제하시겠습니까?" button="삭제하기" setModal={setDeleteModal} handleButton={handleDeleteButton} />}
-      {finishModal && <WriteButton title="글을 마감하시겠습니까?" button="마감하기" setModal={setFinishModal} handleButton={handleFinishButton} />}
+      {deleteModal && <ModalButton title="글을 삭제하시겠습니까?" button="삭제하기" setModal={setDeleteModal} handleButton={handleDeleteButton} />}
+      {finishModal && <ModalButton title="글을 마감하시겠습니까?" button="마감하기" setModal={setFinishModal} handleButton={handleFinishButton} />}
       <div className="mx-auto pt-8">
         <h3 className="font-medium mb-5 text-2xl">{item.title}</h3>
         <button onClick={closeEdit} className="absolute right-10 top-8 buttonHoverSize125">
