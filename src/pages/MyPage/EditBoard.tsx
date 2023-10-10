@@ -251,7 +251,9 @@ const EditBoard = ({ setEditBoard, item }: Props) => {
           </div>
           <div className="flex text-sm my-3">
             <div className="w-1/5 font-semibold text-gray-600">여행인원</div>
-            <span className="text-gray-500">{item.number_of_travelers}</span>
+            <span className="text-gray-500">
+              {item.number_of_travelers} 명 ( {item.head_count == null ? '?' : item.head_count} / {item.number_of_travelers} )
+            </span>
           </div>
         </div>
         <div className="my-10 left-1/2 mx-20">
