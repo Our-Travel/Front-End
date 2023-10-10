@@ -5,8 +5,7 @@ import { ChartOptions } from 'chart.js';
 import { SlLocationPin } from 'react-icons/sl';
 import addressGetter from '../../hooks/addressGetter';
 import { visitor } from 'util/visitor';
-import { convertAddressToKey } from 'util/convertAddress';
-import Papa from 'papaparse';
+import { convertAddressToKey } from 'util/region';
 import SelectArea from './SelectArea';
 
 Chart.register(LineElement, PointElement, CategoryScale, LinearScale, Tooltip, Legend);
