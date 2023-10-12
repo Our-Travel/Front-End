@@ -35,10 +35,8 @@ const HostList = () => {
     hostData();
   }, []);
 
-  console.log(roomId);
-
   // roomId 유무에 따른 채팅방 생성 및 입장
-  const hostChatting = async (memberId: number, nickName: string) => {
+  const hostChatting = async (memberId: number) => {
     try {
       const url = `${process.env.REACT_APP_REST_API_SERVER}/room/host/${memberId}`;
       // roomId가 null 이면 채팅방 생성 후 입장
@@ -46,7 +44,7 @@ const HostList = () => {
         const createRoom = await axios.post(url, {}, config);
         console.log(createRoom.data.msg);
         chatEnter(createRoom.data.data.chat_room_id);
-      } else if (roomId && localStorage.getItem('nickname') === nickName) {
+      } else if (roomId && Number(localStorage.getItem('memberId')) === memberId) {
         // roomId가 있는 경우 본인이 등록한 host도 자신의 채팅방을 들어가지게 되는데 이 부분에서 2개이상의 채팅방의 유저와 대화할 경우 roomId가 마지막 채팅방으로 덮어짐
         // 조건을 주고 어차피 host 채팅방 특성상 대화를 유저가 먼저 하기때문에 host는 채팅을 확인하려면 채팅목록으로 가서 새로운 채팅 알림있으면 선택해서 입장하면됨
         alert('채팅목록으로 이동합니다.');
@@ -92,7 +90,7 @@ const HostList = () => {
         {hosts.length ? (
           <ul className="grid grid-cols-2 gap-4 p-4">
             {hosts.map((list) => (
-              <li key={list.member_id} id={list.nick_name} className={`hostList ${list.member_id === numberId ? 'h-auto' : 'h-52'}`} onClick={() => hostChatting(list.member_id, list.nick_name)}>
+              <li key={list.member_id} id={list.nick_name} className={`hostList ${list.member_id === numberId ? 'h-auto' : 'h-52'}`} onClick={() => hostChatting(list.member_id)}>
                 <div>
                   <img src={list.host_profile_image ? list.host_profile_image : '/assets/profile.svg'} className="w-20 h-20 mx-auto rounded-full" alt="호스트 기본 이미지" />
                   <span>{list.nick_name}</span>
