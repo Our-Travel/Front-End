@@ -33,3 +33,7 @@ export const boardItem = atom<any>({
   key: 'boardItem',
   default: null,
 });
+export const exitChat = atom<any>({
+  key: 'exitChat',
+  default: null,
+});

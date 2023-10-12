@@ -13,7 +13,7 @@ interface Props {
   setModal: Dispatch<SetStateAction<boolean>>;
 }
 
-const BoardModal = ({ modal, setModal }: Props) => {
+const BoardModal = ({ setModal }: Props) => {
   const setChatEnter = useSetRecoilState(chattingenter);
   const item = useRecoilValue(boardItem);
   const [isFavorited, setIsFavorited] = useState(false);
@@ -52,15 +52,17 @@ const BoardModal = ({ modal, setModal }: Props) => {
   const handleChatButtonClick = () => {
     if (isLoggedIn) {
       axios
-        .get(`https://ourtravel.site/api/dev/room/${item.board_id}`, { headers: { Authorization: `Bearer ${token}` } })
-        .then((res) => {
-          console.log(res);
-          setChatEnter(res);
+        .get(`https://ourtravel.site/api/dev/boards/${item.board_id}`, {
+          headers: { Authorization: `Bearer ${token}` },
+        })
+        .then((response) => {
+          const room_id = response.data.data.room_id;
+          console.log(response);
+          navigate(`/chatting/${room_id}`);
         })
         .catch((err) => {
           alert(err);
         });
-      navigate(`/chatting/${item.board_id}`);
     } else {
       navigate('/signin');
     }
@@ -121,10 +123,11 @@ const BoardModal = ({ modal, setModal }: Props) => {
   const statusInKorean = getStatusInKorean(statusFromServer); // 한글 상태로 변환
 
   const isButtonActive = statusFromServer === 'OPEN';
+  const isButtonEnabled = isButtonActive && item.head_count !== item.number_of_travelers;
 
   return (
     <div ref={modalRef} onKeyDown={handleKeyDown} tabIndex={0} className="shadow-2xl">
-      <div onClick={closeModal} className="absolute w-full h-screen modalPosition bg-gray-400 opacity-25" />
+      <div onClick={closeModal} className="absolute w-full h-screen centerPosition bg-gray-400 opacity-25" />
       {item && (
         <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[90%] h-[450px] bg-white rounded-xl ">
           <h3 className="text-xl font-semibold my-4">{item.title}</h3>
@@ -149,16 +152,17 @@ const BoardModal = ({ modal, setModal }: Props) => {
             </div>
             <div className="flex text-sm my-3">
               <div className="w-1/5 font-semibold text-gray-600">여행인원</div>
-              <span className="text-gray-500">{item.number_of_travelers} 명</span>
+              <span className="text-gray-500">
+                {item.number_of_travelers} 명 ( {item.head_count == null ? '?' : item.head_count} / {item.number_of_travelers} )
+              </span>
             </div>
           </div>
-          {/* 추후에 해당 게시글을 작성한 사람과의 채팅으로 넘어가게 변경해야함 */}
 
           <button
             ref={chatButtonRef}
             onClick={handleChatButtonClick}
-            disabled={!isButtonActive}
-            className={`${isButtonActive ? 'buttonHoverColor buttonHoverSize' : 'bg-gray-400 text-gray-100'} absolute bottom-3 w-3/5 h-10 left-1/2 -translate-x-1/2 py-1 rounded-lg text-lg font-extrabold`}
+            disabled={!isButtonEnabled}
+            className={`${isButtonEnabled ? 'buttonHoverColor buttonHoverSize' : 'bg-gray-400 text-gray-100'} absolute bottom-3 w-3/5 h-10 left-1/2 -translate-x-1/2 py-1 rounded-lg text-lg font-extrabold`}
           >
             채팅하러 가기
           </button>

@@ -14,9 +14,15 @@ div:focus,
 }
 
 .main-backGround {
-  background-image: url('/public/assets/ot.png');
+  background-image: url('/public/assets/otBackground.png');
   background-size: cover;
   background-position: center;
+}
+@media (max-width: 768px) {
+  .main-backGround {
+    background-image: none;
+    background-color: rgb(250, 238, 241);
+  }
 }
 
 @layer components {
@@ -27,22 +33,19 @@ div:focus,
     @apply flex flex-col gap-1;
   }
   .inputStyle {
-    @apply w-[25rem] h-12 border border-gray-400 rounded placeholder:text-gray-400 pl-2;
-  }
-  .shortInput {
-    @apply w-[18rem] h-12 border border-gray-400 rounded placeholder:text-gray-400 pl-2;
+    @apply w-full h-12 border border-gray-400 rounded placeholder:text-gray-400 pl-2;
   }
   .signUpAddress {
     @apply w-48 h-12;
   }
   .buttonStyle {
-    @apply flex justify-center items-center w-[25rem] h-12 mx-auto mt-2 rounded text-white bg-main-color;
+    @apply flex justify-center items-center w-[25rem] h-12 mx-auto rounded text-white bg-main-color;
   }
   .circleButtonStyle {
     @apply flex justify-center w-11 h-11 rounded-[50%];
   }
   .noActiveButton {
-    @apply flex justify-center items-center w-[25rem] h-12 mx-auto mt-2 rounded text-white bg-noActive-color;
+    @apply flex justify-center items-center w-[25rem] h-12 mx-auto rounded text-white bg-noActive-color;
   }
   .errorText {
     @apply text-left text-sm text-check-red;
@@ -51,7 +54,7 @@ div:focus,
     @apply top-1/2 left-1/2 -translate-x-[50%] -translate-y-[50%];
   }
   .line {
-    @apply after:content-[''] after:w-full after:h-[1px] after:bg-gray-200;
+    @apply border after:bg-gray-300;
   }
   .active {
     @apply cursor-pointer px-2 border-b-4 border-transparent border-main-color;
@@ -78,7 +81,7 @@ div:focus,
     @apply hover:border-main-color hover:text-main-color outline-red-300 transition-all duration-300;
   }
   .hostList {
-    @apply w-full flex flex-col justify-center gap-2 p-2 border-2 hover:border-red-300 cursor-pointer;
+    @apply w-full flex flex-col justify-center gap-1 p-2 border-2 hover:border-red-300 cursor-pointer;
   }
   .hostListBtn {
     @apply flex justify-center text-gray-600 border border-gray-400 rounded-lg hover:bg-red-100 hover:border-red-200;
@@ -90,16 +93,13 @@ div:focus,
     @apply px-5 py-1 text-base font-semibold border-2 rounded-xl border-gray-200 hover:bg-green-400 hover:text-white;
   }
   .profileEdit {
-    @apply w-[25rem] mx-auto h-9 mb-3 border rounded border-main-color text-main-color hover:bg-main-color hover:text-white;
+    @apply w-full mx-auto h-9 mb-3 border rounded border-main-color text-main-color hover:bg-main-color hover:text-white;
   }
 }
 
 @layer components {
   .listStyles {
     @apply flex items-center justify-between p-4;
-  }
-  .modalPosition {
-    @apply top-1/2 left-1/2 -translate-x-[50%] -translate-y-[50%];
   }
   .modalBlack {
     @apply fixed top-0 left-0 right-0 bottom-0 z-30 bg-black bg-opacity-30;

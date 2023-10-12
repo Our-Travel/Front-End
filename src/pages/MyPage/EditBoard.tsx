@@ -1,8 +1,7 @@
 import React, { Dispatch, SetStateAction, useState, useEffect } from 'react';
 import { AiOutlineClose } from 'react-icons/ai';
-import WriteButton from '../../components/Board/WriteButton';
+import ModalButton from '../../components/Modal/ModalButton';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
 import regions from '../../util/region';
 import PostForm from '../../components/Board/PostForm';
 import { getStatusInKorean } from '../../util/status';
@@ -176,6 +175,25 @@ const EditBoard = ({ setEditBoard, item }: Props) => {
     setBoardId(item.board_id);
   }, [item]);
 
+  const handleTravelersChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const value = event.target.value;
+
+    if (isNaN(Number(value))) {
+      alert('숫자를 입력해주세요!');
+    } else {
+      if (Number(value) <= 30) {
+        setTravelers(Number(value));
+      } else {
+        setTravelers(0);
+        const element = document.getElementById('maxTravelers');
+        if (element) {
+          element.classList.add('text-red-500');
+          element.classList.add('animate-pulse');
+        }
+      }
+    }
+  };
+
   /* -------------------------------------------------------------------------- */
   /*                                 //모집상태 전처리                                 */
   /* -------------------------------------------------------------------------- */
@@ -201,12 +219,12 @@ const EditBoard = ({ setEditBoard, item }: Props) => {
           onGatherEndDateChange={(e) => setGatherEndDate(e.target.value)}
           onTripStartDateChange={(e) => setTripStartDate(e.target.value)}
           onTripEndDateChange={(e) => setTripEndDate(e.target.value)}
-          onTravelersChange={(e) => setTravelers(Number(e.target.value))}
+          onTravelersChange={handleTravelersChange}
           onSubmit={handleEditSubmit}
         />
       )}
-      {deleteModal && <WriteButton title="글을 삭제하시겠습니까?" button="삭제하기" setModal={setDeleteModal} handleButton={handleDeleteButton} />}
-      {finishModal && <WriteButton title="글을 마감하시겠습니까?" button="마감하기" setModal={setFinishModal} handleButton={handleFinishButton} />}
+      {deleteModal && <ModalButton title="글을 삭제하시겠습니까?" button="삭제하기" setModal={setDeleteModal} handleButton={handleDeleteButton} />}
+      {finishModal && <ModalButton title="글을 마감하시겠습니까?" button="마감하기" setModal={setFinishModal} handleButton={handleFinishButton} />}
       <div className="mx-auto pt-8">
         <h3 className="font-medium mb-5 text-2xl">{item.title}</h3>
         <button onClick={closeEdit} className="absolute right-10 top-8 buttonHoverSize125">

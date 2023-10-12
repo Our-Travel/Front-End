@@ -14,11 +14,6 @@ export const hostCheck = atom<boolean>({
   default: false,
 });
 
-export const hostRoomId = atom<number>({
-  key: 'hostRoomId',
-  default: 0,
-});
-
 export const profileUpdate = atom<boolean>({
   key: 'profileUpdate',
   default: false,

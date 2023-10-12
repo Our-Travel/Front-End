@@ -1,16 +1,15 @@
 import React, { useState, useRef, ReactElement, useEffect } from 'react';
-import ChattingHeader from '../../components/Header/ChattingHeader';
 import Header from '../../components/Header/Header';
 import { CiMenuKebab } from 'react-icons/ci';
 import FriendChat from './../../components/Chatting/FriendChat';
 import MeChat from './../../components/Chatting/MeChat';
 import { Client, CompatClient, Message, Stomp } from '@stomp/stompjs';
 import SockJS from 'sockjs-client';
-import { useRecoilValue } from 'recoil';
-import { boardItem, chattingenter } from '../../Atom/atom';
-import { useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import axios from 'axios';
-
+import { useDebounce } from '../../hooks/useDebounce';
+import { useRecoilValue } from 'recoil';
+import { exitChat } from '../../Atom/atom';
 interface MessageDto {
   member_id: number;
   nickname: string;
@@ -18,13 +17,27 @@ interface MessageDto {
   created_date: string;
   // Add other properties if needed
 }
+interface ChatMessage {
+  created_date: string;
+  member_id: number;
+  message: string;
+  nickname: string;
+}
+interface ApiResponse {
+  result_code: 'S' | 'F';
+  msg: string;
+  data: {
+    chat_room_id: number;
+    chat_room_message_dto_list: ChatMessage[];
+    my_member_id: number;
+  };
+}
 
 const Chatting = () => {
-  const navigation = useNavigate();
-  const chatEnter = useRecoilValue(chattingenter);
-  const chatlist = chatEnter && chatEnter.data.data.chat_room_message_dto_list;
-  const item = useRecoilValue(boardItem);
+  const [chatEnter, setChatEnter] = useState<ApiResponse>();
+  const chatlist = chatEnter?.data.chat_room_message_dto_list;
   const token = localStorage.getItem('token');
+  const nickName = localStorage.getItem('nickname');
   const icon = <CiMenuKebab />;
   const sendText = useRef<HTMLInputElement>(null);
   let mainChat = useRef<HTMLDivElement>(null);
@@ -32,8 +45,12 @@ const Chatting = () => {
   // 웹소켓 테스트
   const client = useRef<CompatClient>();
   const [inputMessage, setInputMessage] = useState('');
+  const debounceMessage = useDebounce(inputMessage, 1000);
+  const [modalOpen, setModalOpen] = useState<boolean>(false);
   const [messages, setMessages] = useState<string[]>([]);
-  console.log(messages);
+  const exitUser = useRecoilValue(exitChat);
+  const { roomnum } = useParams();
+  // 웹소켓 연결 함수
   const connectHandler = () => {
     const headers = {
       Authorization: token,
@@ -43,58 +60,105 @@ const Chatting = () => {
       return sock;
     });
     client.current.connect(headers, () => {
-      client.current?.subscribe('/sub/message/' + chatEnter.data.data.chat_room_id, (message) => {
+      client.current?.subscribe('/sub/message/' + chatEnter?.data.chat_room_id, (message) => {
         const newMessage = JSON.parse(message.body);
         setMessages((prevMessages) => [...prevMessages, newMessage]);
-        console.log(message);
       });
     });
   };
   const sendHandler = () => {
+    if (inputMessage.trim() === '') {
+      alert('메시지를 입력해주세요!');
+      return;
+    }
     client.current?.send(
       '/pub/message',
       {},
       JSON.stringify({
-        room_id: item.board_id,
-        writer_nickname: item.writer,
+        room_id: roomnum,
+        writer_nickname: nickName,
         message: inputMessage,
       })
     );
+    scrollToBottom();
+    setInputMessage('');
   };
   useEffect(() => {
-    if (chatEnter && chatEnter.status === 200 && item) {
+    sendText.current?.focus();
+    axios
+      .get(`https://ourtravel.site/api/dev/room/${roomnum}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then((res) => {
+        if (res.status === 200) {
+          setChatEnter(res.data);
+        } else {
+          alert('에러가 발생하였습니다');
+        }
+      });
+  }, [roomnum, token]);
+  const scrollToBottom = () => {
+    if (mainChat.current) {
+      const { scrollHeight, clientHeight } = mainChat.current;
+      mainChat.current.scrollTop = scrollHeight - clientHeight;
+    }
+  };
+  const activeEnter = (e: any) => {
+    if (e.key === 'Enter') {
+      if (e.nativeEvent.isComposing) return;
+      sendHandler();
+    }
+  };
+  // 디바운스 훅 넣어보기
+  // useEffect(() => {}, []);
+  // 다른 페이지 이동시 웹소켓 연결 끊기
+  useEffect(() => {
+    if (chatEnter) {
+      scrollToBottom();
       connectHandler();
     }
-  }, [chatEnter, chatlist]);
-
+    return () => {
+      if (client.current) {
+        client.current.disconnect();
+      }
+    };
+  }, [chatEnter]);
   return (
     <div>
       <Header title={'상대 유저 아이디'} back={true} icon={icon} />
       <div className="w-full h-full">
-        <div className="text-[#FF626F] pt-2 pb-2 text-sm">맷돌이님과 블루님이 채팅을 시작하였습니다.</div>
+        <div className="text-[#FF626F] pt-2 pb-2 text-sm">{chatEnter && chatEnter.msg}</div>
         <div className="main-chat mx-2.5 overflow-y-auto h-screen pb-60" ref={mainChat}>
           {chatlist && messages && (
             <div>
               {chatlist.map((message: MessageDto, index: number) => (
-                <div key={index}>{message.member_id === 2 ? <FriendChat nickName={message.nickname} content={message.message} /> : <MeChat content={message.message} />}</div>
-              ))}
-              {messages.map((message: any, index: number) => (
-                <div key={index}>{chatlist.nickname === message.writer_nickname ? <FriendChat nickName={message.writer_nickname} content={message.message} /> : <MeChat content={message.message} />}</div>
+                <div key={index}>{message.nickname === nickName ? <MeChat content={message.message} /> : <FriendChat nickName={message.nickname} content={message.message} />}</div>
               ))}
             </div>
           )}
+          {chatEnter &&
+            messages.length !== 0 &&
+            messages.map((message: any, index: number) => <div key={index}>{nickName === message.writer_nickname ? <MeChat content={message.message} /> : <FriendChat nickName={message.writer_nickname} content={message.message} />}</div>)}
+          {exitUser && (
+            <div>
+              {nickName}님이 {exitUser}
+            </div>
+          )}
+          <div ref={mainChat} />
         </div>
         <div className="insert-box sticky bottom-14 h-14 flex">
           <input
             onChange={(e) => {
               setInputMessage(e.target.value);
             }}
+            onKeyDown={(e) => activeEnter(e)}
             type="text"
             className="grow m-3 rounded bg-[#f2f2f2]"
             id="chattext"
             name="chatinput"
             placeholder=""
             ref={sendText}
+            value={inputMessage}
           />
           <button onClick={sendHandler} id="sendbtn">
             <img src="/sendButton.svg" alt="메세지 전송버튼" className="mr-3" />

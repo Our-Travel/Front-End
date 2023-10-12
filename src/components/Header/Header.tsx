@@ -1,5 +1,5 @@
 import { SlArrowLeft } from 'react-icons/sl';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router';
 import ChattingModal from '../Modal/ChattingModal';
 import useLoginCheck from '../../hooks/useLoginCheck';
@@ -15,7 +15,6 @@ const Header = ({ title, back, icon }: header) => {
   const [modalOpen, setModal] = useState<boolean>(false);
   const currentURL = window.location.pathname;
   const lastPath = currentURL.substring(currentURL.lastIndexOf('/') + 1);
-  const [writeBoard, setWriteBoard] = useState(false);
 
   //로그인 되어있는지 확인하는 커스텀 훅
   const loginCheck = useLoginCheck();
@@ -39,13 +38,13 @@ const Header = ({ title, back, icon }: header) => {
 
   return (
     <>
-      <header className="flex justify-center items-center text-2xl py-3 border-b border-gray-200">
+      <header className="relative flex justify-center items-center text-2xl py-3 border-b  border-gray-200">
         {back && (
           <button type="button" className="absolute left-1 px-2 py-2" onClick={handleGoBack}>
             <SlArrowLeft />
           </button>
         )}
-        <h2 className="text-xl font-semibold">{title}</h2>
+        <h2 className="text-xl font-semibold cursor-default">{title}</h2>
         {icon && (
           <button type="button" className="absolute right-1 px-2 py-2 transition-transform hover:scale-125" onClick={handleButtonClick}>
             {icon}
@@ -56,5 +55,4 @@ const Header = ({ title, back, icon }: header) => {
     </>
   );
 };
-
 export default Header;

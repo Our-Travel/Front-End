@@ -1,9 +1,8 @@
-import React, { useState, useRef, SetStateAction, Dispatch, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import BoardItem from './BoardItem';
 import BoardModal from './BoardModal';
 import axios from 'axios';
-import regions from './../../util/region';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 import { boardItem } from '../../Atom/atom';
 
 interface BoardListProps {
@@ -15,7 +14,7 @@ const BoardList = ({ selectedButtonIndex, setSelectedButtonIndex }: BoardListPro
   const [modal, setModal] = useState<boolean>(false);
   const [boardList, setBoardList] = useState([]);
   //BoardItem에서 클릭된 정보를 저장하기 위한 객체
-  const [selectedItem, setSelectedItem] = useRecoilState<any>(boardItem);
+  const setSelectedItem = useSetRecoilState<any>(boardItem);
   const [lastId, setLastId] = useState<any>(100);
   //받아온 데이터의 갯수가 없다면? 을 받는 객체
   const [isEmpty, setEmpty] = useState<boolean>(true);
@@ -38,7 +37,9 @@ const BoardList = ({ selectedButtonIndex, setSelectedButtonIndex }: BoardListPro
         headers: headers,
       });
       const data = response.data.data.content;
+
       setBoardList(data);
+      console.log(data);
 
       const dataIsEmpty = response.data.data.content.length === 0;
       setEmpty(dataIsEmpty);
@@ -71,8 +72,8 @@ const BoardList = ({ selectedButtonIndex, setSelectedButtonIndex }: BoardListPro
         </div>
       ) : (
         <div>
-          {boardList.map(({ writer, title, content, like_counts }, index) => (
-            <BoardItem key={index} writer={writer} title={title} content={content} like_counts={like_counts} onItemClick={() => handleItemClick(index)} />
+          {boardList.map(({ profile_image_full_path, writer, title, like_counts }, index) => (
+            <BoardItem key={index} writer={writer} title={title} profile_image_full_path={profile_image_full_path} like_counts={like_counts} onItemClick={() => handleItemClick(index)} content={''} />
           ))}
         </div>
       )}
