@@ -41,6 +41,7 @@ const MyPage = () => {
 
   const logout = () => {
     localStorage.removeItem('token');
+    localStorage.removeItem('nickname');
     resetLoginType();
     resetProfileUpload();
     navigate('/');
