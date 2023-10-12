@@ -7,18 +7,37 @@ import { cls } from '../../util/util';
 
 const Favorite = () => {
   const [toggle, setToggle] = useState<boolean>(false);
+  const [toggleList, setToggleList] = useState<boolean[]>([false]);
 
   const handleToggle = (e: MouseEvent<HTMLButtonElement>) => {
     const target = e.target as HTMLButtonElement;
-    target.name === 'tour' ? setToggle(false) : setToggle(true);
+    // target.name === 'tour' ? setToggle(false) : setToggle(true);
+    // setToggleList(true)
+    // toggleList[target.id] = true;
   };
+  // const handleToggle = (e: MouseEvent<HTMLButtonElement>) => {
+  //   const target = e.target as HTMLButtonElement;
+  //   target.name === 'tour' ? setToggle(false) : setToggle(true);
+  // };
 
   return (
     <>
       <Header title={'즐겨찾기'} back={true} icon={''} />
-      <div className="flex flex-row justify-evenly text-xl font-semibold">
-        <button type="button" name="tour" onClick={handleToggle} className={cls(!toggle ? 'w-[80px] border-b-[2px] border-main-color pt-[2px]' : 'w-[80px] p-2')}>
+      <div className="flex flex-row justify-evenly text-sm font-semibold">
+        <button type="button" name="tour" id="0" onClick={handleToggle} className={cls(!toggleList[0] ? 'w-[80px] border-b-[2px] border-main-color pt-[2px]' : 'w-[80px] p-2')}>
           관광지
+        </button>
+        <button type="button" name="culture" onClick={handleToggle} className={cls(!toggle ? 'w-[80px] border-b-[2px] border-main-color pt-[2px]' : 'w-[80px] p-2')}>
+          문화시설
+        </button>
+        <button type="button" name="festival" onClick={handleToggle} className={cls(!toggle ? 'w-[80px] border-b-[2px] border-main-color pt-[2px]' : 'w-[80px] p-2')}>
+          축제공연행사
+        </button>
+        <button type="button" name="course" onClick={handleToggle} className={cls(!toggle ? 'w-[80px] border-b-[2px] border-main-color pt-[2px]' : 'w-[80px] p-2')}>
+          여행코스
+        </button>
+        <button type="button" name="leports" onClick={handleToggle} className={cls(!toggle ? 'w-[80px] border-b-[2px] border-main-color pt-[2px]' : 'w-[80px] p-2')}>
+          레포츠
         </button>
         <button type="button" name="Accommodation" onClick={handleToggle} className={cls(toggle ? 'w-[80px] border-b-[2px] border-main-color pt-[2px]' : 'w-[80px] p-2')}>
           숙박
