@@ -4,6 +4,7 @@ interface ChattingComponentProps {
   writer: string;
   latest_message: string;
   time: string;
+  // isCheckbox: boolean;
 }
 
 // host 채팅 테스트
