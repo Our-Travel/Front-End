@@ -1,49 +1,51 @@
 import React, { useState, useEffect } from 'react';
 import TourModal from './TourModal';
 import axios from 'axios';
+import contentTypes from 'util/contentType';
 
 interface TourObject {
-  id: number;
-  title: string;
-  subtitle: string;
   address: string;
-  call: string;
-  content: string;
-  img: string;
-  km: number;
+  content_id: number;
+  content_type_id: number;
+  home_page: null;
+  image: string;
+  latitude: number;
+  longitude: number;
+  over_view: null;
+  tel: string;
+  tel_name: null;
+  title: string;
 }
-
-interface Place {
-  address_name: string;
-  distance: number;
-  id: number;
-  phone: string;
-  place_name: string;
-  place_url: string;
-  road_address_name: string;
-  x: number;
-  y: number;
+interface TourType {
+  address: string;
+  content_id: number;
+  content_type_id: number;
+  home_page: null;
+  image: string;
+  latitude: number;
+  longitude: number;
+  over_view: null;
+  tel: string;
+  tel_name: null;
+  title: string;
 }
-const TouristList = () => {
+interface Cate {
+  tourType: string;
+}
+const TouristList = ({ tourType }: Cate) => {
+  console.log(tourType);
   const [boardDetail, setBoardDetail] = useState<TourObject | null>(null);
   const [modal, setModal] = useState<boolean>(false);
   const [selectedIdx, setSelectedIdx] = useState<number | null>(null);
   const [favoriteTouristList, setFavoriteTouristList] = useState<any[]>([]);
 
+  console.log(boardDetail);
   const handleItemClick = (index: number) => {
     const item = favoriteTouristList[index]!;
-    const convertedItem: TourObject = {
-      id: item.id,
-      title: item.title,
-      subtitle: item.subtitle,
-      address: item.address,
-      call: item.call,
-      content: item.content,
-      img: item.img,
-      km: Number(item.km),
-    };
+    console.log(item);
+
     setSelectedIdx(index);
-    setBoardDetail(convertedItem);
+    setBoardDetail(item);
     setModal(true);
   };
 
@@ -55,7 +57,7 @@ const TouristList = () => {
             Authorization: `Bearer ${localStorage.getItem('token')}`,
           },
         });
-        let locationArr = response.data.data;
+        const locationArr = response.data.data;
         setFavoriteTouristList(locationArr);
       } catch (error) {
         if (axios.isAxiosError(error)) {
@@ -65,24 +67,27 @@ const TouristList = () => {
     };
     getData();
   }, []);
-
-  console.log(favoriteTouristList);
-
+  const fliterList = favoriteTouristList.filter((ty) => String(ty.content_type_id) === tourType);
+  console.log(fliterList);
   return (
     <div className="overflow-y-auto h-[650px]">
-      {favoriteTouristList.map((el, index) => (
-        <div key={index} className={`h-[105px] flex items-center p-4 border-b-[2px] border-gray-200 ${index === selectedIdx ? 'border-main-color border' : ''}`} onClick={() => handleItemClick(index)} tabIndex={0} role="button">
-          <div className="w-[80px]">
-            {el.image ? <img src={el.image} alt={el.title} className="w-[80px] h-[70px]" /> : <img className="w-[80px] h-[70px]" alt="관광지 사진" src="/homeicon.png" />}
-            {/* <img src={el.image} alt={el.title} className="w-[80px] h-[70px]" /> */}
-          </div>
-          <div className="flex flex-col text-left  pl-6">
-            <span className="font-semibold text-gray-700">{el.title}</span>
-            <span>{el.address}</span>
-          </div>
-          {/* <p className="text-gray-400">{el.km}</p> */}
-        </div>
-      ))}
+      {fliterList.length !== 0 ? (
+        fliterList.map((el, index) => {
+          return (
+            <div key={index} className={`h-[105px] flex items-center p-4 border-b-[2px] border-gray-200 ${index === selectedIdx ? 'border-main-color border' : ''}`} onClick={() => handleItemClick(index)} tabIndex={0} role="button">
+              <div className="w-[80px]">
+                <img className="w-[80px] h-[70px]" alt="관광지 사진" src={el.image ? `${el.image}` : '/assets/homeicon.png'} />
+              </div>
+              <div className="flex flex-col text-left  pl-6">
+                <span className="font-semibold text-gray-700">{el.title}</span>
+                <span>{el.address}</span>
+              </div>
+            </div>
+          );
+        })
+      ) : (
+        <div>아모고토없음</div>
+      )}
       {modal && <TourModal boardDetail={boardDetail} setModal={setModal} post={null} />}
     </div>
   );

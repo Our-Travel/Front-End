@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { cls } from '../../util/util';
 import Header from '../../components/Header/Header';
 import TouristList from '../../components/TouristList/TouristList';
-import Accommodation from '../../components/TouristList/Accommodation';
+// import Accommodation from '../../components/TouristList/Accommodation';
 import axios from 'axios';
 import useGeolocation from '../../hooks/useGeolocation';
 
@@ -45,7 +45,7 @@ const Info = () => {
           숙박
         </button>
       </div>
-      {toggle ? <Accommodation /> : <TouristList />}
+      {/* {toggle ? <Accommodation /> : <TouristList />} */}
     </div>
   );
 };
