@@ -6,7 +6,7 @@ import { BsTrash } from 'react-icons/bs';
 const ChattingList = () => {
   const [isEmpty, setEmpty] = useState<boolean>(true);
   return (
-    <div>
+    <div className="w-full">
       <div>{isEmpty ? <ChattingItem /> : <ChattingEmpty />}</div>
     </div>
   );

@@ -11,12 +11,9 @@ const ChattingItem = () => {
   const navigate = useNavigate();
   const [chatList, setChatList] = useState<any[]>([]);
   const chatNickName = localStorage.getItem('nickname');
-  console.log(chatNickName);
-  console.log(chatList);
   const [trash, setTrash] = useState<boolean>(false);
   const [checkedRooms, setCheckedRooms] = useState<string[]>([]);
   const [exitUser, setExitUser] = useRecoilState(exitChat);
-  console.log(checkedRooms);
   const token = localStorage.getItem('token');
 
   useEffect(() => {
@@ -79,24 +76,30 @@ const ChattingItem = () => {
         )}
       </div>
       {chatList.length > 0 &&
-        chatList.map(({ room_id, writer, latest_message, latest_message_time }, index) => (
-          <div className="flex border-b-[1px] justify-center" key={index}>
-            <label
-              htmlFor={`room${index}`}
-              onClick={() => {
-                navigate(`/chatting/${room_id}`);
-              }}
-            >
-              <ChattingComponent key={index} writer={writer} latest_message={latest_message} time={latest_message_time} />
-            </label>
-            {trash && <input id={`room${index}`} type="checkbox" value={room_id} checked={checkedRooms.includes(room_id)} onChange={() => toggleRoomSelection(room_id)} />}
-            {trash && (
-              <button onClick={deleteChatting} className="absolute bottom-20 left-1/2 -translate-x-[50%] bg-main-color w-[340px] h-[40px] rounded-lg text-white">
-                나가기 버튼
-              </button>
-            )}
-          </div>
-        ))}
+        chatList.map(({ room_id, writer, latest_message, latest_message_time, room_title, region_code, room_manager }, index) => {
+          const isSameUser = chatNickName === writer;
+
+          return (
+            <div className="flex justify-between border-b-[1px]" key={index}>
+              <label
+                htmlFor={`room${index}`}
+                onClick={() => {
+                  navigate(`/chatting/${room_id}`);
+                }}
+              >
+                <ChattingComponent key={index} writer={writer} room_title={room_title} latest_message={latest_message} region_code={region_code} time={latest_message_time} />
+              </label>
+              {trash && <input className="mr-3 focus:outline-none" id={`room${index}`} type="checkbox" value={room_id} checked={checkedRooms.includes(room_id)} disabled={isSameUser} onChange={() => toggleRoomSelection(room_id)} />}
+            </div>
+          );
+        })}
+      {trash && (
+        <>
+          <button onClick={deleteChatting} className="absolute bottom-20 left-1/2 -translate-x-[50%] bg-main-color w-[340px] h-[40px] rounded-lg text-white">
+            나가기
+          </button>
+        </>
+      )}
     </div>
   );
 };

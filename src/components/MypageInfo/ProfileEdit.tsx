@@ -54,11 +54,15 @@ const ProfileEdit = () => {
         },
         config
       );
+      localStorage.removeItem('nickname');
+
+      localStorage.setItem('nickname', newNickName.data);
       alert(response.data.msg);
+
       navigate('/mypage');
     } catch (error) {
       if (axios.isAxiosError(error)) {
-        alert(error.response?.data.msg);
+        alert('실패' + error.response?.data.msg);
       }
     }
   };
