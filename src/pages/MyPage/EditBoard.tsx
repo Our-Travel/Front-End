@@ -49,14 +49,13 @@ const EditBoard = ({ setEditBoard, item }: Props) => {
   //삭제하기모달 -> 삭제하기 누르면 넘어오는 함수
   const handleDeleteButton = () => {
     setDeleteModal(false); // 모달 닫기
-
     deleteMyBoard();
   };
 
   //마감하기모달 -> 마감하기 버튼 클릭시 넘어오는 함수
   const handleFinishButton = () => {
     setFinishModal(false);
-    //마감하기
+    closedMyBoard();
   };
 
   //게시글 수정
@@ -123,6 +122,34 @@ const EditBoard = ({ setEditBoard, item }: Props) => {
       await axios.patch(boardsUrl, updatedData, {
         headers: headers,
       });
+
+      alert('게시글 수정이 완료되었습니다!');
+    } catch (error) {
+      if (axios.isAxiosError(error) && error.response?.status === 400) {
+        // 에러가 발생하면 해당 에러 메시지를 알림으로 보여줌
+        alert(error.response.data.msg);
+      } else {
+        // 기타 에러 처리
+        alert('데이터를 받아오는 과정에 문제가 생겼습니다.😹');
+      }
+    }
+  };
+  //마감하기 통신@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+  const closedMyBoard = async () => {
+    const storedToken = localStorage.getItem('token');
+    const headers = {
+      Authorization: `Bearer ${storedToken}`,
+    };
+    try {
+      // 여행 게시글 작성 요청
+      const boardsUrl = `${process.env.REACT_APP_REST_API_SERVER}/boards/${boardId}`;
+      await axios.patch(
+        boardsUrl,
+        {},
+        {
+          headers: headers,
+        }
+      );
 
       alert('게시글 수정이 완료되었습니다!');
     } catch (error) {

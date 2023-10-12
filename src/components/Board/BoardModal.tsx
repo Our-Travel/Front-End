@@ -158,7 +158,7 @@ const BoardModal = ({ modal, setModal }: Props) => {
             ref={chatButtonRef}
             onClick={handleChatButtonClick}
             disabled={!isButtonActive}
-            className={`${isButtonActive ? 'buttonHoverColor' : 'bg-gray-400 text-gray-100'} absolute buttonHoverSize bottom-3 w-3/5 h-10 left-1/2 -translate-x-1/2 py-1 rounded-lg text-lg font-extrabold`}
+            className={`${isButtonActive ? 'buttonHoverColor buttonHoverSize' : 'bg-gray-400 text-gray-100'} absolute bottom-3 w-3/5 h-10 left-1/2 -translate-x-1/2 py-1 rounded-lg text-lg font-extrabold`}
           >
             채팅하러 가기
           </button>

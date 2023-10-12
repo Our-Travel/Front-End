@@ -1,4 +1,4 @@
-import { Outlet, Route, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import Landing from './pages/Landing/Landing';
 import Main from './pages/Main/Main';
 import SignIn from './pages/SignIn/SignIn';
@@ -16,54 +16,46 @@ import MyWrite from './pages/MyPage/MyWrite';
 import Favorite from './pages/MyPage/Favorite';
 import Notice from './pages/MyPage/Notice';
 import { useEffect, useState } from 'react';
-import axios from 'axios';
 import Board from './pages/Board/Board';
 import WriteBoard from './pages/Board/WriteBoard';
 import Host from './pages/MyPage/Host';
 import KakaoRedirect from './pages/SignIn/KakaoRedirect';
 import EditBoard from './pages/MyPage/EditBoard';
+import ProfileEdit from 'components/MypageInfo/ProfileEdit';
 
 function App() {
-  const [token, setToken] = useState(`${process.env.REACT_APP_NAVER_KEY}`);
-  // useEffect(() => {
-  //   axios
-  //     .post('https://ourtravel.site/api/dev/member/login', {
-  //       username: 'user1@example.com',
-  //       password: '1234',
-  //     })
-  //     .then((res) => {
-  //       setToken(res.data.data.accessToken);
-  //     });
-  // }, []);
+  const [token, setToken] = useState('');
 
   return (
     <div className="relative">
-      <div className="absolute text-center right-[23%] h-screen border border-gray-200 w-[450px] max-h-[full]">
-        <Routes>
-          <Route path="/" element={<Landing />} />
-          <Route path="/signin" element={<SignIn />} />
-          <Route path="/kakao/redirect" element={<KakaoRedirect />} />
-          {/* <Route path="/login/oauth2/code/kakao" element={<KakaoRedirect />} /> */}
-          <Route path="/signup" element={<SignUp />} />
-          <Route element={<Navigation />}>
-            <Route path="/info" element={<Info />} />
-            <Route path="/main" element={<Main />} />
-            <Route path="/main/selectLocation" element={<SelectLocation />} />
-            <Route path="/main/hostlist" element={<HostList title={''} />} />
-            <Route path="/map" element={<Map token={token} />} />
-            <Route path="/board" element={<Board />} />
-            <Route path="/board/writeboard" element={<WriteBoard />} />
-            <Route path="/mypage" element={<MyPage />} />
-            <Route path="/mypage/mywrite" element={<MyWrite />} />
-            <Route path="/mypage/favorite" element={<Favorite />} />
-            <Route path="/mypage/notice" element={<Notice />} />
-            <Route path="/mypage/host" element={<Host />} />
-            <Route path="/mypage/host/edit" element={<Host />} />
-            <Route path="/chatting/:roomnum" element={<Chatting />} />
-            <Route path="/chattinglist" element={<ChattingList />} />
-          </Route>
-          <Route path="*" element={<NotFound />} />
-        </Routes>
+      <div className="w-full h-screen main-backGround">
+        <div className="absolute text-center right-[23%] bg-white h-screen border border-gray-200 w-[450px] max-h-[full]">
+          <Routes>
+            <Route path="/" element={<Landing />} />
+            <Route path="/signin" element={<SignIn />} />
+            <Route path="/signup" element={<SignUp />} />
+            <Route element={<Navigation />}>
+              <Route path="/info" element={<Info />} />
+              <Route path="/main" element={<Main />} />
+              <Route path="/main/selectLocation" element={<SelectLocation />} />
+              <Route path="/main/hostlist/:regionCode/:regionName" element={<HostList />} />
+              <Route path="/map" element={<Map token={token} />} />
+              <Route path="/board" element={<Board />} />
+              <Route path="/board/writeboard" element={<WriteBoard />} />
+              <Route path="/mypage" element={<MyPage />} />
+              <Route path="/mypage/profileEdit" element={<ProfileEdit />} />
+              <Route path="/mypage/mywrite" element={<MyWrite />} />
+              <Route path="/mypage/favorite" element={<Favorite />} />
+              <Route path="/mypage/notice" element={<Notice />} />
+              <Route path="/mypage/host" element={<Host />} />
+              <Route path="/mypage/host/edit" element={<Host />} />
+              <Route path="/chatting/:roomnum" element={<Chatting />} />
+              <Route path="/chattinglist" element={<ChattingList />} />
+              <Route path="/oauth2/redirect/:token" element={<KakaoRedirect />} />
+            </Route>
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </div>
       </div>
     </div>
   );

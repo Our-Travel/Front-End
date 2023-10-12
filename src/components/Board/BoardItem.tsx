@@ -22,8 +22,8 @@ const BoardItem = ({ writer, title, content, like_counts, onItemClick }: BoardIt
 
   return (
     <div onClick={handleClick} onKeyDown={handleKeyDown} tabIndex={0} className="relative flex h-[80px] hover:bg-pink-50 border-b-2 pb-24 px-2">
-      <div className="absolute top-[50%] -translate-y-[50%] w-1/5 px-2">
-        <p className="font-bold text-lg">{writer}</p>
+      <div className="absolute top-[50%] -translate-y-[50%] w-1/5 px-2 overflow-hidden whitespace-nowrap">
+        <p className="w-full font-bold text-ellipsis">{writer}</p>
       </div>
       <div className="absolute left-1/4 w-4/5 top-[50%] -translate-y-[50%] text-left px-3">
         <div className=" font-semibold mr-10">{title}</div>

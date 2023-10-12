@@ -1,6 +1,9 @@
 .swiper-slide {
   width: 100%;
   font-size: 1rem;
+}
+
+.landingSlide {
   height: 24rem;
   background-color: pink;
 }

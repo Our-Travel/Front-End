@@ -9,9 +9,10 @@ const ChattingList = () => {
   const icon = <BsTrash />;
 
   return (
-    <div className="">
+    // host 채팅 테스트
+    <div className="h-[85%]">
       <Header title="채팅목록" back={false} icon={icon} />
-      <div>{isEmpty ? <ChattingItem /> : <ChattingEmpty />}</div>
+      <div className="h-full overflow-y-auto">{isEmpty ? <ChattingItem /> : <ChattingEmpty />}</div>
     </div>
   );
 };
