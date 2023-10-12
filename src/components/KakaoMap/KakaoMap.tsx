@@ -8,6 +8,7 @@ import { useRecoilState, useSetRecoilState } from 'recoil';
 import Map from './../../pages/Map/Map';
 import KakaoMapMarker from './KakaoMapMarker';
 import KakaoMapModal from './KakaoMapModal';
+import { Message } from '@stomp/stompjs';
 
 declare global {
   interface Window {
@@ -17,6 +18,7 @@ declare global {
 
 interface MapProps {
   token: string;
+  selectedButtonIndex: number;
 }
 
 interface Place {
@@ -60,12 +62,13 @@ export interface LocationArr {
 }
 [];
 
-const KakaoMap = ({ token }: MapProps) => {
+const KakaoMap = ({ token, selectedButtonIndex }: MapProps) => {
+  console.log(selectedButtonIndex);
+
   const [map, setMap] = useState<any>();
   const [marker, setMarker] = useState<any>();
 
   const location = useGeolocation();
-  // recoil
   const [mapToggle, setMapToggle] = useState<boolean>(false);
   const [aroundPlace, setAroundPlace] = useRecoilState(aroundLoc);
   const setCcommo = useSetRecoilState(accommodation);
@@ -75,7 +78,6 @@ const KakaoMap = ({ token }: MapProps) => {
     setMapToggle(!mapToggle);
   };
   const [locationList, setLocationList] = useState<Array<Location>>([]);
-  // const [positionList, setPositionList] = useState<any | null>(null);
 
   const [markers, setMarkers] = useState([]);
 
@@ -84,7 +86,7 @@ const KakaoMap = ({ token }: MapProps) => {
       const container = document.getElementById('map');
       let options = {
         center: new window.kakao.maps.LatLng(37.506836, 127.096717),
-        level: 1,
+        level: 7,
       };
 
       if (location.loaded && location.coordinates) {
@@ -99,19 +101,21 @@ const KakaoMap = ({ token }: MapProps) => {
   useEffect(() => {
     const getData = async () => {
       try {
-        const response = await axios.get(`${process.env.REACT_APP_REST_API_SERVER}/local-place`, {
+        const response = await axios.get(`${process.env.REACT_APP_REST_API_SERVER}/local-place?contentTypeId=${selectedButtonIndex}`, {
           headers: {
-            Authorization: `Bearer ${token}`,
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
           },
         });
         let locationArr = response.data.data;
         setLocationList(locationArr);
       } catch (error) {
-        alert('데이터를 불러오는 과정에서 에러가 발생했습니다!!');
+        if (axios.isAxiosError(error)) {
+          alert(error.response?.data.msg);
+        }
       }
     };
     getData();
-  }, []);
+  }, [selectedButtonIndex]);
 
   // function makePositionArr() {
   //   let points: any = [];
@@ -128,9 +132,6 @@ const KakaoMap = ({ token }: MapProps) => {
 
   // addMarker(new window.kakao.maps.LatLng(location.coordinates?.lat, location.coordinates?.lng));
 
-  // console.log(locationList);
-  // console.log(li.map((i) => console.log(i)));
-
   // let zoomControl = new window.kakao.maps.ZoomControl();
   // map.addControl(zoomControl, window.kakao.maps.ControlPosition.RIGHT);
 
@@ -140,8 +141,6 @@ const KakaoMap = ({ token }: MapProps) => {
     return markerImage;
   }
 
-  // let selectedMarker: any = null;
-
   function addMarker(position: any) {
     let markerSize = '';
     // if (normalSrc === '/map/markerEllipse3.svg') markerSize = new window.kakao.maps.Size(18, 18);
@@ -149,7 +148,6 @@ const KakaoMap = ({ token }: MapProps) => {
     let clickmarkerSize = new window.kakao.maps.Size(28, 43);
     let markerSrc = 'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png';
 
-    // let normalImage = createMarkerImage(normalSrc, markerSize),
     let overImage = createMarkerImage(markerSrc, clickmarkerSize),
       clickImage = createMarkerImage(markerSrc, clickmarkerSize);
 
@@ -177,16 +175,27 @@ const KakaoMap = ({ token }: MapProps) => {
   const [clickIndex, setClickIndex] = useState<Number | null>(null);
 
   const modalShow = () => {
-    // if (!(e.target.tagName === "svg" || e.target.tagName === "path")) {
-    // setIndex(e.currentTarget.id);
     setModalClose(true);
-    // }
   };
+
+  // function initMarkers(map: any) {
+  //   for (let i = 0; i < markers.length; i++) {
+  //     markers[i].setMap(map);
+  //   }
+  // }
+
+  // useEffect(() => {
+  //   initMarkers(map);
+  // }, [markers]);
+
+  // initMarkers(null);
+
+  // console.log(map);
 
   return (
     <>
-      <div id="map" className="w-full h-screen">
-        {locationList && map && <KakaoMapMarker locationList={locationList} map={map} modalShow={modalShow} setClickIndex={setClickIndex} />}
+      <div id="map" className="w-full h-[90vh]">
+        {locationList && map && selectedButtonIndex && <KakaoMapMarker locationList={locationList} map={map} modalShow={modalShow} setClickIndex={setClickIndex} selectedButtonIndex={selectedButtonIndex} />}
         {locationList && map && modalClose && clickIndex && <KakaoMapModal locationList={locationList} setModalClose={setModalClose} clickIndex={clickIndex} />}
       </div>
     </>

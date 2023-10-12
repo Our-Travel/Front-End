@@ -13,10 +13,11 @@ const useDidMountEffect = (func: any, deps: any) => {
   }, deps);
 };
 
-const KaKaoMapMarker = ({ locationList, map, modalShow, setClickIndex }: any) => {
+const KaKaoMapMarker = ({ locationList, map, modalShow, setClickIndex, selectedButtonIndex }: any) => {
   const [positionList, setPositionList] = useState<any | null>(null);
   // const [clickIndex, setClickIndex] = useState<Number | null>(null);
   const [modalClose, setModalClose] = useState(false);
+  const [markers, setMarkers] = useState<any[]>([]);
 
   const ps = new kakao.maps.services.Places(map);
 
@@ -39,9 +40,9 @@ const KaKaoMapMarker = ({ locationList, map, modalShow, setClickIndex }: any) =>
     let markerSize = '';
     // if (normalSrc === '/map/markerEllipse3.svg') markerSize = new window.kakao.maps.Size(18, 18);
     // else markerSize = new window.kakao.maps.Size(28, 43);
-    let clickmarkerSize = new window.kakao.maps.Size(20, 33);
+    let clickmarkerSize = new window.kakao.maps.Size(24, 28);
     // let clickmarkerSize = new window.kakao.maps.Size(28, 43);
-    let markerSrc = 'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png';
+    let markerSrc = `/marker${selectedButtonIndex}.png`;
 
     // let normalImage = createMarkerImage(normalSrc, markerSize),
     let overImage = createMarkerImage(markerSrc, clickmarkerSize);
@@ -62,23 +63,33 @@ const KaKaoMapMarker = ({ locationList, map, modalShow, setClickIndex }: any) =>
     return marker;
   }
 
-  // const modalShow = (e) => {
-  //   // if (!(e.target.tagName === "svg" || e.target.tagName === "path")) {
-  //     setIndex(e.currentTarget.id);
-  //     setModalClose(true);
-  //   // }
-  // };
   console.log(locationList);
 
-  useEffect(() => {
-    makePositionArr();
-  }, []);
-
   useDidMountEffect(() => {
+    setMarkers([]);
+    initMarkers(null);
+    let points = [];
+    const handleMarker = (marker: any) => {
+      setMarkers((prevList) => [...prevList, marker]);
+    };
+
     locationList.map((item: any) => {
-      addMarker(new kakao.maps.LatLng(item.latitude, item.longitude), item.content_id);
+      let marker = addMarker(new kakao.maps.LatLng(item.latitude, item.longitude), item.content_id);
+      handleMarker(marker);
     });
   }, [locationList]);
+
+  function initMarkers(map: any) {
+    for (let i = 0; i < markers.length; i++) {
+      markers[i].setMap(map);
+    }
+  }
+
+  useEffect(() => {
+    initMarkers(map);
+  }, [markers]);
+
+  // initMarkers(null);
 
   // console.log(locationList);
 

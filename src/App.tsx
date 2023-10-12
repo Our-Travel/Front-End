@@ -24,7 +24,7 @@ import EditBoard from './pages/MyPage/EditBoard';
 import ProfileEdit from 'components/MypageInfo/ProfileEdit';
 
 function App() {
-  const [token, setToken] = useState('');
+  const [token, setToken] = useState(`${process.env.REACT_APP_KAKAO_MAP}`);
 
   return (
     <div className="relative">

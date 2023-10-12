@@ -1,10 +1,19 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState, useCallback } from 'react';
 import { GrClose } from 'react-icons/gr';
 import { HiHeart } from 'react-icons/hi';
 import { HiOutlineHeart } from 'react-icons/hi';
+import { AiFillHeart } from 'react-icons/ai';
+import { AiOutlineHeart } from 'react-icons/ai';
+import { AiOutlineShareAlt } from 'react-icons/ai';
 import { BsShare } from 'react-icons/bs';
+import useLoginCheck from '../../hooks/useLoginCheck';
+import axios from 'axios';
+// import Header from 'components/Header/ChattingHeader';
+// import { Header } from 'components/Header/Header';
 
 const KakaoMapModal = ({ locationList, setModalClose, clickIndex }: any) => {
+  const loginCheck = useLoginCheck();
+  const isLoggedIn = loginCheck();
   const modalRef = useRef(null);
   const modalClose = () => {
     setModalClose(false);
@@ -35,56 +44,121 @@ const KakaoMapModal = ({ locationList, setModalClose, clickIndex }: any) => {
       thing = item;
     }
   });
-  console.log(thing.home_page);
+  // console.log(thing.home_page);
 
-  const { address, content_type_id, home_page, image, over_view, tel, tel_name, title } = thing;
+  const { content_id, address, content_type_id, home_page, image, over_view, tel, tel_name, title } = thing;
+
+  const [isFavorited, setIsFavorited] = useState(false);
+
+  const toggleFavorite = () => {
+    setIsFavorited((prevIsFavorited) => !prevIsFavorited);
+  };
+  const handleClipBoard = useCallback(async () => {
+    try {
+      await navigator.clipboard.writeText(thing?.address ?? '');
+      alert('주소가 복사되었습니다!');
+    } catch (err) {
+      console.error('Could not copy text: ', err);
+      alert('주소가 복사되지 않았습니다 :(');
+    }
+  }, [thing]);
+
+  const clickHeart = async () => {
+    console.log(content_id);
+    if (isLoggedIn) {
+      const storedToken = localStorage.getItem('token');
+      const headers = {
+        Authorization: `Bearer ${storedToken}`,
+      };
+
+      try {
+        const url = `${process.env.REACT_APP_REST_API_SERVER}/local-place/${content_id}`;
+        await axios.post(
+          url,
+          {},
+          {
+            headers: headers,
+          }
+        );
+
+        // setIsFavorited((prevIsFavorited) => !prevIsFavorited);
+        console.log('post 성공');
+      } catch (error) {
+        if (axios.isAxiosError(error) && error.response?.status === 400) {
+          alert(error.response.data.msg);
+        } else {
+          alert('데이터를 받아오는 과정에 문제가 생겼습니다.😹');
+        }
+      }
+    } else {
+      console.log('오류 발생!');
+    }
+  };
+  const clickDeleteHeart = async () => {
+    // console.log(content_id);
+    if (isLoggedIn) {
+      const storedToken = localStorage.getItem('token');
+      const headers = {
+        Authorization: `Bearer ${storedToken}`,
+      };
+
+      try {
+        const url = `${process.env.REACT_APP_REST_API_SERVER}/local-place/${content_id}`;
+        await axios.post(
+          url,
+          {},
+          {
+            headers: headers,
+          }
+        );
+
+        // setIsFavorited((prevIsFavorited) => !prevIsFavorited);
+        console.log('post 성공');
+      } catch (error) {
+        if (axios.isAxiosError(error) && error.response?.status === 400) {
+          alert(error.response.data.msg);
+        } else {
+          alert('데이터를 받아오는 과정에 문제가 생겼습니다.😹');
+        }
+      }
+    } else {
+      console.log('오류 발생!');
+    }
+  };
 
   return (
     // <div className="fixed h-screen top-0 bottom-0 bg-black bg-opacity-30 z-30" ref={modalRef}></div>
-    <div className="fixed h-screen w-[450px] top-0 bottom-0 bg-black bg-opacity-0 z-30" ref={modalRef}>
-      <div className="relative max-w-[35rem] h-[25rem] mapModalPosition text-lg text-left p-2 rounded-t-3xl border-4 border-white bg-white z-50 lg:max-w-[45rem] lg:h-[40rem] lg:text-xl">
-        <div className="flex flex-row h-[12%] items-center justify-center text-center border-b-2 border-gray-300 py-2 gap-3">
-          {/* <button type="button" className="absolute top-1 right-1 p-3" onClick={modalClose}>
-            <GrClose className="w-5 h-5" />
-          </button> */}
-          <div>
-            <h2 className="text-lg font-semibold mb-2 text-center justify-center truncate lg:text-3xl">{title}</h2>
-            {/* <p className="text-lg lg:text-xl truncate">{`주소) ${address || '제공되지 않습니다.'}`}</p> */}
+    <div className="fixed h-screen w-[448px] top-0 bottom-0 bg-black bg-opacity-0 z-30" ref={modalRef}>
+      {/* {thing && ( */}
+      <div className="absolute bottom-0 w-full h-[470px] bg-white rounded-t-3xl">
+        <div className="border-b-2 py-3 font-bold text-lg">{title}</div>
+        <div className="h-[150px] flex items-center border-b-2 py-10 pl-5 pr-10">
+          <div className="flex justify-center rounded-lg pl-2 mr-2">{image ? <img src={image} alt="" className="mr-4 w-[100px] h-[100px] " /> : <img className="w-[80px] h-[80px] mr-6" alt="관광지 사진" src="/homeicon.png" />}</div>
+          <div className="flex flex-col items-start text-left">
+            <h1 className="font-bold mb-1">{title}</h1>
+            <p id="address" className="text-left">
+              {address}
+            </p>
+            <p>{tel}</p>
           </div>
         </div>
-        <div className="py-6 border-b-2 border-gray-300">
-          <div className="inline-block align-top">
-            <img src={image} alt="" className="w-32 h-32" />
-          </div>
-          <div className="inline-block ml-3 align-middle">
-            <p>{title}</p>
-            <p>{address}</p>
-          </div>
-        </div>
-        <div className="py-4">
-          {over_view && <p>{over_view}</p>}
+        <div className="pt-4 pb-3 h-[150px] overflow-y-auto px-6 text-left">
           {home_page && <p className="text-blue-500" dangerouslySetInnerHTML={{ __html: home_page }}></p>}
+          <p className="text-gray-600 pt-2">{over_view}</p>
         </div>
-        {/* <div className="absolute bottom-0"> */}
-        <div className="relative traslate-y-full">
-          <div className="flex justify-around">
-            <div className="flex gap-2">
-              <button type="button">
-                <HiOutlineHeart className="w-5 h-5" />
-              </button>
-              <p>Add to Favorites</p>
-            </div>
-            <span className="border-r-2 border-gray-300"></span>
-            <div className="flex gap-2">
-              <button type="button">
-                <BsShare className="w-5 h-5" />
-              </button>
-              <p>Share Location</p>
-            </div>
+        <div className="mt-4 flex items-center justify-between px-5">
+          <div className="flex items-center translate-x-2 hover:cursor-pointer" onClick={toggleFavorite}>
+            {isFavorited ? <AiFillHeart className="mr-3 w-[30px] h-[30px]" onClick={clickDeleteHeart} /> : <AiOutlineHeart className="mr-3 w-[30px] h-[30px]" onClick={clickHeart} />}
+            <button>Add To Favorite</button>
+          </div>
+          <div className="w-[1px] h-[30px] bg-black" />
+          <div onClick={handleClipBoard} className="flex items-center -translate-x-5">
+            <AiOutlineShareAlt className="mr-3 w-[30px] h-[30px]" />
+            <button>Share Location</button>
           </div>
         </div>
-        {/* <img src="/util/characters.svg" alt="캐릭터3명이미지" className="absolute bottom-0 right-0" /> */}
       </div>
+      {/* )} */}
     </div>
   );
 };
