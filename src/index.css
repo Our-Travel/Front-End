@@ -54,7 +54,7 @@ div:focus,
     @apply top-1/2 left-1/2 -translate-x-[50%] -translate-y-[50%];
   }
   .line {
-    @apply border after:bg-gray-300;
+    @apply border-b-[1px] after:bg-gray-300;
   }
   .active {
     @apply cursor-pointer px-2 border-b-4 border-transparent border-main-color;
