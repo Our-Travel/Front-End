@@ -18,11 +18,7 @@ const ChattingComponenet = ({ writer, latest_message, time }: ChattingComponentP
         </p>
         <p className="mt-[7px] whitespace-nowrap overflow-hidden text-ellipsis text-gray-600">{latest_message}</p>
       </div>
-      <div className="absolute right-4">
-        <div className="">
-          <p className="text-white bg-red-500 rounded-full font-semibold text-[14px] mt-[7px] mr-0 w-[21px] pr-0">1</p>
-        </div>
-      </div>
+      <div className="absolute right-4">{/* <div className=""><p className="text-white bg-red-500 rounded-full font-semibold text-[14px] mt-[7px] mr-0 w-[21px] pr-0">1</p></div> */}</div>
     </li>
   );
 };

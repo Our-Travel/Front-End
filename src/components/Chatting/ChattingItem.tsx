@@ -4,54 +4,24 @@ import ChattingComponent from './ChattingComponent';
 import axios from 'axios';
 import Header from '../../components/Header/Header';
 import { BsTrash } from 'react-icons/bs';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 import { exitChat } from '../../Atom/atom';
-import { CompatClient, Stomp } from '@stomp/stompjs';
-import SockJS from 'sockjs-client';
 
 const ChattingItem = () => {
   const navigate = useNavigate();
-  const [chatList, setChatList] = useState([]);
+  const [chatList, setChatList] = useState<any[]>([]);
+  const chatNickName = localStorage.getItem('nickname');
+  console.log(chatNickName);
+  console.log(chatList);
   const [trash, setTrash] = useState<boolean>(false);
   const [checkedRooms, setCheckedRooms] = useState<string[]>([]);
   const [exitUser, setExitUser] = useRecoilState(exitChat);
   console.log(checkedRooms);
   const token = localStorage.getItem('token');
-  const client = useRef<CompatClient>();
 
-  // useEffect(() => {
-  //   axios
-  //     .get('https://ourtravel.site/api/dev/room', {
-  //       headers: { Authorization: `Bearer ${token}` },
-  //     })
-  //     .then((res) => {
-  //       console.log(res);
-  //       if (res.status === 200) {
-  //         setChatList(res.data.data);
-  //       }
-  //     })
-  //     .catch((err) => console.log(err.message));
-  // }, []);
   useEffect(() => {
-    // STOMP 클라이언트 초기화
-    client.current = Stomp.over(() => {
-      const sock = new SockJS('https://ourtravel.site/api/dev/ws/chat');
-      return sock;
-    });
-
-    // STOMP 클라이언트 연결
-    client.current.connect({}, () => {
-      console.log('STOMP 연결됨');
-
-      // STOMP를 사용하여 /topic/user_exit 주제를 구독
-      client.current?.subscribe('/topic/user_exit', (message) => {
-        // 유저가 나갔을 때의 이벤트 처리
-        const exitMessage = JSON.parse(message.body).message;
-        setExitUser(exitMessage);
-      });
-    });
-
     // 채팅방 목록 불러오기
+    console.log('실행');
     axios
       .get('https://ourtravel.site/api/dev/room', {
         headers: { Authorization: `Bearer ${token}` },
@@ -63,7 +33,7 @@ const ChattingItem = () => {
         }
       })
       .catch((err) => console.log(err.message));
-  }, [token, setExitUser]);
+  }, [token, exitUser]);
 
   const toggleRoomSelection = (room_id: string) => {
     // 이미 선택한 방인지 확인
@@ -78,7 +48,8 @@ const ChattingItem = () => {
     }
   };
   const deleteChatting = () => {
-    if (checkedRooms.length > 0) {
+    const exit = window.confirm('채팅방을 나가시겠습니까?');
+    if (exit && checkedRooms.length > 0) {
       // 선택한 방들을 나가는 요청 처리
       for (let i = 0; i < checkedRooms.length; i++) {
         const room_id = checkedRooms[i];
@@ -107,7 +78,7 @@ const ChattingItem = () => {
           />
         )}
       </div>
-      {chatList.length !== 0 &&
+      {chatList.length > 0 &&
         chatList.map(({ room_id, writer, latest_message, latest_message_time }, index) => (
           <div className="flex border-b-[1px] justify-center" key={index}>
             <label

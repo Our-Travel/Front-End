@@ -62,6 +62,7 @@ const Chatting = () => {
     });
     client.current.connect(headers, () => {
       client.current?.subscribe('/sub/message/' + chatEnter?.data.chat_room_id, (message) => {
+        console.log(message, '구독');
         const newMessage = JSON.parse(message.body);
         setMessages((prevMessages) => [...prevMessages, newMessage]);
       });
@@ -124,19 +125,34 @@ const Chatting = () => {
       }
     };
   }, [chatEnter]);
+  console.log(chatlist);
   return (
     <div>
       <Header title={'상대 유저 아이디'} back={true} icon={icon} />
       <div className="w-full h-full">
         <div className="text-[#FF626F] pt-2 pb-2 text-sm">{chatEnter && chatEnter.msg}</div>
         <div className="main-chat mx-2.5 overflow-y-auto h-screen pb-60" ref={mainChat}>
-          {chatlist && messages && (
+          {/* {chatlist && messages && (
             <div>
               {chatlist.map((message: MessageDto, index: number) => (
                 <div key={index}>{message.nickname === nickName ? <MeChat content={message.message} /> : <FriendChat nickName={message.nickname} content={message.message} />}</div>
               ))}
             </div>
+          )} */}
+          {chatlist && messages && (
+            <div>
+              {chatlist.map((message: MessageDto, index: number) => (
+                <div key={index}>
+                  {message.nickname === nickName ? (
+                    <MeChat content={message.message} />
+                  ) : (
+                    <div>{message.nickname === 'admin' ? <span className="text-main-color block mt-3">{message.message}</span> : <FriendChat nickName={message.nickname} content={message.message} />}</div>
+                  )}
+                </div>
+              ))}
+            </div>
           )}
+
           {chatEnter &&
             messages.length !== 0 &&
             messages.map((message: any, index: number) => <div key={index}>{nickName === message.writer_nickname ? <MeChat content={message.message} /> : <FriendChat nickName={message.writer_nickname} content={message.message} />}</div>)}
