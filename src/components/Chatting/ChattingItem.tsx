@@ -16,7 +16,6 @@ const ChattingItem = () => {
   const [exitUser, setExitUser] = useRecoilState(exitChat);
   const token = localStorage.getItem('token');
 
-
   // 삭제 탐지 테스트
   const [test, setTest] = useState(false);
 
@@ -49,7 +48,6 @@ const ChattingItem = () => {
       })
       .catch((err) => console.log(err.message));
   }, [token, exitUser]);
-
 
   const toggleRoomSelection = (room_id: string) => {
     // 이미 선택한 방인지 확인
