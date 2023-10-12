@@ -118,7 +118,7 @@ const ChattingItem = () => {
         )}
       </div>
       {chatList.length !== 0 &&
-        chatList.map(({ room_id, writer, latest_message, latest_message_time }, index) => (
+        chatList.map(({ room_id, writer, latest_message, latest_message_time, image, room_title }, index) => (
           <div className="flex border-b-[1px] justify-center" key={index}>
             <label
               htmlFor={`room${index}`}
@@ -126,7 +126,7 @@ const ChattingItem = () => {
                 navigate(`/chatting/${room_id}`);
               }}
             >
-              <ChattingComponent key={index} writer={writer} latest_message={latest_message} time={latest_message_time} />
+              <ChattingComponent key={index} writer={writer} latest_message={latest_message} time={latest_message_time} room_title={room_title} image={image} />
             </label>
             {trash && <input id={`room${index}`} type="checkbox" value={room_id} checked={checkedRooms.includes(room_id)} onChange={() => toggleRoomSelection(room_id)} />}
             {trash && (
