@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { tourDummy as dummy } from '../../util/dummy';
 import TourModal from './TourModal';
+import axios from 'axios';
 
 interface TourObject {
   id: number;
@@ -28,9 +29,10 @@ const TouristList = () => {
   const [boardDetail, setBoardDetail] = useState<TourObject | null>(null);
   const [modal, setModal] = useState<boolean>(false);
   const [selectedIdx, setSelectedIdx] = useState<number | null>(null);
+  const [favoriteTouristList, setFavoriteTouristList] = useState<any[]>([]);
 
   const handleItemClick = (index: number) => {
-    const item = dummy[index]!;
+    const item = favoriteTouristList[index]!;
     const convertedItem: TourObject = {
       id: item.id,
       title: item.title,
@@ -46,18 +48,40 @@ const TouristList = () => {
     setModal(true);
   };
 
+  useEffect(() => {
+    const getData = async () => {
+      try {
+        const response = await axios.get(`${process.env.REACT_APP_REST_API_SERVER}/local-place/list`, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
+          },
+        });
+        let locationArr = response.data.data;
+        setFavoriteTouristList(locationArr);
+      } catch (error) {
+        if (axios.isAxiosError(error)) {
+          alert(error.response?.data.msg);
+        }
+      }
+    };
+    getData();
+  }, []);
+
+  console.log(favoriteTouristList);
+
   return (
     <div className="overflow-y-auto h-[650px]">
-      {dummy.map((el, index) => (
-        <div key={index} className={`listStyles border-b-[2px] border-gray-200 ${index === selectedIdx ? 'border-main-color border' : ''}`} onClick={() => handleItemClick(index)} tabIndex={0} role="button">
-          <div className="w-[60px] bg-pink-300 p-2 rounded-lg">
-            <img src={el.img} alt={el.title} />
+      {favoriteTouristList.map((el, index) => (
+        <div key={index} className={`h-[105px] flex items-center p-4 border-b-[2px] border-gray-200 ${index === selectedIdx ? 'border-main-color border' : ''}`} onClick={() => handleItemClick(index)} tabIndex={0} role="button">
+          <div className="w-[80px]">
+            {el.image ? <img src={el.image} alt={el.title} className="w-[80px] h-[70px]" /> : <img className="w-[80px] h-[70px]" alt="관광지 사진" src="/homeicon.png" />}
+            {/* <img src={el.image} alt={el.title} className="w-[80px] h-[70px]" /> */}
           </div>
-          <div className="flex flex-col text-left w-[250px]">
+          <div className="flex flex-col text-left  pl-6">
             <span className="font-semibold text-gray-700">{el.title}</span>
-            <span>{el.subtitle}</span>
+            <span>{el.address}</span>
           </div>
-          <p className="text-gray-400">{el.km}</p>
+          {/* <p className="text-gray-400">{el.km}</p> */}
         </div>
       ))}
       {modal && <TourModal boardDetail={boardDetail} setModal={setModal} post={null} />}
