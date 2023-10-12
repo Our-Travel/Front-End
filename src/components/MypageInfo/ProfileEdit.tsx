@@ -87,7 +87,7 @@ const ProfileEdit = () => {
   const handleNickName = () => signupCheck('nickName', newNickName.data);
   const passwordInput = () => (!newPwCheck.data.length || newPassword.data === newPwCheck.data ? 'border-gray-400' : 'border-check-red outline-check-red');
   const nickNameInput = () => (!newNickName.data.length || newNickName.state ? 'border-gray-400' : 'border-check-red outline-check-red');
-  const nickNameBtn = () => (status === 200 ? 'text-green-600 border-green-600' : status === 400 ? 'text-check-red border-check-red' : 'text-gray-500 border-gray-400');
+  const nickNameBtn = () => (status === 200 ? 'text-green-600 border-green-600' : status === 400 ? 'text-check-red border-check-red' : newNickName.state ? 'text-black border-black' : 'text-gray-500 border-gray-400');
 
   useEffect(() => {
     if ((signType && newPassword.data && newPassword.data === newPwCheck.data && status === 200) || (!signType && status)) {
@@ -106,13 +106,13 @@ const ProfileEdit = () => {
         </p>
       )}
       {uploadModalOpen && <UploadProfile onClose={closeImagePopup} />}
-      <form className="w-[25rem] mx-auto">
-        <div className="flex flex-col items-center justify-center gap-5 my-8">
+      <form className="w-full px-4">
+        <div className="items-center justify-center gap-5 my-8">
           <div className="relative">
             <Profile page={false} />
             <BsQuestionSquare className="absolute top-0 left-28 hover:text-main-color" onMouseEnter={tooltipEnter} onMouseLeave={tooltipLeave} />
             {show && (
-              <div className="absolute top-5 left-12 flex flex-col gap-1 shadow-xl border rounded-lg px-5 py-3 bg-white">
+              <div className="absolute w-3/4 top-5 left-1/2 -translate-x-1/2 flex flex-col gap-1 shadow-xl border rounded-lg px-5 py-3 bg-white">
                 {profileToolTip.map(({ src, alt }, index) => (
                   <div key={index} className="flex items-center justify-center gap-1">
                     <img src={src} className="w-14 h-15" alt={alt} />
@@ -122,7 +122,7 @@ const ProfileEdit = () => {
               </div>
             )}
           </div>
-          <div className="flex gap-3">
+          <div className="flex justify-center gap-3 mt-4">
             {profileBtn.map(({ title }, index) => (
               <button key={index} type="button" className="flex items-center justify-center gap-1 profileEditBtn" onClick={index ? defaultImage : openImagePopup}>
                 {!index && <AiOutlineSetting />}
@@ -151,18 +151,18 @@ const ProfileEdit = () => {
               닉네임
             </label>
             <div className="flex justify-between">
-              <input required type="text" name="nickName" id="nickName" placeholder="한글, 영문, 숫자 가능 3~8자" className={`shortInput ${nickNameInput()}`} onChange={newNickName.onChange} value={newNickName.data} />
-              <button type="button" className={`w-24 h-12 border rounded ${nickNameBtn()}`} onClick={handleNickName} disabled={!newNickName.state}>
+              <input required type="text" name="nickName" id="nickName" placeholder="한글, 영문, 숫자 가능 3~10자" className={`inputStyle ${nickNameInput()}`} onChange={newNickName.onChange} value={newNickName.data} />
+              <button type="button" className={`w-28 h-12 ml-7 border rounded ${nickNameBtn()}`} onClick={handleNickName} disabled={!newNickName.state}>
                 중복확인
               </button>
             </div>
             <span className="errorText">{newNickName.data && !newNickName.state && '올바른 닉네임을 입력해주세요. (공백 불가)'}</span>
           </div>
         </div>
-        <div className="absolute bottom-16">
-          <Button name={'수정하기'} page={false} active={active} onClick={userDataEdit} />
-        </div>
       </form>
+      <div className="absolute w-full bottom-16 px-4">
+        <Button name={'수정하기'} page={false} active={active} onClick={userDataEdit} />
+      </div>
     </>
   );
 };

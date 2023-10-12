@@ -51,7 +51,7 @@ export const Profile = ({ page }: pageInfo) => {
 
   return (
     <>
-      <div className="w-[25rem] mx-auto">
+      <div className="my-4">
         {loading ? (
           <Spinner page={page} />
         ) : (
@@ -60,7 +60,7 @@ export const Profile = ({ page }: pageInfo) => {
             {page && (
               <div className="text-left">
                 <div className="flex flex-row items-center gap-2">
-                  <p>{data.nick_name}</p>
+                  <p className="font-bold text-gray-600 text-lg">{data.nick_name}</p>
                   {hostActive && <BsPatchCheckFill className="relative text-main-color" />}
                 </div>
                 <p className="mt-1">{data.username}</p>
@@ -80,7 +80,7 @@ interface MyTab {
 
 export const MypageTab = ({ name, link }: MyTab) => {
   return (
-    <Link to={link} className="flex flex-row justify-between items-center w-[25rem] h-14 text-lg">
+    <Link to={link} className="flex flex-row justify-between items-center w-full h-14 text-lg">
       <p>{name}</p>
       <MdArrowForwardIos className="w-5 h-5" />
     </Link>

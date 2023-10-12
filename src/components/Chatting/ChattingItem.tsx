@@ -16,6 +16,24 @@ const ChattingItem = () => {
   const [exitUser, setExitUser] = useRecoilState(exitChat);
   const token = localStorage.getItem('token');
 
+
+  // 삭제 탐지 테스트
+  const [test, setTest] = useState(false);
+
+  // useEffect(() => {
+  //   axios
+  //     .get('https://ourtravel.site/api/dev/room', {
+  //       headers: { Authorization: `Bearer ${token}` },
+  //     })
+  //     .then((res) => {
+  //       console.log(res);
+  //       if (res.status === 200) {
+  //         setChatList(res.data.data);
+  //       }
+  //     })
+  //     .catch((err) => console.log(err.message));
+  // }, []);
+
   useEffect(() => {
     // 채팅방 목록 불러오기
     console.log('실행');
@@ -24,13 +42,14 @@ const ChattingItem = () => {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((res) => {
-        console.log(res);
         if (res.status === 200) {
+          console.log(res);
           setChatList(res.data.data);
         }
       })
       .catch((err) => console.log(err.message));
   }, [token, exitUser]);
+
 
   const toggleRoomSelection = (room_id: string) => {
     // 이미 선택한 방인지 확인
@@ -44,6 +63,7 @@ const ChattingItem = () => {
       setCheckedRooms([...checkedRooms, room_id]);
     }
   };
+
   const deleteChatting = () => {
     const exit = window.confirm('채팅방을 나가시겠습니까?');
     if (exit && checkedRooms.length > 0) {
@@ -57,11 +77,17 @@ const ChattingItem = () => {
           .then((res) => {
             console.log(res);
             setExitUser(res.data.msg);
+
+            // 탐지 test
+            alert(res.data.msg);
+            setTest(!test);
+            setTrash(!trash);
           })
           .catch((err) => console.error(err));
       }
     }
   };
+
   return (
     <div>
       <div className="flex justify-center items-center">

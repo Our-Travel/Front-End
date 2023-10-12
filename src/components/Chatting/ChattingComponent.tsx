@@ -34,6 +34,7 @@ const ChattingComponenet = ({ writer, latest_message, time, room_title, region_c
     <div className="h-[100px] flex items-center justify-between pl-3 hover:bg-gray-100">
       <div className="bg-main-color border-main-color4 border-2 text-white rounded-lg p-[23px] relative mr-3">
         <h1 className="font-bold w-full text-lg absolute modalPosition">{foundRegion}</h1>
+
       </div>
       <div className="flex w-[330px] flex-col">
         <div className="flex justify-between w-full">

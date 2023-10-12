@@ -109,11 +109,13 @@ function GraphComponent() {
   return (
     <>
       {openModal && <SelectArea modal={openModal} setModal={setOpenModal} setArea={setSelectArea} nowArea={location} />}
-      <div onClick={isOpen} className="flex justify-center mt-7 text-xl py-4 font-semibold text-white cursor-pointer buttonHoverSize buttonHoverColor">
-        <SlLocationPin className="inline-block mr-2 font-thin translate-y-1" />
-        <h3 className="hover:scale-110">{location}</h3>
+      <div onClick={isOpen} className=" mt-7 text-xl py-4 font-semibold text-white cursor-pointer buttonHoverColor">
+        <div className="flex justify-center buttonHoverSize">
+          <SlLocationPin className="inline-block mr-2 font-thin translate-y-1" />
+          <h3 className="hover:scale-110">{location}</h3>
+        </div>
       </div>
-      <div className="w-[400px] h-[300px] flex justify-center mt-7 mx-auto ">
+      <div className="max-w-[400px] h-[300px] flex justify-center mt-7 mx-auto ">
         <Line data={chartData} options={options} />
       </div>
       <div className="font-normal mt-8">

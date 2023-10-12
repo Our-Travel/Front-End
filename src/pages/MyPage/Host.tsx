@@ -141,20 +141,16 @@ const Host = () => {
   }, [myInfo.data, hashTag.data, hashTag.state, myInfoModify.data, hashTagModify.data, hashTagModify.state, city, newCity]);
 
   return (
-    <div className="flex flex-col">
+    <div>
       <Header title={hostActive ? 'Host 수정' : 'Host 등록'} back={true} icon={''} />
-      <div className={`flex flex-col gap-4 mx-auto line ${hostActive ? 'mt-6' : 'my-6'}`}>
+      <div className="px-4 line">
         <Profile page={true} />
         <button className="profileEdit" onClick={handleEdit}>
           프로필 수정
         </button>
       </div>
-      <form className="flex flex-col gap-3 text-left mx-auto">
-        {hostActive && (
-          <p className="text-sm mt-2">
-            ※<b className="text-main-color"> 기존에 등록된 정보</b>를 참고하여 <b className="text-main-color">수정</b>해주세요.
-          </p>
-        )}
+      <form className="px-4 text-left mx-auto">
+        {hostActive && <p className="text-sm font-semibold mt-4 text-main-color">※ 기존에 등록된 정보를 참고하여 수정 해주세요.</p>}
         <div className="inputForm">
           <label htmlFor="introduction">한줄소개</label>
           <div className="relative flex flex-row items-center">
@@ -196,11 +192,13 @@ const Host = () => {
             onChange={hostActive ? regionModify : regionHandle}
           />
         </div>
-        <div className="absolute flex flex-col gap-2 bottom-16">
-          <Button name={hostActive ? '수정하기' : '등록하기'} page={false} active={active} onClick={hostActive ? hostModify : hostRegist} />
-          {hostActive && <Button name={'Host 삭제하기'} page={true} active={active} onClick={hostDelete} />}
-        </div>
       </form>
+      <div className="w-full px-4 absolute bottom-16">
+        <div className=" my-2">
+          <Button name={hostActive ? '수정하기' : '등록하기'} page={false} active={active} onClick={hostActive ? hostModify : hostRegist} />
+        </div>
+        <div>{hostActive && <Button name={'Host 삭제하기'} page={true} active={active} onClick={hostDelete} />}</div>
+      </div>
     </div>
   );
 };

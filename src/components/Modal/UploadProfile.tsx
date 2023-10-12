@@ -66,8 +66,8 @@ const UploadProfile = ({ onClose }: Modal) => {
   }, [imagePopupRef, onClose]);
 
   return (
-    <div className="fixed w-[450px] h-full top-0 bg-black bg-opacity-30 z-30">
-      <div className="relative flex flex-col w-[26rem] rounded-xl text-xl bg-white py-3 centerPosition" ref={imagePopupRef}>
+    <div className="fixed w-full h-full px-4 top-0 bg-black bg-opacity-30 z-30">
+      <div className="relative flex flex-col w-full rounded-xl text-xl bg-white py-3 centerPosition" ref={imagePopupRef}>
         <div className="relative flex">
           <span className="text-xl font-semibold text-gray-700 mx-auto">프로필 사진 편집</span>
           <button className="absolute right-1 flex gap-1 items-center justify-center text-base" onClick={onClose}>

@@ -49,7 +49,7 @@ const TourModal = ({ boardDetail, setModal }: Props) => {
 
   return (
     <div className="shadow-2xl">
-      <div onClick={closeModal} className="z-0 absolute w-full h-screen modalPosition bg-gray-400 opacity-25" />
+      <div onClick={closeModal} className="z-0 absolute w-full h-screen centerPosition bg-gray-400 opacity-25" />
       {boardDetail && (
         <div className="absolute bottom-0 w-full h-[470px] bg-white rounded-t-3xl">
           <div className="border-b-2 py-3 font-bold text-lg">{boardDetail.title}</div>
