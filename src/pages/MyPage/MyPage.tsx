@@ -43,6 +43,7 @@ const MyPage = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('memberId');
     localStorage.removeItem('nickname');
+
     resetLoginType();
     resetProfileUpload();
     navigate('/');

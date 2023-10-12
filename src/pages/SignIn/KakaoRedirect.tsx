@@ -24,9 +24,11 @@ function KakaoRedirect() {
     const token = params.token || ''; // 'undefined'를 빈 문자열로 대체
     const decoded = jwtDecode<Token>(token);
     const parsedBody: DecodedToken = JSON.parse(decoded.body);
+
     localStorage.setItem('token', token);
     localStorage.setItem('nickname', parsedBody.nickName);
     localStorage.setItem('memberId', String(parsedBody.id));
+
     signType(false);
     window.location.replace('/main');
   }, []);
