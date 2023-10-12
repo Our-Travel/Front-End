@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { AccDummy as dummy } from '../../util/dummy';
 import TourModal from './TourModal';
+import axios from 'axios';
 
 interface AccommodationObject {
   id: number;
@@ -14,6 +15,7 @@ interface AccommodationObject {
 }
 
 const Accommodation = () => {
+  useEffect(() => {}, []);
   const [boardDetail, setBoardDetail] = useState<AccommodationObject | null>(null);
   const [modal, setModal] = useState<boolean>(false);
   const [selectedIdx, setSelectedIdx] = useState<number | null>(null);

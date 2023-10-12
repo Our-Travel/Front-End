@@ -54,8 +54,8 @@ const ProfileEdit = () => {
         },
         config
       );
+      localStorage.setItem('token', response.headers.authentication);
       localStorage.removeItem('nickname');
-
       localStorage.setItem('nickname', newNickName.data);
       alert(response.data.msg);
 

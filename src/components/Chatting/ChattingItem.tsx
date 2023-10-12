@@ -4,8 +4,6 @@ import ChattingComponent from './ChattingComponent';
 import axios from 'axios';
 import Header from '../../components/Header/Header';
 import { BsTrash } from 'react-icons/bs';
-import { useRecoilState, useSetRecoilState } from 'recoil';
-import { exitChat } from '../../Atom/atom';
 
 const ChattingItem = () => {
   const navigate = useNavigate();
@@ -13,11 +11,8 @@ const ChattingItem = () => {
   const chatNickName = localStorage.getItem('nickname');
   const [trash, setTrash] = useState<boolean>(false);
   const [checkedRooms, setCheckedRooms] = useState<string[]>([]);
-  const [exitUser, setExitUser] = useRecoilState(exitChat);
+  const [exitUser, setExitUser] = useState('');
   const token = localStorage.getItem('token');
-
-  // 삭제 탐지 테스트
-  const [deleteChat, setDeleteChat] = useState(false);
 
   useEffect(() => {
     // 채팅방 목록 불러오기
@@ -62,7 +57,6 @@ const ChattingItem = () => {
             setExitUser(res.data.msg);
 
             alert(res.data.msg);
-            setDeleteChat(!deleteChat);
             setTrash(!trash);
           })
           .catch((err) => console.error(err));

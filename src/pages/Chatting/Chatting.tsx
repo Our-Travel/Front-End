@@ -3,13 +3,11 @@ import Header from '../../components/Header/Header';
 import { CiMenuKebab } from 'react-icons/ci';
 import FriendChat from './../../components/Chatting/FriendChat';
 import MeChat from './../../components/Chatting/MeChat';
-import { Client, CompatClient, Message, Stomp } from '@stomp/stompjs';
+import { CompatClient, Stomp } from '@stomp/stompjs';
 import SockJS from 'sockjs-client';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import { useDebounce } from '../../hooks/useDebounce';
-import { useRecoilValue } from 'recoil';
-import { exitChat } from '../../Atom/atom';
 interface MessageDto {
   member_id: number;
   nickname: string;
@@ -35,6 +33,7 @@ interface ApiResponse {
 const Chatting = () => {
   const [chatEnter, setChatEnter] = useState<ApiResponse>();
   const chatlist = chatEnter?.data.chat_room_message_dto_list;
+  console.log(chatlist);
   const token = localStorage.getItem('token');
   const nickName = localStorage.getItem('nickname');
   const icon = <CiMenuKebab />;
@@ -45,9 +44,8 @@ const Chatting = () => {
   const client = useRef<CompatClient>();
   const [inputMessage, setInputMessage] = useState('');
   const debounceMessage = useDebounce(inputMessage, 1000);
-  const [modalOpen, setModalOpen] = useState<boolean>(false);
   const [messages, setMessages] = useState<string[]>([]);
-  const exitUser = useRecoilValue(exitChat);
+  console.log(messages);
   const { roomnum } = useParams();
   // 웹소켓 연결 함수
   const connectHandler = () => {
@@ -77,6 +75,7 @@ const Chatting = () => {
         room_id: roomnum,
         writer_nickname: nickName,
         message: inputMessage,
+        created_date: new Date(),
       })
     );
     scrollToBottom();
@@ -134,9 +133,9 @@ const Chatting = () => {
               {chatlist.map((message: MessageDto, index: number) => (
                 <div key={index}>
                   {message.nickname === nickName ? (
-                    <MeChat content={message.message} />
+                    <MeChat content={message.message} time={message.created_date} />
                   ) : (
-                    <div>{message.nickname === 'admin' ? <span className="text-main-color block mt-3">{message.message}</span> : <FriendChat nickName={message.nickname} content={message.message} />}</div>
+                    <div>{message.nickname === 'admin' ? <span className="text-main-color block mt-3">{message.message}</span> : <FriendChat nickName={message.nickname} content={message.message} time={message.created_date} />}</div>
                   )}
                 </div>
               ))}
@@ -145,12 +144,16 @@ const Chatting = () => {
 
           {chatEnter &&
             messages.length !== 0 &&
-            messages.map((message: any, index: number) => <div key={index}>{nickName === message.writer_nickname ? <MeChat content={message.message} /> : <FriendChat nickName={message.writer_nickname} content={message.message} />}</div>)}
-          {exitUser && (
-            <div>
-              {nickName}님이 {exitUser}
-            </div>
-          )}
+            messages.map((message: any, index: number) => (
+              <div key={index}>
+                {nickName === message.writer_nickname ? (
+                  <MeChat content={message.message} time={message.created_date} />
+                ) : (
+                  <div>{message.writer_nickname === 'admin' ? <span className="text-main-color block mt-3">{message.message}</span> : <FriendChat nickName={message.nickname} content={message.message} time={message.created_date} />}</div>
+                )}
+              </div>
+            ))}
+
           <div ref={mainChat} />
         </div>
         <div className="absolute bottom-16 flex w-full">
