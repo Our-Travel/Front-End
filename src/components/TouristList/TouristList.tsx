@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { tourDummy as dummy } from '../../util/dummy';
 import TourModal from './TourModal';
 import axios from 'axios';
 

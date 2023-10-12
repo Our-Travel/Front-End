@@ -17,25 +17,10 @@ const ChattingItem = () => {
   const token = localStorage.getItem('token');
 
   // 삭제 탐지 테스트
-  const [test, setTest] = useState(false);
-
-  // useEffect(() => {
-  //   axios
-  //     .get('https://ourtravel.site/api/dev/room', {
-  //       headers: { Authorization: `Bearer ${token}` },
-  //     })
-  //     .then((res) => {
-  //       console.log(res);
-  //       if (res.status === 200) {
-  //         setChatList(res.data.data);
-  //       }
-  //     })
-  //     .catch((err) => console.log(err.message));
-  // }, []);
+  const [deleteChat, setDeleteChat] = useState(false);
 
   useEffect(() => {
     // 채팅방 목록 불러오기
-    console.log('실행');
     axios
       .get('https://ourtravel.site/api/dev/room', {
         headers: { Authorization: `Bearer ${token}` },
@@ -76,9 +61,8 @@ const ChattingItem = () => {
             console.log(res);
             setExitUser(res.data.msg);
 
-            // 탐지 test
             alert(res.data.msg);
-            setTest(!test);
+            setDeleteChat(!deleteChat);
             setTrash(!trash);
           })
           .catch((err) => console.error(err));

@@ -1,6 +1,5 @@
 import React, { useState, MouseEvent } from 'react';
 import Header from '../../components/Header/Header';
-import { Profile } from '../../components/MypageInfo/MypageInfo';
 import TouristList from '../../components/TouristList/TouristList';
 import Accommodation from '../../components/TouristList/Accommodation';
 import { cls } from '../../util/util';

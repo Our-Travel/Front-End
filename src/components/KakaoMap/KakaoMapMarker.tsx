@@ -42,7 +42,7 @@ const KaKaoMapMarker = ({ locationList, map, modalShow, setClickIndex, selectedB
     // else markerSize = new window.kakao.maps.Size(28, 43);
     let clickmarkerSize = new window.kakao.maps.Size(24, 28);
     // let clickmarkerSize = new window.kakao.maps.Size(28, 43);
-    let markerSrc = `/marker${selectedButtonIndex}.png`;
+    let markerSrc = `/assets/marker${selectedButtonIndex}.png`;
 
     // let normalImage = createMarkerImage(normalSrc, markerSize),
     let overImage = createMarkerImage(markerSrc, clickmarkerSize);
