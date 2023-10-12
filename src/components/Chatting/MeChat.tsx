@@ -2,7 +2,6 @@ import React from 'react';
 
 interface ChattingComponentProps {
   content: string;
-  // time: string;
 }
 
 const MeChat = ({ content }: ChattingComponentProps) => {

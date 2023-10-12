@@ -1,7 +1,6 @@
 import { SlArrowLeft } from 'react-icons/sl';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router';
-import ChattingModal from '../Modal/ChattingModal';
 import useLoginCheck from '../../hooks/useLoginCheck';
 
 interface header {
@@ -24,10 +23,6 @@ const Header = ({ title, back, icon }: header) => {
   };
 
   const handleButtonClick = () => {
-    if (lastPath == 'chatting') {
-      const isOpen = () => setModal(!modalOpen);
-      isOpen();
-    }
     if (lastPath == 'board') {
       const isLoggedIn = loginCheck();
       if (isLoggedIn) {
@@ -51,7 +46,6 @@ const Header = ({ title, back, icon }: header) => {
           </button>
         )}
       </header>
-      <ChattingModal open={modalOpen} close={setModal} />
     </>
   );
 };

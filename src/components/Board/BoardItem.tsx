@@ -1,5 +1,4 @@
 import { loginType } from 'Atom/userAtom';
-import React from 'react';
 import { GoThumbsup } from 'react-icons/go';
 import { useRecoilValue } from 'recoil';
 

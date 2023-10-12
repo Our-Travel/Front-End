@@ -15,12 +15,11 @@ import HostList from './pages/Main/HostList';
 import MyWrite from './pages/MyPage/MyWrite';
 import Favorite from './pages/MyPage/Favorite';
 import Notice from './pages/MyPage/Notice';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import Board from './pages/Board/Board';
 import WriteBoard from './pages/Board/WriteBoard';
 import Host from './pages/MyPage/Host';
 import KakaoRedirect from './pages/SignIn/KakaoRedirect';
-import EditBoard from './pages/MyPage/EditBoard';
 import ProfileEdit from 'components/MypageInfo/ProfileEdit';
 
 function App() {

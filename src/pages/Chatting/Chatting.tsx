@@ -15,7 +15,6 @@ interface MessageDto {
   nickname: string;
   message: string;
   created_date: string;
-  // Add other properties if needed
 }
 interface ChatMessage {
   created_date: string;
@@ -61,7 +60,6 @@ const Chatting = () => {
     });
     client.current.connect(headers, () => {
       client.current?.subscribe('/sub/message/' + chatEnter?.data.chat_room_id, (message) => {
-        console.log(message, '구독');
         const newMessage = JSON.parse(message.body);
         setMessages((prevMessages) => [...prevMessages, newMessage]);
       });
@@ -131,13 +129,6 @@ const Chatting = () => {
       <div className="w-full h-full overflow-hidden">
         <div className="text-[#FF626F] pt-2 pb-2 text-sm">{chatEnter && chatEnter.msg}</div>
         <div className="main-chat mx-2.5 overflow-y-auto" ref={mainChat}>
-          {/* {chatlist && messages && (
-            <div>
-              {chatlist.map((message: MessageDto, index: number) => (
-                <div key={index}>{message.nickname === nickName ? <MeChat content={message.message} /> : <FriendChat nickName={message.nickname} content={message.message} />}</div>
-              ))}
-            </div>
-          )} */}
           {chatlist && messages && (
             <div>
               {chatlist.map((message: MessageDto, index: number) => (
@@ -177,7 +168,7 @@ const Chatting = () => {
             value={inputMessage}
           />
           <button onClick={sendHandler} id="sendbtn">
-            <img src="/sendButton.svg" alt="메세지 전송버튼" className="mr-3" />
+            <img src="/assets/sendButton.svg" alt="메세지 전송버튼" className="mr-3" />
           </button>
         </div>
       </div>

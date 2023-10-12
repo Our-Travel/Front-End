@@ -3,8 +3,6 @@ import React from 'react';
 interface ChattingComponentProps {
   nickName: string;
   content: string;
-  // content: string;
-  // time: string;
 }
 
 const FriendChat = ({ nickName, content }: ChattingComponentProps) => {
