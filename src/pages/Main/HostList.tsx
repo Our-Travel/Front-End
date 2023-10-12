@@ -33,7 +33,7 @@ const HostList = () => {
       }
     };
     hostData();
-  }, [roomCheck]);
+  }, []);
 
   console.log(roomId);
 
