@@ -13,9 +13,8 @@ const MeChat = ({ content, time }: ChattingComponentProps) => {
     const dateTime = new Date(time);
     const hours = dateTime.getHours();
     const minutes = dateTime.getMinutes();
-    const convertHours = hour < 10 ? '0' + hour : hour;
+    const convertHours = hours < 10 ? '0' + hours : hours;
     const converMinutes = minutes < 10 ? '0' + minutes : minutes;
-
     const extractedDate = `${convertHours}:${converMinutes}`;
     setHour(hours);
     setDateTime(extractedDate);
