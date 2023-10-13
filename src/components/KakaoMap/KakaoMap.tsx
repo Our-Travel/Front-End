@@ -85,7 +85,7 @@ const KakaoMap = ({ token, selectedButtonIndex }: MapProps) => {
     window.kakao.maps.load(() => {
       const container = document.getElementById('map');
       let options = {
-        center: new window.kakao.maps.LatLng(37.506836, 127.096717),
+        center: new window.kakao.maps.LatLng(location.coordinates?.lat, location.coordinates?.lng),
         level: 7,
       };
 
