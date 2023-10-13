@@ -2,14 +2,17 @@ import React, { Dispatch, SetStateAction, useCallback, useRef, useState } from '
 import { AiOutlineHeart, AiFillHeart, AiOutlineShareAlt } from 'react-icons/ai';
 
 interface TourObject {
-  id: number;
-  title: string;
-  subtitle: string;
   address: string;
-  call: string;
-  content: string;
-  img: string;
-  km: number;
+  content_id: number;
+  content_type_id: number;
+  home_page: null;
+  image: string;
+  latitude: number;
+  longitude: number;
+  over_view: null;
+  tel: string;
+  tel_name: null;
+  title: string;
 }
 
 interface Props {
@@ -55,15 +58,15 @@ const TourModal = ({ boardDetail, setModal }: Props) => {
           <div className="border-b-2 py-3 font-bold text-lg">{boardDetail.title}</div>
           <div className="h-[150px] flex items-center border-b-2 py-10 pl-5 pr-10">
             <div className="w-[80px] h-[80px] bg-pink-300 p-2 rounded-lg mr-5">
-              <img className="mr-6" alt="관광지 사진" src="/homeicon.png" />
+              <img className="mr-6" alt="관광지 사진" src={boardDetail.image ? `${boardDetail.image}` : '/assets/homeicon.png'} />
             </div>
             <div className="flex flex-col items-start">
               <h1 className="font-bold mb-1">{boardDetail.title}</h1>
               <p id="address">{boardDetail.address}</p>
-              <p>{boardDetail.call}</p>
+              <p>{boardDetail.tel}</p>
             </div>
           </div>
-          <p className="pt-6 pb-3 h-[150px] overflow-y-auto px-6 text-left text-gray-600">{boardDetail.content}</p>
+          <p className="pt-6 pb-3 h-[150px] overflow-y-auto px-6 text-left text-gray-600">{boardDetail.address}</p>
           <div className="mt-4 flex items-center justify-between px-5">
             <div className="flex items-center translate-x-2 hover:cursor-pointer" onClick={toggleFavorite}>
               {isFavorited ? <AiFillHeart className="mr-3 w-[30px] h-[30px]" /> : <AiOutlineHeart className="mr-3 w-[30px] h-[30px]" />}
