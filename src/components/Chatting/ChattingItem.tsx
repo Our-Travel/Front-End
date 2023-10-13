@@ -17,7 +17,7 @@ const ChattingItem = () => {
   useEffect(() => {
     // 채팅방 목록 불러오기
     axios
-      .get('https://ourtravel.site/api/dev/room', {
+      .get(`${process.env.REACT_APP_REST_API_SERVER}/room`, {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((res) => {
@@ -49,7 +49,7 @@ const ChattingItem = () => {
       for (let i = 0; i < checkedRooms.length; i++) {
         const room_id = checkedRooms[i];
         axios
-          .delete(`https://ourtravel.site/api/dev/room/${room_id}`, {
+          .delete(`${process.env.REACT_APP_REST_API_SERVER}/room/${room_id}`, {
             headers: { Authorization: `Bearer ${token}` },
           })
           .then((res) => {

@@ -53,7 +53,7 @@ const Chatting = () => {
       Authorization: token,
     };
     client.current = Stomp.over(() => {
-      const sock = new SockJS('https://ourtravel.site/api/dev/ws/chat');
+      const sock = new SockJS(`${process.env.REACT_APP_REST_API_SERVER}/ws/chat`);
       return sock;
     });
     client.current.connect(headers, () => {
@@ -85,7 +85,7 @@ const Chatting = () => {
   useEffect(() => {
     sendText.current?.focus();
     axios
-      .get(`https://ourtravel.site/api/dev/room/${roomnum}`, {
+      .get(`${process.env.REACT_APP_REST_API_SERVER}/room/${roomnum}`, {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((res) => {
