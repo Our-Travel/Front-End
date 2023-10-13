@@ -49,7 +49,6 @@ const ProfileEdit = () => {
         config
       );
       localStorage.removeItem('nickname');
-
       localStorage.setItem('nickname', newNickName.data);
       alert(response.data.msg);
 

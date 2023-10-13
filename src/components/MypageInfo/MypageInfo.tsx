@@ -55,7 +55,7 @@ export const Profile = ({ page }: pageInfo) => {
           <Spinner page={page} />
         ) : (
           <div className="flex flex-row items-center gap-4">
-            <img src={data.image_path || '/assets/profile.svg'} className={`${page ? 'w-20 h-20' : 'w-40 h-40 mx-auto shadow-lg'} rounded-full border border-gray-300`} alt="마이페이지 프로필사진" />
+            <img src={data.image_path || '/assets/profile.svg'} className={`${page ? 'w-20 h-20 object-contain' : 'w-40 h-40 mx-auto shadow-lg object-contain'} rounded-full border border-gray-300`} alt="마이페이지 프로필사진" />
             {page && (
               <div className="text-left">
                 <div className="flex flex-row items-center gap-2">

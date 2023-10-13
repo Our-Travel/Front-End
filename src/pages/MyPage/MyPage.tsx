@@ -10,6 +10,7 @@ import { useRecoilValue, useResetRecoilState } from 'recoil';
 import { hostCheck, loginType, profileUpdate } from '../../Atom/userAtom';
 import ModalButton from 'components/Modal/ModalButton';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const MyPage = () => {
   const hostEditMode = useRecoilValue(hostCheck);
@@ -34,20 +35,29 @@ const MyPage = () => {
   const resetLoginType = useResetRecoilState(loginType);
   const resetProfileUpload = useResetRecoilState(profileUpdate);
   const navigate = useNavigate();
+  const config = { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } };
 
   const handleEdit = () => navigate('profileEdit');
 
   const isOpen = () => setModal(!modal);
 
-  const logout = () => {
-    localStorage.removeItem('token');
-    localStorage.removeItem('memberId');
-    localStorage.removeItem('nickname');
-
-    resetLoginType();
-    resetProfileUpload();
-    navigate('/');
-    alert('로그아웃 되었습니다.👋');
+  const logout = async () => {
+    try {
+      const url = `${process.env.REACT_APP_REST_API_SERVER}/members/logout`;
+      const response = await axios.delete(url, config);
+      localStorage.removeItem('nickname');
+      localStorage.removeItem('memberId');
+      localStorage.removeItem('token');
+      resetLoginType();
+      resetProfileUpload();
+      alert(response.data.msg);
+      navigate('/');
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        console.log(error);
+        alert(error.response?.data.msg);
+      }
+    }
   };
 
   return (

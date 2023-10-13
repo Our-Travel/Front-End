@@ -65,6 +65,7 @@ const Chatting = () => {
       });
     });
   };
+
   const sendHandler = () => {
     if (inputMessage.trim() === '') {
       alert('메시지를 입력해주세요!');
@@ -90,12 +91,14 @@ const Chatting = () => {
       })
       .then((res) => {
         if (res.status === 200) {
+          console.log(res);
           setChatEnter(res.data);
         } else {
           alert('에러가 발생하였습니다');
         }
       });
   }, [roomnum, token]);
+
   const scrollToBottom = () => {
     if (mainChat.current) {
       const { scrollHeight, clientHeight } = mainChat.current;
@@ -151,7 +154,7 @@ const Chatting = () => {
               {nickName}님이 {exitUser}
             </div>
           )}
-          <div ref={mainChat} />
+          {/* <div ref={mainChat} /> */}
         </div>
         <div className="absolute bottom-16 flex w-full">
           <input
