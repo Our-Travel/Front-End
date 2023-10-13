@@ -158,7 +158,6 @@ const Chatting = () => {
             ))}
 
           <div ref={mainChat} />
-
         </div>
         <div className="absolute bottom-16 flex w-full">
           <input

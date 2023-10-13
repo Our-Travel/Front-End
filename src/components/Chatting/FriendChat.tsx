@@ -1,5 +1,6 @@
-
+import { profileImage } from 'Atom/userAtom';
 import React, { useEffect, useState } from 'react';
+import { useRecoilValue } from 'recoil';
 
 interface ChattingComponentProps {
   nickName: string;
@@ -7,10 +8,10 @@ interface ChattingComponentProps {
   time: string;
 }
 
-
 const FriendChat = ({ nickName, content, time }: ChattingComponentProps) => {
   const [dateTime, setDateTime] = useState('');
   const [hour, setHour] = useState<number>(0);
+  const friendImage = useRecoilValue(profileImage);
 
   useEffect(() => {
     const dateTime = new Date(time);
