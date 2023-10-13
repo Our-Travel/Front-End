@@ -43,6 +43,7 @@ const SignIn = () => {
       const nickName = parsedBody.nickName;
       localStorage.setItem('token', response.headers.authentication);
       localStorage.setItem('nickname', nickName);
+      localStorage.setItem('memberId', String(parsedBody.id));
       signType(true);
       alert(response.data.msg);
       navigate('/main');
