@@ -6,7 +6,6 @@ import contentTypes from 'util/contentType';
 
 const Favorite = () => {
   const [toggle, setToggle] = useState<string>('관광지');
-  const [toggleList, setToggleList] = useState<boolean>(false);
   const [tourType, setTourType] = useState<string>('12');
 
   const handleToggle = (e: MouseEvent<HTMLButtonElement>) => {
@@ -15,7 +14,6 @@ const Favorite = () => {
     const value = target.value;
     setTourType(value);
     setToggle(name);
-    setToggleList(true);
   };
 
   return (
