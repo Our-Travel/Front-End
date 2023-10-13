@@ -19,3 +19,9 @@ export const profileUpdate = atom<boolean>({
   default: false,
   effects_UNSTABLE: [persistAtom],
 });
+
+export const profileImage = atom<string | null>({
+  key: 'profileImage',
+  default: null,
+  effects_UNSTABLE: [persistAtom],
+});

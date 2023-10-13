@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from 'react';
 
 interface ChattingComponentProps {
@@ -5,6 +6,7 @@ interface ChattingComponentProps {
   content: string;
   time: string;
 }
+
 
 const FriendChat = ({ nickName, content, time }: ChattingComponentProps) => {
   const [dateTime, setDateTime] = useState('');
@@ -21,9 +23,10 @@ const FriendChat = ({ nickName, content, time }: ChattingComponentProps) => {
     setHour(hours);
     setDateTime(extractedDate);
   }, [content, time]);
+
   return (
     <div className="friend-chat flex justify-start mt-2">
-      <img src="/assets/chattingProfile.svg" alt="채팅프로필사진" className="w-[12%] self-start" />
+      <img src={friendImage ? friendImage : '/assets/profile.svg'} alt="채팅프로필사진" className="w-[12%] self-start" />
       <div className="flex flex-col ml-2 text-left">
         <span>{nickName}</span>
         <div className="mt-3">

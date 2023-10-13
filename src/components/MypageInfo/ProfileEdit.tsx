@@ -5,7 +5,6 @@ import useFetch from 'hooks/useFetch';
 import { Button } from 'components/LoginButton/Button';
 import { useEffect, useState, MouseEvent } from 'react';
 import { AiOutlineSetting } from 'react-icons/ai';
-import { BsQuestionSquare } from 'react-icons/bs';
 import UploadProfile from 'components/Modal/UploadProfile';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
@@ -15,10 +14,6 @@ import { profileUpdate } from 'Atom/userAtom';
 import { loginType } from '../../Atom/userAtom';
 
 const profileBtn = [{ title: '프로필 이미지 편집' }, { title: '기본 이미지로 변경' }];
-const profileToolTip = [
-  { src: '/assets/profile.svg', alt: '일반 로그인 프로필 기본 이미지' },
-  { src: '/assets/profileSocial.svg', alt: '소셜 로그인 프로필 기본 이미지' },
-];
 
 const ProfileEdit = () => {
   const newPassword = useInput();
@@ -27,7 +22,6 @@ const ProfileEdit = () => {
   const { status, signupCheck } = useFetch();
   const [uploadModalOpen, setUploadModal] = useState<boolean>(false);
   const [active, setActive] = useState<boolean>(false);
-  const [show, setShow] = useState<boolean>(false);
   const [update, setUpdate] = useRecoilState(profileUpdate);
   const config = { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } };
   const signType = useRecoilValue(loginType);
@@ -81,9 +75,6 @@ const ProfileEdit = () => {
     }
   };
 
-  const tooltipEnter = () => setShow(true);
-  const tooltipLeave = () => setShow(false);
-
   const handleNickName = () => signupCheck('nickName', newNickName.data);
   const passwordInput = () => (!newPwCheck.data.length || newPassword.data === newPwCheck.data ? 'border-gray-400' : 'border-check-red outline-check-red');
   const nickNameInput = () => (!newNickName.data.length || newNickName.state ? 'border-gray-400' : 'border-check-red outline-check-red');
@@ -110,17 +101,6 @@ const ProfileEdit = () => {
         <div className="items-center justify-center gap-5 my-8">
           <div className="relative">
             <Profile page={false} />
-            <BsQuestionSquare className="absolute top-0 left-28 hover:text-main-color" onMouseEnter={tooltipEnter} onMouseLeave={tooltipLeave} />
-            {show && (
-              <div className="absolute w-3/4 top-5 left-1/2 -translate-x-1/2 flex flex-col gap-1 shadow-xl border rounded-lg px-5 py-3 bg-white">
-                {profileToolTip.map(({ src, alt }, index) => (
-                  <div key={index} className="flex items-center justify-center gap-1">
-                    <img src={src} className="w-14 h-15" alt={alt} />
-                    <span>{alt}</span>
-                  </div>
-                ))}
-              </div>
-            )}
           </div>
           <div className="flex justify-center gap-3 mt-4">
             {profileBtn.map(({ title }, index) => (
