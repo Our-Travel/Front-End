@@ -1,7 +1,58 @@
-import React from 'react';
+import React, { useState } from 'react';
+import Logo from '../../components/Logo/Logo';
+import { Button, LoginKakao, LoginGoogle } from '../../components/LoginButton/Button';
+import ChoiceTab from 'components/SignIn/ChoiceTab';
+import { useNavigate } from 'react-router-dom';
+import { Pagination, Autoplay, A11y } from 'swiper';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
+import 'swiper/css/pagination';
+import '../../components/utilCss/landingSwiper.css';
 
-const Landing = () => {
-  return <div className="text-yellow-300">랜딩페이지</div>;
-};
+const promotionImg = [
+  { title: 'welcome Korea', imgSrc: '/assets/square1.png' },
+  { title: '경복궁', imgSrc: '/assets/square2.png' },
+  { title: '부산으로 간다', imgSrc: '/assets/square3.png' },
+];
 
-export default Landing;
+export default function Landing() {
+  const [modal, setModal] = useState<boolean>(false);
+  const [active, setActive] = useState<boolean>(false);
+  const navigate = useNavigate();
+
+  const isOpen = () => setModal(!modal);
+
+  return (
+    <div className="relative">
+      <div className="w-20 h-20 mx-auto my-4">
+        <Logo />
+      </div>
+      <Swiper pagination={{ clickable: true }} modules={[Pagination, Autoplay, A11y]} autoplay={{ delay: 3000, disableOnInteraction: false }} loop={true}>
+        {promotionImg.map(({ title, imgSrc }, index) => (
+          <SwiperSlide key={index} className="landingSlide">
+            <img src={imgSrc} alt={title} className="w-full h-full object-cover" />
+          </SwiperSlide>
+        ))}
+      </Swiper>
+      <div className="mt-5">
+        <div className="mx-4">
+          <Button name={'로그인'} page={true} active={active} onClick={() => navigate('/signin')} />
+        </div>
+        <div className="text-center my-7">
+          <div className="flex items-center">
+            <div className="flex-grow border-b"></div>
+            <div className="px-2 text-gray-500 text-xs">Social Login</div>
+            <div className="flex-grow border-b"></div>
+          </div>
+        </div>
+        <div className="flex justify-center items-center space-x-8">
+          <LoginKakao />
+          <LoginGoogle />
+        </div>
+      </div>
+      <div className="w-full">
+        <ChoiceTab />
+      </div>
+    </div>
+  );
+}

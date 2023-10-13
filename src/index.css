@@ -1,3 +1,113 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+a:focus,
+input:focus,
+button:focus,
+textarea:focus,
+div:focus,
+.swiper-button-prev:focus,
+.swiper-button-next:focus,
+.swiper-pagination-bullet:focus {
+  outline: 2px solid pink;
+}
+
+.main-backGround {
+  background-image: url('/public/assets/otBackground.png');
+  background-size: cover;
+  background-position: center;
+}
+@media (max-width: 768px) {
+  .main-backGround {
+    background-image: none;
+    background-color: rgb(250, 238, 241);
+  }
+}
+
+@layer components {
+  .hideTitle {
+    @apply absolute w-[1px] h-[1px] overflow-hidden;
+  }
+  .inputForm {
+    @apply flex flex-col gap-1;
+  }
+  .inputStyle {
+    @apply w-full h-12 border border-gray-400 rounded placeholder:text-gray-400 pl-2;
+  }
+  .signUpAddress {
+    @apply w-48 h-12;
+  }
+  .buttonStyle {
+    @apply flex justify-center items-center w-[25rem] h-12 mx-auto rounded text-white bg-main-color;
+  }
+  .circleButtonStyle {
+    @apply flex justify-center w-11 h-11 rounded-[50%];
+  }
+  .noActiveButton {
+    @apply flex justify-center items-center w-[25rem] h-12 mx-auto rounded text-white bg-noActive-color;
+  }
+  .errorText {
+    @apply text-left text-sm text-check-red;
+  }
+  .centerPosition {
+    @apply top-1/2 left-1/2 -translate-x-[50%] -translate-y-[50%];
+  }
+  .line {
+    @apply border-b-[1px] after:bg-gray-300;
+  }
+  .active {
+    @apply cursor-pointer px-2 border-b-4 border-transparent border-main-color;
+  }
+  .buttonHoverSize {
+    @apply transition-transform hover:scale-110;
+  }
+  .buttonHoverSize125 {
+    @apply transition-transform hover:scale-125;
+  }
+  .buttonHoverColor {
+    @apply bg-main-color2 hover:bg-main-color text-white;
+  }
+  .svgStyle {
+    @apply w-11/12 fill-gray-300 stroke-white stroke-2 mx-auto;
+  }
+  .pathStyle {
+    @apply hover:fill-red-300 cursor-pointer outline-none transition-[fill];
+  }
+  .svgBig {
+    @apply 2xl:absolute 2xl:top-[170%] 2xl:left-[5%] 2xl:scale-110;
+  }
+  .effectArea {
+    @apply hover:border-main-color hover:text-main-color outline-red-300 transition-all duration-300;
+  }
+  .hostList {
+    @apply w-full flex flex-col justify-center gap-1 p-2 border-2 hover:border-red-300 cursor-pointer;
+  }
+  .hostListBtn {
+    @apply flex justify-center text-gray-600 border border-gray-400 rounded-lg hover:bg-red-100 hover:border-red-200;
+  }
+  .profileEditBtn {
+    @apply px-3 py-1 border rounded border-main-color text-main-color hover:bg-main-color hover:text-white;
+  }
+  .profileUpload {
+    @apply px-5 py-1 text-base font-semibold border-2 rounded-xl border-gray-200 hover:bg-green-400 hover:text-white;
+  }
+  .profileEdit {
+    @apply w-full mx-auto h-9 mb-3 border rounded border-main-color text-main-color hover:bg-main-color hover:text-white;
+  }
+}
+
+@layer components {
+  .listStyles {
+    @apply flex items-center justify-between p-4;
+  }
+  .modalBlack {
+    @apply fixed top-0 left-0 right-0 bottom-0 z-30 bg-black bg-opacity-30;
+  }
+  .addPhotoConatiner {
+    @apply lg:w-[500px] w-[400px] h-auto block border-2 rounded-lg bg-orange-100 p-5 absolute top-1/2 left-1/2 -translate-x-[50%] -translate-y-[50%] z-10;
+  }
+  .mapModalPosition {
+    @apply top-1/2 left-1/2 -translate-x-[50%] -translate-y-[14px];
+  }
+}
