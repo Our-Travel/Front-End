@@ -21,14 +21,25 @@ import WriteBoard from './pages/Board/WriteBoard';
 import Host from './pages/MyPage/Host';
 import KakaoRedirect from './pages/SignIn/KakaoRedirect';
 import ProfileEdit from 'components/MypageInfo/ProfileEdit';
+import { useSetRecoilState } from 'recoil';
+import { langConvert } from 'Atom/atom';
 
 function App() {
   const [token, setToken] = useState('');
+  const setLang = useSetRecoilState(langConvert);
 
+  const handleChangeLange = ({ target: { value } }: any) => {
+    value && setLang(value);
+  };
   return (
     <div className="relative">
       <div className="w-full h-screen main-backGround max-h-[60rem] ">
-        <div className="absolute w-full max-w-[28rem] text-center left-1/2 -translate-x-1/2 xl:left-[65%] bg-white h-screen border border-gray-200">
+        <div className="absolute right-0" onClick={handleChangeLange}>
+          <button value={'ko'}>한국어</button>
+          <button value={'en'}>ENG</button>
+        </div>
+        <div className="absolute w-full max-w-[28rem] max-h-[60rem] text-center left-1/2 -translate-x-1/2 xl:left-[65%] bg-white h-screen border border-gray-200">
+
           <Routes>
             <Route path="/" element={<Landing />} />
             <Route path="/signin" element={<SignIn />} />

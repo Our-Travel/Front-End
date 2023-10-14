@@ -4,6 +4,7 @@ import ChattingComponent from './ChattingComponent';
 import axios from 'axios';
 import Header from '../../components/Header/Header';
 import { BsTrash } from 'react-icons/bs';
+import EmptyPage from 'shared/EmptyPage';
 
 const ChattingItem = () => {
   const navigate = useNavigate();
@@ -64,9 +65,10 @@ const ChattingItem = () => {
     }
   };
 
+  console.log(chatList);
   return (
     <div>
-      <div className="flex justify-center items-center">
+      <div className="flex justify-center items-center w-full">
         <Header title="채팅목록" back={false} icon={''} />
         {chatList.length > 0 && (
           <BsTrash
@@ -77,8 +79,10 @@ const ChattingItem = () => {
           />
         )}
       </div>
+
       {chatList.length > 0 &&
         chatList.map(({ room_id, writer, latest_message, latest_message_time, room_title, region_code, room_manager, image }, index) => {
+
           const isSameUser = chatNickName === writer;
 
           return (
@@ -94,7 +98,10 @@ const ChattingItem = () => {
               {trash && <input className="mr-3 focus:outline-none" id={`room${index}`} type="checkbox" value={room_id} checked={checkedRooms.includes(room_id)} disabled={isSameUser} onChange={() => toggleRoomSelection(room_id)} />}
             </div>
           );
-        })}
+        })
+      ) : (
+        <EmptyPage content="채팅목록이 없습니다." alt="채팅목록 보라색 캐릭터" subContent="채팅에 참여해 여행할 친구를 찾아보세요." />
+      )}
       {trash && (
         <>
           <button onClick={deleteChatting} className="absolute bottom-20 left-1/2 -translate-x-[50%] bg-main-color w-[340px] h-[40px] rounded-lg text-white">

@@ -1,3 +1,4 @@
+import { LanguageType } from 'hooks/useMultilingual';
 import { atom } from 'recoil';
 interface Place {
   address_name: string;
@@ -32,4 +33,8 @@ export const chattingenter = atom<any>({
 export const boardItem = atom<any>({
   key: 'boardItem',
   default: null,
+});
+export const langConvert = atom<LanguageType>({
+  key: 'langConvert',
+  default: 'ko',
 });

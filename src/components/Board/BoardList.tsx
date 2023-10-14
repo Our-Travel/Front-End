@@ -4,6 +4,7 @@ import BoardModal from './BoardModal';
 import axios from 'axios';
 import { useSetRecoilState } from 'recoil';
 import { boardItem } from '../../Atom/atom';
+import EmptyPage from 'shared/EmptyPage';
 
 interface BoardListProps {
   selectedButtonIndex: number; // 수정된 타입
@@ -63,13 +64,7 @@ const BoardList = ({ selectedButtonIndex, setSelectedButtonIndex }: BoardListPro
   return (
     <div>
       {isEmpty ? (
-        <div className="flex flex-col items-center justify-center gap-9 absolute centerPosition w-full">
-          <img src="/assets/MyWriteImg.svg" alt="작성한 글이 없어요 페이지 보라색 캐릭터" />
-          <div>
-            <p className="text-xl">작성된 글이 없어요.</p>
-            <p className="mt-3 text-gray-500">글을 작성해 여행할 동료를 구해보세요.</p>
-          </div>
-        </div>
+        <EmptyPage content={'작성된 글이 없어요.'} subContent={'글을 작성해 여행할 동료를 구해보세요.'} alt={'작성한 글이 없어요 페이지 보라색 캐릭터'} />
       ) : (
         <div>
           {boardList.map(({ profile_image_full_path, writer, title, like_counts, valid_writer }, index) => (

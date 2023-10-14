@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import TourModal from './TourModal';
 import axios from 'axios';
 import contentTypes from 'util/contentType';
+import EmptyPage from 'shared/EmptyPage';
 
 interface TourObject {
   address: string;
@@ -33,17 +34,13 @@ interface Cate {
   tourType: string;
 }
 const TouristList = ({ tourType }: Cate) => {
-  console.log(tourType);
   const [boardDetail, setBoardDetail] = useState<TourObject | null>(null);
   const [modal, setModal] = useState<boolean>(false);
   const [selectedIdx, setSelectedIdx] = useState<number | null>(null);
   const [favoriteTouristList, setFavoriteTouristList] = useState<any[]>([]);
-
-  console.log(boardDetail);
+  const contentTypeId = Number(tourType);
   const handleItemClick = (index: number) => {
     const item = favoriteTouristList[index]!;
-    console.log(item);
-
     setSelectedIdx(index);
     setBoardDetail(item);
     setModal(true);
@@ -52,11 +49,12 @@ const TouristList = ({ tourType }: Cate) => {
   useEffect(() => {
     const getData = async () => {
       try {
-        const response = await axios.get(`${process.env.REACT_APP_REST_API_SERVER}/local-place/list`, {
+        const response = await axios.get(`${process.env.REACT_APP_REST_API_SERVER}/local-place/list?contentTypeId=${contentTypeId}`, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('token')}`,
           },
         });
+        console.log(response);
         const locationArr = response.data.data;
         setFavoriteTouristList(locationArr);
       } catch (error) {
@@ -66,13 +64,11 @@ const TouristList = ({ tourType }: Cate) => {
       }
     };
     getData();
-  }, []);
-  const fliterList = favoriteTouristList.filter((ty) => String(ty.content_type_id) === tourType);
-  console.log(fliterList);
+  }, [tourType]);
   return (
-    <div className="overflow-y-auto h-[650px]">
-      {fliterList.length !== 0 ? (
-        fliterList.map((el, index) => {
+    <div className="overflow-y-auto h-[650px] relative">
+      {favoriteTouristList.length !== 0 ? (
+        favoriteTouristList.map((el, index) => {
           return (
             <div key={index} className={`h-[105px] flex items-center p-4 border-b-[2px] border-gray-200 ${index === selectedIdx ? 'border-main-color border' : ''}`} onClick={() => handleItemClick(index)} tabIndex={0} role="button">
               <div className="w-[80px]">
@@ -86,7 +82,7 @@ const TouristList = ({ tourType }: Cate) => {
           );
         })
       ) : (
-        <div>아모고토없음</div>
+        <EmptyPage content={'즐겨찾기된 목록이 없어요.'} subContent={''} alt={'즐겨찾기된 목록이 없어요 페이지 보라색 캐릭터'} />
       )}
       {modal && <TourModal boardDetail={boardDetail} setModal={setModal} post={null} />}
     </div>
