@@ -123,14 +123,14 @@ const Chatting = () => {
         client.current.disconnect();
       }
     };
-  }, [chatEnter]);
+  }, [chatEnter, messages]);
   console.log(chatlist);
   return (
-    <div className="">
+    <div className="h-full">
       <Header title={'상대 유저 아이디'} back={true} icon={icon} />
-      <div className="w-full h-full overflow-hidden">
+      <div className="w-full h-[calc(100%-8rem)] overflow-hidden">
         <div className="text-[#FF626F] pt-2 pb-2 text-sm">{chatEnter && chatEnter.msg}</div>
-        <div className="main-chat mx-2.5 overflow-y-auto" ref={mainChat}>
+        <div className="main-chat h-[calc(100%-5rem)] mx-2.5 overflow-y-auto" ref={mainChat}>
           {chatlist && messages && (
             <div>
               {chatlist.map((message: MessageDto, index: number) => (
