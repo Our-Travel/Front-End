@@ -135,41 +135,41 @@ const KakaoMap = ({ token, selectedButtonIndex }: MapProps) => {
   // let zoomControl = new window.kakao.maps.ZoomControl();
   // map.addControl(zoomControl, window.kakao.maps.ControlPosition.RIGHT);
 
-  function createMarkerImage(markerSrc: any, markerSize: any) {
-    let markerImage = new window.kakao.maps.MarkerImage(markerSrc, markerSize);
+  // function createMarkerImage(markerSrc: any, markerSize: any) {
+  //   let markerImage = new window.kakao.maps.MarkerImage(markerSrc, markerSize);
 
-    return markerImage;
-  }
+  //   return markerImage;
+  // }
 
-  function addMarker(position: any) {
-    let markerSize = '';
-    // if (normalSrc === '/map/markerEllipse3.svg') markerSize = new window.kakao.maps.Size(18, 18);
-    // else markerSize = new window.kakao.maps.Size(28, 43);
-    let clickmarkerSize = new window.kakao.maps.Size(28, 43);
-    let markerSrc = 'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png';
+  // function addMarker(position: any) {
+  //   let markerSize = '';
+  //   // if (normalSrc === '/map/markerEllipse3.svg') markerSize = new window.kakao.maps.Size(18, 18);
+  //   // else markerSize = new window.kakao.maps.Size(28, 43);
+  //   let clickmarkerSize = new window.kakao.maps.Size(28, 43);
+  //   let markerSrc = 'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png';
 
-    let overImage = createMarkerImage(markerSrc, clickmarkerSize),
-      clickImage = createMarkerImage(markerSrc, clickmarkerSize);
+  //   let overImage = createMarkerImage(markerSrc, clickmarkerSize),
+  //     clickImage = createMarkerImage(markerSrc, clickmarkerSize);
 
-    let marker = new window.kakao.maps.Marker({
-      map: map,
-      position: position,
-      image: overImage,
-    });
+  //   let marker = new window.kakao.maps.Marker({
+  //     map: map,
+  //     position: position,
+  //     image: overImage,
+  //   });
 
-    marker.overImage = overImage;
+  //   marker.overImage = overImage;
 
-    // if (!selectedMarker || selectedMarker !== marker) {
-    //   !!selectedMarker && selectedMarker.setImage(selectedMarker.normalImage);
+  //   // if (!selectedMarker || selectedMarker !== marker) {
+  //   //   !!selectedMarker && selectedMarker.setImage(selectedMarker.normalImage);
 
-    //   marker.setImage(clickImage);
-    // }
+  //   //   marker.setImage(clickImage);
+  //   // }
 
-    // selectedMarker = marker;
-    // setSelected(marker);
+  //   // selectedMarker = marker;
+  //   // setSelected(marker);
 
-    return marker;
-  }
+  //   return marker;
+  // }
 
   const [modalClose, setModalClose] = useState(false);
   const [clickIndex, setClickIndex] = useState<Number | null>(null);
