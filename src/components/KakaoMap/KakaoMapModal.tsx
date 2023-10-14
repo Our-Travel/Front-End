@@ -45,7 +45,7 @@ const KakaoMapModal = ({ locationList, setModalClose, clickIndex, starClickedArr
   });
   // console.log(thing.home_page);
 
-  const { content_id, address, content_type_id, home_page, image, over_view, tel, tel_name, title } = thing;
+  const { content_id, address, content_type_id, home_page, latitude, longitude, image, over_view, tel, tel_name, title } = thing;
 
   const [isFavorited, setIsFavorited] = useState(false);
 
@@ -129,6 +129,13 @@ const KakaoMapModal = ({ locationList, setModalClose, clickIndex, starClickedArr
     <div className="fixed h-screen w-[448px] top-0 bottom-0 bg-black bg-opacity-0 z-30" ref={modalRef}>
       {/* {thing && ( */}
       <div className="absolute bottom-0 w-full h-[470px] bg-white rounded-t-3xl">
+        <a href={`https://map.kakao.com/link/roadview/${longitude},${latitude}`} target="_blank" className="btn btn-link flex-col mb-2">
+          <i className="text-xl fa-solid fa-road"></i>로드뷰
+        </a>
+        <a href={`https://map.kakao.com/link/to/${title},${longitude},${latitude}`} target="_blank" className="btn btn-link flex-col mb-2">
+          <i className="text-xl fa-solid fa-arrows-split-up-and-left"></i>길찾기
+        </a>
+
         <div className="border-b-2 py-3 font-bold text-lg">{title}</div>
         <div className="h-[150px] flex items-center border-b-2 py-10 pl-5 pr-10">
           <div className="flex justify-center rounded-lg pl-2 mr-2">{image ? <img src={image} alt="" className="mr-4 w-[100px] h-[100px] " /> : <img className="w-[80px] h-[80px] mr-6" alt="관광지 사진" src="/assets/homeicon.png" />}</div>

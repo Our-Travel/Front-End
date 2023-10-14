@@ -1,5 +1,5 @@
 import { loginType } from 'Atom/userAtom';
-import React from 'react';
+import { useEffect, useState } from 'react';
 import { GoThumbsup } from 'react-icons/go';
 import { useRecoilValue } from 'recoil';
 
@@ -10,8 +10,9 @@ interface BoardItemProps {
   content: string;
   like_counts: number;
   onItemClick: () => void;
+  valid_writer: boolean | null;
 }
-const BoardItem = ({ profile_image_full_path, writer, title, like_counts, onItemClick }: BoardItemProps) => {
+const BoardItem = ({ profile_image_full_path, writer, title, like_counts, onItemClick, valid_writer }: BoardItemProps) => {
   const signType = useRecoilValue(loginType);
   const handleClick = () => {
     onItemClick(); // 클릭 이벤트를 BoardList(상위) 컴포넌트로 전달

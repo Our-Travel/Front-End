@@ -1,49 +1,34 @@
-import React, { useState, MouseEvent } from 'react';
+import React, { useState, MouseEvent, useEffect } from 'react';
 import Header from '../../components/Header/Header';
-import { Profile } from '../../components/MypageInfo/MypageInfo';
 import TouristList from '../../components/TouristList/TouristList';
-import Accommodation from '../../components/TouristList/Accommodation';
 import { cls } from '../../util/util';
+import contentTypes from 'util/contentType';
 
 const Favorite = () => {
-  const [toggle, setToggle] = useState<boolean>(false);
-  const [toggleList, setToggleList] = useState<boolean[]>([false]);
+  const [toggle, setToggle] = useState<string>('관광지');
+  const [tourType, setTourType] = useState<string>('12');
 
-  // const handleToggle = (e: MouseEvent<HTMLButtonElement>) => {
-  //   const target = e.target as HTMLButtonElement;
-  //   target.name === 'tour' ? setToggle(false) : setToggle(true);
-  //   setToggle(true);
-  //   // toggleList[target.id] = true;
-  // };
   const handleToggle = (e: MouseEvent<HTMLButtonElement>) => {
     const target = e.target as HTMLButtonElement;
-    target.name === 'tour' ? setToggle(false) : setToggle(true);
+    const name = target.name;
+    const value = target.value;
+    setTourType(value);
+    setToggle(name);
   };
 
   return (
     <>
       <Header title={'즐겨찾기'} back={true} icon={''} />
-      <div className="flex flex-row justify-evenly text-sm font-semibold">
-        <button type="button" name="tour" id="0" onClick={handleToggle} className={cls(!toggle ? 'w-[80px] border-b-[2px] border-main-color pt-[2px]' : 'w-[80px] p-2')}>
-          관광지
-        </button>
-        <button type="button" name="culture" onClick={handleToggle} className={cls(!toggle ? 'w-[80px] border-b-[2px] border-main-color pt-[2px]' : 'w-[80px] p-2')}>
-          문화시설
-        </button>
-        <button type="button" name="festival" onClick={handleToggle} className={cls(!toggle ? 'w-[80px] border-b-[2px] border-main-color pt-[2px]' : 'w-[80px] p-2')}>
-          축제공연행사
-        </button>
-        <button type="button" name="course" onClick={handleToggle} className={cls(!toggle ? 'w-[80px] border-b-[2px] border-main-color pt-[2px]' : 'w-[80px] p-2')}>
-          여행코스
-        </button>
-        <button type="button" name="leports" onClick={handleToggle} className={cls(!toggle ? 'w-[80px] border-b-[2px] border-main-color pt-[2px]' : 'w-[80px] p-2')}>
-          레포츠
-        </button>
-        <button type="button" name="Accommodation" onClick={handleToggle} className={cls(toggle ? 'w-[80px] border-b-[2px] border-main-color pt-[2px]' : 'w-[80px] p-2')}>
-          숙박
-        </button>
+      <div className="flex flex-row justify-evenly text-[16px] font-semibold ">
+        {contentTypes.map((el) => {
+          return (
+            <button type="button" value={el.value} name={el.key} onClick={handleToggle} className={cls('focus:outline-none w-[80px] py-1 h-20  hover:text-white hover:bg-main-color', toggle == el.key ? 'border-b-2 border-main-color' : '')}>
+              {el.key}
+            </button>
+          );
+        })}
       </div>
-      {toggle ? <Accommodation /> : <TouristList />}
+      {toggle && <TouristList tourType={tourType} />}
     </>
   );
 };

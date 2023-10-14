@@ -15,12 +15,11 @@ import HostList from './pages/Main/HostList';
 import MyWrite from './pages/MyPage/MyWrite';
 import Favorite from './pages/MyPage/Favorite';
 import Notice from './pages/MyPage/Notice';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import Board from './pages/Board/Board';
 import WriteBoard from './pages/Board/WriteBoard';
 import Host from './pages/MyPage/Host';
 import KakaoRedirect from './pages/SignIn/KakaoRedirect';
-import EditBoard from './pages/MyPage/EditBoard';
 import ProfileEdit from 'components/MypageInfo/ProfileEdit';
 
 function App() {
@@ -29,7 +28,7 @@ function App() {
   return (
     <div className="relative">
       <div className="w-full h-screen main-backGround max-h-[60rem] ">
-        <div className="absolute w-full h-full max-w-[28rem] max-h-[60rem] text-center left-1/2 -translate-x-1/2 xl:left-[65%] bg-white h-screen border border-gray-200">
+        <div className="absolute w-full max-w-[28rem] text-center left-1/2 -translate-x-1/2 xl:left-[65%] bg-white h-screen border border-gray-200">
           <Routes>
             <Route path="/" element={<Landing />} />
             <Route path="/signin" element={<SignIn />} />

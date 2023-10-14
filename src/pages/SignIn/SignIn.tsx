@@ -6,8 +6,8 @@ import ChoiceTab from 'components/SignIn/ChoiceTab';
 import React, { useEffect, useState, MouseEvent } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import { useSetRecoilState, useRecoilValue } from 'recoil';
-import jwtDecode, { JwtPayload } from 'jwt-decode';
+import { useSetRecoilState } from 'recoil';
+import jwtDecode from 'jwt-decode';
 import useInput from 'hooks/useInput';
 import { loginType } from 'Atom/userAtom';
 
@@ -43,6 +43,7 @@ const SignIn = () => {
       const nickName = parsedBody.nickName;
       localStorage.setItem('token', response.headers.authentication);
       localStorage.setItem('nickname', nickName);
+      localStorage.setItem('memberId', String(parsedBody.id));
       signType(true);
       alert(response.data.msg);
       navigate('/main');

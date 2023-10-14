@@ -66,7 +66,7 @@ const MyWrite = () => {
       ) : (
         <>
           {boardList.map(({ writer, title, profile_image_full_path, like_counts }, index) => (
-            <BoardItem key={index} writer={writer} title={title} profile_image_full_path={profile_image_full_path} like_counts={like_counts} onItemClick={() => handleItemClick(index)} content={''} />
+            <BoardItem key={index} writer={writer} title={title} profile_image_full_path={profile_image_full_path} like_counts={like_counts} onItemClick={() => handleItemClick(index)} content={''} valid_writer={null} />
           ))}
         </>
       )}

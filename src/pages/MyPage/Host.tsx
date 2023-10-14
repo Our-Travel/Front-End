@@ -149,8 +149,8 @@ const Host = () => {
           프로필 수정
         </button>
       </div>
-      <form className="px-4 text-left mx-auto">
-        {hostActive && <p className="text-sm font-semibold mt-4 text-main-color">※ 기존에 등록된 정보를 참고하여 수정 해주세요.</p>}
+      <form className={`flex flex-col px-4 ${hostActive ? 'gap-1 mt-2' : 'gap-2 mt-4'} text-left mx-auto`}>
+        {hostActive && <p className="text-sm font-semibold text-main-color">※ 기존에 등록된 정보를 참고하여 수정 해주세요.</p>}
         <div className="inputForm">
           <label htmlFor="introduction">한줄소개</label>
           <div className="relative flex flex-row items-center">

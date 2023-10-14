@@ -52,7 +52,7 @@ const BoardModal = ({ setModal }: Props) => {
   const handleChatButtonClick = () => {
     if (isLoggedIn) {
       axios
-        .get(`https://ourtravel.site/api/dev/boards/${item.board_id}`, {
+        .get(`${process.env.REACT_APP_REST_API_SERVER}/boards/${item.board_id}`, {
           headers: { Authorization: `Bearer ${token}` },
         })
         .then((response) => {

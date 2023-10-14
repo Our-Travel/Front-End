@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import BoardItem from './BoardItem';
 import BoardModal from './BoardModal';
 import axios from 'axios';
-import { useRecoilState, useSetRecoilState } from 'recoil';
+import { useSetRecoilState } from 'recoil';
 import { boardItem } from '../../Atom/atom';
 
 interface BoardListProps {
@@ -72,8 +72,8 @@ const BoardList = ({ selectedButtonIndex, setSelectedButtonIndex }: BoardListPro
         </div>
       ) : (
         <div>
-          {boardList.map(({ profile_image_full_path, writer, title, like_counts }, index) => (
-            <BoardItem key={index} writer={writer} title={title} profile_image_full_path={profile_image_full_path} like_counts={like_counts} onItemClick={() => handleItemClick(index)} content={''} />
+          {boardList.map(({ profile_image_full_path, writer, title, like_counts, valid_writer }, index) => (
+            <BoardItem key={index} writer={writer} title={title} profile_image_full_path={profile_image_full_path} like_counts={like_counts} onItemClick={() => handleItemClick(index)} content={''} valid_writer={valid_writer} />
           ))}
         </div>
       )}

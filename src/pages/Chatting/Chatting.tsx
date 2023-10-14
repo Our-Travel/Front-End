@@ -3,19 +3,16 @@ import Header from '../../components/Header/Header';
 import { CiMenuKebab } from 'react-icons/ci';
 import FriendChat from './../../components/Chatting/FriendChat';
 import MeChat from './../../components/Chatting/MeChat';
-import { Client, CompatClient, Message, Stomp } from '@stomp/stompjs';
+import { CompatClient, Stomp } from '@stomp/stompjs';
 import SockJS from 'sockjs-client';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import { useDebounce } from '../../hooks/useDebounce';
-import { useRecoilValue } from 'recoil';
-import { exitChat } from '../../Atom/atom';
 interface MessageDto {
   member_id: number;
   nickname: string;
   message: string;
   created_date: string;
-  // Add other properties if needed
 }
 interface ChatMessage {
   created_date: string;
@@ -36,6 +33,7 @@ interface ApiResponse {
 const Chatting = () => {
   const [chatEnter, setChatEnter] = useState<ApiResponse>();
   const chatlist = chatEnter?.data.chat_room_message_dto_list;
+  console.log(chatlist);
   const token = localStorage.getItem('token');
   const nickName = localStorage.getItem('nickname');
   const icon = <CiMenuKebab />;
@@ -46,9 +44,8 @@ const Chatting = () => {
   const client = useRef<CompatClient>();
   const [inputMessage, setInputMessage] = useState('');
   const debounceMessage = useDebounce(inputMessage, 1000);
-  const [modalOpen, setModalOpen] = useState<boolean>(false);
   const [messages, setMessages] = useState<string[]>([]);
-  const exitUser = useRecoilValue(exitChat);
+  console.log(messages);
   const { roomnum } = useParams();
   // 웹소켓 연결 함수
   const connectHandler = () => {
@@ -56,17 +53,17 @@ const Chatting = () => {
       Authorization: token,
     };
     client.current = Stomp.over(() => {
-      const sock = new SockJS('https://ourtravel.site/api/dev/ws/chat');
+      const sock = new SockJS(`${process.env.REACT_APP_REST_API_SERVER}/ws/chat`);
       return sock;
     });
     client.current.connect(headers, () => {
       client.current?.subscribe('/sub/message/' + chatEnter?.data.chat_room_id, (message) => {
-        console.log(message, '구독');
         const newMessage = JSON.parse(message.body);
         setMessages((prevMessages) => [...prevMessages, newMessage]);
       });
     });
   };
+
   const sendHandler = () => {
     if (inputMessage.trim() === '') {
       alert('메시지를 입력해주세요!');
@@ -79,6 +76,7 @@ const Chatting = () => {
         room_id: roomnum,
         writer_nickname: nickName,
         message: inputMessage,
+        created_date: new Date(),
       })
     );
     scrollToBottom();
@@ -87,17 +85,19 @@ const Chatting = () => {
   useEffect(() => {
     sendText.current?.focus();
     axios
-      .get(`https://ourtravel.site/api/dev/room/${roomnum}`, {
+      .get(`${process.env.REACT_APP_REST_API_SERVER}/room/${roomnum}`, {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((res) => {
         if (res.status === 200) {
+          console.log(res);
           setChatEnter(res.data);
         } else {
           alert('에러가 발생하였습니다');
         }
       });
   }, [roomnum, token]);
+
   const scrollToBottom = () => {
     if (mainChat.current) {
       const { scrollHeight, clientHeight } = mainChat.current;
@@ -123,29 +123,22 @@ const Chatting = () => {
         client.current.disconnect();
       }
     };
-  }, [chatEnter]);
+  }, [chatEnter, messages]);
   console.log(chatlist);
   return (
-    <div className="">
+    <div className="h-full">
       <Header title={'상대 유저 아이디'} back={true} icon={icon} />
-      <div className="w-full h-full overflow-hidden">
+      <div className="w-full h-[calc(100%-8rem)] overflow-hidden">
         <div className="text-[#FF626F] pt-2 pb-2 text-sm">{chatEnter && chatEnter.msg}</div>
-        <div className="main-chat mx-2.5 overflow-y-auto" ref={mainChat}>
-          {/* {chatlist && messages && (
-            <div>
-              {chatlist.map((message: MessageDto, index: number) => (
-                <div key={index}>{message.nickname === nickName ? <MeChat content={message.message} /> : <FriendChat nickName={message.nickname} content={message.message} />}</div>
-              ))}
-            </div>
-          )} */}
+        <div className="main-chat h-[calc(100%-5rem)] mx-2.5 overflow-y-auto" ref={mainChat}>
           {chatlist && messages && (
             <div>
               {chatlist.map((message: MessageDto, index: number) => (
                 <div key={index}>
                   {message.nickname === nickName ? (
-                    <MeChat content={message.message} />
+                    <MeChat content={message.message} time={message.created_date} />
                   ) : (
-                    <div>{message.nickname === 'admin' ? <span className="text-main-color block mt-3">{message.message}</span> : <FriendChat nickName={message.nickname} content={message.message} />}</div>
+                    <div>{message.nickname === 'admin' ? <span className="text-main-color block mt-3">{message.message}</span> : <FriendChat nickName={message.nickname} content={message.message} time={message.created_date} />}</div>
                   )}
                 </div>
               ))}
@@ -154,12 +147,16 @@ const Chatting = () => {
 
           {chatEnter &&
             messages.length !== 0 &&
-            messages.map((message: any, index: number) => <div key={index}>{nickName === message.writer_nickname ? <MeChat content={message.message} /> : <FriendChat nickName={message.writer_nickname} content={message.message} />}</div>)}
-          {exitUser && (
-            <div>
-              {nickName}님이 {exitUser}
-            </div>
-          )}
+            messages.map((message: any, index: number) => (
+              <div key={index}>
+                {nickName === message.writer_nickname ? (
+                  <MeChat content={message.message} time={message.created_date} />
+                ) : (
+                  <div>{message.writer_nickname === 'admin' ? <span className="text-main-color block mt-3">{message.message}</span> : <FriendChat nickName={message.nickname} content={message.message} time={message.created_date} />}</div>
+                )}
+              </div>
+            ))}
+
           <div ref={mainChat} />
         </div>
         <div className="absolute bottom-16 flex w-full">
@@ -177,7 +174,7 @@ const Chatting = () => {
             value={inputMessage}
           />
           <button onClick={sendHandler} id="sendbtn">
-            <img src="/sendButton.svg" alt="메세지 전송버튼" className="mr-3" />
+            <img src="/assets/sendButton.svg" alt="메세지 전송버튼" className="mr-3" />
           </button>
         </div>
       </div>

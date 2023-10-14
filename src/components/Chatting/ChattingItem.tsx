@@ -4,8 +4,6 @@ import ChattingComponent from './ChattingComponent';
 import axios from 'axios';
 import Header from '../../components/Header/Header';
 import { BsTrash } from 'react-icons/bs';
-import { useRecoilState, useSetRecoilState } from 'recoil';
-import { exitChat } from '../../Atom/atom';
 
 const ChattingItem = () => {
   const navigate = useNavigate();
@@ -13,31 +11,13 @@ const ChattingItem = () => {
   const chatNickName = localStorage.getItem('nickname');
   const [trash, setTrash] = useState<boolean>(false);
   const [checkedRooms, setCheckedRooms] = useState<string[]>([]);
-  const [exitUser, setExitUser] = useRecoilState(exitChat);
+  const [exitUser, setExitUser] = useState('');
   const token = localStorage.getItem('token');
-
-  // 삭제 탐지 테스트
-  const [test, setTest] = useState(false);
-
-  // useEffect(() => {
-  //   axios
-  //     .get('https://ourtravel.site/api/dev/room', {
-  //       headers: { Authorization: `Bearer ${token}` },
-  //     })
-  //     .then((res) => {
-  //       console.log(res);
-  //       if (res.status === 200) {
-  //         setChatList(res.data.data);
-  //       }
-  //     })
-  //     .catch((err) => console.log(err.message));
-  // }, []);
 
   useEffect(() => {
     // 채팅방 목록 불러오기
-    console.log('실행');
     axios
-      .get('https://ourtravel.site/api/dev/room', {
+      .get(`${process.env.REACT_APP_REST_API_SERVER}/room`, {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((res) => {
@@ -69,16 +49,14 @@ const ChattingItem = () => {
       for (let i = 0; i < checkedRooms.length; i++) {
         const room_id = checkedRooms[i];
         axios
-          .delete(`https://ourtravel.site/api/dev/room/${room_id}`, {
+          .delete(`${process.env.REACT_APP_REST_API_SERVER}/room/${room_id}`, {
             headers: { Authorization: `Bearer ${token}` },
           })
           .then((res) => {
             console.log(res);
             setExitUser(res.data.msg);
 
-            // 탐지 test
             alert(res.data.msg);
-            setTest(!test);
             setTrash(!trash);
           })
           .catch((err) => console.error(err));
@@ -100,7 +78,7 @@ const ChattingItem = () => {
         )}
       </div>
       {chatList.length > 0 &&
-        chatList.map(({ room_id, writer, latest_message, latest_message_time, room_title, region_code, room_manager }, index) => {
+        chatList.map(({ room_id, writer, latest_message, latest_message_time, room_title, region_code, room_manager, image }, index) => {
           const isSameUser = chatNickName === writer;
 
           return (
@@ -111,7 +89,7 @@ const ChattingItem = () => {
                   navigate(`/chatting/${room_id}`);
                 }}
               >
-                <ChattingComponent key={index} writer={writer} room_title={room_title} latest_message={latest_message} region_code={region_code} time={latest_message_time} />
+                <ChattingComponent key={index} writer={writer} room_title={room_title} latest_message={latest_message} region_code={region_code} time={latest_message_time} room_manager={room_manager} image={image} />
               </label>
               {trash && <input className="mr-3 focus:outline-none" id={`room${index}`} type="checkbox" value={room_id} checked={checkedRooms.includes(room_id)} disabled={isSameUser} onChange={() => toggleRoomSelection(room_id)} />}
             </div>
