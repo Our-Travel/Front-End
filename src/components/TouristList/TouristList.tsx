@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import TourModal from './TourModal';
 import axios from 'axios';
 import contentTypes from 'util/contentType';
+import KakaoMapModal from 'components/KakaoMap/KakaoMapModal';
 
 interface TourObject {
   address: string;
@@ -30,14 +31,15 @@ interface TourType {
   title: string;
 }
 interface Cate {
-  tourType: string;
+  tourType: number;
 }
 const TouristList = ({ tourType }: Cate) => {
-  console.log(tourType);
+  console.log(`tourType: ${tourType}`);
   const [boardDetail, setBoardDetail] = useState<TourObject | null>(null);
   const [modal, setModal] = useState<boolean>(false);
   const [selectedIdx, setSelectedIdx] = useState<number | null>(null);
   const [favoriteTouristList, setFavoriteTouristList] = useState<any[]>([]);
+  const [favoriteList, setFavoriteList] = useState<any[]>([]);
 
   console.log(boardDetail);
   const handleItemClick = (index: number) => {
@@ -49,10 +51,11 @@ const TouristList = ({ tourType }: Cate) => {
     setModal(true);
   };
 
+  const fliterList = favoriteTouristList.filter((ty) => ty.content_type_id === tourType);
   useEffect(() => {
     const getData = async () => {
       try {
-        const response = await axios.get(`${process.env.REACT_APP_REST_API_SERVER}/local-place/list?contentTypeId=12`, {
+        const response = await axios.get(`${process.env.REACT_APP_REST_API_SERVER}/local-place/list?contentTypeId=${tourType}`, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('token')}`,
           },
@@ -66,9 +69,17 @@ const TouristList = ({ tourType }: Cate) => {
       }
     };
     getData();
-  }, []);
-  const fliterList = favoriteTouristList.filter((ty) => String(ty.content_type_id) === tourType);
-  console.log(fliterList);
+  }, [tourType]);
+
+  // setFavoriteList(favoriteTouristList);///
+
+  console.log(`fliterList: ${fliterList}`);
+  // console.log(`favoriteTouristList: ${favoriteTouristList}`);
+
+  if (boardDetail) {
+    const { content_id, address, content_type_id, home_page, latitude, longitude, image, over_view, tel, tel_name, title } = boardDetail;
+  }
+
   return (
     <div className="overflow-y-auto h-[650px]">
       {fliterList.length !== 0 ? (
@@ -89,6 +100,7 @@ const TouristList = ({ tourType }: Cate) => {
         <div>아모고토없음</div>
       )}
       {modal && <TourModal boardDetail={boardDetail} setModal={setModal} post={null} />}
+      {/* {modal && <KakaoMapModal boardDetail={boardDetail} />} */}
     </div>
   );
 };
