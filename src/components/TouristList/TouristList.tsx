@@ -51,7 +51,7 @@ const TouristList = () => {
   useEffect(() => {
     const getData = async () => {
       try {
-        const response = await axios.get(`${process.env.REACT_APP_REST_API_SERVER}/local-place/list`, {
+        const response = await axios.get(`${process.env.REACT_APP_REST_API_SERVER}/local-place/list?contentTypeId=12`, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('token')}`,
           },

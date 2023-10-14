@@ -191,12 +191,14 @@ const KakaoMap = ({ token, selectedButtonIndex }: MapProps) => {
   // initMarkers(null);
 
   // console.log(map);
+  let newStarArr = Array(locationList.length).fill(false);
+  const [starClickedArr, setStarClickedArr] = useState(newStarArr);
 
   return (
     <>
       <div id="map" className="w-full h-[90vh]">
         {locationList && map && selectedButtonIndex && <KakaoMapMarker locationList={locationList} map={map} modalShow={modalShow} setClickIndex={setClickIndex} selectedButtonIndex={selectedButtonIndex} />}
-        {locationList && map && modalClose && clickIndex && <KakaoMapModal locationList={locationList} setModalClose={setModalClose} clickIndex={clickIndex} />}
+        {locationList && map && modalClose && clickIndex && starClickedArr && <KakaoMapModal locationList={locationList} setModalClose={setModalClose} clickIndex={clickIndex} starClickedArr={starClickedArr} setStarClickedArr={setStarClickedArr} />}
       </div>
     </>
   );
