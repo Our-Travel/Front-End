@@ -6,6 +6,9 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import useInput from 'hooks/useInput';
 import useFetch from '../../hooks/useFetch';
+import { langConvert } from 'Atom/atom';
+import { useRecoilValue } from 'recoil';
+import useMultilingual from 'hooks/useMultilingual';
 
 const SignUp = () => {
   const [active, setActive] = useState<boolean>(false);
@@ -15,6 +18,8 @@ const SignUp = () => {
   const password = useInput();
   const pwCheck = useInput();
   const navigate = useNavigate();
+  const lang = useRecoilValue(langConvert);
+  const m = useMultilingual(lang);
 
   const join = async (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -45,7 +50,7 @@ const SignUp = () => {
 
   return (
     <>
-      <Header title={'회원가입'} back={true} icon={''} />
+      <Header title={m('EMAIL')} back={true} icon={''} />
       <form className="w-full px-4 mt-6">
         <div className="flex flex-col gap-4">
           <Email page={false} title={'이메일'} data={email.data} state={email.state} onChange={email.onChange} onReset={email.onReset} />

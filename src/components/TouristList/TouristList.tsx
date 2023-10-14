@@ -3,6 +3,7 @@ import TourModal from './TourModal';
 import axios from 'axios';
 import contentTypes from 'util/contentType';
 import KakaoMapModal from 'components/KakaoMap/KakaoMapModal';
+import EmptyPage from 'shared/EmptyPage';
 
 interface TourObject {
   address: string;
@@ -34,7 +35,6 @@ interface Cate {
   tourType: number;
 }
 const TouristList = ({ tourType }: Cate) => {
-  console.log(`tourType: ${tourType}`);
   const [boardDetail, setBoardDetail] = useState<TourObject | null>(null);
   const [modal, setModal] = useState<boolean>(false);
   const [selectedIdx, setSelectedIdx] = useState<number | null>(null);
@@ -44,8 +44,6 @@ const TouristList = ({ tourType }: Cate) => {
   console.log(boardDetail);
   const handleItemClick = (index: number) => {
     const item = favoriteTouristList[index]!;
-    console.log(item);
-
     setSelectedIdx(index);
     setBoardDetail(item);
     setModal(true);
@@ -60,6 +58,7 @@ const TouristList = ({ tourType }: Cate) => {
             Authorization: `Bearer ${localStorage.getItem('token')}`,
           },
         });
+        console.log(response);
         const locationArr = response.data.data;
         setFavoriteTouristList(locationArr);
       } catch (error) {
@@ -81,9 +80,9 @@ const TouristList = ({ tourType }: Cate) => {
   }
 
   return (
-    <div className="overflow-y-auto h-[650px]">
-      {fliterList.length !== 0 ? (
-        fliterList.map((el, index) => {
+    <div className="overflow-y-auto h-[650px] relative">
+      {favoriteTouristList.length !== 0 ? (
+        favoriteTouristList.map((el, index) => {
           return (
             <div key={index} className={`h-[105px] flex items-center p-4 border-b-[2px] border-gray-200 ${index === selectedIdx ? 'border-main-color border' : ''}`} onClick={() => handleItemClick(index)} tabIndex={0} role="button">
               <div className="w-[80px]">
@@ -97,10 +96,9 @@ const TouristList = ({ tourType }: Cate) => {
           );
         })
       ) : (
-        <div>아모고토없음</div>
+        <EmptyPage content={'즐겨찾기된 목록이 없어요.'} subContent={''} alt={'즐겨찾기된 목록이 없어요 페이지 보라색 캐릭터'} />
       )}
       {modal && <TourModal boardDetail={boardDetail} setModal={setModal} post={null} />}
-      {/* {modal && <KakaoMapModal boardDetail={boardDetail} />} */}
     </div>
   );
 };

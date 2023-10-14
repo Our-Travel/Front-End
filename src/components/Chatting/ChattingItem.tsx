@@ -4,6 +4,7 @@ import ChattingComponent from './ChattingComponent';
 import axios from 'axios';
 import Header from '../../components/Header/Header';
 import { BsTrash } from 'react-icons/bs';
+import EmptyPage from 'shared/EmptyPage';
 
 const ChattingItem = () => {
   const navigate = useNavigate();
@@ -64,9 +65,10 @@ const ChattingItem = () => {
     }
   };
 
+  console.log(chatList);
   return (
     <div>
-      <div className="flex justify-center items-center">
+      <div className="flex justify-center items-center w-full">
         <Header title="채팅목록" back={false} icon={''} />
         {chatList.length > 0 && (
           <BsTrash

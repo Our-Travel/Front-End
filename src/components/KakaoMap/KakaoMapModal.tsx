@@ -148,6 +148,9 @@ const KakaoMapModal = ({ locationList, setModalClose, clickIndex, starClickedArr
       {/* {thing && ( */}
       <div className="absolute bottom-0 w-full h-[470px] bg-white rounded-t-3xl">
         {/* <a href={`https://map.kakao.com/link/roadview/${longitude},${latitude}`} target="_blank" className="btn btn-link flex-col mb-2">
+    <div className="fixed h-full w-[448px] bottom-[56px] bg-opacity-0 z-30" ref={modalRef}>
+      <div className="absolute bottom-0 w-full  bg-white rounded-t-3xl">
+        <a href={`https://map.kakao.com/link/roadview/${longitude},${latitude}`} target="_blank" className="btn btn-link flex-col mb-2">
           <i className="text-xl fa-solid fa-road"></i>로드뷰
         </a>
         <a href={`https://map.kakao.com/link/to/${title},${longitude},${latitude}`} target="_blank" className="btn btn-link flex-col mb-2">
@@ -181,7 +184,6 @@ const KakaoMapModal = ({ locationList, setModalClose, clickIndex, starClickedArr
           </div>
         </div>
       </div>
-      {/* )} */}
     </div>
   );
 };

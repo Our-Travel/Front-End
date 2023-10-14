@@ -3,6 +3,7 @@ import Header from '../../components/Header/Header';
 import BoardItem from '../../components/Board/BoardItem';
 import axios from 'axios';
 import EditBoard from './EditBoard';
+import EmptyPage from 'shared/EmptyPage';
 
 const MyWrite = () => {
   //받아온 데이터의 갯수가 없다면? 을 받는 객체
@@ -56,13 +57,7 @@ const MyWrite = () => {
       <Header title={'내가 작성한 글'} back={true} icon={''} />
       {editBoard && <EditBoard setEditBoard={setEditBoard} item={selectedItem} />}
       {isEmpty ? (
-        <div className="flex flex-col items-center justify-center gap-4 absolute centerPosition w-full">
-          <img src="/assets/MyWriteImg.svg" alt="작성한 글이 없어요 페이지 보라색 캐릭터" />
-          <div>
-            <p className="text-xl">작성한 글이 없어요.</p>
-            <p className="mt-3 text-gray-500">글을 작성해 여행할 동료를 구해보세요.</p>
-          </div>
-        </div>
+        <EmptyPage content={'작성된 글이 없어요.'} subContent={'글을 작성해 여행할 동료를 구해보세요.'} alt={'작성한 글이 없어요 페이지 보라색 캐릭터'} />
       ) : (
         <>
           {boardList.map(({ writer, title, profile_image_full_path, like_counts }, index) => (

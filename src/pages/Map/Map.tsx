@@ -10,6 +10,7 @@ const Map = ({ token }: MapProps) => {
   const [selectedButtonIndex, setSelectedButtonIndex] = useState<number>(12);
   const [typeId, setTypeId] = useState<number | null>(0);
 
+  console.log(selectedButtonIndex);
   const handleButtonClick = (index: React.SetStateAction<number>) => {
     setSelectedButtonIndex(index);
     // setTypeId(index)
