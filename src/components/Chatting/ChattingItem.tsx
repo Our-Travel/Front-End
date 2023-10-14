@@ -79,7 +79,7 @@ const ChattingItem = () => {
       </div>
       {chatList.length > 0 &&
         chatList.map(({ room_id, writer, latest_message, latest_message_time, room_title, region_code, room_manager, image }, index) => {
-          const isSameUser = chatNickName === writer;
+          const isSameUser = room_manager && chatNickName === writer;
 
           return (
             <div className="flex justify-between border-b-[1px]" key={index}>
