@@ -3,7 +3,7 @@ import { BsPatchCheckFill } from 'react-icons/bs';
 import { MdArrowForwardIos } from 'react-icons/md';
 import { Link, useNavigate } from 'react-router-dom';
 import { useRecoilState, useRecoilValue } from 'recoil';
-import { hostCheck, loginType, profileUpdate } from '../../Atom/userAtom';
+import { hostCheck, profileUpdate } from '../../Atom/userAtom';
 import axios from 'axios';
 import Spinner from 'shared/Spinner';
 
@@ -23,7 +23,6 @@ export const Profile = ({ page }: pageInfo) => {
   const config = { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } };
   const [loading, setLoading] = useState<boolean>(true);
   const update = useRecoilValue(profileUpdate);
-  const signType = useRecoilValue(loginType);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -56,7 +55,7 @@ export const Profile = ({ page }: pageInfo) => {
           <Spinner page={page} />
         ) : (
           <div className="flex flex-row items-center gap-4">
-            <img src={data.image_path || (signType ? '/assets/profile.svg' : '/assets/profileSocial.svg')} className={`${page ? 'w-20 h-20' : 'w-40 h-40 mx-auto shadow-lg'} rounded-full border border-gray-300`} alt="마이페이지 프로필사진" />
+            <img src={data.image_path || '/assets/profile.svg'} className={`${page ? 'w-20 h-20 object-contain' : 'w-40 h-40 mx-auto shadow-lg object-contain'} rounded-full border border-gray-300`} alt="마이페이지 프로필사진" />
             {page && (
               <div className="text-left">
                 <div className="flex flex-row items-center gap-2">

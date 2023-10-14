@@ -27,6 +27,7 @@ function KakaoRedirect() {
 
     localStorage.setItem('token', token);
     localStorage.setItem('nickname', parsedBody.nickName);
+    localStorage.setItem('memberId', String(parsedBody.id));
 
     signType(false);
     window.location.replace('/main');

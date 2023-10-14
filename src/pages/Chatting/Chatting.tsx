@@ -53,7 +53,7 @@ const Chatting = () => {
       Authorization: token,
     };
     client.current = Stomp.over(() => {
-      const sock = new SockJS('https://ourtravel.site/api/dev/ws/chat');
+      const sock = new SockJS(`${process.env.REACT_APP_REST_API_SERVER}/ws/chat`);
       return sock;
     });
     client.current.connect(headers, () => {
@@ -63,6 +63,7 @@ const Chatting = () => {
       });
     });
   };
+
   const sendHandler = () => {
     if (inputMessage.trim() === '') {
       alert('메시지를 입력해주세요!');
@@ -84,17 +85,19 @@ const Chatting = () => {
   useEffect(() => {
     sendText.current?.focus();
     axios
-      .get(`https://ourtravel.site/api/dev/room/${roomnum}`, {
+      .get(`${process.env.REACT_APP_REST_API_SERVER}/room/${roomnum}`, {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((res) => {
         if (res.status === 200) {
+          console.log(res);
           setChatEnter(res.data);
         } else {
           alert('에러가 발생하였습니다');
         }
       });
   }, [roomnum, token]);
+
   const scrollToBottom = () => {
     if (mainChat.current) {
       const { scrollHeight, clientHeight } = mainChat.current;
@@ -120,14 +123,14 @@ const Chatting = () => {
         client.current.disconnect();
       }
     };
-  }, [chatEnter]);
+  }, [chatEnter, messages]);
   console.log(chatlist);
   return (
-    <div className="">
+    <div className="h-full">
       <Header title={'상대 유저 아이디'} back={true} icon={icon} />
-      <div className="w-full h-full overflow-hidden">
+      <div className="w-full h-[calc(100%-8rem)] overflow-hidden">
         <div className="text-[#FF626F] pt-2 pb-2 text-sm">{chatEnter && chatEnter.msg}</div>
-        <div className="main-chat mx-2.5 overflow-y-auto" ref={mainChat}>
+        <div className="main-chat h-[calc(100%-5rem)] mx-2.5 overflow-y-auto" ref={mainChat}>
           {chatlist && messages && (
             <div>
               {chatlist.map((message: MessageDto, index: number) => (
