@@ -39,7 +39,6 @@ function App() {
           <button value={'en'}>ENG</button>
         </div>
         <div className="absolute w-full max-w-[28rem] max-h-[60rem] text-center left-1/2 -translate-x-1/2 xl:left-[65%] bg-white h-screen border border-gray-200">
-
           <Routes>
             <Route path="/" element={<Landing />} />
             <Route path="/signin" element={<SignIn />} />
