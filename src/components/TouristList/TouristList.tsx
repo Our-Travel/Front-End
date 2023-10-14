@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import TourModal from './TourModal';
 import axios from 'axios';
-import contentTypes from 'util/contentType';
-import KakaoMapModal from 'components/KakaoMap/KakaoMapModal';
 import EmptyPage from 'shared/EmptyPage';
 
 interface TourObject {
@@ -39,7 +37,6 @@ const TouristList = ({ tourType }: Cate) => {
   const [modal, setModal] = useState<boolean>(false);
   const [selectedIdx, setSelectedIdx] = useState<number | null>(null);
   const [favoriteTouristList, setFavoriteTouristList] = useState<any[]>([]);
-  const [favoriteList, setFavoriteList] = useState<any[]>([]);
 
   console.log(boardDetail);
   const handleItemClick = (index: number) => {
@@ -49,7 +46,6 @@ const TouristList = ({ tourType }: Cate) => {
     setModal(true);
   };
 
-  const fliterList = favoriteTouristList.filter((ty) => ty.content_type_id === tourType);
   useEffect(() => {
     const getData = async () => {
       try {
@@ -70,14 +66,9 @@ const TouristList = ({ tourType }: Cate) => {
     getData();
   }, [tourType]);
 
-  // setFavoriteList(favoriteTouristList);///
-
-  console.log(`fliterList: ${fliterList}`);
-  // console.log(`favoriteTouristList: ${favoriteTouristList}`);
-
-  if (boardDetail) {
-    const { content_id, address, content_type_id, home_page, latitude, longitude, image, over_view, tel, tel_name, title } = boardDetail;
-  }
+  // if (boardDetail) {
+  //   const { content_id, address, content_type_id, home_page, latitude, longitude, image, over_view, tel, tel_name, title } = boardDetail;
+  // }
 
   return (
     <div className="overflow-y-auto h-[650px] relative">

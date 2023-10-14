@@ -107,9 +107,9 @@ const TourModal = ({ boardDetail, setModal }: Props) => {
   // const { content_id, address, content_type_id, home_page, latitude, longitude, image, over_view, tel, tel_name, title, liked_travel_info } = boardDetail;
 
   return (
-    <div className="fixed h-screen w-[448px] top-0 bottom-0 bg-black bg-opacity-0 z-30" onClick={closeModal}>
+    <div className="fixed h-screen w-full top-0 bottom-0 bg-black bg-opacity-0 z-30" onClick={closeModal}>
       {boardDetail && (
-        <div className="absolute bottom-0 w-full h-[470px] bg-white rounded-t-3xl">
+        <div className="absolute bottom-14 w-full h-[420px] border-t-2 bg-white rounded-t-3xl">
           {/* <a href={`https://map.kakao.com/link/roadview/${longitude},${latitude}`} target="_blank" className="btn btn-link flex-col mb-2">
          <i className="text-xl fa-solid fa-road"></i>로드뷰
        </a>

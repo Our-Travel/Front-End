@@ -30,7 +30,6 @@ const SignIn = () => {
   const navigate = useNavigate();
   const email = useInput();
   const password = useInput();
-  // 다국어
   const lang = useRecoilValue(langConvert);
   const m = useMultilingual(lang);
 

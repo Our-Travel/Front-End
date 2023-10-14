@@ -44,7 +44,7 @@ export const Profile = ({ page }: pageInfo) => {
           alert(error.response?.data.msg);
         }
         localStorage.removeItem('token');
-        navigate('/signin');
+        navigate('/');
       });
   }, [update]);
 
