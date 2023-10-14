@@ -1,9 +1,15 @@
 import { Link } from 'react-router-dom';
 import Feedback from './Feedback';
 import { useState } from 'react';
+import { langConvert } from 'Atom/atom';
+import { useRecoilValue } from 'recoil';
+import useMultilingual from 'hooks/useMultilingual';
 
 const ChoiceTab = () => {
   const [modal, setModal] = useState<boolean>(false);
+  // 다국어
+  const lang = useRecoilValue(langConvert);
+  const m = useMultilingual(lang);
   const openModal = () => {
     setModal(true);
   };
@@ -15,11 +21,11 @@ const ChoiceTab = () => {
         </button>
         <span className="mx-5">|</span>
         <Link to="/signup" className="px-3">
-          <span>회원가입</span>
+          <span>{m('SIGN_UP')}</span>
         </Link>
         <span className="mx-5">|</span>
         <Link to="/main" className="px-3">
-          <span>둘러보기</span>
+          <span>{m('TAKE_A_TOUR')}</span>
         </Link>
       </div>
       {modal && <Feedback setModal={setModal} />}

@@ -6,10 +6,12 @@ import ChoiceTab from 'components/SignIn/ChoiceTab';
 import React, { useEffect, useState, MouseEvent } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import { useSetRecoilState } from 'recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import jwtDecode from 'jwt-decode';
 import useInput from 'hooks/useInput';
 import { loginType } from 'Atom/userAtom';
+import useMultilingual from 'hooks/useMultilingual';
+import { langConvert } from 'Atom/atom';
 
 interface DecodedToken {
   id: number;
@@ -28,6 +30,9 @@ const SignIn = () => {
   const navigate = useNavigate();
   const email = useInput();
   const password = useInput();
+  // 다국어
+  const lang = useRecoilValue(langConvert);
+  const m = useMultilingual(lang);
 
   const login = async (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -59,17 +64,17 @@ const SignIn = () => {
 
   return (
     <div>
-      <Header title={'로그인'} back={true} icon={''} />
+      <Header title={m('LOG_IN')} back={true} icon={''} />
       <div className="w-52 h-52 mx-auto my-10">
         <Logo />
       </div>
       <form className="w-full flex flex-col gap-5 px-4">
-        <Email page={true} title={'이메일'} data={email.data} state={email.state} onChange={email.onChange} onReset={email.onReset} />
+        <Email page={true} title={m('EMAIL')} data={email.data} state={email.state} onChange={email.onChange} onReset={email.onReset} />
         <div className="relative inputForm">
-          <Password page={true} title={'비밀번호'} data={password.data} state={password.state} onChange={password.onChange} onReset={password.onReset} />
+          <Password page={true} title={m('PASSWORD')} data={password.data} state={password.state} onChange={password.onChange} onReset={password.onReset} />
         </div>
         <div className="mt-7">
-          <Button name={'로그인'} page={false} active={active} onClick={login} />
+          <Button name={m('LOG_IN')} page={false} active={active} onClick={login} />
         </div>
       </form>
       <div className="text-center my-7">
