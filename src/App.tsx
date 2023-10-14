@@ -27,7 +27,7 @@ function App() {
 
   return (
     <div className="relative">
-      <div className="w-full h-full main-backGround max-h-[60rem] ">
+      <div className="w-full h-screen main-backGround max-h-[60rem] ">
         <div className="absolute w-full max-w-[28rem] text-center left-1/2 -translate-x-1/2 xl:left-[65%] bg-white h-screen border border-gray-200">
           <Routes>
             <Route path="/" element={<Landing />} />
