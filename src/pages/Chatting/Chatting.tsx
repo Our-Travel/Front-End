@@ -130,7 +130,7 @@ const Chatting = () => {
       <Header title={'상대 유저 아이디'} back={true} icon={icon} />
       <div className="w-full h-[calc(100%-8rem)] overflow-hidden">
         <div className="text-[#FF626F] pt-2 pb-2 text-sm">{chatEnter && chatEnter.msg}</div>
-        <div className="main-chat h-[calc(100%-5rem)] mx-2.5 overflow-y-auto" ref={mainChat}>
+        <div className="main-chat h-[calc(100%-5rem)] mx-2.5 overflow-y-auto px-1" ref={mainChat}>
           {chatlist && messages && (
             <div>
               {chatlist.map((message: MessageDto, index: number) => (
