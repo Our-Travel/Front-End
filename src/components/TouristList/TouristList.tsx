@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import TourModal from './TourModal';
 import axios from 'axios';
-import contentTypes from 'util/contentType';
-import KakaoMapModal from 'components/KakaoMap/KakaoMapModal';
 import EmptyPage from 'shared/EmptyPage';
 import { boardItem } from './../../Atom/atom';
 
@@ -43,34 +41,13 @@ const TouristList = ({ tourType }: Cate) => {
   const [favoriteList, setFavoriteList] = useState<any[]>([]);
   const [isStared, setIsStared] = useState<boolean>(false);
   const [isLiked, setIsLiked] = useState<boolean>(false);
-  const [testTest, setTestTest] = useState<boolean>(true);
 
-  // console.log(boardDetail);
   const handleItemClick = (index: number) => {
     const item = favoriteTouristList[index]!;
     setSelectedIdx(index);
     setBoardDetail(item);
     setModal(true);
-    // handleLiked(boardDetail);
   };
-
-  // const handleLiked = async (boardDetail: any) => {
-  //   console.log(`디테일: ${boardDetail.content_id}`);
-  //   // console.log();
-  //   try {
-  //     const response = await axios.get(`${process.env.REACT_APP_REST_API_SERVER}/local-place/${boardDetail.content_id}`, {
-  //       headers: {
-  //         Authorization: `Bearer ${localStorage.getItem('token')}`,
-  //       },
-  //     });
-  //     let heartResult = response.data.data.liked_travel_info;
-  //     setIsLiked(heartResult);
-  //   } catch (error) {
-  //     if (axios.isAxiosError(error)) {
-  //       alert(error.response?.data.msg);
-  //     }
-  //   }
-  // };
 
   useEffect(() => {
     const getData = async () => {
@@ -111,15 +88,6 @@ const TouristList = ({ tourType }: Cate) => {
   //   };
   //   getData();
   // }, [boardDetail]);
-
-  // setFavoriteList(favoriteTouristList);///
-
-  // console.log(`fliterList: ${fliterList}`);
-  // console.log(`favoriteTouristList: ${favoriteTouristList}`);
-
-  if (boardDetail) {
-    const { content_id, address, content_type_id, home_page, latitude, longitude, image, over_view, tel, tel_name, title } = boardDetail;
-  }
 
   return (
     <div className="overflow-y-auto h-[650px] relative">
