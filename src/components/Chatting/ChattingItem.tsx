@@ -88,7 +88,7 @@ const ChattingItem = () => {
               <label
                 htmlFor={`room${index}`}
                 onClick={() => {
-                  navigate(`/chatting/${room_id}`);
+                  region_code && room_manager ? navigate(`/chatting/${room_id}/${region_code}/${room_manager}`) : navigate(`/chatting/${room_id}/${room_title}`);
                 }}
               >
                 <ChattingComponent key={index} writer={writer} room_title={room_title} latest_message={latest_message} region_code={region_code} time={latest_message_time} room_manager={room_manager} image={image} />
