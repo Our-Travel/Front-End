@@ -23,8 +23,8 @@ export default function Landing() {
   const isOpen = () => setModal(!modal);
 
   return (
-    <div className="relative">
-      <div className="w-20 h-20 mx-auto my-4">
+    <div className="relative h-full">
+      <div className="w-20 h-20 mx-auto py-4 mb-8">
         <Logo />
       </div>
       <Swiper pagination={{ clickable: true }} modules={[Pagination, Autoplay, A11y]} autoplay={{ delay: 3000, disableOnInteraction: false }} loop={true}>

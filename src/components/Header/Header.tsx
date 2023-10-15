@@ -9,7 +9,7 @@ interface header {
   icon: React.ReactNode;
 }
 
-const Header = ({ title, back, icon }: header) => {
+const Header = ({ title = '채팅방 제목' || undefined, back, icon }: header) => {
   const navigate = useNavigate();
   const [modalOpen, setModal] = useState<boolean>(false);
   const currentURL = window.location.pathname;
@@ -33,13 +33,13 @@ const Header = ({ title, back, icon }: header) => {
 
   return (
     <>
-      <header className="relative flex justify-center items-center text-2xl py-3 border-b  border-gray-200">
+      <header className="relative flex justify-center items-center text-2xl py-3 border-b w-full border-gray-200">
         {back && (
           <button type="button" className="absolute left-1 px-2 py-2" onClick={handleGoBack}>
             <SlArrowLeft />
           </button>
         )}
-        <h2 className="text-xl font-semibold cursor-default">{title}</h2>
+        <h2 className={`font-semibold cursor-default ${title?.length > 20 ? 'text-base' : 'text-xl'}`}>{title}</h2>
         {icon && (
           <button type="button" className="absolute right-1 px-2 py-2 transition-transform hover:scale-125" onClick={handleButtonClick}>
             {icon}

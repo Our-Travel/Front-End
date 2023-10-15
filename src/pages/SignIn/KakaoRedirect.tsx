@@ -30,6 +30,7 @@ function KakaoRedirect() {
     localStorage.setItem('memberId', String(parsedBody.id));
 
     signType(false);
+    window.location.reload();
     window.location.replace('/main');
   }, []);
 

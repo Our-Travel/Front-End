@@ -19,7 +19,6 @@ const ChattingComponenet = ({ writer, latest_message, time, room_title, region_c
   const [inputTime, setInputTime] = useState('');
   console.log(inputTime);
   const foundRegion = regions.find((re) => re.value === region_code)?.key;
-  // 일대일 채팅 상대방 이미지 저장
   const setFriendImage = useSetRecoilState(profileImage);
   setFriendImage(image);
 
