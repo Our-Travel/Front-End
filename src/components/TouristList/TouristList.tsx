@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import TourModal from './TourModal';
 import axios from 'axios';
 import EmptyPage from 'shared/EmptyPage';
+import { boardItem } from './../../Atom/atom';
 
 interface TourObject {
   address: string;
@@ -37,8 +38,9 @@ const TouristList = ({ tourType }: Cate) => {
   const [modal, setModal] = useState<boolean>(false);
   const [selectedIdx, setSelectedIdx] = useState<number | null>(null);
   const [favoriteTouristList, setFavoriteTouristList] = useState<any[]>([]);
+  const [isStared, setIsStared] = useState<boolean>(false);
+  const [isLiked, setIsLiked] = useState<boolean>(false);
 
-  console.log(boardDetail);
   const handleItemClick = (index: number) => {
     const item = favoriteTouristList[index]!;
     setSelectedIdx(index);
@@ -54,7 +56,6 @@ const TouristList = ({ tourType }: Cate) => {
             Authorization: `Bearer ${localStorage.getItem('token')}`,
           },
         });
-        console.log(response);
         const locationArr = response.data.data;
         setFavoriteTouristList(locationArr);
       } catch (error) {
@@ -64,11 +65,7 @@ const TouristList = ({ tourType }: Cate) => {
       }
     };
     getData();
-  }, [tourType]);
-
-  // if (boardDetail) {
-  //   const { content_id, address, content_type_id, home_page, latitude, longitude, image, over_view, tel, tel_name, title } = boardDetail;
-  // }
+  }, [tourType, isStared]);
 
   return (
     <div className="overflow-y-auto h-[650px] relative">
@@ -89,7 +86,7 @@ const TouristList = ({ tourType }: Cate) => {
       ) : (
         <EmptyPage content={'즐겨찾기된 목록이 없어요.'} subContent={''} alt={'즐겨찾기된 목록이 없어요 페이지 보라색 캐릭터'} />
       )}
-      {modal && <TourModal boardDetail={boardDetail} setModal={setModal} post={null} />}
+      {modal && <TourModal boardDetail={boardDetail} setModal={setModal} post={null} setIsStared={setIsStared} />}
     </div>
   );
 };
