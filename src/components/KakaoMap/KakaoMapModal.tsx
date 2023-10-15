@@ -75,9 +75,6 @@ const KakaoMapModal = ({ locationList, setModalClose, clickIndex, starClickedArr
 
   const toggleFavorite = () => {
     setIsFavorited((prevIsFavorited) => !prevIsFavorited);
-
-    // starClickedArr[idx] = !starClickedArr[idx];
-    // setStarClickedArr([...starClickedArr]);
     setIsLiked(!isLiked);
   };
   const handleClipBoard = useCallback(async () => {
@@ -106,6 +103,9 @@ const KakaoMapModal = ({ locationList, setModalClose, clickIndex, starClickedArr
             headers: headers,
           }
         );
+
+        setIsFavorited((prevIsFavorited) => !prevIsFavorited);
+        setIsLiked(!isLiked);
         console.log('post 성공');
       } catch (error) {
         if (axios.isAxiosError(error) && error.response?.status === 400) {
@@ -173,8 +173,8 @@ const KakaoMapModal = ({ locationList, setModalClose, clickIndex, starClickedArr
           <p className="text-gray-600 pt-2">{over_view}</p>
         </div>
         <div className="mt-4 flex items-center justify-between px-5">
-          <div className="flex items-center translate-x-2 hover:cursor-pointer" onClick={toggleFavorite}>
-            {isLiked ? <AiFillHeart className="mr-3 w-[30px] h-[30px]" onClick={clickHeart} /> : <AiOutlineHeart className="mr-3 w-[30px] h-[30px]" onClick={clickHeart} />}
+          <div className="flex items-center translate-x-2 hover:cursor-pointer" onClick={clickHeart}>
+            {isLiked ? <AiFillHeart className="mr-3 w-[30px] h-[30px]" /> : <AiOutlineHeart className="mr-3 w-[30px] h-[30px]" />}
             <button>Add To Favorite</button>
           </div>
           <div className="w-[1px] h-[30px] bg-black" />

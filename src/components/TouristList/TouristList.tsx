@@ -4,6 +4,7 @@ import axios from 'axios';
 import contentTypes from 'util/contentType';
 import KakaoMapModal from 'components/KakaoMap/KakaoMapModal';
 import EmptyPage from 'shared/EmptyPage';
+import { boardItem } from './../../Atom/atom';
 
 interface TourObject {
   address: string;
@@ -40,16 +41,37 @@ const TouristList = ({ tourType }: Cate) => {
   const [selectedIdx, setSelectedIdx] = useState<number | null>(null);
   const [favoriteTouristList, setFavoriteTouristList] = useState<any[]>([]);
   const [favoriteList, setFavoriteList] = useState<any[]>([]);
+  const [isStared, setIsStared] = useState<boolean>(false);
+  const [isLiked, setIsLiked] = useState<boolean>(false);
+  const [testTest, setTestTest] = useState<boolean>(true);
 
-  console.log(boardDetail);
+  // console.log(boardDetail);
   const handleItemClick = (index: number) => {
     const item = favoriteTouristList[index]!;
     setSelectedIdx(index);
     setBoardDetail(item);
     setModal(true);
+    // handleLiked(boardDetail);
   };
 
-  const fliterList = favoriteTouristList.filter((ty) => ty.content_type_id === tourType);
+  // const handleLiked = async (boardDetail: any) => {
+  //   console.log(`디테일: ${boardDetail.content_id}`);
+  //   // console.log();
+  //   try {
+  //     const response = await axios.get(`${process.env.REACT_APP_REST_API_SERVER}/local-place/${boardDetail.content_id}`, {
+  //       headers: {
+  //         Authorization: `Bearer ${localStorage.getItem('token')}`,
+  //       },
+  //     });
+  //     let heartResult = response.data.data.liked_travel_info;
+  //     setIsLiked(heartResult);
+  //   } catch (error) {
+  //     if (axios.isAxiosError(error)) {
+  //       alert(error.response?.data.msg);
+  //     }
+  //   }
+  // };
+
   useEffect(() => {
     const getData = async () => {
       try {
@@ -61,6 +83,7 @@ const TouristList = ({ tourType }: Cate) => {
         console.log(response);
         const locationArr = response.data.data;
         setFavoriteTouristList(locationArr);
+        console.log('리스트 호출');
       } catch (error) {
         if (axios.isAxiosError(error)) {
           alert(error.response?.data.msg);
@@ -68,11 +91,30 @@ const TouristList = ({ tourType }: Cate) => {
       }
     };
     getData();
-  }, [tourType]);
+  }, [tourType, isStared]);
+
+  // useEffect(() => {
+  //   const getData = async () => {
+  //     try {
+  //       const response = await axios.get(`${process.env.REACT_APP_REST_API_SERVER}/local-place/${boardDetail?.content_id}`, {
+  //         headers: {
+  //           Authorization: `Bearer ${localStorage.getItem('token')}`,
+  //         },
+  //       });
+  //       let heartResult = response.data.data.liked_travel_info;
+  //       setIsLiked(heartResult);
+  //     } catch (error) {
+  //       if (axios.isAxiosError(error)) {
+  //         alert(error.response?.data.msg);
+  //       }
+  //     }
+  //   };
+  //   getData();
+  // }, [boardDetail]);
 
   // setFavoriteList(favoriteTouristList);///
 
-  console.log(`fliterList: ${fliterList}`);
+  // console.log(`fliterList: ${fliterList}`);
   // console.log(`favoriteTouristList: ${favoriteTouristList}`);
 
   if (boardDetail) {
@@ -98,7 +140,7 @@ const TouristList = ({ tourType }: Cate) => {
       ) : (
         <EmptyPage content={'즐겨찾기된 목록이 없어요.'} subContent={''} alt={'즐겨찾기된 목록이 없어요 페이지 보라색 캐릭터'} />
       )}
-      {modal && <TourModal boardDetail={boardDetail} setModal={setModal} post={null} />}
+      {modal && <TourModal boardDetail={boardDetail} setModal={setModal} post={null} setIsStared={setIsStared} />}
     </div>
   );
 };
