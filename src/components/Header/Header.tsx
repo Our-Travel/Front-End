@@ -2,9 +2,12 @@ import { SlArrowLeft } from 'react-icons/sl';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router';
 import useLoginCheck from '../../hooks/useLoginCheck';
+import { langConvert } from 'Atom/atom';
+import { useRecoilValue } from 'recoil';
+import useMultilingual from 'hooks/useMultilingual';
 
 interface header {
-  title: string | undefined;
+  title: string;
   back: boolean;
   icon: React.ReactNode;
 }
@@ -14,6 +17,8 @@ const Header = ({ title, back, icon }: header) => {
   const [modalOpen, setModal] = useState<boolean>(false);
   const currentURL = window.location.pathname;
   const lastPath = currentURL.substring(currentURL.lastIndexOf('/') + 1);
+  const lang = useRecoilValue(langConvert);
+  const m = useMultilingual(lang);
 
   //로그인 되어있는지 확인하는 커스텀 훅
   const loginCheck = useLoginCheck();
@@ -39,7 +44,7 @@ const Header = ({ title, back, icon }: header) => {
             <SlArrowLeft />
           </button>
         )}
-        <h2 className="text-xl font-semibold cursor-default">{title}</h2>
+        <h2 className="text-xl font-semibold cursor-default">{m(title)}</h2>
         {icon && (
           <button type="button" className="absolute right-1 px-2 py-2 transition-transform hover:scale-125" onClick={handleButtonClick}>
             {icon}
