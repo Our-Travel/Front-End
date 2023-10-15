@@ -9,12 +9,8 @@ import { BsShare } from 'react-icons/bs';
 import useLoginCheck from '../../hooks/useLoginCheck';
 import axios from 'axios';
 import { Console } from 'console';
-// import Header from 'components/Header/ChattingHeader';
-// import { Header } from 'components/Header/Header';
 
 const KakaoMapModal = ({ locationList, setModalClose, clickIndex, starClickedArr, setStarClickedArr }: any) => {
-  // let newStarArr = Array(locationList.length).fill(false);
-  // const [starClickedArr, setStarClickedArr] = useState(newStarArr);
   const [isLiked, setIsLiked] = useState(false);
   const loginCheck = useLoginCheck();
   const isLoggedIn = loginCheck();
@@ -50,24 +46,18 @@ const KakaoMapModal = ({ locationList, setModalClose, clickIndex, starClickedArr
   });
 
   const clickOutside = (e: any) => {
-    // console.log(modalRef.current);
-
     if (modalRef.current === e.target) {
       modalClose();
     }
   };
-  console.log('모달 호출됨');
 
   let thing: any = null;
-
-  // console.log(`boardDetail: ${boardDetail}`);
 
   locationList.map((item: any) => {
     if (clickIndex === item.content_id) {
       thing = item;
     }
   });
-  // console.log(thing.home_page);
 
   const { content_id, address, content_type_id, home_page, latitude, longitude, image, over_view, tel, tel_name, title, liked_travel_info } = thing;
 
@@ -106,7 +96,6 @@ const KakaoMapModal = ({ locationList, setModalClose, clickIndex, starClickedArr
 
         setIsFavorited((prevIsFavorited) => !prevIsFavorited);
         setIsLiked(!isLiked);
-        console.log('post 성공');
       } catch (error) {
         if (axios.isAxiosError(error) && error.response?.status === 400) {
           alert(error.response.data.msg);
@@ -140,10 +129,8 @@ const KakaoMapModal = ({ locationList, setModalClose, clickIndex, starClickedArr
   }, []);
 
   let idx = locationList.findIndex((obj: any) => obj.content_id === clickIndex);
-  // console.log(`인덱스: ${idx}`);
 
   return (
-    // <div className="fixed h-screen top-0 bottom-0 bg-black bg-opacity-30 z-30" ref={modalRef}></div>
     <div className="fixed h-screen w-[448px] top-0 bottom-0 bg-black bg-opacity-0 z-30" ref={modalRef}>
       {/* {thing && ( */}
       <div className="absolute bottom-0 w-full h-[470px] bg-white rounded-t-3xl">

@@ -38,7 +38,6 @@ const TouristList = ({ tourType }: Cate) => {
   const [modal, setModal] = useState<boolean>(false);
   const [selectedIdx, setSelectedIdx] = useState<number | null>(null);
   const [favoriteTouristList, setFavoriteTouristList] = useState<any[]>([]);
-  const [favoriteList, setFavoriteList] = useState<any[]>([]);
   const [isStared, setIsStared] = useState<boolean>(false);
   const [isLiked, setIsLiked] = useState<boolean>(false);
 
@@ -57,10 +56,8 @@ const TouristList = ({ tourType }: Cate) => {
             Authorization: `Bearer ${localStorage.getItem('token')}`,
           },
         });
-        console.log(response);
         const locationArr = response.data.data;
         setFavoriteTouristList(locationArr);
-        console.log('리스트 호출');
       } catch (error) {
         if (axios.isAxiosError(error)) {
           alert(error.response?.data.msg);
@@ -69,25 +66,6 @@ const TouristList = ({ tourType }: Cate) => {
     };
     getData();
   }, [tourType, isStared]);
-
-  // useEffect(() => {
-  //   const getData = async () => {
-  //     try {
-  //       const response = await axios.get(`${process.env.REACT_APP_REST_API_SERVER}/local-place/${boardDetail?.content_id}`, {
-  //         headers: {
-  //           Authorization: `Bearer ${localStorage.getItem('token')}`,
-  //         },
-  //       });
-  //       let heartResult = response.data.data.liked_travel_info;
-  //       setIsLiked(heartResult);
-  //     } catch (error) {
-  //       if (axios.isAxiosError(error)) {
-  //         alert(error.response?.data.msg);
-  //       }
-  //     }
-  //   };
-  //   getData();
-  // }, [boardDetail]);
 
   return (
     <div className="overflow-y-auto h-[650px] relative">

@@ -98,7 +98,6 @@ const TourModal = ({ boardDetail, setModal, setIsStared }: Props) => {
         setIsFavorited((prevIsFavorited) => !prevIsFavorited);
         setIsLiked(!isLiked);
         setIsStared(!isLiked);
-        console.log('post 성공');
       } catch (error) {
         if (axios.isAxiosError(error) && error.response?.status === 400) {
           alert(error.response.data.msg);
