@@ -21,10 +21,10 @@ export function Button({ name, page, active, onClick }: buttonInfo) {
 export function LoginKakao() {
   const KAKAO_AUTH_URL = `${process.env.REACT_APP_KAKAO_AUTH_URL}`;
   return (
-    <div className="circleButtonStyle bg-yellow-300">
-      <Link to={KAKAO_AUTH_URL} className="w-full h-full ">
-        <RiKakaoTalkFill className="w-full h-full p-2" />
-      </Link>
+    <div className="circleButtonStyle bg-yellow-300 cursor-pointer" onClick={() => window.open(KAKAO_AUTH_URL, '_blank')}>
+      {/* <Link to={KAKAO_AUTH_URL} className="w-full h-full "> */}
+      <RiKakaoTalkFill className="w-full h-full p-2" />
+      {/* </Link> */}
     </div>
   );
 }
