@@ -132,7 +132,7 @@ const ProfileEdit = () => {
             <div className="flex justify-between">
               <input required type="text" name="nickName" id="nickName" placeholder="한글, 영문, 숫자 가능 3~10자" className={`inputStyle ${nickNameInput()}`} onChange={newNickName.onChange} value={newNickName.data} />
               <button type="button" className={`w-28 h-12 ml-7 border rounded ${nickNameBtn()}`} onClick={handleNickName} disabled={!newNickName.state}>
-                {m('CHECK')}
+                {m('DOUBLE_CHECK')}
               </button>
             </div>
             <span className="errorText">{newNickName.data && !newNickName.state && '올바른 닉네임을 입력해주세요. (공백 불가)'}</span>
