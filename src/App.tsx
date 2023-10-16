@@ -58,8 +58,7 @@ function App() {
               <Route path="/mypage/notice" element={<Notice />} />
               <Route path="/mypage/host" element={<Host />} />
               <Route path="/mypage/host/edit" element={<Host />} />
-              <Route path="/chatting/:roomnum/:room_title" element={<Chatting />} />
-              <Route path="/chatting/:roomnum/:region_code/:room_manager" element={<Chatting />} />
+              <Route path="/chatting/:roomnum" element={<Chatting />} />
               <Route path="/chattinglist" element={<ChattingList />} />
               <Route path="/oauth2/redirect/:token" element={<KakaoRedirect />} />
             </Route>

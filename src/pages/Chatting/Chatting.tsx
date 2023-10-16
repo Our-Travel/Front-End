@@ -29,6 +29,9 @@ interface ApiResponse {
     chat_room_id: number;
     chat_room_message_dto_list: ChatMessage[];
     my_member_id: number;
+    region_code: number;
+    room_manager: string;
+    room_title: string;
   };
 }
 
@@ -40,6 +43,8 @@ const Chatting = () => {
   const nickName = localStorage.getItem('nickname');
   const sendText = useRef<HTMLInputElement>(null);
   let mainChat = useRef<HTMLDivElement>(null);
+  const regionCheck = regions.filter((el) => el.value === chatEnter?.data.region_code);
+  const regionName = regionCheck.map((el) => el.key);
 
   // 웹소켓 테스트
   const client = useRef<CompatClient>();
@@ -47,8 +52,7 @@ const Chatting = () => {
   const debounceMessage = useDebounce(inputMessage, 1000);
   const [messages, setMessages] = useState<string[]>([]);
   console.log(messages);
-  const { roomnum, region_code, room_manager, room_title } = useParams();
-  let regionName = regions.map((el) => el.value === Number(region_code) && el.key);
+  const { roomnum } = useParams();
 
   // 웹소켓 연결 함수
   const connectHandler = () => {
@@ -128,11 +132,9 @@ const Chatting = () => {
     };
   }, [chatEnter, messages]);
 
-  console.log(chatlist);
-
   return (
     <div className="h-full">
-      <Header title={region_code ? `[${regionName[0]}] ${room_manager}의 단체방` : `${room_title}`} back={true} icon={''} />
+      <Header title={chatEnter?.data.room_manager ? `[${regionName[0]}] ${chatEnter?.data.room_manager}의 단체방` : chatEnter?.data.room_title} back={true} icon={''} />
       <div className="w-full h-[calc(100%-8rem)] overflow-hidden">
         <div className="text-[#FF626F] pt-2 pb-2 text-sm">{chatEnter && chatEnter.msg}</div>
         <div className="main-chat h-[calc(100%-5rem)] mx-2.5 overflow-y-auto" ref={mainChat}>

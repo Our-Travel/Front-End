@@ -81,16 +81,11 @@ const ChattingItem = () => {
       </div>
       {chatList.length > 0 ? (
         chatList.map(({ room_id, writer, latest_message, latest_message_time, room_title, region_code, room_manager, image }, index) => {
-          const isSameUser = room_manager && chatNickName === writer;
+          const isSameUser = room_manager && chatNickName === room_manager;
 
           return (
             <div className="flex justify-between border-b-[1px]" key={index}>
-              <label
-                htmlFor={`room${index}`}
-                onClick={() => {
-                  region_code && room_manager ? navigate(`/chatting/${room_id}/${region_code}/${room_manager}`) : navigate(`/chatting/${room_id}/${room_title}`);
-                }}
-              >
+              <label htmlFor={`room${index}`} onClick={() => navigate(`/chatting/${room_id}`)}>
                 <ChattingComponent key={index} writer={writer} room_title={room_title} latest_message={latest_message} region_code={region_code} time={latest_message_time} room_manager={room_manager} image={image} />
               </label>
               {trash && <input className="mr-3 focus:outline-none" id={`room${index}`} type="checkbox" value={room_id} checked={checkedRooms.includes(room_id)} disabled={isSameUser} onChange={() => toggleRoomSelection(room_id)} />}
