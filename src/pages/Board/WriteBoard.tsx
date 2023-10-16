@@ -90,7 +90,7 @@ const WriteBoard = () => {
   };
 
   return (
-    <div className="relative h-[100vh]">
+    <div className="relative h-full">
       <Header title="게시글 작성" back={true} icon={''} />
       {modal && <ModalButton title="글을 작성하시겠습니까?" button="작성하기" setModal={setModal} handleButton={handleWriteBoardButton} />}
       <PostForm
