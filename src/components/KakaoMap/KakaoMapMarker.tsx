@@ -57,8 +57,6 @@ const KaKaoMapMarker = ({ locationList, map, modalShow, setClickIndex, selectedB
     return marker;
   }
 
-  // console.log(locationList);
-
   useDidMountEffect(() => {
     setMarkers([]);
     initMarkers(null);

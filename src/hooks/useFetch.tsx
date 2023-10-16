@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 interface hostMapData {
   region_code: number;
@@ -15,6 +16,7 @@ const useFetch = () => {
   };
   const [status, setStatus] = useState<number>(0);
   const [hostMap, setHostMap] = useState<hostMapData[]>([]);
+  const navigate = useNavigate();
 
   // 회원가입 이메일, 닉네임 중복체크
   const signupCheck = async (type: string, data: string) => {
@@ -42,6 +44,7 @@ const useFetch = () => {
     } catch (error) {
       if (axios.isAxiosError(error)) {
         alert(error.response?.data.msg);
+        navigate('/signin');
       }
     }
   };

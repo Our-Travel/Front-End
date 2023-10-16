@@ -21,10 +21,6 @@ export const aroundLoc = atom<Place[] | null>({
   key: 'aroundLoc',
   default: null,
 });
-export const accommodation = atom<Place[] | null>({
-  key: 'accommodation',
-  default: null,
-});
 
 export const chattingenter = atom<any>({
   key: 'chattingenter',

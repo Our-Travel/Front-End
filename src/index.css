@@ -33,7 +33,7 @@ div:focus,
     @apply flex flex-col gap-1;
   }
   .inputStyle {
-    @apply w-full h-12 border border-gray-400 rounded placeholder:text-gray-400 pl-2;
+    @apply w-full h-12 border border-gray-400 rounded placeholder:text-gray-400 placeholder:text-sm pl-2;
   }
   .signUpAddress {
     @apply w-48 h-12;
@@ -95,9 +95,6 @@ div:focus,
   .profileEdit {
     @apply w-full mx-auto h-9 mb-3 border rounded border-main-color text-main-color hover:bg-main-color hover:text-white;
   }
-}
-
-@layer components {
   .listStyles {
     @apply flex items-center justify-between p-4;
   }

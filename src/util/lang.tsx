@@ -18,6 +18,10 @@ const STRING_ESSETS: StringEssetType = {
     ko: '일정/장소를 작성하여 동료를 찾아보세요!',
     en: 'Please enter schedule/location.',
   },
+  Cancel: {
+    ko: '취소하기',
+    en: 'Cancel',
+  },
   Write: {
     ko: '작성하기',
     en: 'Write',
@@ -42,17 +46,57 @@ const STRING_ESSETS: StringEssetType = {
     ko: '로그인',
     en: 'Login',
   },
+  LOG_OUT: {
+    ko: '로그아웃',
+    en: 'Logout',
+  },
+  QUESTION_LOGOUT: {
+    ko: '로그아웃 하시겠습니까?',
+    en: 'Do you want to log out?',
+  },
+  QUESTION_DELETE: {
+    ko: '삭제 하시겠습니까?',
+    en: 'Do you want to delete?',
+  },
+  QUESTION_CLOSE: {
+    ko: '마감 하시겠습니까?',
+    en: 'Do you want to close?',
+  },
   EMAIL: {
     ko: '이메일',
     en: 'Email',
   },
   PASSWORD: {
-    ko: '패스워드',
+    ko: '비밀번호',
     en: 'PassWord',
+  },
+  RECONFIRM_PASSWORD: {
+    ko: '비밀번호 재확인',
+    en: 'Reconfirm Password',
+  },
+  CHECK_EMAIL: {
+    ko: '형식에 알맞는 이메일을 입력해주세요.',
+    en: 'Please provide an email in the appropriate format.',
+  },
+  PLACEHOLDER_PASSWORD: {
+    ko: '영문, 숫자, 특수문자 포함 8~16자',
+    en: '(8-16)including letters, numbers, and special characters',
+  },
+  PLACEHOLDER_NICKNAME: {
+    ko: '한글, 영문, 숫자 가능 3~8자',
+    en: '(3-8)including Korean, English, and numbers',
+  },
+  NICKNAME: {
+    ko: '닉네임',
+    en: 'Nick Name',
   },
   SIGN_UP: {
     ko: '회원가입',
     en: 'SignUp',
+  },
+  DOUBLE_CHECK: {
+    ko: '중복확인',
+    en: 'double check',
   },
   TAKE_A_TOUR: {
     ko: '둘러보기',
@@ -70,7 +114,6 @@ const STRING_ESSETS: StringEssetType = {
     ko: '여행친구 구하기',
     en: 'Finding a Travel Friend',
   },
-
   // 지역이름
   서울: {
     ko: '서울',
@@ -112,38 +155,159 @@ const STRING_ESSETS: StringEssetType = {
     ko: '강원',
     en: 'Gangwon',
   },
-  충청북도: {
-    ko: '충청북도',
+  충북: {
+    ko: '충북',
     en: 'Chungbuk',
   },
-  충청남도: {
-    ko: '충청남도',
+  충남: {
+    ko: '충남',
     en: 'Chungnam',
   },
-  전라북도: {
-    ko: '전라북도',
+  전북: {
+    ko: '전북',
     en: 'Jeonbuk',
   },
-  전라남도: {
-    ko: '전라남도',
+  전남: {
+    ko: '전남',
     en: 'Jeonnam',
   },
-  경상북도: {
-    ko: '경상북도',
+  경북: {
+    ko: '경북',
     en: 'Gyeongbuk',
   },
-  경상남도: {
-    ko: '경상남도',
+  경남: {
+    ko: '경남',
     en: 'Gyeongnam',
   },
-  제주도: {
-    ko: '제주도',
+  제주: {
+    ko: '제주',
     en: 'Jeju',
+  },
+  //메인 그래프
+  GRAPH_YEAR: {
+    ko: '년 상반기',
+    en: 'first half of the year',
+  },
+  VISITOR_STATUS: {
+    ko: '의 방문객 현황입니다.',
+    en: 'visitor status',
+  },
+  REPAINT_GRAPH: {
+    ko: '그래프가 제대로 그려지지 않는다면, 지역명을 클릭해주세요',
+    en: 'If the graph is not displaying correctly, please click on the region name',
+  },
+  REGION_VISITOR: {
+    ko: '지역별 방문자 수를 확인하세요',
+    en: 'Check the number of visitors by region',
+  },
+  // 메인 지역지도
+  방문객수: {
+    ko: '방문객수',
+    en: 'VISITOR COUNT',
+  },
+  HOST등록수: {
+    ko: 'HOST 등록수',
+    en: 'HOST COUNT',
+  },
+  HOST_COUNT_CLICK: {
+    ko: '해당 지역의 등록된 Host 수를 참고하여 클릭해 보세요.',
+    en: 'Click on the host count in your area',
+  },
+  // host 등록 및 수정
+  INTRODUCTION: {
+    ko: '한줄소개',
+    en: 'One line introduction',
+  },
+  HASHTAG: {
+    ko: '해시태그',
+    en: 'Hashtag',
+  },
+  LOCATION: {
+    ko: '위치',
+    en: 'Location',
+  },
+  MODIFY_INFO: {
+    ko: '※ 기존에 등록된 정보를 참고하여 수정 해주세요.',
+    en: '※ Please refer to the registered information and modify it.',
+  },
+  REGISTER: {
+    ko: '등록하기',
+    en: 'To register',
+  },
+  MODIFY: {
+    ko: '수정하기',
+    en: 'To modify',
+  },
+  HOST_DELETE: {
+    ko: 'Host 삭제하기',
+    en: 'To delete',
+  },
+  DELETE: {
+    ko: '삭제하기',
+    en: 'To delete',
+  },
+  DEADLINE: {
+    ko: '마감하기',
+    en: 'To deadline',
+  },
+  REGISTER_SIGNUP: {
+    ko: '가입하기',
+    en: 'Register',
+  },
+  FOLDING: {
+    ko: '접기',
+    en: 'Folding',
+  },
+  MORE: {
+    ko: '더보기',
+    en: 'More',
+  },
+  OUT: {
+    ko: '나가기',
+    en: 'OUT',
+  },
+  // 프로필 수정
+  PROFILE_IMAGE_EDIT: {
+    ko: '프로필 이미지 편집',
+    en: 'Edit Profile Image',
+  },
+  DEFAUIT_IMAGE: {
+    ko: '기본 이미지로 변경',
+    en: 'Change to default image',
+  },
+  SOCIAL_LOGIN_PASSWORD: {
+    ko: '※ 소셜 로그인은 비밀번호 변경이 불가능합니다.',
+    en: '※ Social login is not password changeable.',
+  },
+  PASSWORD_CHANGE: {
+    ko: '비밀번호 변경',
+    en: 'Change your password',
+  },
+  PASSWORD_CHECK: {
+    ko: '비밀번호 재확인',
+    en: 'Double-check your password',
   },
   // 타이틀
   Our_Travel: {
     ko: 'Our Travel',
     en: 'Our Travel',
+  },
+  //피드백
+  FEEDBACK: {
+    ko: '여러분의 소중한 의견에 감사드립니다.',
+    en: 'Thank you for your valuable opinions.',
+  },
+  PROVIDE_OPINION: {
+    ko: '소중한 의견을 적어주세요',
+    en: 'Please provide your valuable opinion.',
+  },
+  SEND: {
+    ko: '보내기',
+    en: 'Send',
+  },
+  EDIT: {
+    ko: '수정하기',
+    en: 'Edit',
   },
   // 게시물 작성
   NOWRITE: {
@@ -158,6 +322,10 @@ const STRING_ESSETS: StringEssetType = {
     ko: '즐겨찾기 된 게시물이 없어요.',
     en: 'There is no chat list.',
   },
+  NOHOST: {
+    ko: '해당 지역에 등록된 host가 없습니다.',
+    en: 'No hosts are registered in your area.',
+  },
   NOSUB: {
     ko: '',
     en: '',
@@ -171,6 +339,10 @@ const STRING_ESSETS: StringEssetType = {
     ko: '채팅목록',
     en: 'Chatting List',
   },
+  CHATROOM: {
+    ko: '단체방',
+    en: 'group room',
+  },
   // Header공용 컴포넌트
   MYPAGE: {
     ko: '마이페이지',
@@ -182,7 +354,7 @@ const STRING_ESSETS: StringEssetType = {
   },
   WRITTEN_BY_ME: {
     ko: '내가 작성한 글',
-    en: 'Post written by me.',
+    en: 'Post written by me',
   },
   WRITE_POST: {
     ko: '게시글 작성',
@@ -217,8 +389,12 @@ const STRING_ESSETS: StringEssetType = {
     en: 'Notice',
   },
   NOTFOUND_PAGE: {
-    ko: '잘못 된 형식',
+    ko: 'Not Found Page',
     en: 'Not Found Page',
+  },
+  NOTFOUND_PAGE_SUB: {
+    ko: 'Please go back!!',
+    en: 'Please go back!!',
   },
   TEST: {
     ko: '상대 유저 아이디',

@@ -1,7 +1,7 @@
 import React, { useEffect, useState, MouseEvent } from 'react';
 import Header from '../../components/Header/Header';
 import { Email, Password } from '../../components/EmailPassword/EmailPassword';
-import { Button } from '../../components/LoginButton/Button';
+import { Button } from '../../components/Button/Button';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import useInput from 'hooks/useInput';
@@ -53,25 +53,25 @@ const SignUp = () => {
       <Header title={'SIGN_UP'} back={true} icon={''} />
       <form className="w-full px-4 mt-6">
         <div className="flex flex-col gap-4">
-          <Email page={false} title={'이메일'} data={email.data} state={email.state} onChange={email.onChange} onReset={email.onReset} />
+          <Email page={false} title={m('EMAIL')} data={email.data} state={email.state} onChange={email.onChange} onReset={email.onReset} />
           <div className="inputForm">
-            <Password page={false} title={'비밀번호'} data={password.data} state={password.state} onChange={password.onChange} onReset={password.onReset} />
+            <Password page={false} title={m('PASSWORD')} data={password.data} state={password.state} onChange={password.onChange} onReset={password.onReset} />
           </div>
           <div className="inputForm">
             <label htmlFor="userPw2" className="text-left text-gray-500">
-              비밀번호 재확인
+              {m('RECONFIRM_PASSWORD')}
             </label>
-            <input required type="password" name="userPw2" id="userPw2" placeholder="영문, 숫자, 특수문자 포함 8~16자" className={`inputStyle ${passwordInput()}`} onChange={pwCheck.onChange} />
+            <input required type="password" name="userPw2" id="userPw2" placeholder={m('PLACEHOLDER_PASSWORD')} className={`inputStyle ${passwordInput()}`} onChange={pwCheck.onChange} />
             <span className="errorText">{pwCheck.data.length && password.data !== pwCheck.data ? '비밀번호가 일치 하지 않습니다.' : null}</span>
           </div>
           <div className="inputForm">
             <label htmlFor={'nickName'} className="text-left text-gray-500">
-              닉네임
+              {m('NICKNAME')}
             </label>
             <div className="flex justify-between">
-              <input required type="text" name="nickName" id="nickName" placeholder="한글, 영문, 숫자 가능 3~8자" className={`inputStyle ${nickNameInput()}`} onChange={nickName.onChange} value={nickName.data} />
-              <button type="button" className={`w-28 h-12 ml-7 border rounded ${nickNameBtn()}`} onClick={handleNickName} disabled={!nickName.state}>
-                중복확인
+              <input required type="text" name="nickName" id="nickName" placeholder={m('PLACEHOLDER_NICKNAME')} className={`inputStyle ${nickNameInput()}`} onChange={nickName.onChange} value={nickName.data} />
+              <button type="button" className={`w-28 h-12 ml-4 border rounded ${nickNameBtn()}`} onClick={handleNickName} disabled={!nickName.state}>
+                {m('DOUBLE_CHECK')}
               </button>
             </div>
             <span className="errorText">{nickName.data && !nickName.state && '올바른 닉네임을 입력해주세요. (공백 불가)'}</span>
@@ -79,7 +79,7 @@ const SignUp = () => {
         </div>
       </form>
       <div className="absolute w-full px-4 bottom-7">
-        <Button name={'가입하기'} page={false} active={active} onClick={join} />
+        <Button name={'REGISTER_SIGNUP'} page={false} active={active} onClick={join} />
       </div>
     </>
   );

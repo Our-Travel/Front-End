@@ -68,7 +68,7 @@ const TouristList = ({ tourType }: Cate) => {
   }, [tourType, isStared]);
 
   return (
-    <div className="overflow-y-auto h-[650px] relative">
+    <div className="overflow-y-auto h-[calc(100%-12rem)] relative">
       {favoriteTouristList.length !== 0 ? (
         favoriteTouristList.map((el, index) => {
           return (

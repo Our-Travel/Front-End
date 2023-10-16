@@ -1,6 +1,9 @@
 import React, { ChangeEvent } from 'react';
 import { MdOutlineCancel } from 'react-icons/md';
 import useFetch from 'hooks/useFetch';
+import { useRecoilValue } from 'recoil';
+import { langConvert } from 'Atom/atom';
+import useMultilingual from 'hooks/useMultilingual';
 
 interface userInfo {
   page: boolean;
@@ -13,7 +16,8 @@ interface userInfo {
 
 export const Email = ({ page, title, data, state, onChange, onReset }: userInfo) => {
   const { status, signupCheck } = useFetch();
-
+  const lang = useRecoilValue(langConvert);
+  const m = useMultilingual(lang);
   const handleEmail = () => signupCheck('username', data);
   const emailBtn = () => (status === 200 ? 'text-green-600 border-green-600' : status === 400 ? 'text-check-red border-check-red' : state ? 'text-black border-black' : 'text-gray-500 border-gray-400');
   const emailInput = () => (!data.length || state ? 'border-gray-400' : 'border-check-red outline-check-red');
@@ -30,8 +34,8 @@ export const Email = ({ page, title, data, state, onChange, onReset }: userInfo)
             {page && data && <MdOutlineCancel className="absolute top-1/4 right-4 w-6 h-6 text-gray-600 cursor-pointer" onClick={onReset} />}
           </div>
           {page || (
-            <button type="button" className={`w-28 h-12 ml-7 border rounded ${emailBtn()}`} onClick={handleEmail} disabled={!state}>
-              중복확인
+            <button type="button" className={`w-28 h-12 ml-4 border rounded ${emailBtn()}`} onClick={handleEmail} disabled={!state}>
+              {m('DOUBLE_CHECK')}
             </button>
           )}
         </div>
@@ -42,6 +46,8 @@ export const Email = ({ page, title, data, state, onChange, onReset }: userInfo)
 };
 
 export const Password = ({ page, title, data, state, onChange, onReset }: userInfo) => {
+  const lang = useRecoilValue(langConvert);
+  const m = useMultilingual(lang);
   return (
     <>
       <label htmlFor="userPw1" className="text-left text-gray-500">
@@ -53,7 +59,7 @@ export const Password = ({ page, title, data, state, onChange, onReset }: userIn
           type="password"
           name="userPw1"
           id="userPw1"
-          placeholder="영문, 숫자, 특수문자 포함 8~16자"
+          placeholder={m('PLACEHOLDER_PASSWORD')}
           className={`${!data.length || state ? 'border-gray-400' : 'border-check-red outline-check-red'} inputStyle`}
           onChange={onChange}
           value={data}

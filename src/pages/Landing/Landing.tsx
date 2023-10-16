@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Logo from '../../components/Logo/Logo';
-import { Button, LoginKakao, LoginGoogle } from '../../components/LoginButton/Button';
+import { Button, LoginKakao, LoginGoogle } from '../../components/Button/Button';
 import ChoiceTab from 'components/SignIn/ChoiceTab';
 import { useNavigate } from 'react-router-dom';
 import { Pagination, Autoplay, A11y } from 'swiper';
@@ -41,7 +41,7 @@ export default function Landing() {
       </Swiper>
       <div className="mt-5">
         <div className="mx-4">
-          <Button name={m('LOG_IN')} page={true} active={active} onClick={() => navigate('/signin')} />
+          <Button name={'LOG_IN'} page={true} active={active} onClick={() => navigate('/signin')} />
         </div>
         <div className="text-center my-7">
           <div className="flex items-center">

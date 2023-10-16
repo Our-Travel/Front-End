@@ -1,9 +1,8 @@
-import React, { ChangeEvent, useState } from 'react';
+import React, { useState } from 'react';
 import Header from '../../components/Header/Header';
 import ModalButton from '../../components/Modal/ModalButton';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import regions from '../../util/region';
 import PostForm from '../../components/Board/PostForm';
 import { langConvert } from 'Atom/atom';
 import { useRecoilValue } from 'recoil';
@@ -27,7 +26,6 @@ const WriteBoard = () => {
   const [TripEndDate, setTripEndDate] = useState<string>('');
   //여행인원
   const [travelers, setTravelers] = useState(0);
-
   //서버로 통신 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
   const write = async () => {
     const storedToken = localStorage.getItem('token');
@@ -95,29 +93,30 @@ const WriteBoard = () => {
   };
 
   return (
-    <div className="relative h-[100vh]">
+    <div className="relative h-full">
       <Header title="WRITE_POST" back={true} icon={''} />
-      {modal && <ModalButton title={m('WRITE_POST_ALERT')} button="작성하기" setModal={setModal} handleButton={handleWriteBoardButton} />}
-
-      <PostForm
-        title={title}
-        content={content}
-        location={location}
-        gatherStartDate={gatherStartDate}
-        gatherEndDate={gatherEndDate}
-        TripStartDate={TripStartDate}
-        TripEndDate={TripEndDate}
-        travelers={travelers}
-        onTitleChange={(e) => setTitle(e.target.value)}
-        onContentChange={(e) => setContent(e.target.value)}
-        onLocationChange={(e) => setLocation(Number(e.target.value))}
-        onGatherStartDateChange={(e) => setGatherStartDate(e.target.value)}
-        onGatherEndDateChange={(e) => setGatherEndDate(e.target.value)}
-        onTripStartDateChange={(e) => setTripStartDate(e.target.value)}
-        onTripEndDateChange={(e) => setTripEndDate(e.target.value)}
-        onTravelersChange={handleTravelersChange}
-        onSubmit={handleSubmit}
-      />
+      {modal && <ModalButton title={m('WRITE_POST_ALERT')} button={m('Write')} setModal={setModal} handleButton={handleWriteBoardButton} />}
+      <div className="w-[90%] mx-auto">
+        <PostForm
+          title={title}
+          content={content}
+          location={location}
+          gatherStartDate={gatherStartDate}
+          gatherEndDate={gatherEndDate}
+          TripStartDate={TripStartDate}
+          TripEndDate={TripEndDate}
+          travelers={travelers}
+          onTitleChange={(e) => setTitle(e.target.value)}
+          onContentChange={(e) => setContent(e.target.value)}
+          onLocationChange={(e) => setLocation(Number(e.target.value))}
+          onGatherStartDateChange={(e) => setGatherStartDate(e.target.value)}
+          onGatherEndDateChange={(e) => setGatherEndDate(e.target.value)}
+          onTripStartDateChange={(e) => setTripStartDate(e.target.value)}
+          onTripEndDateChange={(e) => setTripEndDate(e.target.value)}
+          onTravelersChange={handleTravelersChange}
+          onSubmit={handleSubmit}
+        />
+      </div>
     </div>
   );
 };

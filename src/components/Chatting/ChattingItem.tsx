@@ -5,6 +5,9 @@ import axios from 'axios';
 import Header from '../../components/Header/Header';
 import { BsTrash } from 'react-icons/bs';
 import EmptyPage from 'shared/EmptyPage';
+import { useRecoilValue } from 'recoil';
+import { langConvert } from 'Atom/atom';
+import useMultilingual from 'hooks/useMultilingual';
 
 const ChattingItem = () => {
   const navigate = useNavigate();
@@ -14,7 +17,8 @@ const ChattingItem = () => {
   const [checkedRooms, setCheckedRooms] = useState<string[]>([]);
   const [exitUser, setExitUser] = useState('');
   const token = localStorage.getItem('token');
-
+  const lang = useRecoilValue(langConvert);
+  const m = useMultilingual(lang);
   useEffect(() => {
     // 채팅방 목록 불러오기
     axios
@@ -23,7 +27,6 @@ const ChattingItem = () => {
       })
       .then((res) => {
         if (res.status === 200) {
-          console.log(res);
           setChatList(res.data.data);
         }
       })
@@ -54,7 +57,6 @@ const ChattingItem = () => {
             headers: { Authorization: `Bearer ${token}` },
           })
           .then((res) => {
-            console.log(res);
             setExitUser(res.data.msg);
 
             alert(res.data.msg);
@@ -65,14 +67,13 @@ const ChattingItem = () => {
     }
   };
 
-  console.log(chatList);
   return (
     <div>
-      <div className="flex justify-center items-center w-full">
-        <Header title="CHATLIST" back={false} icon={''} />
+      <div className="flex w-full">
+        <Header title={'CHATLIST'} back={false} icon={''} />
         {chatList.length > 0 && (
           <BsTrash
-            className="absolute right-0 w-10 h-5 cursor-pointer"
+            className="absolute w-10 h-5 top-4 cursor-pointer right-1 transition-transform hover:scale-125"
             onClick={() => {
               setTrash(!trash);
             }}
@@ -81,16 +82,10 @@ const ChattingItem = () => {
       </div>
       {chatList.length > 0 ? (
         chatList.map(({ room_id, writer, latest_message, latest_message_time, room_title, region_code, room_manager, image }, index) => {
-          const isSameUser = room_manager && chatNickName === writer;
-
+          const isSameUser = room_manager && chatNickName === room_manager;
           return (
-            <div className="flex justify-between border-b-[1px]" key={index}>
-              <label
-                htmlFor={`room${index}`}
-                onClick={() => {
-                  region_code && room_manager ? navigate(`/chatting/${room_id}/${region_code}/${room_manager}`) : navigate(`/chatting/${room_id}/${room_title}`);
-                }}
-              >
+            <div className="w-full flex justify-between border-b-[1px]" key={index}>
+              <label className="w-full" htmlFor={`room${index}`} onClick={() => navigate(`/chatting/${room_id}`)}>
                 <ChattingComponent key={index} writer={writer} room_title={room_title} latest_message={latest_message} region_code={region_code} time={latest_message_time} room_manager={room_manager} image={image} />
               </label>
               {trash && <input className="mr-3 focus:outline-none" id={`room${index}`} type="checkbox" value={room_id} checked={checkedRooms.includes(room_id)} disabled={isSameUser} onChange={() => toggleRoomSelection(room_id)} />}
@@ -102,8 +97,8 @@ const ChattingItem = () => {
       )}
       {trash && (
         <>
-          <button onClick={deleteChatting} className="absolute bottom-20 left-1/2 -translate-x-[50%] bg-main-color w-[340px] h-[40px] rounded-lg text-white">
-            나가기
+          <button onClick={deleteChatting} className="absolute bottom-20 left-1/2 -translate-x-[50%] bg-main-color w-3/4 h-10 rounded-lg text-white">
+            {m('OUT')}
           </button>
         </>
       )}

@@ -17,13 +17,12 @@ interface ChattingComponentProps {
 const ChattingComponenet = ({ writer, latest_message, time, room_title, region_code, room_manager, image }: ChattingComponentProps) => {
   const [inputDate, setInputDate] = useState('');
   const [inputTime, setInputTime] = useState('');
-  console.log(inputTime);
   const foundRegion = regions.find((re) => re.value === region_code)?.key;
   const setFriendImage = useSetRecoilState(profileImage);
-  setFriendImage(image);
 
-  console.log(region_code);
-
+  useEffect(() => {
+    setFriendImage(image);
+  }, []);
   useEffect(() => {
     const dateTime = new Date(time);
 
@@ -43,31 +42,36 @@ const ChattingComponenet = ({ writer, latest_message, time, room_title, region_c
   const titleArr = room_title.split(' ');
 
   return (
-    <div className="h-[100px] flex items-center justify-between pl-3 hover:bg-gray-100">
-      {room_manager ? (
-        <div className="bg-main-color border-main-color4 border-2 text-white rounded-lg p-[23px] relative mr-3">
-          <h1 className="font-bold w-full text-lg absolute centerPosition">{foundRegion}</h1>
+    <div className="w-full h-24 px-3 hover:bg-gray-100">
+      <div className="translate-y-4 flex items-center justify-between">
+        <div className="relative w-[15%] h-full">
+          {room_manager ? (
+            <div className="w-16 h-16 bg-main-color border-main-color4 border-2 text-white rounded-lg relative mr-3">
+              <h1 className="font-bold w-full text-lg absolute centerPosition">{foundRegion}</h1>
+            </div>
+          ) : (
+            <div className="w-16 h-16 mr-3">
+              <img src={image || '/assets/profile.svg'} alt="host채팅 상대방 유저 프로필 이미지" />
+            </div>
+          )}
         </div>
-      ) : (
-        <div className="w-[50px] mr-3">
-          <img src={image || '/assets/profile.svg'} alt="host채팅 상대방 유저 프로필 이미지" />
-        </div>
-      )}
-      <div className="flex w-[330px] flex-col">
-        <div className="flex justify-between w-full">
-          <span className="text-sm text-left font-semibold flex flex-nowrap">
-            {titleArr[0]} <br /> {titleArr[1]} {titleArr[2]}
-          </span>
-          <span className="text-gray-500 text-[14px] ml-4 translate-y-[2px]">{time !== null && inputDate}</span>
-        </div>
-        <div className="mt-[7px] flex whitespace-nowrap overflow-hidden text-ellipsis text-gray-600">
-          {writer ? <span className="font-bold mr-2 px-2 bg-main-color4 text-white rounded-sm">{writer !== null && `${writer + '님'}`}</span> : <></>}
-          {latest_message}
-        </div>
-      </div>
 
-      <div className="absolute right-8">
-        <div className="w-[12px] h-[12px] animate-pulse bg-main-color2 rounded-full "></div>
+        <div className="flex w-[calc(100%-5rem)] text-[clamp(10px,4vw,16px)] flex-col">
+          <div className="flex justify-between w-full">
+            <span className="text-sm text-left font-semibold flex flex-nowrap">
+              {titleArr[0]} <br /> {titleArr[1]} {titleArr[2]}
+            </span>
+            <span className="text-gray-500 text-4 ml-4 translate-y-1">{time !== null && inputDate}</span>
+          </div>
+          <div className="mt-2 flex whitespace-nowrap overflow-hidden text-ellipsis text-gray-600">
+            {writer ? <span className="font-bold mr-2 px-2 bg-main-color4 text-white rounded-sm">{writer !== null && `${writer + '님'}`}</span> : <></>}
+            {latest_message}
+          </div>
+        </div>
+        {/*새로운 알림시 */}
+        {/* <div className="absolute right-8">
+          <div className="w-3 h-3 animate-pulse bg-main-color2 rounded-full "></div>
+        </div> */}
       </div>
     </div>
   );
