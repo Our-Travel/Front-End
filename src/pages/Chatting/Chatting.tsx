@@ -1,6 +1,7 @@
 import React, { useState, useRef, ReactElement, useEffect } from 'react';
 import Header from '../../components/Header/Header';
 import { CiMenuKebab } from 'react-icons/ci';
+import { SlArrowLeft } from 'react-icons/sl';
 import FriendChat from './../../components/Chatting/FriendChat';
 import MeChat from './../../components/Chatting/MeChat';
 import { CompatClient, Stomp } from '@stomp/stompjs';
@@ -29,6 +30,9 @@ interface ApiResponse {
     chat_room_id: number;
     chat_room_message_dto_list: ChatMessage[];
     my_member_id: number;
+    region_code: number;
+    room_manager: string;
+    room_title: string;
   };
 }
 
@@ -40,6 +44,8 @@ const Chatting = () => {
   const nickName = localStorage.getItem('nickname');
   const sendText = useRef<HTMLInputElement>(null);
   let mainChat = useRef<HTMLDivElement>(null);
+  const regionCheck = regions.filter((el) => el.value === chatEnter?.data.region_code);
+  const regionName = regionCheck.map((el) => el.key);
 
   // 웹소켓 테스트
   const client = useRef<CompatClient>();
@@ -47,8 +53,7 @@ const Chatting = () => {
   const debounceMessage = useDebounce(inputMessage, 1000);
   const [messages, setMessages] = useState<string[]>([]);
   console.log(messages);
-  const { roomnum, region_code, room_manager, room_title } = useParams();
-  let regionName = regions.map((el) => el.value === Number(region_code) && el.key);
+  const { roomnum } = useParams();
 
   // 웹소켓 연결 함수
   const connectHandler = () => {
@@ -128,12 +133,18 @@ const Chatting = () => {
     };
   }, [chatEnter, messages]);
 
-  console.log(chatlist);
+  const handleGoBack = () => {
+    window.history.back();
+  };
 
   return (
     <div className="h-full">
-      <Header title={'TEST'} back={true} icon={''} />
-
+      <header className="relative flex justify-center items-center text-2xl py-3 border-b w-full border-gray-200">
+        <button type="button" className="absolute left-1 px-2 py-2" onClick={handleGoBack}>
+          <SlArrowLeft />
+        </button>
+        <h2 className="text-xl font-semibold cursor-default">{chatEnter?.data.room_manager ? `[${regionName[0]}] ${chatEnter?.data.room_manager}의 단체방` : chatEnter?.data.room_title}</h2>
+      </header>
       <div className="w-full h-[calc(100%-8rem)] overflow-hidden">
         <div className="text-[#FF626F] pt-2 pb-2 text-sm">{chatEnter && chatEnter.msg}</div>
         <div className="main-chat h-[calc(100%-5rem)] mx-2.5 overflow-y-auto" ref={mainChat}>

@@ -1,5 +1,8 @@
 import Header from '../../components/Header/Header';
 import { useState } from 'react';
+import { langConvert } from 'Atom/atom';
+import { useRecoilValue } from 'recoil';
+import useMultilingual from 'hooks/useMultilingual';
 
 interface listInfo {
   title: string;
@@ -26,6 +29,8 @@ const noticeList: listInfo[] = [
 ];
 
 const Notice = () => {
+  const lang = useRecoilValue(langConvert);
+  const m = useMultilingual(lang);
   const [listNumber, setListNumber] = useState<number | null>(null);
 
   const clickAccordion = (index: number) => {

@@ -42,6 +42,10 @@ const STRING_ESSETS: StringEssetType = {
     ko: '로그인',
     en: 'Login',
   },
+  LOG_OUT: {
+    ko: '로그아웃',
+    en: 'Logout',
+  },
   EMAIL: {
     ko: '이메일',
     en: 'Email',
@@ -49,6 +53,14 @@ const STRING_ESSETS: StringEssetType = {
   PASSWORD: {
     ko: '패스워드',
     en: 'PassWord',
+  },
+  NICKNAME: {
+    ko: '닉네임',
+    en: 'NickName',
+  },
+  CHECK: {
+    ko: '중복확인',
+    en: 'Duplicate Check',
   },
   SIGN_UP: {
     ko: '회원가입',
@@ -70,7 +82,6 @@ const STRING_ESSETS: StringEssetType = {
     ko: '여행친구 구하기',
     en: 'Finding a Travel Friend',
   },
-
   // 지역이름
   서울: {
     ko: '서울',
@@ -112,33 +123,96 @@ const STRING_ESSETS: StringEssetType = {
     ko: '강원',
     en: 'Gangwon',
   },
-  충청북도: {
-    ko: '충청북도',
+  충북: {
+    ko: '충북',
     en: 'Chungbuk',
   },
-  충청남도: {
-    ko: '충청남도',
+  충남: {
+    ko: '충남',
     en: 'Chungnam',
   },
-  전라북도: {
-    ko: '전라북도',
+  전북: {
+    ko: '전북',
     en: 'Jeonbuk',
   },
-  전라남도: {
-    ko: '전라남도',
+  전남: {
+    ko: '전남',
     en: 'Jeonnam',
   },
-  경상북도: {
-    ko: '경상북도',
+  경북: {
+    ko: '경북',
     en: 'Gyeongbuk',
   },
-  경상남도: {
-    ko: '경상남도',
+  경남: {
+    ko: '경남',
     en: 'Gyeongnam',
   },
-  제주도: {
-    ko: '제주도',
+  제주: {
+    ko: '제주',
     en: 'Jeju',
+  },
+  // 메인 지역지도
+  방문객수: {
+    ko: '방문객수',
+    en: 'VISITOR COUNT',
+  },
+  HOST등록수: {
+    ko: 'HOST 등록수',
+    en: 'HOST COUNT',
+  },
+  HOST_COUNT_CLICK: {
+    ko: '해당 지역의 등록된 Host 수를 참고하여 클릭해 보세요.',
+    en: 'Click on the host count in your area',
+  },
+  // host 등록 및 수정
+  INTRODUCTION: {
+    ko: '한줄소개',
+    en: 'One line introduction',
+  },
+  HASHTAG: {
+    ko: '해시태그',
+    en: 'Hashtag',
+  },
+  LOCATION: {
+    ko: '위치',
+    en: 'Location',
+  },
+  MODIFY_INFO: {
+    ko: '※ 기존에 등록된 정보를 참고하여 수정 해주세요.',
+    en: '※ Please refer to the registered information and modify it.',
+  },
+  REGISTER: {
+    ko: '등록하기',
+    en: 'To register',
+  },
+  MODIFY: {
+    ko: '수정하기',
+    en: 'To modify',
+  },
+  DELETE: {
+    ko: 'Host 삭제하기',
+    en: 'To delete',
+  },
+  // 프로필 수정
+  PROFILE_IMAGE_EDIT: {
+    ko: '프로필 이미지 편집',
+    en: 'Edit Profile Image',
+  },
+  DEFAUIT_IMAGE: {
+    ko: '기본 이미지로 변경',
+    en: 'Change to default image',
+  },
+  SOCIAL_LOGIN_PASSWORD: {
+    ko: '※ 소셜 로그인은 비밀번호 변경이 불가능합니다.',
+    en: '※ Social login is not password changeable.',
+  },
+  PASSWORD_CHANGE: {
+    ko: '비밀번호 변경',
+    en: 'Change your password',
+  },
+  PASSWORD_CHECK: {
+    ko: '비밀번호 재확인',
+    en: 'Double-check your password',
   },
   // 타이틀
   Our_Travel: {
@@ -182,7 +256,7 @@ const STRING_ESSETS: StringEssetType = {
   },
   WRITTEN_BY_ME: {
     ko: '내가 작성한 글',
-    en: 'Post written by me.',
+    en: 'Post written by me',
   },
   WRITE_POST: {
     ko: '게시글 작성',
