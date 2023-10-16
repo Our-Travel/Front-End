@@ -12,7 +12,7 @@ interface header {
   icon: React.ReactNode;
 }
 
-const Header = ({ title, back, icon }: header) => {
+const Header = ({ title = '채팅방 제목' || undefined, back, icon }: header) => {
   const navigate = useNavigate();
   const [modalOpen, setModal] = useState<boolean>(false);
   const currentURL = window.location.pathname;

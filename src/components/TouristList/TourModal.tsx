@@ -31,8 +31,9 @@ interface Props {
     x: number;
     y: number;
   } | null;
+  setIsStared: any;
 }
-const TourModal = ({ boardDetail, setModal }: Props) => {
+const TourModal = ({ boardDetail, setModal, setIsStared }: Props) => {
   const loginCheck = useLoginCheck();
   const isLoggedIn = loginCheck();
 
@@ -46,6 +47,7 @@ const TourModal = ({ boardDetail, setModal }: Props) => {
         });
         let heartResult = response.data.data.liked_travel_info;
         setIsLiked(heartResult);
+        setIsStared(heartResult);
       } catch (error) {
         if (axios.isAxiosError(error)) {
           alert(error.response?.data.msg);
@@ -74,6 +76,7 @@ const TourModal = ({ boardDetail, setModal }: Props) => {
   const toggleFavorite = () => {
     setIsFavorited((prevIsFavorited) => !prevIsFavorited);
     setIsLiked(!isLiked);
+    setIsStared(!isLiked);
   };
 
   const clickHeart = async () => {
@@ -92,7 +95,9 @@ const TourModal = ({ boardDetail, setModal }: Props) => {
             headers: headers,
           }
         );
-        console.log('post 성공');
+        setIsFavorited((prevIsFavorited) => !prevIsFavorited);
+        setIsLiked(!isLiked);
+        setIsStared(!isLiked);
       } catch (error) {
         if (axios.isAxiosError(error) && error.response?.status === 400) {
           alert(error.response.data.msg);
@@ -104,10 +109,9 @@ const TourModal = ({ boardDetail, setModal }: Props) => {
       console.log('오류 발생!');
     }
   };
-  // const { content_id, address, content_type_id, home_page, latitude, longitude, image, over_view, tel, tel_name, title, liked_travel_info } = boardDetail;
 
   return (
-    <div className="fixed h-screen w-full top-0 bottom-0 bg-black bg-opacity-0 z-30" onClick={closeModal}>
+    <div className="fixed h-full w-full top-0 bottom-0 bg-black bg-opacity-0 z-30" onClick={closeModal}>
       {boardDetail && (
         <div className="absolute bottom-14 w-full h-[420px] border-t-2 bg-white rounded-t-3xl">
           {/* <a href={`https://map.kakao.com/link/roadview/${longitude},${latitude}`} target="_blank" className="btn btn-link flex-col mb-2">
@@ -135,8 +139,8 @@ const TourModal = ({ boardDetail, setModal }: Props) => {
             <p className="text-gray-600 pt-2">{boardDetail.over_view}</p>
           </div>
           <div className="mt-4 flex items-center justify-between px-5">
-            <div className="flex items-center translate-x-2 hover:cursor-pointer" onClick={toggleFavorite}>
-              {isLiked ? <AiFillHeart className="mr-3 w-[30px] h-[30px]" onClick={clickHeart} /> : <AiOutlineHeart className="mr-3 w-[30px] h-[30px]" onClick={clickHeart} />}
+            <div className="flex items-center translate-x-2 hover:cursor-pointer" onClick={clickHeart}>
+              {isLiked ? <AiFillHeart className="mr-3 w-[30px] h-[30px]" /> : <AiOutlineHeart className="mr-3 w-[30px] h-[30px]" />}
               <button>Add To Favorite</button>
             </div>
             <div className="w-[1px] h-[30px] bg-black" />

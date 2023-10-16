@@ -8,6 +8,8 @@ import SockJS from 'sockjs-client';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import { useDebounce } from '../../hooks/useDebounce';
+import regions from 'util/region';
+
 interface MessageDto {
   member_id: number;
   nickname: string;
@@ -36,7 +38,6 @@ const Chatting = () => {
   console.log(chatlist);
   const token = localStorage.getItem('token');
   const nickName = localStorage.getItem('nickname');
-  const icon = <CiMenuKebab />;
   const sendText = useRef<HTMLInputElement>(null);
   let mainChat = useRef<HTMLDivElement>(null);
 
@@ -46,7 +47,9 @@ const Chatting = () => {
   const debounceMessage = useDebounce(inputMessage, 1000);
   const [messages, setMessages] = useState<string[]>([]);
   console.log(messages);
-  const { roomnum } = useParams();
+  const { roomnum, region_code, room_manager, room_title } = useParams();
+  let regionName = regions.map((el) => el.value === Number(region_code) && el.key);
+
   // 웹소켓 연결 함수
   const connectHandler = () => {
     const headers = {
@@ -124,10 +127,13 @@ const Chatting = () => {
       }
     };
   }, [chatEnter, messages]);
+
   console.log(chatlist);
+
   return (
     <div className="h-full">
       <Header title={'TEST'} back={true} icon={icon} />
+
       <div className="w-full h-[calc(100%-8rem)] overflow-hidden">
         <div className="text-[#FF626F] pt-2 pb-2 text-sm">{chatEnter && chatEnter.msg}</div>
         <div className="main-chat h-[calc(100%-5rem)] mx-2.5 overflow-y-auto" ref={mainChat}>

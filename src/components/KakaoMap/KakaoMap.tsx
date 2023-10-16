@@ -64,6 +64,7 @@ export interface LocationArr {
 const KakaoMap = ({ selectedButtonIndex }: MapProps) => {
   console.log(selectedButtonIndex);
 
+
   const [map, setMap] = useState<any>();
   const [marker, setMarker] = useState<any>();
 
@@ -116,60 +117,6 @@ const KakaoMap = ({ selectedButtonIndex }: MapProps) => {
     getData();
   }, [selectedButtonIndex]);
 
-  // function makePositionArr() {
-  //   let points: any = [];
-  //   locationList.map((item: Location) => {
-  //     let la = item.latitude;
-  //     let lo = item.longitude;
-  //     points.push(new window.kakao.maps.LatLng(la, lo));
-  //   });
-  //   // locationList?.map(({ latitude, longitude }, index: Number) => {
-  //   //   points.push(new window.kakao.maps.LatLng(latitude, longitude));
-  //   // });
-  //   setPositionList(points);
-  // }
-
-  // addMarker(new window.kakao.maps.LatLng(location.coordinates?.lat, location.coordinates?.lng));
-
-  // let zoomControl = new window.kakao.maps.ZoomControl();
-  // map.addControl(zoomControl, window.kakao.maps.ControlPosition.RIGHT);
-
-  // function createMarkerImage(markerSrc: any, markerSize: any) {
-  //   let markerImage = new window.kakao.maps.MarkerImage(markerSrc, markerSize);
-
-  //   return markerImage;
-  // }
-
-  // function addMarker(position: any) {
-  //   let markerSize = '';
-  //   // if (normalSrc === '/map/markerEllipse3.svg') markerSize = new window.kakao.maps.Size(18, 18);
-  //   // else markerSize = new window.kakao.maps.Size(28, 43);
-  //   let clickmarkerSize = new window.kakao.maps.Size(28, 43);
-  //   let markerSrc = 'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png';
-
-  //   let overImage = createMarkerImage(markerSrc, clickmarkerSize),
-  //     clickImage = createMarkerImage(markerSrc, clickmarkerSize);
-
-  //   let marker = new window.kakao.maps.Marker({
-  //     map: map,
-  //     position: position,
-  //     image: overImage,
-  //   });
-
-  //   marker.overImage = overImage;
-
-  //   // if (!selectedMarker || selectedMarker !== marker) {
-  //   //   !!selectedMarker && selectedMarker.setImage(selectedMarker.normalImage);
-
-  //   //   marker.setImage(clickImage);
-  //   // }
-
-  //   // selectedMarker = marker;
-  //   // setSelected(marker);
-
-  //   return marker;
-  // }
-
   const [modalClose, setModalClose] = useState(false);
   const [clickIndex, setClickIndex] = useState<Number | null>(null);
 
@@ -177,23 +124,9 @@ const KakaoMap = ({ selectedButtonIndex }: MapProps) => {
     setModalClose(true);
   };
 
-  // function initMarkers(map: any) {
-  //   for (let i = 0; i < markers.length; i++) {
-  //     markers[i].setMap(map);
-  //   }
-  // }
-
-  // useEffect(() => {
-  //   initMarkers(map);
-  // }, [markers]);
-
-  // initMarkers(null);
-
-  // console.log(map);
-
   return (
     <>
-      <div id="map" className="w-full h-[90vh]">
+      <div id="map" className="w-full h-full">
         {locationList && map && selectedButtonIndex && <KakaoMapMarker locationList={locationList} map={map} modalShow={modalShow} setClickIndex={setClickIndex} selectedButtonIndex={selectedButtonIndex} />}
         {locationList && map && modalClose && clickIndex && <KakaoMapModal locationList={locationList} setModalClose={setModalClose} clickIndex={clickIndex} />}
       </div>

@@ -17,7 +17,6 @@ const Favorite = () => {
     const target = e.target as HTMLButtonElement;
     const name = target.name;
     const value = target.value;
-    console.log(typeof value);
 
     setTourType(Number(value));
     setToggle(name);

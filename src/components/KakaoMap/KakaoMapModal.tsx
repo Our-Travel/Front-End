@@ -9,12 +9,8 @@ import { BsShare } from 'react-icons/bs';
 import useLoginCheck from '../../hooks/useLoginCheck';
 import axios from 'axios';
 import { Console } from 'console';
-// import Header from 'components/Header/ChattingHeader';
-// import { Header } from 'components/Header/Header';
 
 const KakaoMapModal = ({ locationList, setModalClose, clickIndex, starClickedArr, setStarClickedArr }: any) => {
-  // let newStarArr = Array(locationList.length).fill(false);
-  // const [starClickedArr, setStarClickedArr] = useState(newStarArr);
   const [isLiked, setIsLiked] = useState(false);
   const loginCheck = useLoginCheck();
   const isLoggedIn = loginCheck();
@@ -50,24 +46,18 @@ const KakaoMapModal = ({ locationList, setModalClose, clickIndex, starClickedArr
   });
 
   const clickOutside = (e: any) => {
-    // console.log(modalRef.current);
-
     if (modalRef.current === e.target) {
       modalClose();
     }
   };
-  console.log('모달 호출됨');
 
   let thing: any = null;
-
-  // console.log(`boardDetail: ${boardDetail}`);
 
   locationList.map((item: any) => {
     if (clickIndex === item.content_id) {
       thing = item;
     }
   });
-  // console.log(thing.home_page);
 
   const { content_id, address, content_type_id, home_page, latitude, longitude, image, over_view, tel, tel_name, title, liked_travel_info } = thing;
 
@@ -75,9 +65,6 @@ const KakaoMapModal = ({ locationList, setModalClose, clickIndex, starClickedArr
 
   const toggleFavorite = () => {
     setIsFavorited((prevIsFavorited) => !prevIsFavorited);
-
-    // starClickedArr[idx] = !starClickedArr[idx];
-    // setStarClickedArr([...starClickedArr]);
     setIsLiked(!isLiked);
   };
   const handleClipBoard = useCallback(async () => {
@@ -106,7 +93,9 @@ const KakaoMapModal = ({ locationList, setModalClose, clickIndex, starClickedArr
             headers: headers,
           }
         );
-        console.log('post 성공');
+
+        setIsFavorited((prevIsFavorited) => !prevIsFavorited);
+        setIsLiked(!isLiked);
       } catch (error) {
         if (axios.isAxiosError(error) && error.response?.status === 400) {
           alert(error.response.data.msg);
@@ -140,11 +129,9 @@ const KakaoMapModal = ({ locationList, setModalClose, clickIndex, starClickedArr
   }, []);
 
   let idx = locationList.findIndex((obj: any) => obj.content_id === clickIndex);
-  // console.log(`인덱스: ${idx}`);
 
   return (
-    // <div className="fixed h-screen top-0 bottom-0 bg-black bg-opacity-30 z-30" ref={modalRef}></div>
-    <div className="fixed h-screen w-[448px] top-0 bottom-0 bg-black bg-opacity-0 z-30" ref={modalRef}>
+    <div className="fixed h-full w-[448px] top-0 bottom-0 bg-black bg-opacity-0 z-30" ref={modalRef}>
       {/* {thing && ( */}
       <div className="absolute bottom-0 w-full h-[470px] bg-white rounded-t-3xl">
         {/* <a href={`https://map.kakao.com/link/roadview/${longitude},${latitude}`} target="_blank" className="btn btn-link flex-col mb-2">
@@ -173,8 +160,8 @@ const KakaoMapModal = ({ locationList, setModalClose, clickIndex, starClickedArr
           <p className="text-gray-600 pt-2">{over_view}</p>
         </div>
         <div className="mt-4 flex items-center justify-between px-5">
-          <div className="flex items-center translate-x-2 hover:cursor-pointer" onClick={toggleFavorite}>
-            {isLiked ? <AiFillHeart className="mr-3 w-[30px] h-[30px]" onClick={clickHeart} /> : <AiOutlineHeart className="mr-3 w-[30px] h-[30px]" onClick={clickHeart} />}
+          <div className="flex items-center translate-x-2 hover:cursor-pointer" onClick={clickHeart}>
+            {isLiked ? <AiFillHeart className="mr-3 w-[30px] h-[30px]" /> : <AiOutlineHeart className="mr-3 w-[30px] h-[30px]" />}
             <button>Add To Favorite</button>
           </div>
           <div className="w-[1px] h-[30px] bg-black" />

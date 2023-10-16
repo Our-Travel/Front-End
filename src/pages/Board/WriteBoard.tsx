@@ -98,6 +98,7 @@ const WriteBoard = () => {
     <div className="relative h-[100vh]">
       <Header title="WRITE_POST" back={true} icon={''} />
       {modal && <ModalButton title={m('WRITE_POST_ALERT')} button="작성하기" setModal={setModal} handleButton={handleWriteBoardButton} />}
+
       <PostForm
         title={title}
         content={content}
