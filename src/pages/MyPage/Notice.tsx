@@ -1,5 +1,8 @@
 import Header from '../../components/Header/Header';
 import { useState } from 'react';
+import { langConvert } from 'Atom/atom';
+import { useRecoilValue } from 'recoil';
+import useMultilingual from 'hooks/useMultilingual';
 
 interface listInfo {
   title: string;
@@ -26,6 +29,8 @@ const noticeList: listInfo[] = [
 ];
 
 const Notice = () => {
+  const lang = useRecoilValue(langConvert);
+  const m = useMultilingual(lang);
   const [listNumber, setListNumber] = useState<number | null>(null);
 
   const clickAccordion = (index: number) => {
@@ -34,7 +39,7 @@ const Notice = () => {
 
   return (
     <>
-      <Header title={'공지사항'} back={true} icon={''} />
+      <Header title={m('NOTICE')} back={true} icon={''} />
       <ul>
         {noticeList.map(({ title, date, data }, index) => (
           <li key={index} className={`flex flex-col justify-center text-left hover:bg-gray-200 cursor-pointer line ${listNumber === index ? 'bg-gray-200' : ''}`} onClick={() => clickAccordion(index)}>

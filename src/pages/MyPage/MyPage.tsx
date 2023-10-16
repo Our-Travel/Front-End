@@ -11,24 +11,28 @@ import { hostCheck, loginType, profileUpdate } from '../../Atom/userAtom';
 import ModalButton from 'components/Modal/ModalButton';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { langConvert } from 'Atom/atom';
+import useMultilingual from 'hooks/useMultilingual';
 
 const MyPage = () => {
+  const lang = useRecoilValue(langConvert);
+  const m = useMultilingual(lang);
   const hostEditMode = useRecoilValue(hostCheck);
   const icons: { Icon: IconType | string; link: string; text: string }[] = [
     {
       Icon: hostEditMode ? BsPencilFill : BsPatchCheckFill,
       link: hostEditMode ? '/mypage/host/edit' : '/mypage/host',
-      text: hostEditMode ? 'Host수정' : 'Host 등록',
+      text: hostEditMode ? m('Host수정') : m('Host등록'),
     },
     {
       Icon: BiBell,
       link: '/mypage/notice',
-      text: '공지사항',
+      text: m('NOTICE'),
     },
     {
       Icon: MdLogout,
       link: '/',
-      text: '로그아웃',
+      text: m('LOG_OUT'),
     },
   ];
   const [modal, setModal] = useState<boolean>(false);
@@ -62,18 +66,16 @@ const MyPage = () => {
 
   return (
     <div className="relative h-screen">
-      <Header title={'마이페이지'} back={false} icon={''} />
+      <Header title={m('MYPAGE')} back={false} icon={''} />
       <div className="relative">
         <div className="flex text-center flex-col flex-grow gap-4 mx-4 my-6">
           <Profile page={true} />
           <button className="profileEdit" onClick={handleEdit}>
-            프로필 수정
+            {m('PROFILE_EDIT')}
           </button>
-
-          <MypageTab name={'내가 작성한 글'} link={'/mypage/mywrite'} />
-          <MypageTab name={'즐겨찾기'} link={'/mypage/favorite'} />
+          <MypageTab name={m('WRITTEN_BY_ME')} link={'/mypage/mywrite'} />
+          <MypageTab name={m('FAVORITE')} link={'/mypage/favorite'} />
           <div className="line" />
-
           <ul className="flex flex-grow-[0.7] items-center justify-center">
             {icons.map(({ Icon, link, text }, index) => (
               <li key={index} className="flex items-center justify-center">

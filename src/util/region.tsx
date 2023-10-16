@@ -9,13 +9,13 @@ const regions = [
   { key: '세종', value: 36 },
   { key: '경기', value: 41 },
   { key: '강원', value: 42 },
-  { key: '충청북도', value: 43 },
-  { key: '충청남도', value: 44 },
-  { key: '전라북도', value: 45 },
-  { key: '전라남도', value: 46 },
-  { key: '경상북도', value: 47 },
-  { key: '경상남도', value: 48 },
-  { key: '제주도', value: 50 },
+  { key: '충북', value: 43 },
+  { key: '충남', value: 44 },
+  { key: '전북', value: 45 },
+  { key: '전남', value: 46 },
+  { key: '경북', value: 47 },
+  { key: '경남', value: 48 },
+  { key: '제주', value: 50 },
 ];
 
 export default regions;

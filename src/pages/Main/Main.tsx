@@ -1,4 +1,7 @@
+import { langConvert } from 'Atom/atom';
+import useMultilingual from 'hooks/useMultilingual';
 import React, { useState } from 'react';
+import { useRecoilValue } from 'recoil';
 import Header from '../../components/Header/Header';
 import Banner from '../../components/Main/Banner';
 import GraphComponent from '../../components/Main/GraphComponent';
@@ -7,6 +10,8 @@ import KoreaMapChart from '../../components/Main/KoreaMapChart';
 const Main = () => {
   const [showGraph, setShowGraph] = useState(true);
   const [showMap, setShowMap] = useState(false);
+  const lang = useRecoilValue(langConvert);
+  const m = useMultilingual(lang);
 
   const handleGraphButtonClick = () => {
     setShowMap(false);
@@ -32,10 +37,10 @@ const Main = () => {
       <div className="text-xl font-semibold translate-y-4">
         <div className="flex justify-center w-full space-x-16 ">
           <button className={`h-10 buttonHoverSize border-main-color ${getName(path, 'tourist')}`} onClick={handleGraphButtonClick}>
-            방문객수
+            {m('방문객수')}
           </button>
           <button className={`h-10 buttonHoverSize border-main-color ${getName(path, 'host')}`} onClick={handleMapButtonClick}>
-            HOST 등록수
+            {m('HOST등록수')}
           </button>
         </div>
         {showGraph && <GraphComponent />}

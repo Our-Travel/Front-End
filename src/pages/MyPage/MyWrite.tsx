@@ -4,8 +4,13 @@ import BoardItem from '../../components/Board/BoardItem';
 import axios from 'axios';
 import EditBoard from './EditBoard';
 import EmptyPage from 'shared/EmptyPage';
+import { useRecoilValue } from 'recoil';
+import { langConvert } from 'Atom/atom';
+import useMultilingual from 'hooks/useMultilingual';
 
 const MyWrite = () => {
+  const lang = useRecoilValue(langConvert);
+  const m = useMultilingual(lang);
   //받아온 데이터의 갯수가 없다면? 을 받는 객체
   const [isEmpty, setEmpty] = useState<boolean>(false);
   const [boardList, setBoardList] = useState([]);
@@ -54,7 +59,7 @@ const MyWrite = () => {
 
   return (
     <>
-      <Header title={'내가 작성한 글'} back={true} icon={''} />
+      <Header title={m('WRITTEN_BY_ME')} back={true} icon={''} />
       {editBoard && <EditBoard setEditBoard={setEditBoard} item={selectedItem} />}
       {isEmpty ? (
         <EmptyPage content={'작성된 글이 없어요.'} subContent={'글을 작성해 여행할 동료를 구해보세요.'} alt={'작성한 글이 없어요 페이지 보라색 캐릭터'} />
