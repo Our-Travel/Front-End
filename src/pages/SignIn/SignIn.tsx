@@ -74,13 +74,13 @@ const SignIn = () => {
           <Password page={true} title={m('PASSWORD')} data={password.data} state={password.state} onChange={password.onChange} onReset={password.onReset} />
         </div>
         <div className="mt-7">
-          <Button name={m('LOG_IN')} page={false} active={active} onClick={login} />
+          <Button name={'LOG_IN'} page={false} active={active} onClick={login} />
         </div>
       </form>
       <div className="text-center my-7">
         <div className="flex items-center">
           <div className="flex-grow border-b"></div>
-          <div className="px-2 text-gray-500 text-xs">Social Login</div>
+          <div className="px-2 text-gray-500 text-xs">{m('SOCIAL_LOGIN')}</div>
           <div className="flex-grow border-b"></div>
         </div>
       </div>

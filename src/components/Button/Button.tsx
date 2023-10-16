@@ -2,6 +2,9 @@ import React, { MouseEvent } from 'react';
 import { Link } from 'react-router-dom';
 import { RiKakaoTalkFill } from 'react-icons/ri';
 import { BsGoogle } from 'react-icons/bs';
+import { useRecoilValue } from 'recoil';
+import { langConvert } from 'Atom/atom';
+import useMultilingual from 'hooks/useMultilingual';
 
 interface buttonInfo {
   name: string;
@@ -11,9 +14,11 @@ interface buttonInfo {
 }
 
 export function Button({ name, page, active, onClick }: buttonInfo) {
+  const lang = useRecoilValue(langConvert);
+  const m = useMultilingual(lang);
   return (
     <button type="submit" className={`w-full ${page || active ? 'buttonStyle buttonHoverColor' : 'noActiveButton'}`} onClick={onClick} disabled={page ? active : !active}>
-      {name}
+      {m(name)}
     </button>
   );
 }

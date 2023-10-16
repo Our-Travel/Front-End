@@ -66,7 +66,7 @@ const ChattingItem = () => {
   return (
     <div>
       <div className="flex justify-center items-center w-full">
-        <Header title="CHATLIST" back={false} icon={''} />
+        <Header title={'CHATLIST'} back={false} icon={''} />
         {chatList.length > 0 && (
           <BsTrash
             className="absolute right-0 w-10 h-5 cursor-pointer"

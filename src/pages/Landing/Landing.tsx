@@ -41,7 +41,7 @@ export default function Landing() {
       </Swiper>
       <div className="mt-5">
         <div className="mx-4">
-          <Button name={m('LOG_IN')} page={true} active={active} onClick={() => navigate('/signin')} />
+          <Button name={'LOG_IN'} page={true} active={active} onClick={() => navigate('/signin')} />
         </div>
         <div className="text-center my-7">
           <div className="flex items-center">
