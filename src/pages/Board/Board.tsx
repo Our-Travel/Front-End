@@ -8,12 +8,17 @@ import 'swiper/css/pagination';
 import { BsPencilSquare } from 'react-icons/bs';
 import regions from '../../util/region';
 import { useNavigate } from 'react-router-dom';
+import { langConvert } from 'Atom/atom';
+import { useRecoilValue } from 'recoil';
+import useMultilingual from 'hooks/useMultilingual';
 
 const Board = () => {
   const [selectedButtonIndex, setSelectedButtonIndex] = useState<number>(0);
   const icon = <BsPencilSquare />;
+  const lang = useRecoilValue(langConvert);
+  const m = useMultilingual(lang);
 
-  const handleButtonClick = (index: React.SetStateAction<number>) => {
+  const handleButtonClick = (index: number) => {
     setSelectedButtonIndex(index);
   };
 
@@ -24,13 +29,15 @@ const Board = () => {
 
   return (
     <div>
-      <Header title={'여행친구 구하기'} back={false} icon={icon} />
+      <Header title={'FRIEND_FIND'} back={false} icon={icon} />
       <div className="relative border-b-2 px-3 flex shrink-0">
-        <Swiper slidesPerView={5.5} spaceBetween={10} keyboard={true} className="mySwiper h-12 mr-10 relative">
+        <Swiper slidesPerView={5.2} spaceBetween={10} keyboard={true} className="mySwiper h-12 mr-10 relative">
           {regions.map((region) => (
             <SwiperSlide key={region.value} className="absolute top-1/2 -translate-y-1/3">
+
               <button className={`text-base border rounded-xl w-14 sm:w-16 hover:bg-pink-50 ${selectedButtonIndex === region.value ? 'bg-gray-500 text-white font-bold' : ''}`} onClick={() => handleButtonClick(region.value)}>
-                {region.key}
+                {m(`${region.key}`)}
+
               </button>
             </SwiperSlide>
           ))}

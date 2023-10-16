@@ -6,7 +6,6 @@ import { SlLocationPin } from 'react-icons/sl';
 import addressGetter from '../../hooks/addressGetter';
 import { visitor } from 'util/visitor';
 import { convertAddressToKey } from 'util/convertAddress';
-import Papa from 'papaparse';
 import SelectArea from './SelectArea';
 
 Chart.register(LineElement, PointElement, CategoryScale, LinearScale, Tooltip, Legend);
@@ -31,6 +30,9 @@ function GraphComponent() {
       },
     ],
   });
+  useEffect(() => {
+    area = '서울';
+  }, []);
 
   useEffect(() => {
     setLocation(area);

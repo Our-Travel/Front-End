@@ -81,10 +81,10 @@ const HostList = () => {
     e.stopPropagation();
     setNumberId(numberId === id ? null : id);
   };
-
+  console.log(regionName);
   return (
     <>
-      <Header title={regionName} back={true} icon={''} />
+      <Header title={regionName ? regionName : 'NOSUB'} back={true} icon={''} />
       <div className="h-[85%] overflow-y-auto">
         {hosts.length ? (
           <ul className="grid grid-cols-2 gap-4 p-4">

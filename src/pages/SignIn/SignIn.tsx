@@ -64,7 +64,7 @@ const SignIn = () => {
 
   return (
     <div>
-      <Header title={m('LOG_IN')} back={true} icon={''} />
+      <Header title={'LOG_IN'} back={true} icon={''} />
       <div className="w-52 h-52 mx-auto my-10">
         <Logo />
       </div>

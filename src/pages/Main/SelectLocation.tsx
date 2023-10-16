@@ -13,7 +13,7 @@ const SelectLocation = () => {
 
   return (
     <>
-      <Header title={'지역선택'} back={true} icon={''} />
+      <Header title={'SELECT_AREA'} back={true} icon={''} />
       <div className="mt-6 px-4">
         <ul className="grid grid-cols-2 gap-4">
           {regions.map((region) => (
