@@ -113,7 +113,6 @@ function GraphComponent() {
       },
     },
   };
-  console.log(location);
 
   return (
     <>

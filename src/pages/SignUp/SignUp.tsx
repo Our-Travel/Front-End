@@ -79,7 +79,7 @@ const SignUp = () => {
         </div>
       </form>
       <div className="absolute w-full px-4 bottom-7">
-        <Button name={'가입하기'} page={false} active={active} onClick={join} />
+        <Button name={'REGISTER_SIGNUP'} page={false} active={active} onClick={join} />
       </div>
     </>
   );

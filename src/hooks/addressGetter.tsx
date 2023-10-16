@@ -29,8 +29,6 @@ function addressGetter() {
     }
   }, [latitude, longitude]);
 
-  console.log(address);
-
   return address;
 }
 

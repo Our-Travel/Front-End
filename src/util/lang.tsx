@@ -226,6 +226,10 @@ const STRING_ESSETS: StringEssetType = {
     ko: 'Host 삭제하기',
     en: 'To delete',
   },
+  REGISTER_SIGNUP: {
+    ko: '가입하기',
+    en: 'Register',
+  },
   // 프로필 수정
   PROFILE_IMAGE_EDIT: {
     ko: '프로필 이미지 편집',
