@@ -64,7 +64,6 @@ export interface LocationArr {
 const KakaoMap = ({ selectedButtonIndex }: MapProps) => {
   console.log(selectedButtonIndex);
 
-
   const [map, setMap] = useState<any>();
   const [marker, setMarker] = useState<any>();
 
