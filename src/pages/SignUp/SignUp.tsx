@@ -1,7 +1,7 @@
 import React, { useEffect, useState, MouseEvent } from 'react';
 import Header from '../../components/Header/Header';
 import { Email, Password } from '../../components/EmailPassword/EmailPassword';
-import { Button } from '../../components/LoginButton/Button';
+import { Button } from '../../components/Button/Button';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import useInput from 'hooks/useInput';

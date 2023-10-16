@@ -7,7 +7,6 @@ import ChattingList from './pages/Chatting/ChattingList';
 import Chatting from './pages/Chatting/Chatting';
 import Map from './pages/Map/Map';
 import MyPage from './pages/MyPage/MyPage';
-import Info from './pages/Info/Info';
 import Navigation from './components/Navigation/Navigation';
 import NotFound from './pages/NotFound/NotFound';
 import SelectLocation from './pages/Main/SelectLocation';
@@ -55,7 +54,6 @@ function App() {
             <Route path="/signin" element={<SignIn />} />
             <Route path="/signup" element={<SignUp />} />
             <Route element={<Navigation />}>
-              <Route path="/info" element={<Info />} />
               <Route path="/main" element={<Main />} />
               <Route path="/main/selectLocation" element={<SelectLocation />} />
               <Route path="/main/hostlist/:regionCode/:regionName" element={<HostList />} />
@@ -69,8 +67,7 @@ function App() {
               <Route path="/mypage/notice" element={<Notice />} />
               <Route path="/mypage/host" element={<Host />} />
               <Route path="/mypage/host/edit" element={<Host />} />
-              <Route path="/chatting/:roomnum/:room_title" element={<Chatting />} />
-              <Route path="/chatting/:roomnum/:region_code/:room_manager" element={<Chatting />} />
+              <Route path="/chatting/:roomnum" element={<Chatting />} />
               <Route path="/chattinglist" element={<ChattingList />} />
               <Route path="/oauth2/redirect/:token" element={<KakaoRedirect />} />
               <Route path="/oauth2/redirect/:token" element={<GoogleRedirect />} />

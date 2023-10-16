@@ -17,13 +17,12 @@ interface ChattingComponentProps {
 const ChattingComponenet = ({ writer, latest_message, time, room_title, region_code, room_manager, image }: ChattingComponentProps) => {
   const [inputDate, setInputDate] = useState('');
   const [inputTime, setInputTime] = useState('');
-  console.log(inputTime);
   const foundRegion = regions.find((re) => re.value === region_code)?.key;
   const setFriendImage = useSetRecoilState(profileImage);
-  setFriendImage(image);
 
-  console.log(region_code);
-
+  useEffect(() => {
+    setFriendImage(image);
+  }, []);
   useEffect(() => {
     const dateTime = new Date(time);
 

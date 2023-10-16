@@ -110,7 +110,6 @@ const EditBoard = ({ setEditBoard, item }: Props) => {
       journey_period_end: TripEndDate,
       number_of_travelers: travelers,
     };
-    console.log(updatedData);
 
     const headers = {
       Authorization: `Bearer ${storedToken}`,

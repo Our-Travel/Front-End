@@ -95,9 +95,6 @@ div:focus,
   .profileEdit {
     @apply w-full mx-auto h-9 mb-3 border rounded border-main-color text-main-color hover:bg-main-color hover:text-white;
   }
-}
-
-@layer components {
   .listStyles {
     @apply flex items-center justify-between p-4;
   }

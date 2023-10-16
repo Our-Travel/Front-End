@@ -4,8 +4,13 @@ import BoardItem from '../../components/Board/BoardItem';
 import axios from 'axios';
 import EditBoard from './EditBoard';
 import EmptyPage from 'shared/EmptyPage';
+import { useRecoilValue } from 'recoil';
+import { langConvert } from 'Atom/atom';
+import useMultilingual from 'hooks/useMultilingual';
 
 const MyWrite = () => {
+  const lang = useRecoilValue(langConvert);
+  const m = useMultilingual(lang);
   //받아온 데이터의 갯수가 없다면? 을 받는 객체
   const [isEmpty, setEmpty] = useState<boolean>(false);
   const [boardList, setBoardList] = useState([]);
@@ -30,7 +35,6 @@ const MyWrite = () => {
       const response = await axios.get(boardUrl, {
         headers: headers,
       });
-      console.log(response.data.data.content);
 
       const data = response.data.data.content;
       setBoardList(data);

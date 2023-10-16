@@ -1,5 +1,5 @@
 import { langConvert } from 'Atom/atom';
-import { Button } from 'components/LoginButton/Button';
+import { Button } from 'components/Button/Button';
 import useMultilingual from 'hooks/useMultilingual';
 import React, { Dispatch, SetStateAction } from 'react';
 import { useRecoilValue } from 'recoil';

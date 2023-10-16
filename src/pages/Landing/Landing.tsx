@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Logo from '../../components/Logo/Logo';
-import { Button, LoginKakao, LoginGoogle } from '../../components/LoginButton/Button';
+import { Button, LoginKakao, LoginGoogle } from '../../components/Button/Button';
 import ChoiceTab from 'components/SignIn/ChoiceTab';
 import { useNavigate } from 'react-router-dom';
 import { Pagination, Autoplay, A11y } from 'swiper';

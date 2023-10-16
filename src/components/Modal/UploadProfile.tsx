@@ -18,7 +18,6 @@ const UploadProfile = ({ onClose }: Modal) => {
 
   const onDrop = useCallback((acceptedFiles: File[]) => {
     setFile(acceptedFiles[0]);
-    console.log(acceptedFiles[0]);
     // 해당 이미지 파일 읽어오기
     const fileReader = new FileReader();
     fileReader.onloadend = (e) => {
@@ -38,7 +37,6 @@ const UploadProfile = ({ onClose }: Modal) => {
     try {
       const url = `${process.env.REACT_APP_REST_API_SERVER}/members/profile-image`;
       const response = await axios.post(url, formData, config);
-      console.log(response);
       alert(response.data.msg);
       onClose();
       setUpdate(!update);

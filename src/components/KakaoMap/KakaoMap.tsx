@@ -3,7 +3,7 @@ import useGeolocation from '../../hooks/useGeolocation';
 import Spinner from '../../shared/Spinner';
 import TourModal from '../TouristList/TourModal';
 import axios, { AxiosResponse } from 'axios';
-import { aroundLoc, accommodation } from '../../Atom/atom';
+import { aroundLoc } from '../../Atom/atom';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import Map from './../../pages/Map/Map';
 import KakaoMapMarker from './KakaoMapMarker';
@@ -70,7 +70,6 @@ const KakaoMap = ({ selectedButtonIndex }: MapProps) => {
   const location = useGeolocation();
   const [mapToggle, setMapToggle] = useState<boolean>(false);
   const [aroundPlace, setAroundPlace] = useRecoilState(aroundLoc);
-  const setCcommo = useSetRecoilState(accommodation);
   const [selectPost, setSelectPost] = useState<Place | null>(null);
   const handleMapToggle = (place: Place) => {
     setSelectPost(place);
@@ -125,7 +124,7 @@ const KakaoMap = ({ selectedButtonIndex }: MapProps) => {
 
   return (
     <>
-      <div id="map" className="w-full h-full">
+      <div id="map" className="w-full h-screen">
         {locationList && map && selectedButtonIndex && <KakaoMapMarker locationList={locationList} map={map} modalShow={modalShow} setClickIndex={setClickIndex} selectedButtonIndex={selectedButtonIndex} />}
         {locationList && map && modalClose && clickIndex && <KakaoMapModal locationList={locationList} setModalClose={setModalClose} clickIndex={clickIndex} />}
       </div>

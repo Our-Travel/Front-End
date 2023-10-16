@@ -2,7 +2,7 @@ import { Password } from 'components/EmailPassword/EmailPassword';
 import Header from 'components/Header/Header';
 import useInput from '../../hooks/useInput';
 import useFetch from 'hooks/useFetch';
-import { Button } from 'components/LoginButton/Button';
+import { Button } from 'components/Button/Button';
 import { useEffect, useState, MouseEvent } from 'react';
 import { AiOutlineSetting } from 'react-icons/ai';
 import UploadProfile from 'components/Modal/UploadProfile';
@@ -12,10 +12,13 @@ import { Profile } from './MypageInfo';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { profileUpdate } from 'Atom/userAtom';
 import { loginType } from '../../Atom/userAtom';
-
-const profileBtn = [{ title: '프로필 이미지 편집' }, { title: '기본 이미지로 변경' }];
+import { langConvert } from 'Atom/atom';
+import useMultilingual from 'hooks/useMultilingual';
 
 const ProfileEdit = () => {
+  const lang = useRecoilValue(langConvert);
+  const m = useMultilingual(lang);
+  const profileBtn = [{ title: m('PROFILE_IMAGE_EDIT') }, { title: m('DEFAUIT_IMAGE') }];
   const newPassword = useInput();
   const newPwCheck = useInput();
   const newNickName = useInput();
@@ -91,11 +94,7 @@ const ProfileEdit = () => {
   return (
     <>
       <Header title={'PROFILE_EDIT'} back={true} icon={''} />
-      {!signType && (
-        <p className="my-4">
-          ※ <b className="text-main-color">소셜 로그인</b>은 비밀번호 변경이 불가능합니다.
-        </p>
-      )}
+      {!signType && <p className="my-4 text-red-400">{m('SOCIAL_LOGIN_PASSWORD')}</p>}
       {uploadModalOpen && <UploadProfile onClose={closeImagePopup} />}
       <form className="w-full px-4">
         <div className="items-center justify-center gap-5 my-8">
@@ -115,11 +114,11 @@ const ProfileEdit = () => {
           {signType && (
             <>
               <div className="inputForm">
-                <Password page={false} title={'비밀번호 변경'} data={newPassword.data} state={newPassword.state} onChange={newPassword.onChange} onReset={newPassword.onReset} />
+                <Password page={false} title={m('PASSWORD_CHANGE')} data={newPassword.data} state={newPassword.state} onChange={newPassword.onChange} onReset={newPassword.onReset} />
               </div>
               <div className="inputForm">
                 <label htmlFor="userPw2" className="text-left text-gray-500">
-                  비밀번호 재확인
+                  {m('PASSWORD_CHECK')}
                 </label>
                 <input required type="password" name="userPw2" id="userPw2" placeholder="영문, 숫자, 특수문자 포함 8~16자" className={`inputStyle ${passwordInput()}`} onChange={newPwCheck.onChange} />
                 <span className="errorText">{newPwCheck.data.length && newPassword.data !== newPwCheck.data ? '비밀번호가 일치 하지 않습니다.' : null}</span>
@@ -128,12 +127,12 @@ const ProfileEdit = () => {
           )}
           <div className="inputForm">
             <label htmlFor={'nickName'} className="text-left text-gray-500">
-              닉네임
+              {m('NICKNAME')}
             </label>
             <div className="flex justify-between">
               <input required type="text" name="nickName" id="nickName" placeholder="한글, 영문, 숫자 가능 3~10자" className={`inputStyle ${nickNameInput()}`} onChange={newNickName.onChange} value={newNickName.data} />
               <button type="button" className={`w-28 h-12 ml-7 border rounded ${nickNameBtn()}`} onClick={handleNickName} disabled={!newNickName.state}>
-                중복확인
+                {m('CHECK')}
               </button>
             </div>
             <span className="errorText">{newNickName.data && !newNickName.state && '올바른 닉네임을 입력해주세요. (공백 불가)'}</span>

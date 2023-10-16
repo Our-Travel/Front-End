@@ -1,6 +1,6 @@
 import Header from '../../components/Header/Header';
 import { Profile } from '../../components/MypageInfo/MypageInfo';
-import { Button } from '../../components/LoginButton/Button';
+import { Button } from '../../components/Button/Button';
 import Select, { SingleValue } from 'react-select';
 import React, { useState, useEffect, MouseEvent } from 'react';
 import useInput from '../../hooks/useInput';
@@ -10,6 +10,8 @@ import { MdOutlineCancel } from 'react-icons/md';
 import regions from '../../util/region';
 import { useRecoilValue } from 'recoil';
 import { hostCheck } from '../../Atom/userAtom';
+import { langConvert } from 'Atom/atom';
+import useMultilingual from 'hooks/useMultilingual';
 
 interface optionType {
   value: number;
@@ -23,6 +25,8 @@ interface newData {
 }
 
 const Host = () => {
+  const lang = useRecoilValue(langConvert);
+  const m = useMultilingual(lang);
   const [active, setActive] = useState<boolean>(false);
   const [city, setCity] = useState<SingleValue<optionType>>(null);
   const [newCity, setNewCity] = useState<SingleValue<optionType>>(null);
@@ -146,13 +150,13 @@ const Host = () => {
       <div className="px-4 line">
         <Profile page={true} />
         <button className="profileEdit" onClick={handleEdit}>
-          프로필 수정
+          {m('PROFILE_EDIT')}
         </button>
       </div>
       <form className={`flex flex-col px-4 ${hostActive ? 'gap-1 mt-2' : 'gap-2 mt-4'} text-left mx-auto`}>
-        {hostActive && <p className="text-sm font-semibold text-main-color">※ 기존에 등록된 정보를 참고하여 수정 해주세요.</p>}
+        {hostActive && <p className="text-sm font-semibold text-main-color">{m('MODIFY_INFO')}</p>}
         <div className="inputForm">
-          <label htmlFor="introduction">한줄소개</label>
+          <label htmlFor="introduction">{m('INTRODUCTION')}</label>
           <div className="relative flex flex-row items-center">
             <input
               required
@@ -169,7 +173,7 @@ const Host = () => {
           <span className="errorText">{myInfo.data.length >= 25 || myInfoModify.data.length >= 25 ? '글자수가 25자로 제한됩니다.' : ''}</span>
         </div>
         <div className="inputForm">
-          <label htmlFor="hashTag">해시태그</label>
+          <label htmlFor="hashTag">{m('HASHTAG')}</label>
           <input
             required
             type="text"
@@ -182,7 +186,7 @@ const Host = () => {
           <span className="errorText">{hashTagCheck()}</span>
         </div>
         <div className="flex flex-col gap-1">
-          <h2>위치</h2>
+          <h2>{m('LOCATION')}</h2>
           <Select
             id={hostActive ? 'regionModify' : 'region'}
             className="w-full"
@@ -194,10 +198,10 @@ const Host = () => {
         </div>
       </form>
       <div className="w-full px-4 absolute bottom-16">
-        <div className=" my-2">
-          <Button name={hostActive ? '수정하기' : '등록하기'} page={false} active={active} onClick={hostActive ? hostModify : hostRegist} />
+        <div className="my-2">
+          <Button name={hostActive ? m('MODIFY') : m('REGISTER')} page={false} active={active} onClick={hostActive ? hostModify : hostRegist} />
         </div>
-        <div>{hostActive && <Button name={'Host 삭제하기'} page={true} active={active} onClick={hostDelete} />}</div>
+        <div>{hostActive && <Button name={m('DELETE')} page={true} active={active} onClick={hostDelete} />}</div>
       </div>
     </div>
   );

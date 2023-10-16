@@ -3,10 +3,15 @@ import { useNavigate } from 'react-router-dom';
 import mapData from './mapData';
 import mapText from './mapText';
 import useFetch from 'hooks/useFetch';
+import { useRecoilValue } from 'recoil';
+import { langConvert } from 'Atom/atom';
+import useMultilingual from 'hooks/useMultilingual';
 
 const KoreaMap = () => {
   const { hostDataCount, hostMapData } = useFetch();
   const navigate = useNavigate();
+  const lang = useRecoilValue(langConvert);
+  const m = useMultilingual(lang);
 
   const handleLocation = (e: MouseEvent<SVGElement> | KeyboardEvent<SVGElement>) => {
     const mouse = e as MouseEvent<SVGElement>;
@@ -36,10 +41,7 @@ const KoreaMap = () => {
           <g>
             {mapText.mapInfo.map((item) => (
               <g key={item.name} className="fill-black stroke-0 text-2xl cursor-pointer outline-none" transform={`translate(${item.x}, ${item.y})`}>
-                <text className="hover:fill-main-color hover:scale-125">
-                  <tspan>{item.name}</tspan>
-                  {hostMapData(item.value)}
-                </text>
+                <text className="hover:fill-main-color hover:scale-125">{hostMapData(item.value) ? <tspan>{`${m(item.name)}(${hostMapData(item.value)})`}</tspan> : <tspan>{m(item.name)}</tspan>}</text>
               </g>
             ))}
           </g>

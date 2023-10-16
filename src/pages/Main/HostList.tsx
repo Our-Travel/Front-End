@@ -25,7 +25,6 @@ const HostList = () => {
       try {
         const url = `${process.env.REACT_APP_REST_API_SERVER}/hosts/list?regionCode=${regionCode}`;
         const response = await axios.get(url, config);
-        console.log(response);
         setHosts(response.data.data);
         response.data.data.forEach((el: any) => setRoomId(el.chat_room_id));
       } catch (error) {
@@ -42,7 +41,6 @@ const HostList = () => {
       // roomId가 null 이면 채팅방 생성 후 입장
       if (!roomId) {
         const createRoom = await axios.post(url, {}, config);
-        console.log(createRoom.data.msg);
         chatEnter(createRoom.data.data.chat_room_id);
         // roomId가 있으면서 memberId가 같은 경우 = host 본인
       } else if (roomId && Number(localStorage.getItem('memberId')) === memberId) {
@@ -65,7 +63,6 @@ const HostList = () => {
     try {
       const url = `${process.env.REACT_APP_REST_API_SERVER}/room/${room_id}`;
       const response = await axios.get(url, config);
-      console.log(response);
       alert(response.data.msg);
       navigate(`/chatting/${room_id}`);
     } catch (error) {
@@ -81,7 +78,6 @@ const HostList = () => {
     e.stopPropagation();
     setNumberId(numberId === id ? null : id);
   };
-  console.log(regionName);
   return (
     <>
       <Header title={regionName ? regionName : 'NOSUB'} back={true} icon={''} />
