@@ -122,10 +122,8 @@ const TourModal = ({ boardDetail, setModal, setIsStared }: Props) => {
        </a> */}
 
           <div className="border-b-2 py-3 font-bold text-lg">{boardDetail.title}</div>
-          <div className="h-[150px] flex items-center border-b-2 py-10 pl-5 pr-10">
-            <div className="flex justify-center rounded-lg pl-2 mr-2">
-              {boardDetail.image ? <img src={boardDetail.image} alt="" className="mr-4 w-[100px] h-[100px] " /> : <img className="w-[80px] h-[80px] mr-6" alt="관광지 사진" src="/assets/homeicon.png" />}
-            </div>
+          <div className="h-36 flex items-center border-b-2 py-10 pl-5 pr-10">
+            <div className="flex justify-center rounded-lg pl-2 mr-2">{boardDetail.image ? <img src={boardDetail.image} alt="" className="mr-4 w-24 h-24" /> : <img className="w-20 h-20 mr-6" alt="관광지 사진" src="/assets/homeicon.png" />}</div>
             <div className="flex flex-col items-start text-left">
               <h1 className="font-bold mb-1">{boardDetail.title}</h1>
               <p id="address" className="text-left">
@@ -134,18 +132,18 @@ const TourModal = ({ boardDetail, setModal, setIsStared }: Props) => {
               <p>{boardDetail.tel}</p>
             </div>
           </div>
-          <div className="pt-4 pb-3 h-[150px] overflow-y-auto px-6 text-left">
+          <div className="pt-4 pb-3 h-36 overflow-y-auto px-6 text-left">
             {boardDetail.home_page && <p className="text-blue-500" dangerouslySetInnerHTML={{ __html: boardDetail.home_page }}></p>}
             <p className="text-gray-600 pt-2">{boardDetail.over_view}</p>
           </div>
-          <div className="mt-4 flex items-center justify-between px-5">
+          <div className="mt-4 flex items-center text-[clamp(10px,4vw,16px)] justify-between px-5">
             <div className="flex items-center translate-x-2 hover:cursor-pointer" onClick={clickHeart}>
-              {isLiked ? <AiFillHeart className="mr-3 w-[30px] h-[30px]" /> : <AiOutlineHeart className="mr-3 w-[30px] h-[30px]" />}
+              {isLiked ? <AiFillHeart className="sm:mr-3 w-8 h-8" /> : <AiOutlineHeart className="mr-3 w-8 h-8" />}
               <button>Add To Favorite</button>
             </div>
-            <div className="w-[1px] h-[30px] bg-black" />
+            <div className="w-[1px] h-8 bg-black" />
             <div onClick={handleClipBoard} className="flex items-center -translate-x-5">
-              <AiOutlineShareAlt className="mr-3 w-[30px] h-[30px]" />
+              <AiOutlineShareAlt className="sm:mr-3 w-8 h-8" />
               <button>Share Location</button>
             </div>
           </div>

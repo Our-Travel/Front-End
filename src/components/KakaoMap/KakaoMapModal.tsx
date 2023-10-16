@@ -130,9 +130,9 @@ const KakaoMapModal = ({ locationList, setModalClose, clickIndex, starClickedArr
   let idx = locationList.findIndex((obj: any) => obj.content_id === clickIndex);
 
   return (
-    <div className="fixed h-full w-[448px] top-0 bottom-0 bg-black bg-opacity-0 z-30" ref={modalRef}>
+    <div className="fixed h-full w-full top-0 bottom-0 bg-black bg-opacity-0 z-30" ref={modalRef}>
       {/* {thing && ( */}
-      <div className="absolute bottom-0 w-full h-[470px] bg-white rounded-t-3xl">
+      <div className="absolute bottom-14 w-full h-[420px] border-t-2 bg-white rounded-t-3xl">
         {/* <a href={`https://map.kakao.com/link/roadview/${longitude},${latitude}`} target="_blank" className="btn btn-link flex-col mb-2">
     <div className="fixed h-full w-[448px] bottom-[56px] bg-opacity-0 z-30" ref={modalRef}>
       <div className="absolute bottom-0 w-full  bg-white rounded-t-3xl">
@@ -144,7 +144,7 @@ const KakaoMapModal = ({ locationList, setModalClose, clickIndex, starClickedArr
         </a> */}
 
         <div className="border-b-2 py-3 font-bold text-lg">{title}</div>
-        <div className="h-[150px] flex items-center border-b-2 py-10 pl-5 pr-10">
+        <div className="h-36 flex items-center border-b-2 py-10 pl-5 pr-10">
           <div className="flex justify-center rounded-lg pl-2 mr-2">{image ? <img src={image} alt="" className="mr-4 w-[100px] h-[100px] " /> : <img className="w-[80px] h-[80px] mr-6" alt="관광지 사진" src="/assets/homeicon.png" />}</div>
           <div className="flex flex-col items-start text-left">
             <h1 className="font-bold mb-1">{title}</h1>
@@ -154,18 +154,18 @@ const KakaoMapModal = ({ locationList, setModalClose, clickIndex, starClickedArr
             <p>{tel}</p>
           </div>
         </div>
-        <div className="pt-4 pb-3 h-[150px] overflow-y-auto px-6 text-left">
+        <div className="pt-4 pb-3 h-36 overflow-y-auto px-6 text-left">
           {home_page && <p className="text-blue-500" dangerouslySetInnerHTML={{ __html: home_page }}></p>}
           <p className="text-gray-600 pt-2">{over_view}</p>
         </div>
-        <div className="mt-4 flex items-center justify-between px-5">
+        <div className="mt-4 flex items-center text-[clamp(10px,4vw,16px)] justify-between px-2 sm:px-5">
           <div className="flex items-center translate-x-2 hover:cursor-pointer" onClick={clickHeart}>
-            {isLiked ? <AiFillHeart className="mr-3 w-[30px] h-[30px]" /> : <AiOutlineHeart className="mr-3 w-[30px] h-[30px]" />}
+            {isLiked ? <AiFillHeart className="sm:mr-3 w-8 h-8" /> : <AiOutlineHeart className="mr-3 w-8 h-8" />}
             <button>Add To Favorite</button>
           </div>
-          <div className="w-[1px] h-[30px] bg-black" />
+          <div className="w-[1px] h-8 bg-black" />
           <div onClick={handleClipBoard} className="flex items-center -translate-x-5">
-            <AiOutlineShareAlt className="mr-3 w-[30px] h-[30px]" />
+            <AiOutlineShareAlt className="sm:mr-3 w-8 h-8" />
             <button>Share Location</button>
           </div>
         </div>

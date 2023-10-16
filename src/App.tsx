@@ -40,7 +40,7 @@ function App() {
   return (
     <div className="relative">
       <div className="w-full h-screen main-backGround max-h-[60rem] ">
-        <div className="z-50 absolute right-3 rounded-full bg-main-color4 w-20 h-8 flex items-center">
+        <div className="z-50 absolute top-3 right-3 rounded-full bg-main-color4 w-20 h-8 flex items-center">
           <button
             value={!translationToggle ? 'ko' : 'en'}
             className={cls('z-50 absolute focus:outline-none bg-main-color w-6 h-6 rounded-full left-1  transition-all duration-500 ease-linear', translationToggle ? '' : ' left-[50px]')}
