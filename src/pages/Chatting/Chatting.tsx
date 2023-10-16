@@ -132,7 +132,7 @@ const Chatting = () => {
 
   return (
     <div className="h-full">
-      <Header title={'TEST'} back={true} icon={icon} />
+      <Header title={'TEST'} back={true} icon={''} />
 
       <div className="w-full h-[calc(100%-8rem)] overflow-hidden">
         <div className="text-[#FF626F] pt-2 pb-2 text-sm">{chatEnter && chatEnter.msg}</div>
