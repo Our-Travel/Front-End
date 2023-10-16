@@ -17,7 +17,6 @@ declare global {
 }
 
 interface MapProps {
-  token: string;
   selectedButtonIndex: number;
 }
 
@@ -62,7 +61,10 @@ export interface LocationArr {
 }
 [];
 
-const KakaoMap = ({ token, selectedButtonIndex }: MapProps) => {
+const KakaoMap = ({ selectedButtonIndex }: MapProps) => {
+  console.log(selectedButtonIndex);
+
+
   const [map, setMap] = useState<any>();
   const [marker, setMarker] = useState<any>();
 

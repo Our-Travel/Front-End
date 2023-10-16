@@ -90,7 +90,7 @@ const ProfileEdit = () => {
 
   return (
     <>
-      <Header title={'프로필수정'} back={true} icon={''} />
+      <Header title={'PROFILE_EDIT'} back={true} icon={''} />
       {!signType && (
         <p className="my-4">
           ※ <b className="text-main-color">소셜 로그인</b>은 비밀번호 변경이 불가능합니다.

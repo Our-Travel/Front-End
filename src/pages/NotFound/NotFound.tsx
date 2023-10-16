@@ -2,7 +2,7 @@ import Header from '../../components/Header/Header';
 const NotFound = () => {
   return (
     <>
-      <Header title={'잘못된 형식'} back={true} icon={''} />
+      <Header title={'NOTFOUND_PAGE'} back={true} icon={''} />
       <div className="flex flex-col items-center justify-center gap-9 absolute centerPosition w-full">
         <img src="/assets/MyWriteImg.svg" alt="OT마스코트" />
         <div>

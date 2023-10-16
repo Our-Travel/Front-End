@@ -132,7 +132,8 @@ const Chatting = () => {
 
   return (
     <div className="h-full">
-      <Header title={region_code ? `[${regionName[0]}] ${room_manager}의 단체방` : `${room_title}`} back={true} icon={''} />
+      <Header title={'TEST'} back={true} icon={icon} />
+
       <div className="w-full h-[calc(100%-8rem)] overflow-hidden">
         <div className="text-[#FF626F] pt-2 pb-2 text-sm">{chatEnter && chatEnter.msg}</div>
         <div className="main-chat h-[calc(100%-5rem)] mx-2.5 overflow-y-auto" ref={mainChat}>

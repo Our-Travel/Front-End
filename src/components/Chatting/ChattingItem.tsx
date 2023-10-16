@@ -69,7 +69,7 @@ const ChattingItem = () => {
   return (
     <div>
       <div className="flex justify-center items-center w-full">
-        <Header title="채팅목록" back={false} icon={''} />
+        <Header title="CHATLIST" back={false} icon={''} />
         {chatList.length > 0 && (
           <BsTrash
             className="absolute right-0 w-10 h-5 cursor-pointer"
@@ -98,7 +98,7 @@ const ChattingItem = () => {
           );
         })
       ) : (
-        <EmptyPage alt={'채팅목록 보라색 캐릭터'} content={'채팅 목록이 없습니다'} subContent={''} />
+        <EmptyPage alt={'채팅목록 보라색 캐릭터'} content={'NOCHAT'} subContent={'NOSUB'} />
       )}
       {trash && (
         <>

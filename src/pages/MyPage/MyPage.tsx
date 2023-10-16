@@ -61,8 +61,9 @@ const MyPage = () => {
   };
 
   return (
-    <div className="relative h-full">
-      <Header title={'마이페이지'} back={false} icon={''} />
+    <div className="relative h-screen">
+      <Header title={'MYPAGE'} back={false} icon={''} />
+
       <div className="relative">
         <div className="flex text-center flex-col flex-grow gap-4 mx-4 my-6">
           <Profile page={true} />

@@ -84,7 +84,7 @@ const TouristList = ({ tourType }: Cate) => {
           );
         })
       ) : (
-        <EmptyPage content={'즐겨찾기된 목록이 없어요.'} subContent={''} alt={'즐겨찾기된 목록이 없어요 페이지 보라색 캐릭터'} />
+        <EmptyPage content={'NOFAVORITE'} subContent={'NOSUB'} alt={'즐겨찾기된 목록이 없어요 페이지 보라색 캐릭터'} />
       )}
       {modal && <TourModal boardDetail={boardDetail} setModal={setModal} post={null} setIsStared={setIsStared} />}
     </div>

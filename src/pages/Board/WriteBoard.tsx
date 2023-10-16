@@ -5,10 +5,15 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import regions from '../../util/region';
 import PostForm from '../../components/Board/PostForm';
+import { langConvert } from 'Atom/atom';
+import { useRecoilValue } from 'recoil';
+import useMultilingual from 'hooks/useMultilingual';
 
 const WriteBoard = () => {
   const [modal, setModal] = useState<boolean>(false);
   const navigate = useNavigate();
+  const lang = useRecoilValue(langConvert);
+  const m = useMultilingual(lang);
 
   //제목, 내용, 위치
   const [title, setTitle] = useState('');
@@ -90,9 +95,10 @@ const WriteBoard = () => {
   };
 
   return (
-    <div className="relative h-full">
-      <Header title="게시글 작성" back={true} icon={''} />
-      {modal && <ModalButton title="글을 작성하시겠습니까?" button="작성하기" setModal={setModal} handleButton={handleWriteBoardButton} />}
+    <div className="relative h-[100vh]">
+      <Header title="WRITE_POST" back={true} icon={''} />
+      {modal && <ModalButton title={m('WRITE_POST_ALERT')} button="작성하기" setModal={setModal} handleButton={handleWriteBoardButton} />}
+
       <PostForm
         title={title}
         content={content}
