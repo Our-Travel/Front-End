@@ -230,6 +230,14 @@ const STRING_ESSETS: StringEssetType = {
     ko: '가입하기',
     en: 'Register',
   },
+  FOLDING: {
+    ko: '접기',
+    en: 'Folding',
+  },
+  MORE: {
+    ko: '더보기',
+    en: 'More',
+  },
   // 프로필 수정
   PROFILE_IMAGE_EDIT: {
     ko: '프로필 이미지 편집',
@@ -286,6 +294,10 @@ const STRING_ESSETS: StringEssetType = {
     ko: '즐겨찾기 된 게시물이 없어요.',
     en: 'There is no chat list.',
   },
+  NOHOST: {
+    ko: '해당 지역에 등록된 host가 없습니다.',
+    en: 'No hosts are registered in your area.',
+  },
   NOSUB: {
     ko: '',
     en: '',
@@ -298,6 +310,10 @@ const STRING_ESSETS: StringEssetType = {
   CHATLIST: {
     ko: '채팅목록',
     en: 'Chatting List',
+  },
+  CHATROOM: {
+    ko: '단체방',
+    en: 'group room',
   },
   // Header공용 컴포넌트
   MYPAGE: {

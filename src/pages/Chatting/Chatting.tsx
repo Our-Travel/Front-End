@@ -11,6 +11,9 @@ import axios from 'axios';
 import { useDebounce } from '../../hooks/useDebounce';
 import regions from 'util/region';
 import { debug } from 'console';
+import { useRecoilValue } from 'recoil';
+import { langConvert } from 'Atom/atom';
+import useMultilingual from 'hooks/useMultilingual';
 
 interface MessageDto {
   member_id: number;
@@ -38,6 +41,8 @@ interface ApiResponse {
 }
 
 const Chatting = () => {
+  const lang = useRecoilValue(langConvert);
+  const m = useMultilingual(lang);
   const [chatEnter, setChatEnter] = useState<ApiResponse>();
   const chatlist = chatEnter?.data.chat_room_message_dto_list;
   const token = localStorage.getItem('token');
@@ -46,6 +51,7 @@ const Chatting = () => {
   let mainChat = useRef<HTMLDivElement>(null);
   const regionCheck = regions.filter((el) => el.value === chatEnter?.data.region_code);
   const regionName = regionCheck.map((el) => el.key);
+  const chatTitle = chatEnter?.data.room_title ?? '채팅방';
 
   // 웹소켓 테스트
   const client = useRef<CompatClient>();
@@ -143,7 +149,7 @@ const Chatting = () => {
         <button type="button" className="absolute left-1 px-2 py-2" onClick={handleGoBack}>
           <SlArrowLeft />
         </button>
-        <h2 className="text-xl font-semibold cursor-default">{chatEnter?.data.room_manager ? `[${regionName[0]}] ${chatEnter?.data.room_manager}의 단체방` : chatEnter?.data.room_title}</h2>
+        <h2 className={`${chatTitle.length > 20 ? 'text-base' : 'text-lg'} font-semibold cursor-default`}>{chatEnter?.data.room_manager ? `[${m(regionName[0])}] ${chatEnter?.data.room_manager} ${m('CHATROOM')}` : chatEnter?.data.room_title}</h2>
       </header>
       <div className="w-full h-[calc(100%-8rem)] overflow-hidden">
         <div className="text-[#FF626F] pt-2 pb-2 text-sm">{chatEnter && chatEnter.msg}</div>

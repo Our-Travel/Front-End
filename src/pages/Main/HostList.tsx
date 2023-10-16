@@ -3,6 +3,10 @@ import { useNavigate, useParams } from 'react-router-dom';
 import Header from '../../components/Header/Header';
 import { useState, useEffect, MouseEvent } from 'react';
 import { BiChevronUp, BiChevronDown } from 'react-icons/bi';
+import EmptyPage from 'shared/EmptyPage';
+import { useRecoilValue } from 'recoil';
+import { langConvert } from 'Atom/atom';
+import useMultilingual from 'hooks/useMultilingual';
 
 interface listInfo {
   member_id: number;
@@ -12,6 +16,8 @@ interface listInfo {
 }
 
 const HostList = () => {
+  const lang = useRecoilValue(langConvert);
+  const m = useMultilingual(lang);
   const [hosts, setHosts] = useState<listInfo[]>([]);
   const [roomId, setRoomId] = useState<null | number>();
   const [numberId, setNumberId] = useState<number | null>(null);
@@ -85,7 +91,7 @@ const HostList = () => {
         {hosts.length ? (
           <ul className="grid grid-cols-2 gap-4 p-4">
             {hosts.map((list) => (
-              <li key={list.member_id} id={list.nick_name} className={`hostList ${list.member_id === numberId ? 'h-auto' : 'h-52'}`} onClick={() => hostChatting(list.member_id)}>
+              <li key={list.member_id} id={list.nick_name} className={`hostList ${list.member_id === numberId ? 'h-auto' : 'h-56'}`} onClick={() => hostChatting(list.member_id)}>
                 <div>
                   <img src={list.host_profile_image ? list.host_profile_image : '/assets/profile.svg'} className="w-24 h-24 mx-auto rounded-full object-contain" alt="호스트 기본 이미지" />
                   <span>{list.nick_name}</span>
@@ -97,12 +103,12 @@ const HostList = () => {
                   <button type="button" id={list.nick_name} className="hostListBtn" onClick={(e) => idCheck(e, list.member_id)}>
                     {list.member_id === numberId ? (
                       <>
-                        닫기
+                        {m('FOLDING')}
                         <BiChevronUp className="w-6 h-6" />
                       </>
                     ) : (
                       <>
-                        더보기
+                        {m('MORE')}
                         <BiChevronDown className="w-6 h-6" />
                       </>
                     )}
@@ -112,10 +118,7 @@ const HostList = () => {
             ))}
           </ul>
         ) : (
-          <div className="w-full absolute centerPosition flex flex-col items-center justify-center gap-4 text-lg">
-            <img src="/assets/MyWriteImg.svg" alt="등록된 Host가 없는 지역 보라색 캐릭터 이미지" />
-            <p>해당 지역에 등록된 host가 없습니다.</p>
-          </div>
+          <EmptyPage alt={'등록된 Host가 없는 지역 보라색 캐릭터 이미지'} content={'NOHOST'} subContent={'NOSUB'} />
         )}
       </div>
     </>

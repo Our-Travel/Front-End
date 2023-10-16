@@ -120,7 +120,7 @@ const ProfileEdit = () => {
                 <label htmlFor="userPw2" className="text-left text-gray-500">
                   {m('PASSWORD_CHECK')}
                 </label>
-                <input required type="password" name="userPw2" id="userPw2" placeholder="영문, 숫자, 특수문자 포함 8~16자" className={`inputStyle ${passwordInput()}`} onChange={newPwCheck.onChange} />
+                <input required type="password" name="userPw2" id="userPw2" placeholder={m('PLACEHOLDER_PASSWORD')} className={`inputStyle ${passwordInput()}`} onChange={newPwCheck.onChange} />
                 <span className="errorText">{newPwCheck.data.length && newPassword.data !== newPwCheck.data ? '비밀번호가 일치 하지 않습니다.' : null}</span>
               </div>
             </>
@@ -130,8 +130,8 @@ const ProfileEdit = () => {
               {m('NICKNAME')}
             </label>
             <div className="flex justify-between">
-              <input required type="text" name="nickName" id="nickName" placeholder="한글, 영문, 숫자 가능 3~10자" className={`inputStyle ${nickNameInput()}`} onChange={newNickName.onChange} value={newNickName.data} />
-              <button type="button" className={`w-28 h-12 ml-7 border rounded ${nickNameBtn()}`} onClick={handleNickName} disabled={!newNickName.state}>
+              <input required type="text" name="nickName" id="nickName" placeholder={m('PLACEHOLDER_NICKNAME')} className={`inputStyle ${nickNameInput()}`} onChange={newNickName.onChange} value={newNickName.data} />
+              <button type="button" className={`w-28 h-12 ml-4 border rounded ${nickNameBtn()}`} onClick={handleNickName} disabled={!newNickName.state}>
                 {m('DOUBLE_CHECK')}
               </button>
             </div>
