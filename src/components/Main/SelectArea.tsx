@@ -74,29 +74,29 @@ const SelectArea = ({ modal, setModal, setArea, nowArea }: modal) => {
             {m('강원')}
           </button>
           <button className={`w-[100px] rounded-lg border-2 hover:border-red-200 ${nowArea === '충청북도' ? 'bg-main-color2 border-main-color2 text-white' : ''}`} onClick={() => handleButtonSelection('충청북도')}>
-            {m('충청북도')}
+            {m('충북')}
           </button>
           <button className={`w-[100px] rounded-lg border-2 hover:border-red-200 ${nowArea === '충청남도' ? 'bg-main-color2 border-main-color2 text-white' : ''}`} onClick={() => handleButtonSelection('충청남도')}>
-            {m('충청남도')}
+            {m('충남')}
           </button>
         </div>
         <div className="w-[90%] mx-auto flex justify-around mt-3 ">
           <button className={`w-[100px] rounded-lg border-2 hover:border-red-200 ${nowArea === '전라북도' ? 'bg-main-color2 border-main-color2 text-white' : ''}`} onClick={() => handleButtonSelection('전라북도')}>
-            {m('전라북도')}
+            {m('전북')}
           </button>
           <button className={`w-[100px] rounded-lg border-2 hover:border-red-200 ${nowArea === '전라남도' ? 'bg-main-color2 border-main-color2 text-white' : ''}`} onClick={() => handleButtonSelection('전라남도')}>
-            {m('전라남도')}
+            {m('전남')}
           </button>
           <button className={`w-[100px] rounded-lg border-2 hover:border-red-200 ${nowArea === '경상북도' ? 'bg-main-color2 border-main-color2 text-white' : ''}`} onClick={() => handleButtonSelection('경상북도')}>
-            {m('경상북도')}
+            {m('경북')}
           </button>
         </div>
         <div className="w-[90%] ml-7 mt-3 text-left">
           <button className={`w-[100px] rounded-lg border-2 hover:border-red-200 ${nowArea === '경상남도' ? 'bg-main-color2 border-main-color2 text-white' : ''}`} onClick={() => handleButtonSelection('경상남도')}>
-            {m('경상남도')}
+            {m('경남')}
           </button>
           <button className={`w-[100px] ml-5 rounded-lg border-2 hover:border-red-200 ${nowArea === '제주도' ? 'bg-main-color2 border-main-color2 text-white' : ''}`} onClick={() => handleButtonSelection('제주도')}>
-            {m('제주도')}
+            {m('제주')}
           </button>
         </div>
       </div>
