@@ -54,6 +54,10 @@ const STRING_ESSETS: StringEssetType = {
     ko: '비밀번호 재확인',
     en: 'Reconfirm Password',
   },
+  CHECK_EMAIL: {
+    ko: '형식에 알맞는 이메일을 입력해주세요.',
+    en: 'Please provide an email in the appropriate format.',
+  },
   PLACEHOLDER_PASSWORD: {
     ko: '영문, 숫자, 특수문자 포함 8~16자',
     en: '(8-16)including letters, numbers, and special characters',
@@ -181,6 +185,23 @@ const STRING_ESSETS: StringEssetType = {
   Our_Travel: {
     ko: 'Our Travel',
     en: 'Our Travel',
+  },
+  //피드백
+  FEEDBACK: {
+    ko: '여러분의 소중한 의견에 감사드립니다.',
+    en: 'Thank you for your valuable opinions.',
+  },
+  PROVIDE_OPINION: {
+    ko: '소중한 의견을 적어주세요',
+    en: 'Please provide your valuable opinion.',
+  },
+  SEND: {
+    ko: '보내기',
+    en: 'Send',
+  },
+  EDIT: {
+    ko: '수정하기',
+    en: 'Edit',
   },
   // 게시물 작성
   NOWRITE: {

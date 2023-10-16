@@ -141,7 +141,7 @@ const ProfileEdit = () => {
         </div>
       </form>
       <div className="absolute w-full bottom-16 px-4">
-        <Button name={'수정하기'} page={false} active={active} onClick={userDataEdit} />
+        <Button name={'EDIT'} page={false} active={active} onClick={userDataEdit} />
       </div>
     </>
   );
