@@ -18,7 +18,7 @@ function addressGetter() {
             },
           });
           const locations = response.data.documents[0];
-          const formattedAddress = `${locations.address.region_1depth_name}`;
+          const formattedAddress = locations.address.region_1depth_name;
           setAddress(formattedAddress);
         } catch (error) {
           console.error(error);

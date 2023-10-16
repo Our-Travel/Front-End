@@ -10,7 +10,7 @@ import useMultilingual from 'hooks/useMultilingual';
 const Favorite = () => {
   const lang = useRecoilValue(langConvert);
   const m = useMultilingual(lang);
-  const [toggle, setToggle] = useState<string>(m('관광지'));
+  const [toggle, setToggle] = useState<string>(m('관광지') || m('Tourist'));
   const [tourType, setTourType] = useState<number>(12);
 
   const handleToggle = (e: MouseEvent<HTMLButtonElement>) => {

@@ -65,37 +65,37 @@ const SelectArea = ({ modal, setModal, setArea, nowArea }: modal) => {
           <button className={`w-[100px] rounded-lg border-2 hover:border-red-200 ${nowArea === '세종' ? 'bg-main-color2 border-main-color2 text-white' : ''}`} onClick={() => handleButtonSelection('세종')}>
             {m('세종')}
           </button>
-          <button className={`w-[100px] rounded-lg border-2 hover:border-red-200 ${nowArea === '경기도' ? 'bg-main-color2 border-main-color2 text-white' : ''}`} onClick={() => handleButtonSelection('경기도')}>
+          <button className={`w-[100px] rounded-lg border-2 hover:border-red-200 ${nowArea === '경기' ? 'bg-main-color2 border-main-color2 text-white' : ''}`} onClick={() => handleButtonSelection('경기')}>
             {m('경기')}
           </button>
         </div>
         <div className="w-[90%] mx-auto flex justify-around mt-3 ">
-          <button className={`w-[100px] rounded-lg border-2 hover:border-red-200 ${nowArea === '강원도' ? 'bg-main-color2 border-main-color2 text-white' : ''}`} onClick={() => handleButtonSelection('강원도')}>
+          <button className={`w-[100px] rounded-lg border-2 hover:border-red-200 ${nowArea === '강원' ? 'bg-main-color2 border-main-color2 text-white' : ''}`} onClick={() => handleButtonSelection('강원')}>
             {m('강원')}
           </button>
-          <button className={`w-[100px] rounded-lg border-2 hover:border-red-200 ${nowArea === '충청북도' ? 'bg-main-color2 border-main-color2 text-white' : ''}`} onClick={() => handleButtonSelection('충청북도')}>
+          <button className={`w-[100px] rounded-lg border-2 hover:border-red-200 ${nowArea === '충북' ? 'bg-main-color2 border-main-color2 text-white' : ''}`} onClick={() => handleButtonSelection('충북')}>
             {m('충북')}
           </button>
-          <button className={`w-[100px] rounded-lg border-2 hover:border-red-200 ${nowArea === '충청남도' ? 'bg-main-color2 border-main-color2 text-white' : ''}`} onClick={() => handleButtonSelection('충청남도')}>
+          <button className={`w-[100px] rounded-lg border-2 hover:border-red-200 ${nowArea === '충남' ? 'bg-main-color2 border-main-color2 text-white' : ''}`} onClick={() => handleButtonSelection('충남')}>
             {m('충남')}
           </button>
         </div>
         <div className="w-[90%] mx-auto flex justify-around mt-3 ">
-          <button className={`w-[100px] rounded-lg border-2 hover:border-red-200 ${nowArea === '전라북도' ? 'bg-main-color2 border-main-color2 text-white' : ''}`} onClick={() => handleButtonSelection('전라북도')}>
+          <button className={`w-[100px] rounded-lg border-2 hover:border-red-200 ${nowArea === '전북' ? 'bg-main-color2 border-main-color2 text-white' : ''}`} onClick={() => handleButtonSelection('전북')}>
             {m('전북')}
           </button>
-          <button className={`w-[100px] rounded-lg border-2 hover:border-red-200 ${nowArea === '전라남도' ? 'bg-main-color2 border-main-color2 text-white' : ''}`} onClick={() => handleButtonSelection('전라남도')}>
+          <button className={`w-[100px] rounded-lg border-2 hover:border-red-200 ${nowArea === '전남' ? 'bg-main-color2 border-main-color2 text-white' : ''}`} onClick={() => handleButtonSelection('전남')}>
             {m('전남')}
           </button>
-          <button className={`w-[100px] rounded-lg border-2 hover:border-red-200 ${nowArea === '경상북도' ? 'bg-main-color2 border-main-color2 text-white' : ''}`} onClick={() => handleButtonSelection('경상북도')}>
+          <button className={`w-[100px] rounded-lg border-2 hover:border-red-200 ${nowArea === '경북' ? 'bg-main-color2 border-main-color2 text-white' : ''}`} onClick={() => handleButtonSelection('경북')}>
             {m('경북')}
           </button>
         </div>
         <div className="w-[90%] ml-7 mt-3 text-left">
-          <button className={`w-[100px] rounded-lg border-2 hover:border-red-200 ${nowArea === '경상남도' ? 'bg-main-color2 border-main-color2 text-white' : ''}`} onClick={() => handleButtonSelection('경상남도')}>
+          <button className={`w-[100px] rounded-lg border-2 hover:border-red-200 ${nowArea === '경남' ? 'bg-main-color2 border-main-color2 text-white' : ''}`} onClick={() => handleButtonSelection('경남')}>
             {m('경남')}
           </button>
-          <button className={`w-[100px] ml-5 rounded-lg border-2 hover:border-red-200 ${nowArea === '제주도' ? 'bg-main-color2 border-main-color2 text-white' : ''}`} onClick={() => handleButtonSelection('제주도')}>
+          <button className={`w-[100px] ml-5 rounded-lg border-2 hover:border-red-200 ${nowArea === '제주' ? 'bg-main-color2 border-main-color2 text-white' : ''}`} onClick={() => handleButtonSelection('제주')}>
             {m('제주')}
           </button>
         </div>
