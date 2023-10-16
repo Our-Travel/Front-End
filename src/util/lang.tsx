@@ -47,12 +47,32 @@ const STRING_ESSETS: StringEssetType = {
     en: 'Email',
   },
   PASSWORD: {
-    ko: '패스워드',
+    ko: '비밀번호',
     en: 'PassWord',
+  },
+  RECONFIRM_PASSWORD: {
+    ko: '비밀번호 재확인',
+    en: 'Reconfirm Password',
+  },
+  PLACEHOLDER_PASSWORD: {
+    ko: '영문, 숫자, 특수문자 포함 8~16자',
+    en: '(8-16)including letters, numbers, and special characters',
+  },
+  PLACEHOLDER_NICKNAME: {
+    ko: '한글, 영문, 숫자 가능 3~8자',
+    en: '(3-8)including Korean, English, and numbers',
+  },
+  NICKNAME: {
+    ko: '닉네임',
+    en: 'Nick Name',
   },
   SIGN_UP: {
     ko: '회원가입',
     en: 'SignUp',
+  },
+  DOUBLE_CHECK: {
+    ko: '중복확인',
+    en: 'double check',
   },
   TAKE_A_TOUR: {
     ko: '둘러보기',
@@ -139,6 +159,23 @@ const STRING_ESSETS: StringEssetType = {
   제주도: {
     ko: '제주도',
     en: 'Jeju',
+  },
+  //메인 그래프
+  GRAPH_YEAR: {
+    ko: '년 상반기',
+    en: 'first half of the year',
+  },
+  VISITOR_STATUS: {
+    ko: '의 방문객 현황입니다.',
+    en: 'visitor status',
+  },
+  REPAINT_GRAPH: {
+    ko: '그래프가 제대로 그려지지 않는다면, 지역명을 클릭해주세요',
+    en: 'If the graph is not displaying correctly, please click on the region name',
+  },
+  REGION_VISITOR: {
+    ko: '지역별 방문자 수를 확인하세요',
+    en: 'Check the number of visitors by region',
   },
   // 타이틀
   Our_Travel: {

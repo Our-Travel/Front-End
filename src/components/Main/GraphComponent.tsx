@@ -7,6 +7,9 @@ import addressGetter from '../../hooks/addressGetter';
 import { visitor } from 'util/visitor';
 import { convertAddressToKey } from 'util/convertAddress';
 import SelectArea from './SelectArea';
+import { useRecoilValue } from 'recoil';
+import { langConvert } from 'Atom/atom';
+import useMultilingual from 'hooks/useMultilingual';
 
 Chart.register(LineElement, PointElement, CategoryScale, LinearScale, Tooltip, Legend);
 
@@ -19,6 +22,9 @@ function GraphComponent() {
   const [openModal, setOpenModal] = useState<boolean>(false);
   const isOpen = () => setOpenModal(!openModal);
   const { numToKorean } = require('num-to-korean');
+  const lang = useRecoilValue(langConvert);
+  const m = useMultilingual(lang);
+
   const [chartData, setChartData] = useState<ChartData<'line'>>({
     labels: [],
     datasets: [
@@ -121,13 +127,13 @@ function GraphComponent() {
         <Line data={chartData} options={options} />
       </div>
       <div className="font-normal mt-8">
-        2023년 상반기{' '}
+        2023 {m('GRAPH_YEAR')}{' '}
         <strong onClick={openGraph} className="text-main-color2 text-2xl cursor-pointer">
           {location}
-        </strong>
-        의 방문객 현황입니다.
+        </strong>{' '}
+        {m('VISITOR_STATUS')}
       </div>
-      <div className="text-base text-gray-400 mt-3 font-normal">(그래프가 제대로 그려지지 않는다면, 지역명을 클릭해주세요)</div>
+      <div className="text-base text-gray-400 mt-3 font-normal">({m('REPAINT_GRAPH')})</div>
     </>
   );
 }
