@@ -7,7 +7,7 @@ import { boardItem } from '../../Atom/atom';
 import EmptyPage from 'shared/EmptyPage';
 
 interface BoardListProps {
-  selectedButtonIndex: number; // 수정된 타입
+  selectedButtonIndex: number;
   setSelectedButtonIndex: (index: number) => void;
 }
 
@@ -40,7 +40,6 @@ const BoardList = ({ selectedButtonIndex, setSelectedButtonIndex }: BoardListPro
       const data = response.data.data.content;
 
       setBoardList(data);
-      console.log(data);
 
       const dataIsEmpty = response.data.data.content.length === 0;
       setEmpty(dataIsEmpty);

@@ -291,8 +291,12 @@ const STRING_ESSETS: StringEssetType = {
     en: 'Notice',
   },
   NOTFOUND_PAGE: {
-    ko: '잘못 된 형식',
+    ko: 'Not Found Page',
     en: 'Not Found Page',
+  },
+  NOTFOUND_PAGE_SUB: {
+    ko: 'Please go back!!',
+    en: 'Please go back!!',
   },
   TEST: {
     ko: '상대 유저 아이디',

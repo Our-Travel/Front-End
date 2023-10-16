@@ -1,6 +1,6 @@
 import Header from '../../components/Header/Header';
 import { Profile } from '../../components/MypageInfo/MypageInfo';
-import { Button } from '../../components/LoginButton/Button';
+import { Button } from '../../components/Button/Button';
 import Select, { SingleValue } from 'react-select';
 import React, { useState, useEffect, MouseEvent } from 'react';
 import useInput from '../../hooks/useInput';

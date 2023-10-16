@@ -1,4 +1,4 @@
-import { Button } from 'components/LoginButton/Button';
+import { Button } from 'components/Button/Button';
 import React, { Dispatch, SetStateAction } from 'react';
 
 interface Props {

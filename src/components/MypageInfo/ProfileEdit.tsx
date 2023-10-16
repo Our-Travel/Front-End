@@ -2,7 +2,7 @@ import { Password } from 'components/EmailPassword/EmailPassword';
 import Header from 'components/Header/Header';
 import useInput from '../../hooks/useInput';
 import useFetch from 'hooks/useFetch';
-import { Button } from 'components/LoginButton/Button';
+import { Button } from 'components/Button/Button';
 import { useEffect, useState, MouseEvent } from 'react';
 import { AiOutlineSetting } from 'react-icons/ai';
 import UploadProfile from 'components/Modal/UploadProfile';

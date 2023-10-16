@@ -15,7 +15,7 @@ interface BoardItemProps {
 const BoardItem = ({ profile_image_full_path, writer, title, like_counts, onItemClick, valid_writer }: BoardItemProps) => {
   const signType = useRecoilValue(loginType);
   const handleClick = () => {
-    onItemClick(); // 클릭 이벤트를 BoardList(상위) 컴포넌트로 전달
+    onItemClick();
   };
 
   const handleKeyDown = (event: { key: string }) => {

@@ -22,8 +22,8 @@ const BoardModal = ({ setModal }: Props) => {
   const loginCheck = useLoginCheck();
   const navigate = useNavigate();
   // 클라이언트
-  const chatButtonRef = useRef<HTMLButtonElement>(null); // "채팅하러 가기" 버튼에 대한 ref 추가
-  const thumbsUpRef = useRef<HTMLDivElement>(null); // thumbsUpRef의 형식을 RefObject<HTMLDivElement>로 변경
+  const chatButtonRef = useRef<HTMLButtonElement>(null);
+  const thumbsUpRef = useRef<HTMLDivElement>(null);
   const token = localStorage.getItem('token');
   //모달창을 닫음
   const closeModal = () => {
@@ -57,7 +57,6 @@ const BoardModal = ({ setModal }: Props) => {
         })
         .then((response) => {
           const room_id = response.data.data.room_id;
-          console.log(response);
           navigate(`/chatting/${room_id}`);
         })
         .catch((err) => {

@@ -8,7 +8,6 @@ import { AiOutlineShareAlt } from 'react-icons/ai';
 import { BsShare } from 'react-icons/bs';
 import useLoginCheck from '../../hooks/useLoginCheck';
 import axios from 'axios';
-import { Console } from 'console';
 
 const KakaoMapModal = ({ locationList, setModalClose, clickIndex, starClickedArr, setStarClickedArr }: any) => {
   const [isLiked, setIsLiked] = useState(false);

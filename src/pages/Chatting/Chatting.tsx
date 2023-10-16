@@ -4,12 +4,13 @@ import { CiMenuKebab } from 'react-icons/ci';
 import { SlArrowLeft } from 'react-icons/sl';
 import FriendChat from './../../components/Chatting/FriendChat';
 import MeChat from './../../components/Chatting/MeChat';
-import { CompatClient, Stomp } from '@stomp/stompjs';
+import { CompatClient, Stomp, StompConfig } from '@stomp/stompjs';
 import SockJS from 'sockjs-client';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import { useDebounce } from '../../hooks/useDebounce';
 import regions from 'util/region';
+import { debug } from 'console';
 
 interface MessageDto {
   member_id: number;
@@ -39,7 +40,6 @@ interface ApiResponse {
 const Chatting = () => {
   const [chatEnter, setChatEnter] = useState<ApiResponse>();
   const chatlist = chatEnter?.data.chat_room_message_dto_list;
-  console.log(chatlist);
   const token = localStorage.getItem('token');
   const nickName = localStorage.getItem('nickname');
   const sendText = useRef<HTMLInputElement>(null);
@@ -52,7 +52,6 @@ const Chatting = () => {
   const [inputMessage, setInputMessage] = useState('');
   const debounceMessage = useDebounce(inputMessage, 1000);
   const [messages, setMessages] = useState<string[]>([]);
-  console.log(messages);
   const { roomnum } = useParams();
 
   // 웹소켓 연결 함수
@@ -64,6 +63,8 @@ const Chatting = () => {
       const sock = new SockJS(`${process.env.REACT_APP_REST_API_SERVER}/ws/chat`);
       return sock;
     });
+    console.log = () => {};
+
     client.current.connect(headers, () => {
       client.current?.subscribe('/sub/message/' + chatEnter?.data.chat_room_id, (message) => {
         const newMessage = JSON.parse(message.body);
@@ -98,7 +99,6 @@ const Chatting = () => {
       })
       .then((res) => {
         if (res.status === 200) {
-          console.log(res);
           setChatEnter(res.data);
         } else {
           alert('에러가 발생하였습니다');
