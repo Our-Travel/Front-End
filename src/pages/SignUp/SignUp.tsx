@@ -61,7 +61,7 @@ const SignUp = () => {
             <label htmlFor="userPw2" className="text-left text-gray-500">
               {m('RECONFIRM_PASSWORD')}
             </label>
-            <input required type="password" name="userPw2" id="userPw2" placeholder={m('PLACEHOLDER_PASSWORD')} className={`inputStyle text-sm ${passwordInput()}`} onChange={pwCheck.onChange} />
+            <input required type="password" name="userPw2" id="userPw2" placeholder={m('PLACEHOLDER_PASSWORD')} className={`inputStyle ${passwordInput()}`} onChange={pwCheck.onChange} />
             <span className="errorText">{pwCheck.data.length && password.data !== pwCheck.data ? '비밀번호가 일치 하지 않습니다.' : null}</span>
           </div>
           <div className="inputForm">
@@ -69,8 +69,8 @@ const SignUp = () => {
               {m('NICKNAME')}
             </label>
             <div className="flex justify-between">
-              <input required type="text" name="nickName" id="nickName" placeholder={m('PLACEHOLDER_NICKNAME')} className={`inputStyle text-sm ${nickNameInput()}`} onChange={nickName.onChange} value={nickName.data} />
-              <button type="button" className={`w-28 h-12 ml-7 border rounded ${nickNameBtn()}`} onClick={handleNickName} disabled={!nickName.state}>
+              <input required type="text" name="nickName" id="nickName" placeholder={m('PLACEHOLDER_NICKNAME')} className={`inputStyle ${nickNameInput()}`} onChange={nickName.onChange} value={nickName.data} />
+              <button type="button" className={`w-28 h-12 ml-4 border rounded ${nickNameBtn()}`} onClick={handleNickName} disabled={!nickName.state}>
                 {m('DOUBLE_CHECK')}
               </button>
             </div>

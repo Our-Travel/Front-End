@@ -34,7 +34,7 @@ export const Email = ({ page, title, data, state, onChange, onReset }: userInfo)
             {page && data && <MdOutlineCancel className="absolute top-1/4 right-4 w-6 h-6 text-gray-600 cursor-pointer" onClick={onReset} />}
           </div>
           {page || (
-            <button type="button" className={`w-28 h-12 ml-7 border rounded ${emailBtn()}`} onClick={handleEmail} disabled={!state}>
+            <button type="button" className={`w-28 h-12 ml-4 border rounded ${emailBtn()}`} onClick={handleEmail} disabled={!state}>
               {m('DOUBLE_CHECK')}
             </button>
           )}
@@ -60,7 +60,7 @@ export const Password = ({ page, title, data, state, onChange, onReset }: userIn
           name="userPw1"
           id="userPw1"
           placeholder={m('PLACEHOLDER_PASSWORD')}
-          className={`${!data.length || state ? 'border-gray-400' : 'border-check-red outline-check-red'} text-sm inputStyle`}
+          className={`${!data.length || state ? 'border-gray-400' : 'border-check-red outline-check-red'} inputStyle`}
           onChange={onChange}
           value={data}
         />
