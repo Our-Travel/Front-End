@@ -2,11 +2,7 @@ import React, { useState } from 'react';
 import KakaoMap from '../../components/KakaoMap/KakaoMap';
 import contentTypes from './../../util/contentType';
 
-interface MapProps {
-  token: string;
-}
-
-const Map = ({ token }: MapProps) => {
+const Map = () => {
   const [selectedButtonIndex, setSelectedButtonIndex] = useState<number>(12);
   const [typeId, setTypeId] = useState<number | null>(0);
 
@@ -27,7 +23,7 @@ const Map = ({ token }: MapProps) => {
         ))}
       </div>
       <div>
-        <KakaoMap token={token} selectedButtonIndex={selectedButtonIndex} />
+        <KakaoMap selectedButtonIndex={selectedButtonIndex} />
       </div>
     </div>
   );
