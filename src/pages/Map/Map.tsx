@@ -19,7 +19,7 @@ const Map = () => {
           </button>
         ))}
       </div>
-      <div>
+      <div className="h-[calc(100%-7rem)]">
         <KakaoMap selectedButtonIndex={selectedButtonIndex} />
       </div>
     </div>
