@@ -131,7 +131,7 @@ const KakaoMapModal = ({ locationList, setModalClose, clickIndex, starClickedArr
   let idx = locationList.findIndex((obj: any) => obj.content_id === clickIndex);
 
   return (
-    <div className="fixed h-screen w-[448px] top-0 bottom-0 bg-black bg-opacity-0 z-30" ref={modalRef}>
+    <div className="fixed h-full w-[448px] top-0 bottom-0 bg-black bg-opacity-0 z-30" ref={modalRef}>
       {/* {thing && ( */}
       <div className="absolute bottom-0 w-full h-[470px] bg-white rounded-t-3xl">
         {/* <a href={`https://map.kakao.com/link/roadview/${longitude},${latitude}`} target="_blank" className="btn btn-link flex-col mb-2">

@@ -50,7 +50,7 @@ const SignUp = () => {
 
   return (
     <>
-      <Header title={m('EMAIL')} back={true} icon={''} />
+      <Header title={'SIGN_UP'} back={true} icon={''} />
       <form className="w-full px-4 mt-6">
         <div className="flex flex-col gap-4">
           <Email page={false} title={'이메일'} data={email.data} state={email.state} onChange={email.onChange} onReset={email.onReset} />

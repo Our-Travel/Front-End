@@ -17,7 +17,7 @@ const ChoiceTab = () => {
     <div className="w-full">
       <div className="flex felx-row items-center justify-center my-6 text-gray-500">
         <button className="text-gray-500" onClick={openModal}>
-          feedback
+          {m('FEED_BACK')}
         </button>
         <span className="mx-5">|</span>
         <Link to="/signup" className="px-3">

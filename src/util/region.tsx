@@ -17,5 +17,4 @@ const regions = [
   { key: '경남', value: 48 },
   { key: '제주', value: 50 },
 ];
-
 export default regions;

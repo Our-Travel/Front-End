@@ -59,10 +59,10 @@ const MyWrite = () => {
 
   return (
     <>
-      <Header title={m('WRITTEN_BY_ME')} back={true} icon={''} />
+      <Header title={'WRITTEN_BY_ME'} back={true} icon={''} />
       {editBoard && <EditBoard setEditBoard={setEditBoard} item={selectedItem} />}
       {isEmpty ? (
-        <EmptyPage content={'작성된 글이 없어요.'} subContent={'글을 작성해 여행할 동료를 구해보세요.'} alt={'작성한 글이 없어요 페이지 보라색 캐릭터'} />
+        <EmptyPage content={'NOWRITE'} subContent={'Writing_encouragement'} alt={'작성한 글이 없어요 페이지 보라색 캐릭터'} />
       ) : (
         <>
           {boardList.map(({ writer, title, profile_image_full_path, like_counts }, index) => (

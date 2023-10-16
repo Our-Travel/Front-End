@@ -15,7 +15,7 @@ interface Token {
   body: string;
 }
 
-function KakaoRedirect() {
+function GoogleRedirect() {
   const params = useParams();
   const signType = useSetRecoilState(loginType);
 
@@ -38,4 +38,4 @@ function KakaoRedirect() {
   return <></>;
 }
 
-export default KakaoRedirect;
+export default GoogleRedirect;

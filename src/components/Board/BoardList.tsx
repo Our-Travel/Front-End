@@ -64,7 +64,7 @@ const BoardList = ({ selectedButtonIndex, setSelectedButtonIndex }: BoardListPro
   return (
     <div>
       {isEmpty ? (
-        <EmptyPage content={'작성된 글이 없어요.'} subContent={'글을 작성해 여행할 동료를 구해보세요.'} alt={'작성한 글이 없어요 페이지 보라색 캐릭터'} />
+        <EmptyPage content={'NOWRITE'} subContent={'Writing_encouragement'} alt={'작성한 글이 없어요 페이지 보라색 캐릭터'} />
       ) : (
         <div>
           {boardList.map(({ profile_image_full_path, writer, title, like_counts, valid_writer }, index) => (

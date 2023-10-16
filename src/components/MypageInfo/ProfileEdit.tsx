@@ -93,7 +93,7 @@ const ProfileEdit = () => {
 
   return (
     <>
-      <Header title={m('PROFILE_EDIT')} back={true} icon={''} />
+      <Header title={'PROFILE_EDIT'} back={true} icon={''} />
       {!signType && <p className="my-4 text-red-400">{m('SOCIAL_LOGIN_PASSWORD')}</p>}
       {uploadModalOpen && <UploadProfile onClose={closeImagePopup} />}
       <form className="w-full px-4">

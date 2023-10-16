@@ -39,7 +39,7 @@ const Notice = () => {
 
   return (
     <>
-      <Header title={m('NOTICE')} back={true} icon={''} />
+      <Header title={'NOTICE'} back={true} icon={''} />
       <ul>
         {noticeList.map(({ title, date, data }, index) => (
           <li key={index} className={`flex flex-col justify-center text-left hover:bg-gray-200 cursor-pointer line ${listNumber === index ? 'bg-gray-200' : ''}`} onClick={() => clickAccordion(index)}>

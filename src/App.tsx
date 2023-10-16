@@ -23,20 +23,31 @@ import KakaoRedirect from './pages/SignIn/KakaoRedirect';
 import ProfileEdit from 'components/MypageInfo/ProfileEdit';
 import { useSetRecoilState } from 'recoil';
 import { langConvert } from 'Atom/atom';
+import { cls } from 'util/util';
+import GoogleRedirect from 'pages/SignIn/GoogleRedirect';
 
 function App() {
-  const [token, setToken] = useState('');
   const setLang = useSetRecoilState(langConvert);
+  const [translationToggle, setTranslationToggle] = useState(true);
 
   const handleChangeLange = ({ target: { value } }: any) => {
     value && setLang(value);
+    if (value === 'ko') {
+      setTranslationToggle(true);
+    } else {
+      setTranslationToggle(false);
+    }
   };
   return (
     <div className="relative">
       <div className="w-full h-screen main-backGround max-h-[60rem] ">
-        <div className="absolute right-0" onClick={handleChangeLange}>
-          <button value={'ko'}>한국어</button>
-          <button value={'en'}>ENG</button>
+        <div className="z-50 absolute right-3 rounded-full bg-main-color4 w-20 h-8 flex items-center">
+          <button
+            value={!translationToggle ? 'ko' : 'en'}
+            className={cls('z-50 absolute focus:outline-none bg-main-color w-6 h-6 rounded-full left-1  transition-all duration-500 ease-linear', translationToggle ? '' : ' left-[50px]')}
+            onClick={handleChangeLange}
+          />
+          <span className={cls('absolute text-white animate-pulse', translationToggle ? ' right-[7px]' : ' left-[7px]')}>{translationToggle ? 'ENG' : 'KOR'}</span>
         </div>
         <div className="absolute w-full max-w-[28rem] max-h-[60rem] text-center left-1/2 -translate-x-1/2 xl:left-[65%] bg-white h-screen border border-gray-200">
           <Routes>
@@ -48,7 +59,7 @@ function App() {
               <Route path="/main" element={<Main />} />
               <Route path="/main/selectLocation" element={<SelectLocation />} />
               <Route path="/main/hostlist/:regionCode/:regionName" element={<HostList />} />
-              <Route path="/map" element={<Map token={token} />} />
+              <Route path="/map" element={<Map />} />
               <Route path="/board" element={<Board />} />
               <Route path="/board/writeboard" element={<WriteBoard />} />
               <Route path="/mypage" element={<MyPage />} />
@@ -61,6 +72,7 @@ function App() {
               <Route path="/chatting/:roomnum" element={<Chatting />} />
               <Route path="/chattinglist" element={<ChattingList />} />
               <Route path="/oauth2/redirect/:token" element={<KakaoRedirect />} />
+              <Route path="/oauth2/redirect/:token" element={<GoogleRedirect />} />
             </Route>
             <Route path="*" element={<NotFound />} />
           </Routes>

@@ -18,14 +18,13 @@ const SelectLocation = () => {
 
   return (
     <>
-      <Header title={m('SELECT_AREA')} back={true} icon={''} />
+      <Header title={'SELECT_AREA'} back={true} icon={''} />
       <div className="mt-6 px-4">
         <ul className="grid grid-cols-2 gap-4">
           {regions.map((region) => (
             <Link key={region.value} to={`/main/hostlist/${region.value}/${region.key}`}>
               <li className="flex items-center justify-center gap-1 h-14 2xl:h-16 border rounded-lg shadow-md text-lg effectArea">
-                <span>{m(region.key)}</span>
-                {hostMapData(region.value)}
+                {hostMapData(region.value) ? <span>{`${m(region.key)}(${hostMapData(region.value)})`}</span> : <span>{m(region.key)}</span>}
               </li>
             </Link>
           ))}

@@ -8,6 +8,9 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import '../../components/utilCss/landingSwiper.css';
+import { langConvert } from 'Atom/atom';
+import { useRecoilValue } from 'recoil';
+import useMultilingual from 'hooks/useMultilingual';
 
 const promotionImg = [
   { title: 'welcome Korea', imgSrc: '/assets/square1.png' },
@@ -19,6 +22,8 @@ export default function Landing() {
   const [modal, setModal] = useState<boolean>(false);
   const [active, setActive] = useState<boolean>(false);
   const navigate = useNavigate();
+  const lang = useRecoilValue(langConvert);
+  const m = useMultilingual(lang);
 
   const isOpen = () => setModal(!modal);
 
@@ -36,12 +41,12 @@ export default function Landing() {
       </Swiper>
       <div className="mt-5">
         <div className="mx-4">
-          <Button name={'로그인'} page={true} active={active} onClick={() => navigate('/signin')} />
+          <Button name={m('LOG_IN')} page={true} active={active} onClick={() => navigate('/signin')} />
         </div>
         <div className="text-center my-7">
           <div className="flex items-center">
             <div className="flex-grow border-b"></div>
-            <div className="px-2 text-gray-500 text-xs">Social Login</div>
+            <div className="px-2 text-gray-500 text-xs">{m('SOCIAL_LOGIN')}</div>
             <div className="flex-grow border-b"></div>
           </div>
         </div>
