@@ -201,7 +201,7 @@ const Host = () => {
         <div className="my-2">
           <Button name={hostActive ? 'MODIFY' : 'REGISTER'} page={false} active={active} onClick={hostActive ? hostModify : hostRegist} />
         </div>
-        <div>{hostActive && <Button name={'DELETE'} page={true} active={active} onClick={hostDelete} />}</div>
+        <div>{hostActive && <Button name={'HOST_DELETE'} page={true} active={active} onClick={hostDelete} />}</div>
       </div>
     </div>
   );

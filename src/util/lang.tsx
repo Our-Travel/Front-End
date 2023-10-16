@@ -18,6 +18,10 @@ const STRING_ESSETS: StringEssetType = {
     ko: '일정/장소를 작성하여 동료를 찾아보세요!',
     en: 'Please enter schedule/location.',
   },
+  Cancel: {
+    ko: '취소하기',
+    en: 'Cancel',
+  },
   Write: {
     ko: '작성하기',
     en: 'Write',
@@ -45,6 +49,18 @@ const STRING_ESSETS: StringEssetType = {
   LOG_OUT: {
     ko: '로그아웃',
     en: 'Logout',
+  },
+  QUESTION_LOGOUT: {
+    ko: '로그아웃 하시겠습니까?',
+    en: 'Do you want to log out?',
+  },
+  QUESTION_DELETE: {
+    ko: '삭제 하시겠습니까?',
+    en: 'Do you want to delete?',
+  },
+  QUESTION_CLOSE: {
+    ko: '마감 하시겠습니까?',
+    en: 'Do you want to close?',
   },
   EMAIL: {
     ko: '이메일',
@@ -222,9 +238,17 @@ const STRING_ESSETS: StringEssetType = {
     ko: '수정하기',
     en: 'To modify',
   },
-  DELETE: {
+  HOST_DELETE: {
     ko: 'Host 삭제하기',
     en: 'To delete',
+  },
+  DELETE: {
+    ko: '삭제하기',
+    en: 'To delete',
+  },
+  DEADLINE: {
+    ko: '마감하기',
+    en: 'To deadline',
   },
   REGISTER_SIGNUP: {
     ko: '가입하기',

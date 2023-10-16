@@ -65,7 +65,7 @@ const MyPage = () => {
   };
 
   return (
-    <div className="relative h-screen">
+    <div className="relative h-full">
       <Header title={'MYPAGE'} back={false} icon={''} />
       <div className="relative">
         <div className="flex text-center flex-col flex-grow gap-4 mx-4 my-6">
@@ -98,7 +98,7 @@ const MyPage = () => {
           </ul>
         </div>
       </div>
-      {modal && <ModalButton title="로그아웃 하시겠습니까?" button="로그아웃" setModal={setModal} handleButton={logout} />}
+      {modal && <ModalButton title={m('QUESTION_LOGOUT')} button={m('LOG_OUT')} setModal={setModal} handleButton={logout} />}
     </div>
   );
 };

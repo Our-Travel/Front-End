@@ -5,6 +5,9 @@ import axios from 'axios';
 import regions from '../../util/region';
 import PostForm from '../../components/Board/PostForm';
 import { getStatusInKorean } from '../../util/status';
+import { useRecoilValue } from 'recoil';
+import { langConvert } from 'Atom/atom';
+import useMultilingual from 'hooks/useMultilingual';
 
 interface Props {
   setEditBoard: Dispatch<SetStateAction<boolean>>;
@@ -28,6 +31,9 @@ const EditBoard = ({ setEditBoard, item }: Props) => {
   const [deleteModal, setDeleteModal] = useState<boolean>(false);
   const [finishModal, setFinishModal] = useState<boolean>(false);
   const [editPage, setEditPage] = useState<boolean>(false);
+
+  const lang = useRecoilValue(langConvert);
+  const m = useMultilingual(lang);
 
   //현재페이지 닫기
   const closeEdit = () => {
@@ -202,28 +208,31 @@ const EditBoard = ({ setEditBoard, item }: Props) => {
   return (
     <div className="relative h-full w-full bg-white">
       {editPage && (
-        <PostForm
-          title={title}
-          content={content}
-          location={location}
-          gatherStartDate={gatherStartDate}
-          gatherEndDate={gatherEndDate}
-          TripStartDate={TripStartDate}
-          TripEndDate={TripEndDate}
-          travelers={travelers}
-          onTitleChange={(e) => setTitle(e.target.value)}
-          onContentChange={(e) => setContent(e.target.value)}
-          onLocationChange={(e) => setLocation(Number(e.target.value))}
-          onGatherStartDateChange={(e) => setGatherStartDate(e.target.value)}
-          onGatherEndDateChange={(e) => setGatherEndDate(e.target.value)}
-          onTripStartDateChange={(e) => setTripStartDate(e.target.value)}
-          onTripEndDateChange={(e) => setTripEndDate(e.target.value)}
-          onTravelersChange={handleTravelersChange}
-          onSubmit={handleEditSubmit}
-        />
+        <div className="absolute top-0  w-full h-full">
+          <PostForm
+            title={title}
+            content={content}
+            location={location}
+            gatherStartDate={gatherStartDate}
+            gatherEndDate={gatherEndDate}
+            TripStartDate={TripStartDate}
+            TripEndDate={TripEndDate}
+            travelers={travelers}
+            onTitleChange={(e) => setTitle(e.target.value)}
+            onContentChange={(e) => setContent(e.target.value)}
+            onLocationChange={(e) => setLocation(Number(e.target.value))}
+            onGatherStartDateChange={(e) => setGatherStartDate(e.target.value)}
+            onGatherEndDateChange={(e) => setGatherEndDate(e.target.value)}
+            onTripStartDateChange={(e) => setTripStartDate(e.target.value)}
+            onTripEndDateChange={(e) => setTripEndDate(e.target.value)}
+            onTravelersChange={handleTravelersChange}
+            onSubmit={handleEditSubmit}
+          />
+        </div>
       )}
-      {deleteModal && <ModalButton title="글을 삭제하시겠습니까?" button="삭제하기" setModal={setDeleteModal} handleButton={handleDeleteButton} />}
-      {finishModal && <ModalButton title="글을 마감하시겠습니까?" button="마감하기" setModal={setFinishModal} handleButton={handleFinishButton} />}
+
+      {deleteModal && <ModalButton title={m('QUESTION_DELETE')} button={m('DELETE')} setModal={setDeleteModal} handleButton={handleDeleteButton} />}
+      {finishModal && <ModalButton title={m('QUESTION_CLOSE')} button={m('DEADLINE')} setModal={setFinishModal} handleButton={handleFinishButton} />}
       <div className="mx-auto pt-8">
         <h3 className="font-medium mb-5 text-2xl">{item.title}</h3>
         <button onClick={closeEdit} className="absolute right-10 top-8 buttonHoverSize125">
@@ -240,7 +249,7 @@ const EditBoard = ({ setEditBoard, item }: Props) => {
             <span className="text-gray-500">
               {item.recruitment_period_start} ~ {item.recruitment_period_end}
             </span>
-            <span className="ml-6 font-semibold text-orange-500 animate-bounce z-0">{statusInKorean}</span>
+            <span className="ml-6 font-semibold text-orange-500 animate-bounce z-[-1]">{statusInKorean}</span>
           </div>
           <div className="flex text-sm my-3">
             <div className="w-1/5 font-semibold text-gray-600">여행기간</div>
@@ -255,13 +264,13 @@ const EditBoard = ({ setEditBoard, item }: Props) => {
         </div>
         <div className="my-10 left-1/2 mx-20">
           <button onClick={editBoard} className="w-full h-8 my-2 rounded-lg text-lg font-semibold buttonHoverSize buttonHoverColor">
-            수정하기
+            {m('MODIFY')}
           </button>
           <button onClick={deleteBaord} className="w-full h-8 my-2 rounded-lg text-lg font-semibold buttonHoverSize buttonHoverColor">
-            삭제하기
+            {m('DELETE')}
           </button>
           <button onClick={finishBaord} className="w-full h-8 my-2 rounded-lg text-lg font-semibold buttonHoverSize buttonHoverColor">
-            마감하기
+            {m('DEADLINE')}
           </button>
         </div>
       </div>

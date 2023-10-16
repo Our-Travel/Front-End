@@ -1,4 +1,7 @@
+import { langConvert } from 'Atom/atom';
+import useMultilingual from 'hooks/useMultilingual';
 import React, { useRef, useEffect, SetStateAction, Dispatch, useState } from 'react';
+import { useRecoilValue } from 'recoil';
 
 interface modal {
   setModal: Dispatch<SetStateAction<boolean>>;
@@ -9,7 +12,8 @@ interface modal {
 
 const ModalButton = ({ title, button, setModal, handleButton }: modal) => {
   const modalRef = useRef<HTMLButtonElement>(null);
-
+  const lang = useRecoilValue(langConvert);
+  const m = useMultilingual(lang);
   const closeModal = () => {
     setModal(false);
   };
@@ -30,14 +34,14 @@ const ModalButton = ({ title, button, setModal, handleButton }: modal) => {
   }, []);
 
   return (
-    <div tabIndex={0} onKeyDown={handleKeyDown} className="shadow-2xl z-10">
+    <div tabIndex={0} onKeyDown={handleKeyDown} className="shadow-2xl ">
       <div onClick={closeModal} className="z-0 absolute top-0 left-0 w-full h-full bg-gray-400 opacity-25"></div>
       <div className="centerPosition w-full absolute px-4">
-        <div className="h-40 rounded-xl text-xl overflow-hidden bg-white">
+        <div className="h-40 rounded-xl text-xl overflow-hidden z-10 bg-white">
           <p className="font-semibold mt-5">{title}</p>
           <div className="flex mt-7 w-full text-lg">
             <button type="button" ref={modalRef} onClick={closeModal} className={`w-1/2 mx-2 font-semibold py-4 rounded-xl ${title === '언어를 선택해주세요.' ? 'bg-main-color2 text-white' : 'bg-gray-200'}`}>
-              취소하기
+              {m('Cancel')}
             </button>
             <button onClick={writeBoardButton} className="w-1/2 mx-2 text-white bg-main-color2 font-extrabold py-2 rounded-xl">
               {button}

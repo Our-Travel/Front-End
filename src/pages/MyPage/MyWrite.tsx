@@ -57,9 +57,8 @@ const MyWrite = () => {
   };
 
   return (
-    <>
+    <div className="relative h-[calc(100%-7rem)]">
       <Header title={'WRITTEN_BY_ME'} back={true} icon={''} />
-      {editBoard && <EditBoard setEditBoard={setEditBoard} item={selectedItem} />}
       {isEmpty ? (
         <EmptyPage content={'NOWRITE'} subContent={'Writing_encouragement'} alt={'작성한 글이 없어요 페이지 보라색 캐릭터'} />
       ) : (
@@ -69,7 +68,12 @@ const MyWrite = () => {
           ))}
         </>
       )}
-    </>
+      {editBoard && (
+        <div className="absolute w-full h-full top-11">
+          <EditBoard setEditBoard={setEditBoard} item={selectedItem} />
+        </div>
+      )}
+    </div>
   );
 };
 
