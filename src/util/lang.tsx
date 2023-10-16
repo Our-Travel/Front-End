@@ -262,6 +262,10 @@ const STRING_ESSETS: StringEssetType = {
     ko: '더보기',
     en: 'More',
   },
+  OUT: {
+    ko: '나가기',
+    en: 'OUT',
+  },
   // 프로필 수정
   PROFILE_IMAGE_EDIT: {
     ko: '프로필 이미지 편집',
