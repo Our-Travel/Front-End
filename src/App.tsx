@@ -24,6 +24,7 @@ import ProfileEdit from 'components/MypageInfo/ProfileEdit';
 import { useSetRecoilState } from 'recoil';
 import { langConvert } from 'Atom/atom';
 import { cls } from 'util/util';
+import GoogleRedirect from 'pages/SignIn/GoogleRedirect';
 
 function App() {
   const [token, setToken] = useState('');
@@ -72,7 +73,8 @@ function App() {
               <Route path="/chatting/:roomnum/:room_title" element={<Chatting />} />
               <Route path="/chatting/:roomnum/:region_code/:room_manager" element={<Chatting />} />
               <Route path="/chattinglist" element={<ChattingList />} />
-              <Route path="/api/prod/api/prod/oauth2/redirect/:token" element={<KakaoRedirect />} />
+              <Route path="/oauth2/redirect/:token" element={<KakaoRedirect />} />
+              <Route path="/oauth2/redirect/:token" element={<GoogleRedirect />} />
             </Route>
             <Route path="*" element={<NotFound />} />
           </Routes>

@@ -32,10 +32,10 @@ export function LoginKakao() {
 export function LoginGoogle() {
   const GOOGLE_AUTH_URL = `${process.env.REACT_APP_GOOGLE_AUTH_URL}`;
   return (
-    <div className="circleButtonStyle bg-white border-2 border-google-color">
-      <Link to={GOOGLE_AUTH_URL} className="w-full h-full ">
-        <BsGoogle className="w-full h-full p-2" />
-      </Link>
+    <div className="circleButtonStyle bg-white border-2 border-google-color cursor-pointer" onClick={() => window.open(GOOGLE_AUTH_URL, '_blank')}>
+      {/* <Link to={GOOGLE_AUTH_URL} className="w-full h-full "> */}
+      <BsGoogle className="w-full h-full p-2" />
+      {/* </Link> */}
     </div>
   );
 }
