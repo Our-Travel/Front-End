@@ -113,6 +113,7 @@ function GraphComponent() {
       },
     },
   };
+  console.log(location);
 
   return (
     <>
@@ -120,7 +121,7 @@ function GraphComponent() {
       <div onClick={isOpen} className=" mt-7 text-xl py-4 font-semibold text-white cursor-pointer buttonHoverColor">
         <div className="flex justify-center buttonHoverSize">
           <SlLocationPin className="inline-block mr-2 font-thin translate-y-1" />
-          <h3 className="hover:scale-110">{m(location)}</h3>
+          <h3 className="hover:scale-110">{/* {m(location)} */}</h3>
         </div>
       </div>
       <div className="max-w-[400px] h-[300px] flex justify-center mt-7 mx-auto ">
@@ -129,7 +130,7 @@ function GraphComponent() {
       <div className="font-normal mt-8">
         2023 {m('GRAPH_YEAR')}{' '}
         <strong onClick={openGraph} className="text-main-color2 text-2xl cursor-pointer">
-          {m(location)}
+          {/* {m(location)} */}
         </strong>{' '}
         {m('VISITOR_STATUS')}
       </div>

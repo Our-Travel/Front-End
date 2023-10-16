@@ -199,9 +199,9 @@ const Host = () => {
       </form>
       <div className="w-full px-4 absolute bottom-16">
         <div className="my-2">
-          <Button name={hostActive ? m('MODIFY') : m('REGISTER')} page={false} active={active} onClick={hostActive ? hostModify : hostRegist} />
+          <Button name={hostActive ? 'MODIFY' : 'REGISTER'} page={false} active={active} onClick={hostActive ? hostModify : hostRegist} />
         </div>
-        <div>{hostActive && <Button name={m('DELETE')} page={true} active={active} onClick={hostDelete} />}</div>
+        <div>{hostActive && <Button name={'DELETE'} page={true} active={active} onClick={hostDelete} />}</div>
       </div>
     </div>
   );
