@@ -130,7 +130,9 @@ const BoardModal = ({ setModal }: Props) => {
       {item && (
         <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[90%] h-[450px] bg-white rounded-xl ">
           <h3 className="text-xl font-semibold my-4">{item.title}</h3>
-          <div className="border rounded-lg mx-4 h-[170px] text-left px-3 py-2">{item.content}</div>
+          <textarea readOnly className="border rounded-lg mx-4 bg-pink-50 w-[calc(100%-10%)] max-w-full overflow-x-hidden whitespace-normal h-40 max-h-40 overflow-auto text-left px-3 py-2">
+            {item.content}
+          </textarea>
           <div className="mt-3 mx-4 text-left">
             <div className="flex text-sm my-3">
               <div className="w-1/5 font-semibold text-gray-600">여행지</div>
