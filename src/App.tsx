@@ -46,7 +46,7 @@ function App() {
             className={cls('z-50 absolute focus:outline-none bg-main-color w-6 h-6 rounded-full left-1  transition-all duration-500 ease-linear', translationToggle ? '' : ' left-[50px]')}
             onClick={handleChangeLange}
           />
-          <span className={cls('absolute text-white animate-pulse', translationToggle ? ' right-[7px]' : ' left-[7px]')}>{translationToggle ? 'ENG' : 'KOR'}</span>
+          <span className={cls('absolute text-white animate-pulse', translationToggle ? ' right-[7px]' : ' left-[7px]')}>{translationToggle ? 'KOR' : 'ENG'}</span>
         </div>
         <div className="absolute w-full max-w-[28rem] max-h-[60rem] text-center left-1/2 -translate-x-1/2 xl:left-[65%] bg-white h-screen border border-gray-200">
           <Routes>
