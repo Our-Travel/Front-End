@@ -6,6 +6,7 @@ import Header from '../../components/Header/Header';
 import Banner from '../../components/Main/Banner';
 import GraphComponent from '../../components/Main/GraphComponent';
 import KoreaMapChart from '../../components/Main/KoreaMapChart';
+import TranslationButton from 'components/Button/TranslationButton';
 
 const Main = () => {
   const [showGraph, setShowGraph] = useState(true);
@@ -33,6 +34,7 @@ const Main = () => {
   return (
     <>
       <Header title={'Our_Travel'} back={false} icon={''} />
+      <TranslationButton />
       <Banner />
       <div className="text-xl font-semibold translate-y-4">
         <div className="flex justify-center w-full space-x-16 ">
