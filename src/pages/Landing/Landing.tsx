@@ -9,8 +9,10 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 import '../../components/utilCss/landingSwiper.css';
 import { langConvert } from 'Atom/atom';
-import { useRecoilValue } from 'recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import useMultilingual from 'hooks/useMultilingual';
+import { cls } from 'util/util';
+import TranslationButton from 'components/Button/TranslationButton';
 
 const promotionImg = [
   { title: 'welcome Korea', imgSrc: '/assets/square1.png' },
@@ -32,6 +34,7 @@ export default function Landing() {
       <div className="w-20 h-20 mx-auto py-4 mb-8">
         <Logo />
       </div>
+      <TranslationButton />
       <Swiper pagination={{ clickable: true }} modules={[Pagination, Autoplay, A11y]} autoplay={{ delay: 3000, disableOnInteraction: false }} loop={true}>
         {promotionImg.map(({ title, imgSrc }, index) => (
           <SwiperSlide key={index} className="landingSlide">
