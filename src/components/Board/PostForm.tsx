@@ -29,11 +29,17 @@ const PostForm: React.FC<PostFormProps> = (props) => {
   const m = useMultilingual(lang);
   return (
     <div className="w-full bg-white">
-      <div className="w-[90%sssssss] mx-auto ">
+      <div className="w-[90%] mx-auto ">
         <div className="text-left mt-3 ml-2 text-sm font-semibold text-gray-600 ">{m('TITLE')}</div>
-        <textarea value={props.title} onChange={props.onTitleChange} name="content" placeholder={m('POST_TITLE_PLACEHOLDER')} className="w-full h-10 overflow-hidden text-sm lg:text-base mt-2 px-3 py-2  border rounded-lg border-slate-400" />
+        <textarea
+          value={props.title}
+          onChange={props.onTitleChange}
+          name="content"
+          placeholder={m('POST_TITLE_PLACEHOLDER')}
+          className="w-full h-10 resize-none overflow-hidden text-sm lg:text-base mt-2 px-3 py-2  border rounded-lg border-slate-400"
+        />
         <div className="text-left mt-2 ml-2 text-sm font-semibold text-gray-600">{m('CONTENT')}</div>
-        <textarea value={props.content} onChange={props.onContentChange} name="content" placeholder={m('POST_CONTENT_PLACEHOLDER')} className="w-full h-36 text-sm lg:text-base mt-2 px-3 py-2  border rounded-lg border-slate-400" />
+        <textarea value={props.content} onChange={props.onContentChange} name="content" placeholder={m('POST_CONTENT_PLACEHOLDER')} className="w-full h-36 resize-none text-sm lg:text-base mt-2 px-3 py-2  border rounded-lg border-slate-400" />
         <div className="text-left mt-2 ml-2 text-sm font-semibold text-gray-600">{m('SELECT_AREA')}</div>
         <select value={props.location} onChange={props.onLocationChange} className="text-gray-500 select select-bordered w-[100%] text-left text-sm font-semibold mt-2 py-2 px-3 border rounded-lg border-slate-400">
           <option value="option">{m('SELECT_AREA_PLACEHOLDER')}</option>

@@ -96,7 +96,7 @@ const WriteBoard = () => {
     <div className="relative h-full">
       <Header title="WRITE_POST" back={true} icon={''} />
       {modal && <ModalButton title={m('WRITE_POST_ALERT')} button={m('Write')} setModal={setModal} handleButton={handleWriteBoardButton} />}
-      <div className="w-[90%] mx-auto">
+      <div className="w-full">
         <PostForm
           title={title}
           content={content}
