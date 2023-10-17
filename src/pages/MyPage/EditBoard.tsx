@@ -208,7 +208,7 @@ const EditBoard = ({ setEditBoard, item }: Props) => {
   return (
     <div className="relative h-full w-full bg-white">
       {editPage && (
-        <div className="absolute top-0  w-full h-full">
+        <div className="absolute top-0 w-full h-full">
           <PostForm
             title={title}
             content={content}
@@ -235,10 +235,12 @@ const EditBoard = ({ setEditBoard, item }: Props) => {
       {finishModal && <ModalButton title={m('QUESTION_CLOSE')} button={m('DEADLINE')} setModal={setFinishModal} handleButton={handleFinishButton} />}
       <div className="mx-auto pt-8">
         <h3 className="font-medium mb-5 text-2xl">{item.title}</h3>
-        <button onClick={closeEdit} className="absolute right-10 top-8 buttonHoverSize125">
-          <AiOutlineClose className=" w-[30px] h-[30px]" />
+        <button onClick={closeEdit} className="absolute right-10 top-0 buttonHoverSize125">
+          <AiOutlineClose className=" w-8 h-8" />
         </button>
-        <div className="border rounded-lg mx-4 h-[170px] text-left px-3 py-2">{item.content}</div>
+        <textarea readOnly className="border rounded-lg mx-4 whitespace-pre-line w-[calc(100%-10%)] max-w-full overflow-x-hidden h-40 resize-none max-h-40 overflow-auto text-left px-3 py-2">
+          {item.content}
+        </textarea>
         <div className="mt-8 mx-4 text-left">
           <div className="flex text-sm my-3">
             <div className="w-1/5 font-semibold text-gray-600">여행지</div>
