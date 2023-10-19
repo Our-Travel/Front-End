@@ -4,7 +4,6 @@ import axios from 'axios';
 
 function addressGetter() {
   const location = useGeolocation();
-  console.log(location);
   const [address, setAddress] = useState('');
   const latitude = location.coordinates?.lat;
   const longitude = location.coordinates?.lng;
@@ -18,9 +17,7 @@ function addressGetter() {
               Authorization: 'KakaoAK' + ' ' + `${process.env.REACT_APP_REST_API_KEY}`,
             },
           });
-          console.log(response);
           const locations = response.data.documents[0];
-          console.log(locations);
           const formattedAddress = locations.address.region_1depth_name;
           if (formattedAddress === '강원특별자치도') {
             setAddress('강원');

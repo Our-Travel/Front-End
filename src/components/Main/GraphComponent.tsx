@@ -10,7 +10,6 @@ import SelectArea from './SelectArea';
 import { useRecoilValue } from 'recoil';
 import { langConvert } from 'Atom/atom';
 import useMultilingual from 'hooks/useMultilingual';
-import Spinner from 'shared/Spinner';
 
 Chart.register(LineElement, PointElement, CategoryScale, LinearScale, Tooltip, Legend);
 
@@ -114,7 +113,7 @@ function GraphComponent() {
   };
 
   return (
-    <>
+    <div className="relative">
       {openModal && <SelectArea modal={openModal} setModal={setOpenModal} setArea={setSelectArea} nowArea={location} />}
       <div onClick={isOpen} className=" mt-4 text-xl py-4 font-semibold text-white cursor-pointer buttonHoverColor">
         <div className="flex justify-center buttonHoverSize">
@@ -133,7 +132,7 @@ function GraphComponent() {
         {m('VISITOR_STATUS')}
       </div>
       <div className="text-base text-gray-400 mt-3 font-normal">({m('REPAINT_GRAPH')})</div>
-    </>
+    </div>
   );
 }
 export default GraphComponent;
