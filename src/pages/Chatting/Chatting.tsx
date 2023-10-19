@@ -149,7 +149,9 @@ const Chatting = () => {
         <button type="button" className="absolute left-1 px-2 py-2" onClick={handleGoBack}>
           <SlArrowLeft />
         </button>
-        <h2 className={`${chatTitle.length > 20 ? 'text-base' : 'text-lg'} font-semibold cursor-default`}>{chatEnter?.data.room_manager ? `[${m(regionName[0])}] ${chatEnter?.data.room_manager} ${m('CHATROOM')}` : chatEnter?.data.room_title}</h2>
+        <h2 className={`${chatTitle.length > 20 ? 'text-base' : 'text-lg'} font-semibold cursor-default`}>
+          {chatEnter?.data.room_manager ? `[${m(regionName[0])}] ${chatEnter?.data.room_manager}${m('SIR')} ${m('CHATROOM')}` : chatEnter?.data.room_title}
+        </h2>
       </header>
       <div className="w-full h-[calc(100%-8rem)] overflow-hidden">
         <div className="text-[#FF626F] pt-2 pb-2 text-sm">{chatEnter && chatEnter.msg}</div>
