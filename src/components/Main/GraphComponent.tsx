@@ -10,12 +10,14 @@ import SelectArea from './SelectArea';
 import { useRecoilValue } from 'recoil';
 import { langConvert } from 'Atom/atom';
 import useMultilingual from 'hooks/useMultilingual';
+import Spinner from 'shared/Spinner';
 
 Chart.register(LineElement, PointElement, CategoryScale, LinearScale, Tooltip, Legend);
 
 function GraphComponent() {
   const address = addressGetter();
-  let area = convertAddressToKey(address);
+  const area = convertAddressToKey(address ? address : '서울');
+  const [geoArea, setGeoArea] = useState('');
   const [location, setLocation] = useState('');
   const [selectArea, setSelectArea] = useState('');
   const [minValue, setMinValue] = useState(Number);
@@ -24,7 +26,6 @@ function GraphComponent() {
   const { numToKorean } = require('num-to-korean');
   const lang = useRecoilValue(langConvert);
   const m = useMultilingual(lang);
-
   const [chartData, setChartData] = useState<ChartData<'line'>>({
     labels: [],
     datasets: [
@@ -36,18 +37,16 @@ function GraphComponent() {
       },
     ],
   });
-  useEffect(() => {
-    area = '서울';
-  }, []);
 
   useEffect(() => {
-    setLocation(area);
+    setGeoArea(area);
+    setLocation(geoArea);
     openGraph();
-  }, [area]);
+  }, [area, geoArea]);
 
   useEffect(() => {
     if (selectArea) {
-      area = selectArea;
+      setGeoArea(selectArea);
       setLocation(selectArea);
       openGraph();
     }
@@ -55,10 +54,10 @@ function GraphComponent() {
 
   const openGraph = () => {
     if (selectArea) {
-      area = selectArea;
+      setGeoArea(selectArea);
     }
-    if (area) {
-      const areaData = visitor.filter((item) => item.area === area);
+    if (geoArea) {
+      const areaData = visitor.filter((item) => item.area === geoArea);
       const visitorData = areaData.map((item) => parseInt(item.visitor));
       const dateLabels = areaData.map((item) => item.date);
       setMinValue(Math.min(...visitorData));
@@ -120,7 +119,7 @@ function GraphComponent() {
       <div onClick={isOpen} className=" mt-4 text-xl py-4 font-semibold text-white cursor-pointer buttonHoverColor">
         <div className="flex justify-center buttonHoverSize">
           <SlLocationPin className="inline-block mr-2 font-thin translate-y-1" />
-          <h3 className="hover:scale-110">{location && m(location)}</h3>
+          <h3 className="hover:scale-110">{m(location)}</h3>
         </div>
       </div>
       <div className="max-w-[400px] h-[300px] flex justify-center mt-4 mx-auto ">
@@ -129,7 +128,7 @@ function GraphComponent() {
       <div className="font-normal mt-6">
         2023 {m('GRAPH_YEAR')}{' '}
         <strong onClick={openGraph} className="text-main-color2 text-2xl cursor-pointer">
-          {location && m(location)}
+          {m(location)}
         </strong>{' '}
         {m('VISITOR_STATUS')}
       </div>
