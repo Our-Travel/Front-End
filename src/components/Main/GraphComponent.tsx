@@ -5,7 +5,6 @@ import { ChartOptions } from 'chart.js';
 import { SlLocationPin } from 'react-icons/sl';
 import addressGetter from '../../hooks/addressGetter';
 import { visitor } from 'util/visitor';
-import { convertAddressToKey } from 'util/convertAddress';
 import SelectArea from './SelectArea';
 import { useRecoilValue } from 'recoil';
 import { langConvert } from 'Atom/atom';
@@ -15,7 +14,7 @@ Chart.register(LineElement, PointElement, CategoryScale, LinearScale, Tooltip, L
 
 function GraphComponent() {
   const address = addressGetter();
-  const area = convertAddressToKey(address ? address : '서울');
+  const area = address ? address : '서울';
   const [geoArea, setGeoArea] = useState('');
   const [location, setLocation] = useState('');
   const [selectArea, setSelectArea] = useState('');
