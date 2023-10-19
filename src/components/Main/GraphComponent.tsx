@@ -5,18 +5,16 @@ import { ChartOptions } from 'chart.js';
 import { SlLocationPin } from 'react-icons/sl';
 import addressGetter from '../../hooks/addressGetter';
 import { visitor } from 'util/visitor';
-import { convertAddressToKey } from 'util/convertAddress';
 import SelectArea from './SelectArea';
 import { useRecoilValue } from 'recoil';
 import { langConvert } from 'Atom/atom';
 import useMultilingual from 'hooks/useMultilingual';
-import Spinner from 'shared/Spinner';
 
 Chart.register(LineElement, PointElement, CategoryScale, LinearScale, Tooltip, Legend);
 
 function GraphComponent() {
   const address = addressGetter();
-  const area = convertAddressToKey(address ? address : '서울');
+  const area = address ? address : '서울';
   const [geoArea, setGeoArea] = useState('');
   const [location, setLocation] = useState('');
   const [selectArea, setSelectArea] = useState('');
@@ -114,7 +112,7 @@ function GraphComponent() {
   };
 
   return (
-    <>
+    <div className="relative">
       {openModal && <SelectArea modal={openModal} setModal={setOpenModal} setArea={setSelectArea} nowArea={location} />}
       <div onClick={isOpen} className=" mt-4 text-xl py-4 font-semibold text-white cursor-pointer buttonHoverColor">
         <div className="flex justify-center buttonHoverSize">
@@ -133,7 +131,7 @@ function GraphComponent() {
         {m('VISITOR_STATUS')}
       </div>
       <div className="text-base text-gray-400 mt-3 font-normal">({m('REPAINT_GRAPH')})</div>
-    </>
+    </div>
   );
 }
 export default GraphComponent;
