@@ -81,12 +81,12 @@ const ChattingItem = () => {
         )}
       </div>
       {chatList.length > 0 ? (
-        chatList.map(({ room_id, writer, latest_message, latest_message_time, room_title, region_code, room_manager, image }, index) => {
+        chatList.map(({ room_id, writer, latest_message, latest_message_time, room_title, region_code, room_manager }, index) => {
           const isSameUser = room_manager && chatNickName === room_manager;
           return (
             <div className="w-full flex justify-between border-b-[1px]" key={index}>
-              <label className="w-full" htmlFor={`room${index}`} onClick={() => navigate(`/chatting/${room_id}`)}>
-                <ChattingComponent key={index} writer={writer} room_title={room_title} latest_message={latest_message} region_code={region_code} time={latest_message_time} room_manager={room_manager} image={image} />
+              <label className="w-[95%]" htmlFor={`room${index}`} onClick={() => navigate(`/chatting/${room_id}`)}>
+                <ChattingComponent key={index} writer={writer} room_title={room_title} latest_message={latest_message} region_code={region_code} time={latest_message_time} room_manager={room_manager} />
               </label>
               {trash && <input className="mr-3 focus:outline-none" id={`room${index}`} type="checkbox" value={room_id} checked={checkedRooms.includes(room_id)} disabled={isSameUser} onChange={() => toggleRoomSelection(room_id)} />}
             </div>
