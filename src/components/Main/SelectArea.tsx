@@ -24,6 +24,13 @@ const SelectArea: React.FC<modal> = ({ modal, setModal, setArea, nowArea }) => {
     setModal(false);
   };
 
+  useEffect(() => {
+    const buttonToFocus = document.querySelector(`[data-area="${nowArea}"]`) as HTMLElement;
+    if (buttonToFocus) {
+      buttonToFocus.focus();
+    }
+  }, [nowArea]);
+
   return (
     <>
       <div className="w-full h-[calc(100vh-6rem)] absolute -top-40 bg-slate-500 opacity-25" onClick={closeModal}></div>
@@ -37,7 +44,12 @@ const SelectArea: React.FC<modal> = ({ modal, setModal, setArea, nowArea }) => {
             <div className="grid grid-cols-2 px-9">
               {regions.map((area) => {
                 return (
-                  <button key={area.key} className={`py-1 my-[2px] w-[90%] mx-auto rounded-lg border-2 hover:border-red-200 ${nowArea === area.key ? 'bg-main-color2 border-main-color2 text-white' : ''}`} onClick={() => handleButtonClick(area.key)}>
+                  <button
+                    key={area.key}
+                    data-area={area.key}
+                    className={`py-1 my-[2px] w-[90%] mx-auto rounded-lg border-2 hover:border-red-200 ${nowArea === area.key ? 'bg-main-color2 border-main-color2 text-white' : ''}`}
+                    onClick={() => handleButtonClick(area.key)}
+                  >
                     {m(area.key)}
                   </button>
                 );
