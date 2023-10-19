@@ -38,7 +38,7 @@ const Banner = () => {
         {items.map((item, idx) => {
           return (
             <SwiperSlide key={idx}>
-              <img src={item.src} className="max-w-full h-[120px] " />
+              <img src={item.src} className="max-w-full h-32 z-0" />
             </SwiperSlide>
           );
         })}

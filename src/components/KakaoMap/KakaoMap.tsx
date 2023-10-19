@@ -9,6 +9,7 @@ import Map from './../../pages/Map/Map';
 import KakaoMapMarker from './KakaoMapMarker';
 import KakaoMapModal from './KakaoMapModal';
 import { Message } from '@stomp/stompjs';
+import { useNavigate } from 'react-router-dom';
 
 declare global {
   interface Window {
@@ -78,6 +79,7 @@ const KakaoMap = ({ selectedButtonIndex }: MapProps) => {
   const [locationList, setLocationList] = useState<Array<Location>>([]);
 
   const [markers, setMarkers] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     window.kakao.maps.load(() => {
@@ -109,6 +111,7 @@ const KakaoMap = ({ selectedButtonIndex }: MapProps) => {
       } catch (error) {
         if (axios.isAxiosError(error)) {
           alert(error.response?.data.msg);
+          navigate('/');
         }
       }
     };

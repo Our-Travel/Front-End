@@ -6,6 +6,6 @@ export type StringEssetType = Record<string, Record<LanguageType, string>>;
 
 export default function useMultilingual(lang: LanguageType) {
   return (key: keyof typeof STRING_ESSETS) => {
-    return STRING_ESSETS[key][lang];
+    return STRING_ESSETS?.[key]?.[lang];
   };
 }
