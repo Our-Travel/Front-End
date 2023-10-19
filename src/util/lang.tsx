@@ -339,9 +339,13 @@ const STRING_ESSETS: StringEssetType = {
     ko: '채팅목록',
     en: 'Chatting List',
   },
+  SIR: {
+    ko: '님의',
+    en: "'s",
+  },
   CHATROOM: {
     ko: '단체방',
-    en: 'group room',
+    en: 'group chat',
   },
   // Header공용 컴포넌트
   MYPAGE: {
