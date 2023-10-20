@@ -1,17 +1,15 @@
-import { profileImage } from 'Atom/userAtom';
 import React, { useEffect, useState } from 'react';
-import { useRecoilValue } from 'recoil';
 
 interface ChattingComponentProps {
   nickName: string;
   content: string;
   time: string;
+  image: string;
 }
 
-const FriendChat = ({ nickName, content, time }: ChattingComponentProps) => {
+const FriendChat = ({ nickName, content, time, image }: ChattingComponentProps) => {
   const [dateTime, setDateTime] = useState('');
   const [hour, setHour] = useState<number>(0);
-  const friendImage = useRecoilValue(profileImage);
 
   useEffect(() => {
     const dateTime = new Date(time);
@@ -27,7 +25,7 @@ const FriendChat = ({ nickName, content, time }: ChattingComponentProps) => {
 
   return (
     <div className="friend-chat flex justify-start mt-2">
-      <img src={friendImage ? friendImage : '/assets/profile.svg'} alt="채팅프로필사진" className="w-[12%] self-start" />
+      <img src={image ? image : '/assets/profile.svg'} alt="채팅프로필사진" className="w-[12%] self-start" />
       <div className="flex flex-col ml-2 text-left">
         <span>{nickName}</span>
         <div className="mt-3">

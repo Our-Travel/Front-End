@@ -156,7 +156,7 @@ const KakaoMapModal = ({ locationList, setModalClose, clickIndex, starClickedArr
         </div>
         <div className="pt-4 pb-3 h-36 overflow-y-auto px-6 text-left">
           {home_page && <p className="text-blue-500" dangerouslySetInnerHTML={{ __html: home_page }}></p>}
-          <p className="text-gray-600 pt-2">{over_view}</p>
+          <p className="text-gray-600 pt-2" dangerouslySetInnerHTML={{ __html: over_view }}></p>
         </div>
         <div className="mt-4 flex items-center text-[clamp(10px,4vw,16px)] justify-between px-2 sm:px-5">
           <div className="flex items-center translate-x-2 hover:cursor-pointer" onClick={clickHeart}>

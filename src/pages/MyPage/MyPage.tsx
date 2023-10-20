@@ -56,6 +56,7 @@ const MyPage = () => {
       resetProfileUpload();
       alert(response.data.msg);
       navigate('/');
+      location.reload();
     } catch (error) {
       if (axios.isAxiosError(error)) {
         console.log(error);
