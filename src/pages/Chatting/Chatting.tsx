@@ -20,12 +20,14 @@ interface MessageDto {
   nickname: string;
   message: string;
   created_date: string;
+  profile_image: string;
 }
 interface ChatMessage {
   created_date: string;
   member_id: number;
   message: string;
   nickname: string;
+  profile_image: string;
 }
 interface ApiResponse {
   result_code: 'S' | 'F';
@@ -105,6 +107,7 @@ const Chatting = () => {
       })
       .then((res) => {
         if (res.status === 200) {
+          console.log(res);
           setChatEnter(res.data);
         } else {
           alert('에러가 발생하였습니다');
@@ -163,7 +166,13 @@ const Chatting = () => {
                   {message.nickname === nickName ? (
                     <MeChat content={message.message} time={message.created_date} />
                   ) : (
-                    <div>{message.nickname === 'admin' ? <span className="text-main-color block mt-3">{message.message}</span> : <FriendChat nickName={message.nickname} content={message.message} time={message.created_date} />}</div>
+                    <div>
+                      {message.nickname === 'admin' ? (
+                        <span className="text-main-color block mt-3">{message.message}</span>
+                      ) : (
+                        <FriendChat nickName={message.nickname} content={message.message} time={message.created_date} image={message.profile_image} />
+                      )}
+                    </div>
                   )}
                 </div>
               ))}
@@ -177,7 +186,13 @@ const Chatting = () => {
                 {nickName === message.writer_nickname ? (
                   <MeChat content={message.message} time={message.created_date} />
                 ) : (
-                  <div>{message.writer_nickname === 'admin' ? <span className="text-main-color block mt-3">{message.message}</span> : <FriendChat nickName={message.nickname} content={message.message} time={message.created_date} />}</div>
+                  <div>
+                    {message.writer_nickname === 'admin' ? (
+                      <span className="text-main-color block mt-3">{message.message}</span>
+                    ) : (
+                      <FriendChat nickName={message.nickname} content={message.message} time={message.created_date} image={message.profile_image} />
+                    )}
+                  </div>
                 )}
               </div>
             ))}
