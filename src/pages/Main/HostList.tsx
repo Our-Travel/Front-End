@@ -58,7 +58,6 @@ const HostList = () => {
       }
     } catch (error) {
       if (axios.isAxiosError(error)) {
-        console.log(error.response);
         alert(error.response?.data.msg);
       }
     }
@@ -73,7 +72,6 @@ const HostList = () => {
       navigate(`/chatting/${room_id}`);
     } catch (error) {
       if (axios.isAxiosError(error)) {
-        console.log(error.response);
         alert(error.response?.data.msg);
       }
     }
